@@ -18,7 +18,7 @@
   	</dependency>
   	<dependency>
   		<groupId>org.springframework</groupId>
-  		<artifactId>spring-dao</artifactId>
+  		<artifactId>spring-ibatis</artifactId>
   		<version>2.0.8</version>
   		<type>jar</type>
   		<scope>compile</scope>
