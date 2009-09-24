@@ -11,4 +11,27 @@
 		<result property="bookItemId" column="BOOK_ITEM_ID" jdbcType="DECIMAL" />
 	</resultMap>
 	
+	<select id="listAll">
+		SELECT ID,GMT_CREATE,GMT_MODIFIED,LOG_TYPE,LOG_MSG,BOOK_ITEM_ID
+		FROM BOOK_ITEM_LOG
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO BOOK_ITEM_LOG (GMT_CREATE,GMT_MODIFIED,LOG_TYPE,LOG_MSG,BOOK_ITEM_ID)
+		VALUES(NOW(),NOW(),#logType:DECIMAL#, #logMsg:VARCHAR#,#bookItemId:DECIMAL#)
+	</insert>
+	
+	<update id="updateById">
+		UPDATE BOOK_ITEM_LOG SET
+			GMT_MODIFIED=NOW(),
+			LOG_TYPE=#logType:DECIMAL#,
+			LOG_MSG=#logMsg:VARCHAR#,
+			BOOK_ITEM_ID=#bookItemId:DECIMAL#
+		WHERE ID=#id:DECIMAL#
+	</update>
+	
+	<delete id="deleteById">
+		DELETE FROM BOOK_ITEM_LOG
+		WHERE ID=#id:DECIMAL#
+	</delete>
 </sqlMap>

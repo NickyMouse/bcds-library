@@ -15,4 +15,30 @@
 		<result property="tags" column="TAGS" jdbcType="VARCHAR" />
 	</resultMap>
 	
+	<select id="listAll">
+		SELECT ID,STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS 
+		FROM BOOK_ITEM
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO BOOK_ITEM (STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS )
+		VALUES (#state:DECIMAL#,#ownerId:DECIMAL#,#addTime:DATETIME#,#removeTime:DATETIME#,#bookInfoId:DECIMAL#,#firstAddTime:DATETIME#,NOW(),NOW(),#tags:VARCHAR#)
+	</insert>
+	
+	<update id="updateById">
+		UPDATE BOOK_ITEM SET
+			STATE=#state:DECIMAL#,
+			OWNER_ID=#ownerId:DECIMAL#,
+			ADD_TIME=#addTime:DATETIME#,
+			REMOVE_TIME=#removeTime:DATETIME#,
+			BOOK_INFO_ID=#bookInfoId:DECIMAL#,
+			FIRST_ADD_TIME=#firstAddTime:DATETIME#,
+			GMT_MODIFIED=NOW(),
+			TAGS=#tags:VARCHAR#
+		WHERE ID=#id:DECIMAL#
+	</update>
+	<delete id="deleteById">
+		DELETE FROM BOOK_ITEM
+		WHERE ID=#id:DECIMAL#
+	</delete>
 </sqlMap>
