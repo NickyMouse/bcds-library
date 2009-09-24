@@ -11,17 +11,17 @@
 		<result property="bookItemId" column="BOOK_ITEM_ID" jdbcType="DECIMAL" />
 	</resultMap>
 	
-	<select id="listAll">
+	<select id="listAll" resultMap="BookItemLogResult">
 		SELECT ID,GMT_CREATE,GMT_MODIFIED,LOG_TYPE,LOG_MSG,BOOK_ITEM_ID
 		FROM BOOK_ITEM_LOG
 	</select>
 	
-	<insert id="insert">
+	<insert id="insert" parameterClass="BookItemLogDO">
 		INSERT INTO BOOK_ITEM_LOG (GMT_CREATE,GMT_MODIFIED,LOG_TYPE,LOG_MSG,BOOK_ITEM_ID)
 		VALUES(NOW(),NOW(),#logType:DECIMAL#, #logMsg:VARCHAR#,#bookItemId:DECIMAL#)
 	</insert>
 	
-	<update id="updateById">
+	<update id="updateById" parameterClass="BookItemLogDO">
 		UPDATE BOOK_ITEM_LOG SET
 			GMT_MODIFIED=NOW(),
 			LOG_TYPE=#logType:DECIMAL#,
@@ -30,8 +30,14 @@
 		WHERE ID=#id:DECIMAL#
 	</update>
 	
-	<delete id="deleteById">
+	<delete id="deleteById" parameterClass="java.lang.Integer">
 		DELETE FROM BOOK_ITEM_LOG
 		WHERE ID=#id:DECIMAL#
 	</delete>
+	
+	<select id="findById" parameterClass="java.lang.Integer" resultMap="BookItemLogResult">
+		SELECT ID,GMT_CREATE,GMT_MODIFIED,LOG_TYPE,LOG_MSG,BOOK_ITEM_ID
+		FROM BOOK_ITEM_LOG
+		WHERE ID=#id:DECIMAL#
+	</select>
 </sqlMap>
