@@ -11,7 +11,7 @@
 
 	<bean id="velocityConfigurer"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-		<property name="resourceLoaderPath" value="WEB-INF/velocity/*" />
+		<property name="resourceLoaderPath" value="WEB-INF/templates/*" />
 		<property name="velocityProperties">
 			<props>
 				<prop key="directive.foreach.counter.name">loopCounter</prop>
