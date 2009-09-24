@@ -1,10 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"      
-    "http://www.ibatis.com/dtd/sql-map-2.dtd">
-<sqlMap>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 
-	<insert id="insert">
-	</insert>
-	<select id="listAll">
+<sqlMap namespace="PRODUCT">
+	<typeAlias alias="User" type="com.alibaba.intl.bcds.goldroom.sample.User" />
+	<resultMap class="User" id="UserResult">
+		<result property="username" column="username" jdbcType="String" />
+		<result property="age" column="age" jdbcType="int" />
+		<result property="id" column="id" jdbcType="long" />
+	</resultMap>
+
+	<insert id="insert" parameterClass="User">
+	<![CDATA[
+		insert into User(username,age) values(#username:VARCHAR#,#age:DECIMAL#)
+	]]></insert>
+
+	<select id="listAll" resultMap="UserResult"><![CDATA[
+		select id,username,age from user
+	]]>
 	</select>
 </sqlMap>

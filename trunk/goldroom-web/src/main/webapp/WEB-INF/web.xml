@@ -17,9 +17,9 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			CLASSPATH:goldroom-biz.xml
-			CLASSPATH:goldroom-dal.xml
-			/WEB-INF/goldroom-security.xml
+			classpath:goldroom-dal.xml
+			classpath:goldroom-biz.xml
+			<!-- /WEB-INF/goldroom-security.xml -->
 		</param-value>
 	</context-param>
 </web-app>

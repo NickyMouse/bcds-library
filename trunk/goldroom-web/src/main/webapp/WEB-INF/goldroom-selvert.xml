@@ -21,4 +21,6 @@
 	</bean>
 	<bean id="urlMapping"
 		class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+
+	<bean class="com.alibaba.intl.bcds.goldroom.web.sample.SampleController"></bean>
 </beans>
