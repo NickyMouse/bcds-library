@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BOOK_ITEM" >
+	<typeAlias alias="BookItemDO" type="com.alibaba.intl.bcds.goldroom.dataobject.BookItemDO"/>
+	<resultMap class="BookItemDO" id="BookItemResult">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="state" column="STATE" jdbcType="DECIMAL" />
+		<result property="ownerId" column="OWNER_ID" jdbcType="DECIMAL" />
+		<result property="addTime" column="ADD_TIME" jdbcType="DATETIME" />
+		<result property="removeTime" column="REMOVE_TIME" jdbcType="DATETIME" />
+		<result property="bookInfoId" column="BOOK_INFO_ID" jdbcType="DECIMAL" />
+		<result property="firstAddTime" column="FIRST_ADD_TIME" jdbcType="DATETIME" />
+		<result property="gmtCreate" column="GMT_CREATE" jdbcType="DATETIME" />
+		<result property="gmtModified" column="GMT_MODIFIED" jdbcType="DATETIME" />
+		<result property="tags" column="TAGS" jdbcType="VARCHAR" />
+	</resultMap>
+	
+</sqlMap>

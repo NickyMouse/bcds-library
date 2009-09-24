@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BOOK_ITEM_LOG" >
+	<typeAlias alias="BookItemLogDO" type="com.alibaba.intl.bcds.goldroom.dataobject.BookItemLogDO"/>
+	<resultMap class="BookItemLogDO" id="BookItemLogResult">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="gmtCreate" column="GMT_CREATE" jdbcType="DATETIME" />
+		<result property="gmtModified" column="GMT_MODIFIED" jdbcType="DATETIME" />
+		<result property="logType" column="LOG_TYPE" jdbcType="DECIMAL" />
+		<result property="logMsg" column="LOG_MSG" jdbcType="VARCHAR" />
+		<result property="bookItemId" column="BOOK_ITEM_ID" jdbcType="DECIMAL" />
+	</resultMap>
+	
+</sqlMap>
