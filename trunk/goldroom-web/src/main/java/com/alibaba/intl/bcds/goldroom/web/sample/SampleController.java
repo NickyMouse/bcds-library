@@ -1,4 +1,4 @@
-package com.alibaba.intl.bcds.goldroom.sample;
+package com.alibaba.intl.bcds.goldroom.web.sample;
 
 import java.util.List;
 
@@ -9,11 +9,12 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
 
+import com.alibaba.intl.bcds.goldroom.sample.User;
 import com.alibaba.intl.bcds.goldroom.sample.service.UserService;
 
-public class SampleControler extends AbstractCommandController {
+public class SampleController extends AbstractCommandController {
 
-    public SampleControler() {
+    public SampleController() {
         setCommandClass(User.class);
         setCommandName("user");
     }
