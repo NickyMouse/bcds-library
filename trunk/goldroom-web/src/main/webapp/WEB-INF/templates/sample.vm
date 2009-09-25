@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form>
+<form method="POST">
 <table>
 	<tr>
 		<td>username:<input name="username" /></td>
@@ -21,8 +21,8 @@
 <table>
 #foreach($user in $list)
 <tr>
-	<td>$user.name</td>
-	<td>$user.age</td>
+	<td>$!{user.username}</td>
+	<td>$!{user.age}</td>
 </tr>
 #end
 </body>

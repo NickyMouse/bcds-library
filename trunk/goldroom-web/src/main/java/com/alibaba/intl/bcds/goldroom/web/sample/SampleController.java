@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
@@ -32,7 +33,9 @@ public class SampleController extends AbstractCommandController {
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response,
                                   Object command, BindException errors) throws Exception {
         User user = (User) command;
-        userService.addUser(user);
+        if (user != null && StringUtils.isNotEmpty(user.getUsername())) {
+            userService.addUser(user);
+        }
         List<User> list = userService.listAllUser();
         return new ModelAndView("sample", "list", list);
     }
