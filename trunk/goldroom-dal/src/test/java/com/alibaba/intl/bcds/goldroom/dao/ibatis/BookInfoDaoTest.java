@@ -1,11 +1,14 @@
 package com.alibaba.intl.bcds.goldroom.dao.ibatis;
 
+import java.util.Date;
+
 import junit.framework.TestCase;
 
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.alibaba.intl.bcds.goldroom.dao.BookInfoDao;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookInfoDO;
 
 public class BookInfoDaoTest extends TestCase{
 
@@ -18,14 +21,20 @@ public class BookInfoDaoTest extends TestCase{
 	
 	@Test
 	public void testDeleteById() {
-		fail("Not yet implemented");
+		bookInfoDao.deleteById(0);
 	}
 
 	@Test
 	public void testInsert() {
-		fail("Not yet implemented");
+		BookInfoDO bookInfoDO = new BookInfoDO();
+		bookInfoDO.setAuthor("Author");
+		bookInfoDO.setCategoryId(1);
+		bookInfoDO.setCategoryName("Tec");
+		bookInfoDO.setPublishTime(new Date());
+		bookInfoDO.setIsbn("1222-5431-2123-2321");
+		bookInfoDao.insert(bookInfoDO);
 	}
-
+	
 	@Test
 	public void testListAll() {
 		bookInfoDao.listAll();
