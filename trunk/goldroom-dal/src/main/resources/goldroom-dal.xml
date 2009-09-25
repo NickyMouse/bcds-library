@@ -15,4 +15,6 @@
 		<property name="username" value="goldroom" />
 		<property name="password" value="hello123321" />
 	</bean>
+	<bean id="userDao"
+		class="com.alibaba.intl.bcds.goldroom.sample.dao.ibatis.UserDaoImpl" />
 </beans>

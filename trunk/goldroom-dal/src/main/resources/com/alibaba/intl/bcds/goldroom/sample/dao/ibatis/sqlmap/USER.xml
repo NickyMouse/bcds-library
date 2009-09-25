@@ -11,11 +11,11 @@
 
 	<insert id="insert" parameterClass="User">
 	<![CDATA[
-		insert into User(username,age) values(#username:VARCHAR#,#age:DECIMAL#)
+		insert into sample_user(username,age) values(#username:VARCHAR#,#age:DECIMAL#)
 	]]></insert>
 
 	<select id="listAll" resultMap="UserResult"><![CDATA[
-		select id,username,age from user
+		select id,username,age from sample_user
 	]]>
 	</select>
 </sqlMap>
