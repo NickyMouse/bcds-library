@@ -1,11 +1,21 @@
 package com.alibaba.intl.bcds.goldroom.dao.ibatis;
 
-import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class BookInfoDaoTest {
+import com.alibaba.intl.bcds.goldroom.dao.BookInfoDao;
 
+public class BookInfoDaoTest extends TestCase{
+
+	BookInfoDao bookInfoDao;
+	@Override
+	protected void setUp() throws Exception {
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("goldroom-dal.xml");
+		bookInfoDao = (BookInfoDao) context.getBean("bookInfoDao");
+	}
+	
 	@Test
 	public void testDeleteById() {
 		fail("Not yet implemented");
@@ -18,7 +28,7 @@ public class BookInfoDaoTest {
 
 	@Test
 	public void testListAll() {
-		fail("Not yet implemented");
+		bookInfoDao.listAll();
 	}
 
 	@Test

@@ -2,34 +2,34 @@ package com.alibaba.intl.bcds.goldroom.dao.ibatis;
 
 import java.util.List;
 
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookInfoDO;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItemDO;
 
-public class BookItemDaoImpl implements BookItemDao {
+public class BookItemDaoImpl extends SqlMapClientDaoSupport implements
+		BookItemDao {
 
 	public int deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getSqlMapClientTemplate().delete("BOOK_ITEM.deleteById", id);
 	}
 
 	public BookItemDO findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return (BookItemDO) getSqlMapClientTemplate().queryForObject(
+				"BOOK_ITEM.findById", id);
 	}
 
 	public Integer insert(BookItemDO bookItemDO) {
-		// TODO Auto-generated method stub
-		return null;
+		return (Integer) getSqlMapClientTemplate().insert("BOOK_ITEM.insert", bookItemDO);
 	}
 
 	public List<BookItemDao> listAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return getSqlMapClientTemplate().queryForList("BOOK_ITEM.listAll");
 	}
 
 	public int updateById(BookItemDO bookItemDO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getSqlMapClientTemplate().update("BOOK_ITEM.updateById", bookItemDO);
 	}
 
 }

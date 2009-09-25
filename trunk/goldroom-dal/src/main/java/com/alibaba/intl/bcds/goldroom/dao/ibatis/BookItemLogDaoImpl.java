@@ -2,34 +2,35 @@ package com.alibaba.intl.bcds.goldroom.dao.ibatis;
 
 import java.util.List;
 
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+
 import com.alibaba.intl.bcds.goldroom.dao.BookItemLogDao;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookItemDO;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItemLogDO;
 
-public class BookItemLogDaoImpl implements BookItemLogDao {
+public class BookItemLogDaoImpl extends SqlMapClientDaoSupport implements
+		BookItemLogDao {
 
 	public int deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getSqlMapClientTemplate().delete("BOOK_ITEM_LOG.deleteById", id);
 	}
 
 	public BookItemLogDO findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return (BookItemLogDO) getSqlMapClientTemplate().queryForObject(
+				"BOOK_ITEM_LOG.findById", id);
 	}
 
 	public Integer insert(BookItemLogDO bookItemLogDO) {
-		// TODO Auto-generated method stub
-		return null;
+		return (Integer) getSqlMapClientTemplate().insert("BOOK_ITEM_LOG.insert",
+				bookItemLogDO);
 	}
 
 	public List<BookItemLogDO> listAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return getSqlMapClientTemplate().queryForList("BOOK_ITEM_LOG.listAll");
 	}
 
 	public int updateById(BookItemLogDO bookItemLogDO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getSqlMapClientTemplate().update("BOOK_ITEM_LOG.updateById", bookItemLogDO);
 	}
 
 }
