@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
-import com.alibaba.intl.bcds.goldroom.dataobject.BookInfoDO;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItemDO;
 
 public class BookItemDaoImpl extends SqlMapClientDaoSupport implements
