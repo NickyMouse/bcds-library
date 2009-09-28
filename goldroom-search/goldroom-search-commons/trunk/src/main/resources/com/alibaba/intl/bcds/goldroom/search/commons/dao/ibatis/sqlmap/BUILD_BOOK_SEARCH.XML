@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BUILD_BOOK_SEARCH">
+	<typeAlias alias="BuildBookSearchDO"
+		type="com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearchDO" />
+	<resultMap class="BuildBookSearchDO" id="bookSearchResult">
+		<result property="itemId" column="ITEM_ID" jdbcType="DECIMAL"/>
+		<result property="itemState" column="ITEM_STATE" jdbcType="DECIMAL"/>
+		<result property="itemAddTime" column="ITEM_ADD_TIME" jdbcType="DATETIME"/>
+		<result property="itemFirstAddTime" column="ITEM_FIRST_ADD_TIME" jdbcType="DATETIME"/>
+		<result property="itemGmtCreate" column="ITEM_GMT_CREATE" jdbcType="DATETIME"/>
+		<result property="itemGmtModified" column="ITEM_GMT_MODIFIED" jdbcType="DATETIME"/>
+		<result property="itemTags" column="ITEM_TAGS" jdbcType="VARCHAR"/>
+		<result property="bookInfoId" column="BOOK_INFO_ID" jdbcType="DECIMAL"/>
+		<result property="bookAuthor" column="BOOK_AUTHOR" jdbcType="VARCHAR"/>
+		<result property="bookName" column="BOOK_NAME" jdbcType="VARCHAR"/>
+		<result property="bookPublisher" column="BOOK_PUBLISHER" jdbcType="VARCHAR"/>
+		<result property="bookPublishTime" column="BOOK_PUBLISH_TIME" jdbcType="DATE"/>
+		<result property="bookIsbn" column="BOOK_ISBN" jdbcType="VARCHAR"/>
+		<result property="bookCategoryId" column="BOOK_CATEGORY_ID" jdbcType="DECIMAL"/>
+		<result property="bookImgUrl" column="BOOK_IMG_URL" jdbcType="VARCHAR"/>
+		<result property="bookDescription" column="BOOK_DESCRIPTION" jdbcType="VARCHAR"/>
+		<result property="bookEdition" column="BOOK_EDITION" jdbcType="VARCHAR"/>
+		<result property="memberId" column="MEMBER_ID" jdbcType="DECIMAL"/>
+		<result property="memberName" column="MEMBER_NAME" jdbcType="VARCHAR"/>
+		<result property="memberWorkId" column="MEMBER_WORK_ID" jdbcType="DECIMAL"/>
+		<result property="memberLoginId" column="MEMBER_LOGIN_ID" jdbcType="VARCHAR"/>
+		<result property="memberEmail" column="MEMBER_EMAIL" jdbcType="VARCHAR"/>
+		<result property="memberAlitalkId" column="MEMBER_ALI_TALK_ID" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<typeAlias alias="BuildCategorySearchDO" 
+		type="com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildCategorySearchDO"/>
+		
+	<resultMap class="BuildCategorySearchDO" id="categoryResult">
+		<result property="id" column="ID"/>
+		<result property="parentId" column="PARENT_ID"/>
+		<result property="name" column="NAME"/>
+		<result property="description" column="DESCRIPTION"/>
+	</resultMap>
+
+	<select id="listAllCategory" resultMap="categoryResult">
+		SELECT ID, PARENT_ID, NAME, DESCRIPTION, GMT_CREATE,GMT_MODIFIED
+		FROM CATEGORY
+	</select>
+	
+	<select id="listAllBook" resultMap="bookSearchResult">
+		SELECT item.ID 			ITEM_ID,
+			item.STATE 			ITEM_STATE,
+			item.ADD_TIME 		ITEM_ADD_TIME,
+			item.FIRST_ADD_TIME ITEM_FIRST_ADD_TIME,
+			item.GMT_CREATE 	ITEM_GMT_CREATE,
+			item.GMT_MODIFIED 	ITEM_GMT_MODIFIED,
+			item.TAGS 			ITEM_TAGS,
+			info.ID				BOOK_INFO_ID,
+			info.AUTHOR 		BOOK_AUTHOR,
+			info.NAME 			BOOK_NAME,
+			info.PUBLISHER 		BOOK_PUBLISHER,
+			info.PUBLISH_TIME 	BOOK_PUBLISH_TIME,
+			info.ISBN 			BOOK_ISBN,
+			info.CATEGORY_ID	BOOK_CATEGORY_ID,
+			info.IMG_URL		BOOK_IMG_URL,
+			info.DESCRIPTION	BOOK_DESCRIPTION,
+			info.EDITION		BOOK_EDITION,
+			m.ID				MEMBER_ID,
+			m.NAME				MEMBER_NAME,
+			m.WORK_ID			MEMBER_WORK_ID,
+			m.LOGIN_ID			MEMBER_LOGIN_ID,
+			m.EMAIL				MEMBER_EMAIL,
+			m.ALI_TALK_ID		MEMBER_ALI_TALK_ID
+		FROM BOOK_ITEM item
+			JOIN BOOK_INFO info ON item.BOOK_INFO_ID = info.ID
+			JOIN MEMBER m ON item.OWNER_ID = m.ID
+		WHERE
+		<![CDATA[
+			m.ENABLE=1 AND item.STATE<>0 
+		]]>
+	</select>
+</sqlMap>
