@@ -7,20 +7,25 @@
 	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+
 	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
 		<property name="configLocation" value="classpath:sql-map-config.xml" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.gjt.mm.mysql.Driver" />
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/gold_room" />
+		<property name="url" value="jdbc:mysql://10.16.106.92/goldroom" />
 		<property name="username" value="goldroom" />
-		<property name="password" value="goldroom" />
+		<property name="password" value="hello123321" />
 	</bean>
 
+	<bean id="searchDatasource"
+		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.BookSearchDatasource">
+		<property name="indexLocation" value="f:/bookSearchIndex"/>
+	</bean>
+		
 	<bean id="buildBookSearchDao"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.BuildBookSearchDaoImpl" />
 

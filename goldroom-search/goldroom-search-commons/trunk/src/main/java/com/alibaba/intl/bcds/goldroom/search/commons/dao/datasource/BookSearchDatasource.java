@@ -1,7 +1,5 @@
 package com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource;
 
-import java.io.IOException;
-
 import org.apache.log4j.Logger;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.IndexSearcher;
@@ -11,10 +9,14 @@ public class BookSearchDatasource implements SearchDatasource {
 
 	private String indexLocation;
 	private static Searcher searcher;
-	static Logger logger = Logger.getLogger(BookSearchDatasource.class);
+	private static Logger logger = Logger.getLogger(BookSearchDatasource.class);
 
 	public String getIndexLocation() {
 		return indexLocation;
+	}
+
+	public void setIndexLocation(String indexLocation) {
+		this.indexLocation = indexLocation;
 	}
 
 	public Searcher getSearcher() {
