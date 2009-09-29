@@ -3,16 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="#springUrl("/validator.js")"></script>
 </head>
 <body>
+	${model.get("ValangRules_user")}
 <form method="POST">
 <table>
 	<tr>
-		<td>username:<input name="username" /></td>
+		<td>username:#springFormInput("user.username" "")</td>
 	</tr>
 	<tr>
-		<td>age:<input name="age" /></td>
+		<td>age:#springFormInput("user.age" "")</td>
 	</tr>
+	<tr>
+		<td>#springShowErrors("</br>" "")
+		</td>
+    </tr>
 	<tr>
 		<td><input type="submit" value="submit" /></td>
 	</tr>
