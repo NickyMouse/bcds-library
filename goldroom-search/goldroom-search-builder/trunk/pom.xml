@@ -28,11 +28,6 @@
   		<scope>test</scope>
   	</dependency>
   	<dependency>
-  		<groupId>org.apache.lucene</groupId>
-  		<artifactId>lucene-analyzers</artifactId>
-  		<version>2.4.1</version>
-  	</dependency>
-  	<dependency>
   		<groupId>com.alibaba.bcds</groupId>
   		<artifactId>goldroom-search-commons</artifactId>
   		<version>0.0.1-SNAPSHOT</version>

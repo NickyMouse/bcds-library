@@ -14,12 +14,11 @@ import org.springframework.context.ApplicationContext;
 import com.alibaba.intl.bcds.goldroom.search.builder.utils.ConvertObjectHandler;
 import com.alibaba.intl.bcds.goldroom.search.builder.utils.DocumentFactory;
 import com.alibaba.intl.bcds.goldroom.search.builder.utils.SearchApplicationContext;
-import com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.BookSearchDatasource;
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearchDO;
 import com.alibaba.intl.bcds.goldroom.search.commons.service.BookSearchServiceLocator;
 
 public class BookSearchBuilder {
-	public static String INDEX_DIR = "f:/index";
+	public static String INDEX_DIR = "f:/bookSearchIndex";
 
 	/**
 	 * @param args
@@ -29,8 +28,8 @@ public class BookSearchBuilder {
 	 */
 	public static void main(String[] args) throws CorruptIndexException,
 			LockObtainFailedException, IOException {
-		(new BookSearchDatasource()).getSearcher();
-		List<BuildBookSearchDO> bookList = BookSearchServiceLocator.getBuildBookSearchService().listAllBook(0, 0);
+		List<BuildBookSearchDO> bookList = BookSearchServiceLocator
+				.getBuildBookSearchService().listAllBook(0, 0);
 
 		ApplicationContext handlerContext = SearchApplicationContext
 				.getConvertObjectHandlerContext();
@@ -39,22 +38,23 @@ public class BookSearchBuilder {
 		DocumentFactory factory = DocumentFactory.getInstance(
 				BuildBookSearchDO.class, handler);
 
-		//index
+		// Directory dir = new SimpleFSDirectory(new File(INDEX_DIR));
 		IndexWriter writer = new IndexWriter(INDEX_DIR, new StandardAnalyzer(),
 				true, IndexWriter.MaxFieldLength.LIMITED);
 		List<Document> docList = factory.convertList(bookList);
-		System.out.println("Indexing to directory '" +INDEX_DIR+ "'...");
+		System.out.println("Indexing to directory '" + INDEX_DIR + "'...");
 		Date start = new Date();
 		for (Document doc : docList) {
 			writer.addDocument(doc);
-		}  
+		}
 		System.out.println("Optimizing...");
 		writer.optimize();
 		writer.close();
 
 		Date end = new Date();
-		System.out.println(end.getTime() - start.getTime() + " total milliseconds");
-		
+		System.out.println(end.getTime() - start.getTime()
+				+ " total milliseconds");
+
 		System.out.println("Done");
 	}
 }
