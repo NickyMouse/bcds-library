@@ -3,6 +3,7 @@ package com.alibaba.intl.bcds.goldroom.search.builder.utils;
 import java.util.Date;
 
 import org.apache.lucene.document.Document;
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearchDO;
@@ -17,7 +18,7 @@ public class DocumentFactoryTest {
 		buildBookSearchDO.setItemAddTime(now);
 		
 		Document doc = df.convert(buildBookSearchDO);
-		System.out.println("done");
+		Assert.assertNotNull(doc);
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.lucene.document.Document;
 
+@SuppressWarnings("unchecked")
 public class DocumentFactory {
 	protected List<Method> methodList = new ArrayList<Method>();
 	protected Class c;
@@ -52,10 +53,9 @@ public class DocumentFactory {
 		List<Object> objList = (List<Object>) obj;
 		for (Object object : objList) {
 			doc = convert(object);
-			if(doc == null){
+			if (doc == null) {
 				continue;
-			}
-			else{
+			} else {
 				docList.add(doc);
 			}
 		}

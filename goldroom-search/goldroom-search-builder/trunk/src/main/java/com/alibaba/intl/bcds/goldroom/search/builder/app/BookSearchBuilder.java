@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import jeasy.analysis.MMAnalyzer;
+
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
@@ -39,7 +40,7 @@ public class BookSearchBuilder {
 				BuildBookSearchDO.class, handler);
 
 		// Directory dir = new SimpleFSDirectory(new File(INDEX_DIR));
-		IndexWriter writer = new IndexWriter(INDEX_DIR, new StandardAnalyzer(),
+		IndexWriter writer = new IndexWriter(INDEX_DIR, new MMAnalyzer(),
 				true, IndexWriter.MaxFieldLength.LIMITED);
 		List<Document> docList = factory.convertList(bookList);
 		System.out.println("Indexing to directory '" + INDEX_DIR + "'...");
