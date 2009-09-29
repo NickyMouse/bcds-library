@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.search.MultiPhraseQuery;
+import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.Searcher;
 import org.apache.lucene.search.Sort;
@@ -17,7 +17,8 @@ import org.apache.lucene.search.TopDocs;
 import com.alibaba.intl.bcds.goldroom.search.commons.dao.BookSearchDao;
 import com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.SearchDatasource;
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearchDO;
-import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQuery;
+import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.helper.DocumentToDoConvertor;
+import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQueryObject;
 
 public class BookSearchDaoImpl implements BookSearchDao {
 	private static Logger logger = Logger.getLogger(BookSearchDaoImpl.class);
@@ -31,18 +32,17 @@ public class BookSearchDaoImpl implements BookSearchDao {
 		this.searchDatasource = searchDatasource;
 	}
 
-	public List<BookSearchDO> searchByQuery(BookSearchQuery query) {
-		//TODO Clean code
-		int n = query.getN();
-		String primarySortKey = query.getPrimarySortFiled();
+	public List<BookSearchDO> searchByQuery(BookSearchQueryObject bsQueryObj) {
+		int n = bsQueryObj.getN();
+		String primarySortKey = bsQueryObj.getPrimarySortFiled();
 		Searcher searcher = searchDatasource.getSearcher();
-		MultiPhraseQuery mQuery = query.getMultiPhraseQuery();
+		
+		Query query = bsQueryObj.getQuery();
 
 		long start = new Date().getTime();
 		TopDocs docs = null;
 		try {
-
-			docs = searcher.search(mQuery, null, n, new Sort(new SortField(
+			docs = searcher.search(query, null, n, new Sort(new SortField(
 					primarySortKey, 1)));
 		} catch (IOException e) {
 			logger.error(e);
@@ -53,18 +53,19 @@ public class BookSearchDaoImpl implements BookSearchDao {
 		long end = new Date().getTime();
 
 		int numTotalHits = hits.length;
-		logger.info(query.toString() + " #result:" + numTotalHits
+		logger.info("[Search Result]" + numTotalHits
 				+ " total matching documents. Time is " + (end - start) + "ms");
 
+		List<BookSearchDO> doList = new ArrayList<BookSearchDO>(n);
 		for (ScoreDoc hit : hits) {
 			Document doc = null;
 			try {
 				doc = searcher.doc(hit.doc);
-			} catch (Exception e) {
-				continue;
+				doList.add(DocumentToDoConvertor.convertToBookSearchDO(doc));
+			} catch (IOException e) {
+				logger.error(e);
 			}
-			System.out.println(hit);
 		}
-		return null;
+		return doList;
 	}
 }

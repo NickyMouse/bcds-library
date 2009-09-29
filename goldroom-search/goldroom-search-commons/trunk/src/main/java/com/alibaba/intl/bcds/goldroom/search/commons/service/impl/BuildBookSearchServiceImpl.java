@@ -7,7 +7,7 @@ import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearchD
 import com.alibaba.intl.bcds.goldroom.search.commons.service.BuildBookSearchService;
 
 public class BuildBookSearchServiceImpl implements BuildBookSearchService {
-
+	
 	private BuildBookSearchDao buildBookSearchDao;
 
 	public BuildBookSearchDao getBuildBookSearchDao() {

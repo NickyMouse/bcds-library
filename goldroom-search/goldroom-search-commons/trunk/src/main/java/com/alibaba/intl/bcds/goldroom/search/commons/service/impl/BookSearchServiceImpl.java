@@ -5,8 +5,9 @@ import java.util.List;
 
 import com.alibaba.intl.bcds.goldroom.search.commons.dao.BookSearchDao;
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearchDO;
-import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQuery;
+import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQueryObject;
 import com.alibaba.intl.bcds.goldroom.search.commons.service.BookSearchService;
+import com.alibaba.intl.bcds.goldroom.search.commons.utils.SearchConditionHelper;
 
 public class BookSearchServiceImpl implements BookSearchService {
 
@@ -20,16 +21,11 @@ public class BookSearchServiceImpl implements BookSearchService {
 		this.bookSearchDao = bookSearchDao;
 	}
 
-	public List<BookSearchDO> searchBookByCategoryId(Integer Id, Integer number) {
-		BookSearchQuery query = BookSearchQuery.getInstance()
-				.add("bookCategoryId=" + Id.toString())
+	public List<BookSearchDO> searchBookByCategoryId(Integer id, Integer number) {
+		SearchConditionHelper helper = SearchConditionHelper.getInstance().addTerm("bookCategoryId", id.toString());
+		BookSearchQueryObject query = BookSearchQueryObject.getInstance(helper)
 				.setN(number)
 				.setPrimarySortFiled("");
-		/*BookSearchQuery query = BookSearchQuery.getInstance()
-		.add("bookName=java3")
-		.setN(number)
-		.setPrimarySortFiled("");*/
-		//bookName java3
 		return bookSearchDao.searchByQuery(query);
 	}
 
