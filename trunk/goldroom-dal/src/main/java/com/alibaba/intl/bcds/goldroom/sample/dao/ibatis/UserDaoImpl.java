@@ -38,7 +38,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
      */
     @Override
     public void insertUser(User user) {
-        getSqlMapClientTemplate().insert("insert", user);
+        getSqlMapClientTemplate().insert("USER.insert", user);
 
     }
 
@@ -48,7 +48,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
      */
     @Override
     public List<User> listAllUser() {
-        return getSqlMapClientTemplate().queryForList("listAll");
+        return getSqlMapClientTemplate().queryForList("USER.listAll");
     }
 
 }
