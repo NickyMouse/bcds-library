@@ -7,7 +7,7 @@ import com.alibaba.intl.bcds.goldroom.search.commons.dao.BookSearchDao;
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearchDO;
 import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQueryObject;
 import com.alibaba.intl.bcds.goldroom.search.commons.service.BookSearchService;
-import com.alibaba.intl.bcds.goldroom.search.commons.utils.SearchConditionHelper;
+import com.alibaba.intl.bcds.goldroom.search.commons.utils.SearchConditionBuilder;
 
 public class BookSearchServiceImpl implements BookSearchService {
 
@@ -22,8 +22,8 @@ public class BookSearchServiceImpl implements BookSearchService {
 	}
 
 	public List<BookSearchDO> searchBookByCategoryId(Integer id, Integer number) {
-		SearchConditionHelper helper = SearchConditionHelper.getInstance().addTerm("bookCategoryId", id.toString());
-		BookSearchQueryObject query = BookSearchQueryObject.getInstance(helper)
+		SearchConditionBuilder builder = SearchConditionBuilder.getInstance().addTerm("bookCategoryId", id.toString());
+		BookSearchQueryObject query = BookSearchQueryObject.getInstance(builder)
 				.setN(number)
 				.setPrimarySortFiled("");
 		return bookSearchDao.searchByQuery(query);

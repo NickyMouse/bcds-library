@@ -2,14 +2,14 @@ package com.alibaba.intl.bcds.goldroom.search.commons.utils;
 
 import java.util.Date;
 
-public class SearchConditionHelper {
+public class SearchConditionBuilder {
 	private StringBuilder sb;
 
-	public static SearchConditionHelper getInstance() {
-		return new SearchConditionHelper();
+	public static SearchConditionBuilder getInstance() {
+		return new SearchConditionBuilder();
 	}
 
-	private SearchConditionHelper() {
+	private SearchConditionBuilder() {
 		sb = new StringBuilder();
 	}
 
@@ -22,23 +22,23 @@ public class SearchConditionHelper {
 	 * 
 	 * @return
 	 */
-	public SearchConditionHelper addTerm(String field, String key) {
+	public SearchConditionBuilder addTerm(String field, String key) {
 		sb.append("+").append(field).append(":").append(key);
 		return this;
 	}
 
-	public SearchConditionHelper addFuzzy(String field, String key) {
+	public SearchConditionBuilder addFuzzy(String field, String key) {
 		sb.append("+").append(field).append(":").append(key).append("~");
 		return this;
 	}
 
-	public SearchConditionHelper addRange(String field, String min, String max) {
+	public SearchConditionBuilder addRange(String field, String min, String max) {
 		sb.append("+").append(field).append(":[").append(min).append(" TO ")
 				.append(max).append("]");
 		return this;
 	}
 
-	public SearchConditionHelper addDateRange(String field, Date startTime,
+	public SearchConditionBuilder addDateRange(String field, Date startTime,
 			Date endTime) {
 		sb.append("+").append(field).append(":[").append(startTime.getTime()).append(" TO ")
 				.append(endTime.getTime()).append("]");

@@ -18,9 +18,8 @@ public class BuildBookSearchServiceImpl implements BuildBookSearchService {
 		this.buildBookSearchDao = buildBookSearchDao;
 	}
 
-	public List<BuildBookSearchDO> listAllBook(int pageSize, int page) {
-		return buildBookSearchDao.listAllBook(Integer.valueOf(pageSize),
-				Integer.valueOf(page));
+	public List<BuildBookSearchDO> listAllBook(int page) {
+		return buildBookSearchDao.listAllBook(page);
 	}
 
 }

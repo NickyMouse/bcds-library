@@ -75,5 +75,7 @@
 		<![CDATA[
 			m.ENABLE=1 AND item.STATE<>0 
 		]]>
+		ORDER BY item.FIRST_ADD_TIME DESC
+		LIMIT #skipRow#,#pageSize#
 	</select>
 </sqlMap>

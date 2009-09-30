@@ -7,24 +7,24 @@ import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.Query;
 
-import com.alibaba.intl.bcds.goldroom.search.commons.utils.SearchConditionHelper;
+import com.alibaba.intl.bcds.goldroom.search.commons.utils.SearchConditionBuilder;
 
 public class BookSearchQueryObject extends BaseQueryObject {
 	private static Logger logger = Logger
 			.getLogger(BookSearchQueryObject.class);
 
-	private SearchConditionHelper helper;
+	private SearchConditionBuilder searchConditionBuilder;
 	private int n;
 	private String primarySortFiled;
 
 	private boolean decrease;
 
-	protected BookSearchQueryObject(SearchConditionHelper helper) {
-		this.helper = helper;
+	protected BookSearchQueryObject(SearchConditionBuilder builder) {
+		this.searchConditionBuilder = builder;
 	}
 
-	public static BookSearchQueryObject getInstance(SearchConditionHelper helper) {
-		return new BookSearchQueryObject(helper);
+	public static BookSearchQueryObject getInstance(SearchConditionBuilder builder) {
+		return new BookSearchQueryObject(builder);
 	}
 
 	public int getN() {
@@ -54,12 +54,12 @@ public class BookSearchQueryObject extends BaseQueryObject {
 		return decrease;
 	}
 
-	public void setHelper(SearchConditionHelper helper) {
-		this.helper = helper;
+	public void setSearchConditionBuilder(SearchConditionBuilder builder) {
+		this.searchConditionBuilder = builder;
 	}
 
-	public SearchConditionHelper getHelper() {
-		return helper;
+	public SearchConditionBuilder getSearchConditionBuilder() {
+		return searchConditionBuilder;
 	}
 
 	@Override
@@ -67,13 +67,13 @@ public class BookSearchQueryObject extends BaseQueryObject {
 		StringBuilder sb = new StringBuilder();
 		sb.append("primarySortFiled=").append(primarySortFiled).append(",n=")
 				.append(n).append(",decrease=").append(decrease).append(
-						",condition=").append(helper.buildConditions());
+						",condition=").append(searchConditionBuilder.buildConditions());
 		return sb.toString();
 	}
 
 	@Override
 	public Query getQuery() {
-		if (getHelper() == null) {
+		if (getSearchConditionBuilder() == null) {
 			logger.error("BookSearchQueryObject.getQuery:helper is invalid",
 					new IllegalArgumentException());
 			return null;
@@ -81,7 +81,7 @@ public class BookSearchQueryObject extends BaseQueryObject {
 		QueryParser parser = new QueryParser("", new MMAnalyzer());
 		logger.info("[Search Condition]" + this.toString());
 		try {
-			return parser.parse(getHelper().buildConditions());
+			return parser.parse(getSearchConditionBuilder().buildConditions());
 		} catch (ParseException e) {
 			logger.error(e);
 			return null;

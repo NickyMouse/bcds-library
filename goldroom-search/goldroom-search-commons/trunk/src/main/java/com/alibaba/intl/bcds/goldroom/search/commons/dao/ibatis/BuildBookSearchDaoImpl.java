@@ -13,17 +13,27 @@ import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildCategorySea
 @SuppressWarnings("unchecked")
 public class BuildBookSearchDaoImpl extends SqlMapClientDaoSupport implements
 		BuildBookSearchDao {
+	private Integer pageSize;
 
-	public List<BuildBookSearchDO> listAllBook(Integer rows, Integer page) {
+	public List<BuildBookSearchDO> listAllBook(Integer page) {
 		Map param = new Hashtable();
-		param.put("rows", rows);
-		param.put("page", page);
-		return getSqlMapClientTemplate().queryForList("BUILD_BOOK_SEARCH.listAllBook", param);
+		param.put("skipRow", (page-1) * pageSize);
+		param.put("pageSize",pageSize);
+		return getSqlMapClientTemplate().queryForList(
+				"BUILD_BOOK_SEARCH.listAllBook", param);
 	}
 
 	public Map<Integer, BuildCategorySearchDO> listAllCategory() {
-		return getSqlMapClientTemplate().queryForMap("BUILD_BOOK_SEARCH.listAllCategory", null,
-				"id");
+		return getSqlMapClientTemplate().queryForMap(
+				"BUILD_BOOK_SEARCH.listAllCategory", null, "id");
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
 	}
 
 }

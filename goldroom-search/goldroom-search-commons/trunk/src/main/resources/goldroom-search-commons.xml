@@ -23,11 +23,13 @@
 
 	<bean id="searchDatasource"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.BookSearchDatasource">
-		<property name="indexLocation" value="f:/bookSearchIndex"/>
+		<property name="indexLocation" value="f:/bookSearchIndex" />
 	</bean>
-		
+
 	<bean id="buildBookSearchDao"
-		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.BuildBookSearchDaoImpl" />
+		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.BuildBookSearchDaoImpl">
+		<property name="pageSize" value="1000" />
+	</bean>
 
 	<bean id="bookSearchDao"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.BookSearchDaoImpl">

@@ -24,7 +24,7 @@ public class BuildBookSearchDaoTest extends TestCase {
 	}
 
 	public void testListAllBook() {
-		List<BuildBookSearchDO> result = buildBookSearchDao.listAllBook(Integer.valueOf(1), Integer.valueOf(2));
+		List<BuildBookSearchDO> result = buildBookSearchDao.listAllBook(1);
 		for(BuildBookSearchDO buildBookSearchDO : result){
 			System.out.println(buildBookSearchDO.getItemId());
 		}

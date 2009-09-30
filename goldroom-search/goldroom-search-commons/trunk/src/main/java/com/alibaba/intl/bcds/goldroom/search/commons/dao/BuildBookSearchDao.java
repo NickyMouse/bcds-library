@@ -9,5 +9,5 @@ import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildCategorySea
 public interface BuildBookSearchDao {
 	public Map<Integer, BuildCategorySearchDO> listAllCategory();
 
-	public List<BuildBookSearchDO> listAllBook(Integer rows, Integer page);
+	public List<BuildBookSearchDO> listAllBook(Integer page);
 }
