@@ -16,6 +16,15 @@ public class BookSearchQueryObject extends BaseQueryObject {
 	private SearchConditionBuilder searchConditionBuilder;
 	private int n;
 	private String primarySortFiled;
+	private int skipResult = 0;
+	public int getSkipResult() {
+		return skipResult;
+	}
+
+	public BookSearchQueryObject setSkipResult(int skipResult) {
+		this.skipResult = skipResult;
+		return this;
+	}
 
 	private boolean decrease;
 

@@ -8,7 +8,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.Searcher;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
@@ -33,7 +32,7 @@ public class BookSearchDaoImpl implements BookSearchDao {
 	}
 
 	public List<BookSearchDO> searchByQuery(BookSearchQueryObject bsQueryObj) {
-		int n = bsQueryObj.getN();
+		int number = bsQueryObj.getN() + bsQueryObj.getSkipResult();
 		String primarySortKey = bsQueryObj.getPrimarySortFiled();
 		Searcher searcher = searchDatasource.getSearcher();
 		
@@ -42,25 +41,30 @@ public class BookSearchDaoImpl implements BookSearchDao {
 		long start = new Date().getTime();
 		TopDocs docs = null;
 		try {
-			docs = searcher.search(query, null, n, new Sort(new SortField(
+			docs = searcher.search(query, null, number, new Sort(new SortField(
 					primarySortKey, 1)));
 		} catch (IOException e) {
 			logger.error(e);
 			return new ArrayList<BookSearchDO>();
 		}
-		ScoreDoc[] hits = docs.scoreDocs;
-
 		long end = new Date().getTime();
 
-		int numTotalHits = hits.length;
+		int numTotalHits = docs.scoreDocs.length;
 		logger.info("[Search Result]" + numTotalHits
 				+ " total matching documents. Time is " + (end - start) + "ms");
 
-		List<BookSearchDO> doList = new ArrayList<BookSearchDO>(n);
-		for (ScoreDoc hit : hits) {
+		return getResult(searcher, numTotalHits, bsQueryObj.getSkipResult(), bsQueryObj.getN());
+	}
+	
+	protected List<BookSearchDO>  getResult(Searcher searcher, int totalHits, int skipResult, int n){
+		List<BookSearchDO> doList = new ArrayList<BookSearchDO>();
+		if(skipResult >= totalHits){
+			return doList;
+		}
+		for (int i = skipResult; i<totalHits; i++) {
 			Document doc = null;
 			try {
-				doc = searcher.doc(hit.doc);
+				doc = searcher.doc(i);
 				doList.add(DocumentToDoConvertor.convertToBookSearchDO(doc));
 			} catch (IOException e) {
 				logger.error(e);
