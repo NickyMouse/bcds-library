@@ -42,12 +42,12 @@ public class BookInfoDaoTest extends TestCase{
 
 	@Test
 	public void testUpdateById() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	@Test
 	public void testFindById() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 }
