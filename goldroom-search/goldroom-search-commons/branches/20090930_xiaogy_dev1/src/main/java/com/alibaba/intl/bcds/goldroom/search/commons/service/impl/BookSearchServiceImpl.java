@@ -9,7 +9,7 @@ import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.helper.BookSearc
 import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQueryObject;
 import com.alibaba.intl.bcds.goldroom.search.commons.service.BookSearchService;
 import com.alibaba.intl.bcds.goldroom.search.commons.utils.SearchConditionBuilder;
-
+@SuppressWarnings("unchecked")
 public class BookSearchServiceImpl implements BookSearchService {
 
 	private BookSearchDao bookSearchDao;
@@ -22,6 +22,7 @@ public class BookSearchServiceImpl implements BookSearchService {
 		this.bookSearchDao = bookSearchDao;
 	}
 
+	
 	public List<BookSearchDO> searchBookByCategoryId(Integer id,
 			Integer skipResult, Integer number) {
 		SearchConditionBuilder builder = SearchConditionBuilder.getInstance()
@@ -29,7 +30,8 @@ public class BookSearchServiceImpl implements BookSearchService {
 		BookSearchQueryObject query = BookSearchQueryObject
 				.getInstance(builder).setN(number).setSkipResult(skipResult)
 				.setPrimarySortFiled("");
-		return bookSearchDao.searchByQuery(query);
+		bookSearchDao.searchByQuery(query);
+		return query.getResultList();
 	}
 
 	public List<BookSearchDO> searchBookByKeyword(String keyword,
@@ -40,7 +42,8 @@ public class BookSearchServiceImpl implements BookSearchService {
 		BookSearchQueryObject query = BookSearchQueryObject
 				.getInstance(builder).setN(number).setSkipResult(skipResult)
 				.setPrimarySortFiled("");
-		return bookSearchDao.searchByQuery(query);
+		bookSearchDao.searchByQuery(query);
+		return query.getResultList();
 	}
 
 	public List<BookSearchDO> searchBookByTime(Date startTime, Date endTime,
@@ -51,7 +54,8 @@ public class BookSearchServiceImpl implements BookSearchService {
 		BookSearchQueryObject query = BookSearchQueryObject
 				.getInstance(builder).setN(number).setSkipResult(skipResult)
 				.setPrimarySortFiled("");
-		return bookSearchDao.searchByQuery(query);
+		bookSearchDao.searchByQuery(query);
+		return query.getResultList();
 	}
 
 }

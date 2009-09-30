@@ -1,5 +1,7 @@
 package com.alibaba.intl.bcds.goldroom.search.commons.queryobject;
 
+import java.util.List;
+
 import jeasy.analysis.MMAnalyzer;
 
 import org.apache.log4j.Logger;
@@ -9,6 +11,7 @@ import org.apache.lucene.search.Query;
 
 import com.alibaba.intl.bcds.goldroom.search.commons.utils.SearchConditionBuilder;
 
+@SuppressWarnings("unchecked")
 public class BookSearchQueryObject extends BaseQueryObject {
 	private static Logger logger = Logger
 			.getLogger(BookSearchQueryObject.class);
@@ -17,6 +20,10 @@ public class BookSearchQueryObject extends BaseQueryObject {
 	private int n;
 	private String primarySortFiled;
 	private int skipResult = 0;
+	private boolean reverse = false;
+	private List bookSearchDoList;
+	private int totalCount;
+
 	public int getSkipResult() {
 		return skipResult;
 	}
@@ -26,13 +33,12 @@ public class BookSearchQueryObject extends BaseQueryObject {
 		return this;
 	}
 
-	private boolean decrease;
-
 	protected BookSearchQueryObject(SearchConditionBuilder builder) {
 		this.searchConditionBuilder = builder;
 	}
 
-	public static BookSearchQueryObject getInstance(SearchConditionBuilder builder) {
+	public static BookSearchQueryObject getInstance(
+			SearchConditionBuilder builder) {
 		return new BookSearchQueryObject(builder);
 	}
 
@@ -54,13 +60,13 @@ public class BookSearchQueryObject extends BaseQueryObject {
 		return this;
 	}
 
-	public BookSearchQueryObject setDecrease(boolean decrease) {
-		this.decrease = decrease;
+	public BookSearchQueryObject setReverse(boolean reverse) {
+		this.reverse = reverse;
 		return this;
 	}
 
-	public boolean isDecrease() {
-		return decrease;
+	public boolean isReverse() {
+		return reverse;
 	}
 
 	public void setSearchConditionBuilder(SearchConditionBuilder builder) {
@@ -75,8 +81,9 @@ public class BookSearchQueryObject extends BaseQueryObject {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("primarySortFiled=").append(primarySortFiled).append(",n=")
-				.append(n).append(",decrease=").append(decrease).append(
-						",condition=").append(searchConditionBuilder.buildConditions());
+				.append(n).append(",decrease=").append(reverse).append(
+						",condition=").append(
+						searchConditionBuilder.buildConditions());
 		return sb.toString();
 	}
 
@@ -95,6 +102,24 @@ public class BookSearchQueryObject extends BaseQueryObject {
 			logger.error(e);
 			return null;
 		}
+	}
+
+	@Override
+	public List getResultList() {
+		return bookSearchDoList;
+	}
+
+	public void setResultList(List list) {
+		this.bookSearchDoList = list;
+	}
+
+	@Override
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
 	}
 
 }

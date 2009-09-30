@@ -31,37 +31,42 @@ public class BookSearchDaoImpl implements BookSearchDao {
 		this.searchDatasource = searchDatasource;
 	}
 
-	public List<BookSearchDO> searchByQuery(BookSearchQueryObject bsQueryObj) {
+	@SuppressWarnings("unchecked")
+	public void searchByQuery(BookSearchQueryObject bsQueryObj) {
 		int number = bsQueryObj.getN() + bsQueryObj.getSkipResult();
 		String primarySortKey = bsQueryObj.getPrimarySortFiled();
 		Searcher searcher = searchDatasource.getSearcher();
-		
+
 		Query query = bsQueryObj.getQuery();
 
 		long start = new Date().getTime();
 		TopDocs docs = null;
 		try {
 			docs = searcher.search(query, null, number, new Sort(new SortField(
-					primarySortKey, 1)));
+					primarySortKey, SortField.AUTO, bsQueryObj.isReverse())));
 		} catch (IOException e) {
 			logger.error(e);
-			return new ArrayList<BookSearchDO>();
+			return;
 		}
+
 		long end = new Date().getTime();
 
 		int numTotalHits = docs.scoreDocs.length;
 		logger.info("[Search Result]" + numTotalHits
 				+ " total matching documents. Time is " + (end - start) + "ms");
-
-		return getResult(searcher, numTotalHits, bsQueryObj.getSkipResult(), bsQueryObj.getN());
+		List result = getResult(searcher, numTotalHits, bsQueryObj
+				.getSkipResult(), bsQueryObj.getN());
+		bsQueryObj.setResultList(result);
+		bsQueryObj.setTotalCount(numTotalHits);
 	}
-	
-	protected List<BookSearchDO>  getResult(Searcher searcher, int totalHits, int skipResult, int n){
+
+	protected List<BookSearchDO> getResult(Searcher searcher, int totalHits,
+			int skipResult, int n) {
 		List<BookSearchDO> doList = new ArrayList<BookSearchDO>();
-		if(skipResult >= totalHits){
+		if (skipResult >= totalHits) {
 			return doList;
 		}
-		for (int i = skipResult; i<totalHits; i++) {
+		for (int i = skipResult; i < totalHits; i++) {
 			Document doc = null;
 			try {
 				doc = searcher.doc(i);

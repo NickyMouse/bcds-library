@@ -7,5 +7,5 @@ import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQuery
 
 
 public interface BookSearchDao {
-	List<BookSearchDO> searchByQuery(BookSearchQueryObject query);
+	void searchByQuery(BookSearchQueryObject query);
 }
