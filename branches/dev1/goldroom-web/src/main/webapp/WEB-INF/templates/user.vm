@@ -1,35 +1,55 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+#parse("header.vm")
 <script type="text/javascript" src="#springUrl("/validator.js")"></script>
-</head>
-<body>
-	${model.get("ValangRules_user")}
-<form method="POST">
+<table class="blue" width="935">
+	<tbody>
+		<tr>
+			<td valign="top" align="center">
+			<form method="POST" name="aaa">
+			<table  width="330" cellspacing="0" cellpadding="0" border="0">
+				<tr> 
+              <td align="left" valign="top"><img src="images/boxlogin_top.gif" width="330" height="7"></td> 
+            </tr> 
+            <tr> 
+              <td align="left" valign="top" class="boxlogin"> 
+              User Name:<br> 
+              #springFormInput("user.username" "") 
+                <br> 
+                Age:<br> 
+               #springFormInput("user.age" "")<br> 
+                
+                <br>#springShowErrors("</br>" "")
+						<div style="display: none;"> 
+							<a href="javascript:document.aaa.submit();">Google me this</a> 
+						</div> 
+						<table border="0" cellpadding="0" cellspacing="0" onclick="window.location.href='javascript:document.aaa.submit();'" style="cursor:pointer">	
+							<tr> 
+								<td><img src="images/button_dark_left.gif" border="0"/></td> 
+								<td class="button_dark">
+									Submit
+								</td> 
+								<td><img src="images/button_dark_right.gif" border="0"/></td>		
+							</tr> 
+						</table> 	
+              	<input name="submitted" type="hidden" id="submitted" value="true"><br>			 
+                </td> 
+            </tr> 
+            <tr> 
+              <td align="left" valign="top"><img src="images/boxlogin_bottom.gif" width="330" height="7"></td> 
+            </tr> 
+				
+			</table>
+			</form>
+			</td>
+		</tr>
+	</tbody>
+</table>
 <table>
-	<tr>
-		<td>username:#springFormInput("user.username" "")</td>
-	</tr>
-	<tr>
-		<td>age:#springFormInput("user.age" "")</td>
-	</tr>
-	<tr>
-		<td>#springShowErrors("</br>" "")
-		</td>
-    </tr>
-	<tr>
-		<td><input type="submit" value="submit" /></td>
-	</tr>
-</table>
-</form>
-</table>
 #foreach($user in $list)
 <tr>
 	<td>$!{user.username}</td>
 	<td>$!{user.age}</td>
 </tr>
 #end
-</body>
-</html>
+</table>
+
+#parse("footer.vm")

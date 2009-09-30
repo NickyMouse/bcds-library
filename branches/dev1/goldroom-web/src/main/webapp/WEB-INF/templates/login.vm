@@ -1,0 +1,39 @@
+#parse("header.vm")
+<table class="blue" width="935">
+	<tbody>
+		<tr>
+			<td valign="top" align="left">
+			<form id="logIn" name="logIn" method="post" action="/logIn.os">
+			<table width="330" cellspacing="0" cellpadding="0" border="0">
+				<tbody>
+					<tr>
+					</tr>
+					<tr>
+						<td class="boxlogin" valign="top" align="left">Email Address
+						<br />
+						<input id="emailAddress" class="logintxtbox" type="text"
+							maxlength="50" value="" size="45" name="emailAddress" /> <br />
+						Password <input id="password" class="logintxtbox" type="password"
+							maxlength="50" size="45" name="password" /> <br />
+						<a href="/forgottenPassword.os">Click here to find a forgotten
+						password…</a> <br />
+						<br />
+						<div style="display: none;"></div>
+						<table cellspacing="0" cellpadding="0" border="0"
+							style="cursor: pointer;"
+							onclick="window.location.href='javascript:document.logIn.submit();'">
+						</table>
+						<input id="submitted" type="hidden" value="true" name="submitted" />
+						<br />
+						</td>
+					</tr>
+					<tr>
+					</tr>
+				</tbody>
+			</table>
+			</form>
+			</td>
+		</tr>
+	</tbody>
+</table>
+#parse("footer.vm")
