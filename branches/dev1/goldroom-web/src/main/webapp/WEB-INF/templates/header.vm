@@ -5,8 +5,8 @@
 <title>XXXX : XXXXX </title>
 <script type="text/javascript" src="#springUrl("/validator.js")"></script>
 <link href="css/styles.css" rel="stylesheet" type="text/css">
-</head><body>
 
+</head><body>
 
 <!-- page body -->
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -15,7 +15,7 @@
 	<tr>
     <td align="left" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="955">
       <tbody><tr>
-        <td align="left" valign="top" width="328"><img src="images/logo_internal.gif" alt="opensubscriber" height="105" width="399"></td>
+        <td align="left" valign="top" width="328"><img src="images/logo_internal.png" alt="opensubscriber" height="105" width="399"></td>
         <td align="right" valign="middle" width="627">
 		<table border="0" cellpadding="0" cellspacing="0" width="289">          
 		<form action="/search" method="get" name="search" id="search"></form>
@@ -39,8 +39,6 @@
           </tr>
           <tr>
             <td colspan="3" align="left" valign="top">
-			
-            
 			</td>
            </tr>          
 		  
