@@ -29,9 +29,6 @@ public class BookSearchBuilder {
 	 */
 	public static void main(String[] args) throws CorruptIndexException,
 			LockObtainFailedException, IOException {
-		List<BuildBookSearchDO> bookList = BookSearchServiceLocator
-				.getBuildBookSearchService().listAllBook(0, 0);
-
 		ApplicationContext handlerContext = SearchApplicationContext
 				.getConvertObjectHandlerContext();
 		ConvertObjectHandler handler = (ConvertObjectHandler) handlerContext
@@ -39,15 +36,24 @@ public class BookSearchBuilder {
 		DocumentFactory factory = DocumentFactory.getInstance(
 				BuildBookSearchDO.class, handler);
 
-		// Directory dir = new SimpleFSDirectory(new File(INDEX_DIR));
-		IndexWriter writer = new IndexWriter(INDEX_DIR, new MMAnalyzer(),
-				true, IndexWriter.MaxFieldLength.LIMITED);
-		List<Document> docList = factory.convertList(bookList);
-		System.out.println("Indexing to directory '" + INDEX_DIR + "'...");
+		IndexWriter writer = new IndexWriter(INDEX_DIR, new MMAnalyzer(), true,
+				IndexWriter.MaxFieldLength.LIMITED);
+		int page = 1;
+		List<BuildBookSearchDO> bookList = BookSearchServiceLocator
+				.getBuildBookSearchService().listAllBook(page);
 		Date start = new Date();
-		for (Document doc : docList) {
-			writer.addDocument(doc);
+		while (bookList != null) {
+			List<Document> docList = factory.convertList(bookList);
+			System.out.println("Indexing to directory '" + INDEX_DIR + "'...");
+
+			for (Document doc : docList) {
+				writer.addDocument(doc);
+			}
+			page++;
+			bookList = BookSearchServiceLocator.getBuildBookSearchService()
+					.listAllBook(page);
 		}
+
 		System.out.println("Optimizing...");
 		writer.optimize();
 		writer.close();
