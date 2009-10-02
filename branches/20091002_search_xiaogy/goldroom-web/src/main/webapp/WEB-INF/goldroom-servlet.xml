@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flow="http://www.springframework.org/schema/webflow-config"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd"
+	default-autowire="byName">
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="suffix" value=".vm" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+	</bean>
+
+	<bean id="velocityConfigurer"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="WEB-INF/templates/" />
+		<property name="velocityProperties">
+			<props>
+				<prop key="directive.foreach.counter.name">loopCounter</prop>
+				<prop key="directive.foreach.counter.initial.value">0</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!--
+		<bean id="validatorFactory"
+		class="org.springmodules.validation.commons.DefaultValidatorFactory">
+		<property name="validationConfigLocations"> <list>
+		<value>/WEB-INF/validator-rules.xml</value>
+		<value>/WEB-INF/validation.xml</value> </list> </property> </bean>
+	-->
+	<!--
+		<bean id="validator"
+		class="org.springmodules.validation.commons.DefaultBeanValidator" />
+	-->
+	<bean id="userValidator" class="org.springmodules.validation.valang.ValangValidator">
+		<property name="valang">
+			<value>
+<![CDATA[
+{ username : length(?) < 30 : 'username too long' : 'username_length' : 30}
+{ age : length(?) < 50 : 'age too long' : 'age_length' : 50 }
+]]>
+			</value>
+		</property>
+	</bean>
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<bean
+					class="org.springmodules.validation.valang.javascript.taglib.ValangRulesExportInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+	</bean>
+
+
+	<bean class="com.alibaba.intl.bcds.goldroom.web.sample.SampleController">
+		<property name="validator" ref="userValidator" />
+		<property name="formView" value="user" />
+		<property name="commandName" value="user" />
+		<property name="commandClass" value="com.alibaba.intl.bcds.goldroom.sample.User" />
+	</bean>
+</beans>
