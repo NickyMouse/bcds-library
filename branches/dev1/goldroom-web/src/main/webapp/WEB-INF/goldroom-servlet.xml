@@ -51,6 +51,7 @@
 					class="org.springmodules.validation.valang.javascript.taglib.ValangRulesExportInterceptor" />
 			</list>
 		</property>
+		<property name="defaultHandler" ref="screenCtroller"/>
 	</bean>
 
 	<bean id="messageSource"
@@ -65,4 +66,6 @@
 		<property name="commandName" value="user" />
 		<property name="commandClass" value="com.alibaba.intl.bcds.goldroom.sample.User" />
 	</bean>
+
+	<bean id="screenCtroller" class="com.alibaba.intl.bcds.goldroom.web.ScreenController" />
 </beans>
