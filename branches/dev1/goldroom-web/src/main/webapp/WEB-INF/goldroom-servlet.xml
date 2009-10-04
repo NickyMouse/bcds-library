@@ -9,6 +9,9 @@
 		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
 		<property name="suffix" value=".vm" />
 		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="contentType">
+			<value>text/html;charset=UTF-8 </value>
+		</property>
 	</bean>
 
 	<bean id="velocityConfigurer"
@@ -18,6 +21,8 @@
 			<props>
 				<prop key="directive.foreach.counter.name">loopCounter</prop>
 				<prop key="directive.foreach.counter.initial.value">0</prop>
+				<prop key="input.encoding">utf-8 </prop>
+				<prop key="output.encoding">utf-8 </prop>
 			</props>
 		</property>
 	</bean>
@@ -60,12 +65,19 @@
 	</bean>
 
 
-	<bean class="com.alibaba.intl.bcds.goldroom.web.sample.SampleController">
+	<bean id="sampleController" name="sampleController"
+		class="com.alibaba.intl.bcds.goldroom.web.sample.SampleController">
 		<property name="validator" ref="userValidator" />
 		<property name="formView" value="user" />
 		<property name="commandName" value="user" />
 		<property name="commandClass" value="com.alibaba.intl.bcds.goldroom.sample.User" />
 	</bean>
+	
+	<bean name="searchController"
+		class="com.alibaba.intl.bcds.goldroom.web.search.SearchController" />
+
+	<bean name="homeController" class="com.alibaba.intl.bcds.goldroom.web.HomeController" />
 
 	<bean id="screenCtroller" class="com.alibaba.intl.bcds.goldroom.web.ScreenController" />
+
 </beans>
