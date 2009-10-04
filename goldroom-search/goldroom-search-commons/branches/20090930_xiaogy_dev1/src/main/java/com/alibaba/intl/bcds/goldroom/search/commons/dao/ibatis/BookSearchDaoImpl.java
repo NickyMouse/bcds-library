@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.Searcher;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
@@ -34,6 +35,7 @@ public class BookSearchDaoImpl implements BookSearchDao {
 	@SuppressWarnings("unchecked")
 	public void searchByQuery(BookSearchQueryObject bsQueryObj) {
 		int number = bsQueryObj.getN() + bsQueryObj.getSkipResult();
+
 		String primarySortKey = bsQueryObj.getPrimarySortFiled();
 		Searcher searcher = searchDatasource.getSearcher();
 
@@ -44,6 +46,7 @@ public class BookSearchDaoImpl implements BookSearchDao {
 		try {
 			docs = searcher.search(query, null, number, new Sort(new SortField(
 					primarySortKey, SortField.AUTO, bsQueryObj.isReverse())));
+
 		} catch (IOException e) {
 			logger.error(e);
 			return;
@@ -54,23 +57,34 @@ public class BookSearchDaoImpl implements BookSearchDao {
 		int numTotalHits = docs.scoreDocs.length;
 		logger.info("[Search Result]" + numTotalHits
 				+ " total matching documents. Time is " + (end - start) + "ms");
-		List result = getResult(searcher, numTotalHits, bsQueryObj
+
+		DocumentToDoConvertor convertor = DocumentToDoConvertor.getConvertor(
+				bsQueryObj.isHighlight(), query);
+
+		List result = getResult(searcher, convertor, docs, bsQueryObj
 				.getSkipResult(), bsQueryObj.getN());
 		bsQueryObj.setResultList(result);
-		bsQueryObj.setTotalCount(numTotalHits);
+		bsQueryObj.setTotalCount(docs.totalHits);
 	}
 
-	protected List<BookSearchDO> getResult(Searcher searcher, int totalHits,
-			int skipResult, int n) {
+	protected List<BookSearchDO> getResult(Searcher searcher,
+			DocumentToDoConvertor convertor, TopDocs topDocs, int skipResult,
+			int n) {
 		List<BookSearchDO> doList = new ArrayList<BookSearchDO>();
-		if (skipResult >= totalHits) {
+		ScoreDoc[] scoreDocList = topDocs.scoreDocs;
+		if (skipResult >= topDocs.scoreDocs.length) {
 			return doList;
 		}
-		for (int i = skipResult; i < totalHits; i++) {
+		int count = 0;
+		for (ScoreDoc scoreDoc : scoreDocList) {
+			count++;
+			if (count < skipResult) {
+				continue;
+			}
 			Document doc = null;
 			try {
-				doc = searcher.doc(i);
-				doList.add(DocumentToDoConvertor.convertToBookSearchDO(doc));
+				doc = searcher.doc(scoreDoc.doc);
+				doList.add(convertor.convertToBookSearchDO(doc));
 			} catch (IOException e) {
 				logger.error(e);
 			}

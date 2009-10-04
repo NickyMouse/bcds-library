@@ -1,17 +1,16 @@
 package com.alibaba.intl.bcds.goldroom.search.commons.service;
 
 import java.util.Date;
-import java.util.List;
 
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearchDO;
+import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQueryObject;
 
 public interface BookSearchService {
-	public List<BookSearchDO> searchBookByCategoryId(Integer catId,
+	public BookSearchQueryObject searchBookByCategoryId(Integer catId,
 			Integer skipResult, Integer number);
 
-	public List<BookSearchDO> searchBookByKeyword(String keyword,
+	public BookSearchQueryObject searchBookByKeyword(String keyword,
 			Integer skipResult, Integer number);
 
-	public List<BookSearchDO> searchBookByTime(Date startTime, Date endTime,
+	public BookSearchQueryObject searchBookByTime(Date startTime, Date endTime,
 			Integer skipResult, Integer number);
 }

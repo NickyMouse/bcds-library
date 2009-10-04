@@ -23,6 +23,16 @@ public class BookSearchQueryObject extends BaseQueryObject {
 	private boolean reverse = false;
 	private List bookSearchDoList;
 	private int totalCount;
+	private boolean isHighlight = false;
+
+	public boolean isHighlight() {
+		return isHighlight;
+	}
+
+	public BookSearchQueryObject setHighlight(boolean isHighlight) {
+		this.isHighlight = isHighlight;
+		return this;
+	}
 
 	public int getSkipResult() {
 		return skipResult;
