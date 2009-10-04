@@ -5,5 +5,6 @@
 	default-autowire="byName">
 	<bean id="userService"
 		class="com.alibaba.intl.bcds.goldroom.sample.service.impl.UserServiceImpl" />
-
+	<bean id="bookSearchService"
+		class="com.alibaba.intl.bcds.goldroom.search.commons.service.impl.BookSearchServiceImpl" />
 </beans>
