@@ -42,9 +42,10 @@ public class BookSearchBuilder {
 		List<BuildBookSearchDO> bookList = BookSearchServiceLocator
 				.getBuildBookSearchService().listAllBook(page);
 		Date start = new Date();
-		while (bookList != null) {
+		System.out.println("Indexing to directory '" + INDEX_DIR + "'...");
+		while (bookList != null && bookList.size()>0) {
 			List<Document> docList = factory.convertList(bookList);
-			System.out.println("Indexing to directory '" + INDEX_DIR + "'...");
+			System.out.println("page:"+page +" list:"+bookList.size());
 
 			for (Document doc : docList) {
 				writer.addDocument(doc);
