@@ -24,18 +24,18 @@ public class BuildBookSearchDaoTest extends TestCase {
 	}
 
 	public void testListAllBook() {
-		List<BuildBookSearchDO> result = buildBookSearchDao.listAllBook(1);
-		for(BuildBookSearchDO buildBookSearchDO : result){
-			System.out.println(buildBookSearchDO.getItemId());
-		}
+//		List<BuildBookSearchDO> result = buildBookSearchDao.listAllBook(1);
+//		for(BuildBookSearchDO buildBookSearchDO : result){
+//			System.out.println(buildBookSearchDO.getItemId());
+//		}
 	}
 
 	public void testListAllCategory() {
-		Map<Integer, BuildCategorySearchDO> map = buildBookSearchDao.listAllCategory();
-		Collection<BuildCategorySearchDO> result = map.values();
-		for(BuildCategorySearchDO buildCategorySearchDO : result){
-			System.out.println(buildCategorySearchDO.getId() + "  " + buildCategorySearchDO.getName());
-		}
+//		Map<Integer, BuildCategorySearchDO> map = buildBookSearchDao.listAllCategory();
+//		Collection<BuildCategorySearchDO> result = map.values();
+//		for(BuildCategorySearchDO buildCategorySearchDO : result){
+//			System.out.println(buildCategorySearchDO.getId() + "  " + buildCategorySearchDO.getName());
+//		}
 	}
 
 }

@@ -1,10 +1,8 @@
 package com.alibaba.intl.bcds.goldroom.search.commons.service.impl;
 
 import java.util.Date;
-import java.util.List;
 
 import com.alibaba.intl.bcds.goldroom.search.commons.dao.BookSearchDao;
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearchDO;
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.helper.BookSearchConstrains;
 import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQueryObject;
 import com.alibaba.intl.bcds.goldroom.search.commons.service.BookSearchService;
@@ -22,28 +20,31 @@ public class BookSearchServiceImpl implements BookSearchService {
 		this.bookSearchDao = bookSearchDao;
 	}
 
-	public List<BookSearchDO> searchBookByCategoryId(Integer id,
+	
+	public BookSearchQueryObject searchBookByCategoryId(Integer id,
 			Integer skipResult, Integer number) {
 		SearchConditionBuilder builder = SearchConditionBuilder.getInstance()
 				.addTerm(BookSearchConstrains.BOOK_CATEGORY_ID, id.toString());
 		BookSearchQueryObject query = BookSearchQueryObject
 				.getInstance(builder).setN(number).setSkipResult(skipResult)
 				.setPrimarySortFiled("");
-		return bookSearchDao.searchByQuery(query);
+		bookSearchDao.searchByQuery(query);
+		return query;
 	}
 
-	public List<BookSearchDO> searchBookByKeyword(String keyword,
+	public BookSearchQueryObject searchBookByKeyword(String keyword,
 			Integer skipResult, Integer number) {
 		SearchConditionBuilder builder = SearchConditionBuilder.getInstance()
 				.addTerm(BookSearchConstrains.BOOK_NAME, keyword).addTerm(
 						BookSearchConstrains.BOOK_DESCRIPTION, keyword);
 		BookSearchQueryObject query = BookSearchQueryObject
 				.getInstance(builder).setN(number).setSkipResult(skipResult)
-				.setPrimarySortFiled("");
-		return bookSearchDao.searchByQuery(query);
+				.setPrimarySortFiled("").setHighlight(true);
+		bookSearchDao.searchByQuery(query);
+		return query;
 	}
 
-	public List<BookSearchDO> searchBookByTime(Date startTime, Date endTime,
+	public BookSearchQueryObject searchBookByTime(Date startTime, Date endTime,
 			Integer skipResult, Integer number) {
 		SearchConditionBuilder builder = SearchConditionBuilder.getInstance()
 				.addDateRange(BookSearchConstrains.ITEM_FIRST_ADD_TIME,
@@ -51,7 +52,8 @@ public class BookSearchServiceImpl implements BookSearchService {
 		BookSearchQueryObject query = BookSearchQueryObject
 				.getInstance(builder).setN(number).setSkipResult(skipResult)
 				.setPrimarySortFiled("");
-		return bookSearchDao.searchByQuery(query);
+		bookSearchDao.searchByQuery(query);
+		return query;
 	}
 
 }
