@@ -17,7 +17,7 @@
         <td align="left" valign="top" width="328"><img src="images/logo_internal.png" alt="opensubscriber" height="105" width="399"></td>
         <td align="right" valign="middle" width="627">
 		<table border="0" cellpadding="0" cellspacing="0" width="289">          
-		<form action="/search" method="get" name="search" id="search"></form>
+		<form action="search.htm" method="get" name="search" id="search">
           <tbody><tr>
             <td align="left" valign="top" width="271"><table border="0" cellpadding="0" cellspacing="0" width="254">
               <tbody><tr>
@@ -25,7 +25,7 @@
                 </tr>
               <tr>
                 <td align="left" valign="top" width="5"><img src="images/internal_txtbox_left.gif" height="22" width="5"></td>
-                <td align="left" bgcolor="#acd674" valign="middle" width="396"><input name="q" class="searchbox_internal" id="q" value="Search the archives..." size="35" onclick="javascript:if (this.value=='Search the archives…') this.value='';" onblur="javascript:if (this.value=='') this.value='Search the archives…';" type="text"></td>
+                <td align="left" bgcolor="#acd674" valign="middle" width="396"><input name="q" class="searchbox_internal" id="q" value="#if($keywords)$keywords #else Search the archives...#end" size="35" onclick="this.value='';" onblur="javascript:if (this.value=='') this.value='Search the archives...';" type="text"></td>
                 <td align="left" valign="top" width="5"><img src="images/internal_txtbox_right.gif" height="22" width="5"></td>
               </tr>
               <tr>
@@ -41,7 +41,9 @@
 			</td>
            </tr>          
 		  
-        </tbody></table></td>
+        </tbody>
+		</form>
+		</table></td>
       </tr>
     </tbody></table></td>
   </tr><!-- END Header, search box-->
@@ -49,7 +51,7 @@
   <!-- Main Menu-->
   <tr>
     <td class="nav_internal" align="left" valign="middle">
-	<a href="http://www.opensubscriber.com/home.os">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="home.htm">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	
 	<a href="http://www.opensubscriber.com/logIn.os">Log In</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	<a href="http://www.opensubscriber.com/signUp.os">Sign Up</a>&nbsp;&nbsp;&nbsp;&nbsp;		
