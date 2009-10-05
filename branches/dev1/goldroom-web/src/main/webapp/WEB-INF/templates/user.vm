@@ -1,5 +1,4 @@
-#parse("header.vm")
-<script type="text/javascript" src="#springUrl("/validator.js")"></script>
+
 <table class="blue" width="100%">
 	<tbody>
 		<tr>
@@ -51,5 +50,3 @@
 </tr>
 #end
 </table>
-
-#parse("footer.vm")
