@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flow="http://www.springframework.org/schema/webflow-config"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd"
+		http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+		 http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-2.5.xsd"
 	default-autowire="byName">
 
 	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
 		<property name="suffix" value=".vm" />
 		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="layoutUrl" value="/layout/default.vm" />
 		<property name="contentType">
 			<value>text/html;charset=UTF-8 </value>
 		</property>
@@ -17,6 +21,7 @@
 	<bean id="velocityConfigurer"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
 		<property name="resourceLoaderPath" value="WEB-INF/templates/" />
+
 		<property name="velocityProperties">
 			<props>
 				<prop key="directive.foreach.counter.name">loopCounter</prop>
@@ -56,7 +61,7 @@
 					class="org.springmodules.validation.valang.javascript.taglib.ValangRulesExportInterceptor" />
 			</list>
 		</property>
-		<property name="defaultHandler" ref="screenCtroller"/>
+		<property name="defaultHandler" ref="screenCtroller" />
 	</bean>
 
 	<bean id="messageSource"
@@ -72,12 +77,19 @@
 		<property name="commandName" value="user" />
 		<property name="commandClass" value="com.alibaba.intl.bcds.goldroom.sample.User" />
 	</bean>
-	
+
 	<bean name="searchController"
 		class="com.alibaba.intl.bcds.goldroom.web.search.SearchController" />
 
 	<bean name="homeController" class="com.alibaba.intl.bcds.goldroom.web.HomeController" />
 
 	<bean id="screenCtroller" class="com.alibaba.intl.bcds.goldroom.web.ScreenController" />
+
+	<!--
+		<context:component-scan
+		base-package="com.intl.alibaba.bcds.goldroom.web" /> <bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"
+		/>
+	-->
 
 </beans>

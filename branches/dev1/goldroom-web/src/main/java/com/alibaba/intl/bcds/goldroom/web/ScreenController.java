@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * 
  * @author Zimmem
  */
+
 public class ScreenController extends AbstractController {
 
     /*
@@ -35,6 +36,7 @@ public class ScreenController extends AbstractController {
      * (javax.servlet.http.HttpServletRequest,
      * javax.servlet.http.HttpServletResponse)
      */
+
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
@@ -42,5 +44,9 @@ public class ScreenController extends AbstractController {
         String view = path.substring(1, path.indexOf("."));
         return new ModelAndView(view);
     }
+
+    /*
+     * public String execute() { return "user"; }
+     */
 
 }
