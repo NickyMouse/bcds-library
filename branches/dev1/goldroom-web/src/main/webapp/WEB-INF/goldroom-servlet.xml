@@ -28,40 +28,53 @@
 				<prop key="directive.foreach.counter.initial.value">0</prop>
 				<prop key="input.encoding">utf-8 </prop>
 				<prop key="output.encoding">utf-8 </prop>
+				<prop key="velocimacro.library">macro/macro.vm</prop>
 			</props>
 		</property>
 	</bean>
 
-	<!--
-		<bean id="validatorFactory"
+
+	<bean id="validatorFactory"
 		class="org.springmodules.validation.commons.DefaultValidatorFactory">
-		<property name="validationConfigLocations"> <list>
-		<value>/WEB-INF/validator-rules.xml</value>
-		<value>/WEB-INF/validation.xml</value> </list> </property> </bean>
-	-->
-	<!--
-		<bean id="validator"
-		class="org.springmodules.validation.commons.DefaultBeanValidator" />
-	-->
-	<bean id="userValidator" class="org.springmodules.validation.valang.ValangValidator">
-		<property name="valang">
-			<value>
-<![CDATA[
-{ username : length(?) < 30 : 'username too long' : 'username_length' : 30}
-{ age : length(?) < 50 : 'age too long' : 'age_length' : 50 }
-]]>
-			</value>
-		</property>
-	</bean>
-	<bean id="urlMapping"
-		class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
-		<property name="interceptors">
+		<property name="validationConfigLocations">
 			<list>
-				<bean
-					class="org.springmodules.validation.valang.javascript.taglib.ValangRulesExportInterceptor" />
+				<value>/WEB-INF/validator-rules.xml</value>
+				<value>/WEB-INF/validation.xml</value>
 			</list>
 		</property>
-		<property name="defaultHandler" ref="screenCtroller" />
+	</bean>
+
+	<bean id="validator"
+		class="org.springmodules.validation.commons.DefaultBeanValidator" />
+
+	<!--
+		<bean id="userValidator"
+		class="org.springmodules.validation.valang.ValangValidator"> <property
+		name="valang"> <value> <![CDATA[ { username : length(?) < 10 :
+		'username too long' : 'username_length' : 30} { age : length(?) < 50 :
+		'age too long' : 'age_length' : 50 } ]]> </value> </property> </bean>
+	-->
+	<bean id="handlerMapping"
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+		<property name="order">
+			<value>0</value>
+		</property>
+	</bean>
+
+
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+		<!--
+			<property name="interceptors"> <list> <bean
+			class="org.springmodules.validation.valang.javascript.taglib.ValangRulesExportInterceptor"
+			/> </list> </property>
+		-->
+		<property name="order">
+			<value>1</value>
+		</property>
+		<property name="defaultHandler">
+			<bean class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+		</property>
 	</bean>
 
 	<bean id="messageSource"
@@ -70,21 +83,31 @@
 	</bean>
 
 
-	<bean id="sampleController" name="sampleController"
+	<bean id="sampleController"
 		class="com.alibaba.intl.bcds.goldroom.web.sample.SampleController">
-		<property name="validator" ref="userValidator" />
+		<property name="validator" ref="validator" />
 		<property name="formView" value="user" />
 		<property name="commandName" value="user" />
 		<property name="commandClass" value="com.alibaba.intl.bcds.goldroom.sample.User" />
 	</bean>
 
-	<bean name="searchController"
-		class="com.alibaba.intl.bcds.goldroom.web.search.SearchController" />
+	<bean class="com.alibaba.intl.bcds.goldroom.web.search.SearchController" />
 
-	<bean name="homeController" class="com.alibaba.intl.bcds.goldroom.web.HomeController" />
+	<bean class="com.alibaba.intl.bcds.goldroom.web.HomeController" />
 
 	<bean id="screenCtroller" class="com.alibaba.intl.bcds.goldroom.web.ScreenController" />
 
+	<bean name="/user/findIsbn.htm" class="com.alibaba.intl.bcds.goldroom.web.FindIsbnController" />
+
+	<bean name="/user/confirmedShelves.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ConfirmedShelvesController" />
+
+	<bean name="/user/fillBookInfo.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.FillBookInfoController">
+		<property name="commandName" value="bookInfo" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo" />
+	</bean>
 	<!--
 		<context:component-scan
 		base-package="com.intl.alibaba.bcds.goldroom.web" /> <bean

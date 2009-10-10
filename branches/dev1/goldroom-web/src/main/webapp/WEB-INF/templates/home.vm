@@ -1,3 +1,1 @@
-#parse("header.vm")
 home
-#parse("footer.vm")

@@ -9,10 +9,35 @@
 
 		<form name="user">
 			<field property="username" depends="required">
-				<msg key="username.required" name="username.required"/>
+				<arg0 key="username" resource="false" />
+				<msg key="username.required" name="username.required" />
 			</field>
-			<field property="age" depends="required">
-				<msg key="age.required" name="username.required"/>
+			<field property="age" depends="required,integer">
+				<msg key="age.required" name="age.required" />
+				<arg0 key="age" resource="false" />
+			</field>
+		</form>
+
+		<form name="bookInfo">
+			<field property="name" depends="required">
+				<arg0 key="username" resource="false" />
+				<msg key="username.required" name="username.required" />
+			</field>
+			<field property="author" depends="required">
+				<msg key="age.required" name="age.required" />
+				<arg0 key="age" resource="false" />
+			</field>
+			<field property="categoryName" depends="required">
+				<msg key="age.required" name="age.required" />
+				<arg0 key="age" resource="false" />
+			</field>
+			<field property="description" depends="required">
+				<msg key="age.required" name="age.required" />
+				<arg0 key="age" resource="false" />
+			</field>
+			<field property="publisher" depends="required">
+				<msg key="age.required" name="age.required" />
+				<arg0 key="age" resource="false" />
 			</field>
 		</form>
 

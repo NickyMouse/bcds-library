@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
-<sqlMap namespace="BOOK_ITEM" >
-	<typeAlias alias="BookItemDO" type="com.alibaba.intl.bcds.goldroom.dataobject.BookItemDO"/>
+<sqlMap namespace="BOOK_ITEM">
+	<typeAlias alias="BookItemDO"
+		type="com.alibaba.intl.bcds.goldroom.dataobject.BookItemDO" />
 	<resultMap class="BookItemDO" id="BookItemResult">
 		<result property="id" column="ID" jdbcType="DECIMAL" />
 		<result property="state" column="STATE" jdbcType="DECIMAL" />
@@ -9,43 +10,70 @@
 		<result property="addTime" column="ADD_TIME" jdbcType="DATETIME" />
 		<result property="removeTime" column="REMOVE_TIME" jdbcType="DATETIME" />
 		<result property="bookInfoId" column="BOOK_INFO_ID" jdbcType="DECIMAL" />
-		<result property="firstAddTime" column="FIRST_ADD_TIME" jdbcType="DATETIME" />
+		<result property="firstAddTime" column="FIRST_ADD_TIME"
+			jdbcType="DATETIME" />
 		<result property="gmtCreate" column="GMT_CREATE" jdbcType="DATETIME" />
 		<result property="gmtModified" column="GMT_MODIFIED" jdbcType="DATETIME" />
 		<result property="tags" column="TAGS" jdbcType="VARCHAR" />
 	</resultMap>
-	
+
 	<select id="listAll" resultMap="BookItemResult">
-		SELECT ID,STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS 
+		SELECT
+		ID,STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
 		FROM BOOK_ITEM
 	</select>
-	
-	<insert id="insert" parameterClass="BookItemDO">
-		INSERT INTO BOOK_ITEM (STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS )
-		VALUES (#state:DECIMAL#,#ownerId:DECIMAL#,#addTime:DATETIME#,#removeTime:DATETIME#,#bookInfoId:DECIMAL#,#firstAddTime:DATETIME#,NOW(),NOW(),#tags:VARCHAR#)
+
+	<insert id="BOOK_ITEM.addBookItemWithLoginIdAndIsbn"
+		parameterClass="java.util.HashMap">
+		INSERT INTO BOOK_ITEM
+		(STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
+		)
+		VALUES
+		(1,(select id from MEMBER where LOGIN_ID =
+		#loginId:VARCHAR#),now(),now(),(select id from book_info where
+		isbn=#ISBN:VARCHAR#),NOW(),NOW(),NOW(),null)
 	</insert>
-	
+
+	<insert id="insert" parameterClass="BookItemDO">
+		INSERT INTO BOOK_ITEM
+		(STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
+		)
+		VALUES
+		(#state:DECIMAL#,#ownerId:DECIMAL#,#addTime:DATETIME#,#removeTime:DATETIME#,#bookInfoId:DECIMAL#,#firstAddTime:DATETIME#,NOW(),NOW(),#tags:VARCHAR#)
+	</insert>
+
 	<update id="updateById" parameterClass="BookItemDO">
 		UPDATE BOOK_ITEM SET
-			STATE=#state:DECIMAL#,
-			OWNER_ID=#ownerId:DECIMAL#,
-			ADD_TIME=#addTime:DATETIME#,
-			REMOVE_TIME=#removeTime:DATETIME#,
-			BOOK_INFO_ID=#bookInfoId:DECIMAL#,
-			FIRST_ADD_TIME=#firstAddTime:DATETIME#,
-			GMT_MODIFIED=NOW(),
-			TAGS=#tags:VARCHAR#
+		STATE=#state:DECIMAL#,
+		OWNER_ID=#ownerId:DECIMAL#,
+		ADD_TIME=#addTime:DATETIME#,
+		REMOVE_TIME=#removeTime:DATETIME#,
+		BOOK_INFO_ID=#bookInfoId:DECIMAL#,
+		FIRST_ADD_TIME=#firstAddTime:DATETIME#,
+		GMT_MODIFIED=NOW(),
+		TAGS=#tags:VARCHAR#
 		WHERE ID=#id:DECIMAL#
 	</update>
-	
+
 	<delete id="deleteById" parameterClass="java.lang.Integer">
 		DELETE FROM BOOK_ITEM
 		WHERE ID=#id:DECIMAL#
 	</delete>
-	
-	<select id="findById" parameterClass="java.lang.Integer" resultMap="BookItemResult">
-		SELECT ID,STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS 
+
+	<select id="findById" parameterClass="java.lang.Integer"
+		resultMap="BookItemResult">
+		SELECT
+		ID,STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
 		FROM BOOK_ITEM
 		WHERE ID=#id:DECIMAL#
+	</select>
+
+	<select id="listBookItemsByLoginId" parameterClass="java.lang.String"
+		resultMap="BookItemResult">
+		SELECT
+		ID,STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
+		FROM BOOK_ITEM
+		WHERE OWNER_ID=(select id from member where
+		login_id=#value:VARCHAR#)
 	</select>
 </sqlMap>

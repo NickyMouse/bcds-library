@@ -2,7 +2,7 @@ package com.alibaba.intl.bcds.goldroom.dataobject;
 
 import java.util.Date;
 
-public class BookItemDO {
+public class BookItem {
     private Integer id;
     private Integer state;
     private Integer ownerId;

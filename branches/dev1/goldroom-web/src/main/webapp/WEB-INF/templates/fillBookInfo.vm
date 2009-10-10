@@ -1,0 +1,45 @@
+该书籍信息不存在，请先填写书籍信息
+<form action="/user/fillBookInfo.htm" method="POST">
+<table >
+	<tr >
+        <td >isbn
+        </td>
+        <td >$!{isbn}
+			<input type="hidden" name="isbn" value="$!{isbn}"/>
+        </td>
+    </tr>
+    <tr >
+        <td >NAME
+        </td>
+        <td ><input name="name" type="text" />
+        </td>
+    </tr>
+    <tr>
+        <td>AUTHOR</td>
+        <td >
+           <input name="author" type="text" /></td>
+    </tr>
+	 <tr>
+        <td>CATEGORY</td>
+        <td >
+           <input name="categoryName" type="text" /></td>
+    </tr>
+    <tr >
+        <td >DESCRIPTION
+        </td>
+        <td ><textarea name="description"></textarea>
+        </td>
+    </tr>
+    <tr >
+        <td >PUBLISHER
+        </td>
+        <td ><input name="publisher" type="text" />
+        </td>
+    </tr>
+	<tr >
+        <td ><input name="submit" type="submit" value="submit"/>
+        </td>
+        
+    </tr>
+</table>
+</form>

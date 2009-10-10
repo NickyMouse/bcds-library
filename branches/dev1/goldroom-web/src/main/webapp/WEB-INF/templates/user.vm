@@ -1,8 +1,12 @@
 
+
 <table class="blue" width="100%">
+	
 	<tbody>
 		<tr>
 			<td valign="top" align="center">
+				#springBind("user.*")
+				#validationError()
 			<form method="POST" name="aaa">
 			<table  width="330" cellspacing="0" cellpadding="0" border="0">
 				<tr> 
