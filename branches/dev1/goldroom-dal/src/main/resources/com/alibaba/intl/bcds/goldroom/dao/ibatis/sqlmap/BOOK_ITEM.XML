@@ -6,7 +6,7 @@
 	<resultMap class="BookItem" id="BookItemResult">
 		<result property="id" column="ID" jdbcType="DECIMAL" />
 		<result property="state" column="STATE" jdbcType="VARCHAR" />
-		<result property="ownerId" column="OWNER_ID" jdbcType="DECIMAL" />
+		<result property="loginId" column="LOGIN_ID" jdbcType="VARCHAR" />
 		<result property="addTime" column="ADD_TIME" jdbcType="DATETIME" />
 		<result property="removeTime" column="REMOVE_TIME" jdbcType="DATETIME" />
 		<result property="bookInfoId" column="BOOK_INFO_ID" jdbcType="DECIMAL" />
@@ -19,7 +19,7 @@
 	<resultMap class="BookItem" id="BookItemWithInfoResult">
 		<result property="id" column="ID" jdbcType="DECIMAL" />
 		<result property="state" column="STATE" jdbcType="VARCHAR" />
-		<result property="ownerId" column="OWNER_ID" jdbcType="DECIMAL" />
+		<result property="loginId" column="LOGIN_ID" jdbcType="VARCHAR" />
 		<result property="addTime" column="ADD_TIME" jdbcType="DATETIME" />
 		<result property="removeTime" column="REMOVE_TIME" jdbcType="DATETIME" />
 		<result property="bookInfoId" column="BOOK_INFO_ID" jdbcType="DECIMAL" />
@@ -55,8 +55,8 @@
 			jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="selectBookItemWithInfo">
-		select t.ID as ID,t.STATE as STATE,t.OWNER_ID as
-		OWNER_ID,t.ADD_TIME as ADD_TIME,t.REMOVE_TIME as REMOVE_TIME
+		select t.ID as ID,t.STATE as STATE,t.LOGIN_ID as
+		LOGIN_ID,t.ADD_TIME as ADD_TIME,t.REMOVE_TIME as REMOVE_TIME
 		,t.BOOK_INFO_ID as BOOK_INFO_ID,t.FIRST_ADD_TIME as
 		FIRST_ADD_TIME,t.GMT_CREATE as GMT_CREATE,t.GMT_MODIFIED as
 		GMT_MODIFIED,t.TAGS as TAGS,n.ID as BOOKINFO_ID,n.AUTHOR as
@@ -75,14 +75,14 @@
 	</sql>
 	<select id="listAll" resultMap="BookItemResult">
 		SELECT
-		ID,STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
+		ID,STATE,LOGIN_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
 		FROM BOOK_ITEM
 	</select>
 
 	<insert id="BOOK_ITEM.addBookItemWithLoginIdAndIsbn"
 		parameterClass="java.util.HashMap">
 		INSERT INTO BOOK_ITEM
-		(STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
+		(STATE,LOGIN_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
 		)
 		VALUES
 		('idle',(select id from MEMBER where LOGIN_ID =
@@ -90,18 +90,18 @@
 		isbn=#ISBN:VARCHAR#),NOW(),NOW(),NOW(),null)
 	</insert>
 
-	<insert id="insert" parameterClass="BookItemDO">
+	<insert id="insert" parameterClass="BookItem">
 		INSERT INTO BOOK_ITEM
-		(STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
+		(STATE,LOGIN_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
 		)
 		VALUES
-		(#state:VARCHAR#,#ownerId:DECIMAL#,#addTime:DATETIME#,#removeTime:DATETIME#,#bookInfoId:DECIMAL#,#firstAddTime:DATETIME#,NOW(),NOW(),#tags:VARCHAR#)
+		(#state:VARCHAR#,#loginId:VARCHAR#,#addTime:DATETIME#,#removeTime:DATETIME#,#bookInfoId:DECIMAL#,#firstAddTime:DATETIME#,NOW(),NOW(),#tags:VARCHAR#)
 	</insert>
 
-	<update id="updateById" parameterClass="BookItemDO">
+	<update id="updateById" parameterClass="BookItem">
 		UPDATE BOOK_ITEM SET
 		STATE=#state:VARCHAR#,
-		OWNER_ID=#ownerId:DECIMAL#,
+		LOGIN_ID=#loginId:VARCHAR#,
 		ADD_TIME=#addTime:DATETIME#,
 		REMOVE_TIME=#removeTime:DATETIME#,
 		BOOK_INFO_ID=#bookInfoId:DECIMAL#,
@@ -119,7 +119,7 @@
 	<select id="findById" parameterClass="java.lang.Integer"
 		resultMap="BookItemResult">
 		SELECT
-		ID,STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
+		ID,STATE,LOGIN_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
 		FROM BOOK_ITEM
 		WHERE ID=#id:DECIMAL#
 	</select>
@@ -127,16 +127,16 @@
 	<select id="listBookItemsByLoginId" parameterClass="java.lang.String"
 		resultMap="BookItemResult">
 		SELECT
-		ID,STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
+		ID,STATE,LOGIN_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
 		FROM BOOK_ITEM
-		WHERE OWNER_ID=(select id from member where
+		WHERE LOGIN_ID=(select id from member where
 		login_id=#value:VARCHAR#)
 	</select>
 
 	<select id="listBookItemsByStateAndOwner" parameterClass="java.util.HashMap"
 		resultMap="BookItemResult">
 		<include refid="selectBookItemWithInfo" />
-		where t.owner_id=( select id from member where
+		where t.LOGIN_ID=( select id from member where
 		login_id=#login_id:varchar#)
 		<isNotEmpty property="state" open="and "> t.state=#state:varchar#
 		</isNotEmpty>
