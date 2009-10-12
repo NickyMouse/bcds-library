@@ -6,7 +6,6 @@ package com.alibaba.intl.bcds.goldroom.dao;
 import java.util.List;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
-import com.alibaba.intl.bcds.goldroom.dataobject.BookItemDO;
 
 /**
  * @author Giraffe
@@ -14,10 +13,10 @@ import com.alibaba.intl.bcds.goldroom.dataobject.BookItemDO;
  */
 public interface BookItemDao {
 	List<BookItemDao> listAll();
-	Integer insert(BookItemDO bookItemDO);
-	int updateById(BookItemDO bookItemDO);
+	Integer insert(BookItem bookItemDO);
+	int updateById(BookItem bookItemDO);
 	int deleteById(Integer id);
-	BookItemDO findById(Integer id);
+	BookItem findById(Integer id);
     /**
      * @param loginId
      * @param isbn
