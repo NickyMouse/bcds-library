@@ -1,0 +1,28 @@
+#parse("header.vm")
+<br/>
+<table width="100%" cellspacing="0" cellpadding="3" border="0">
+	<tbody>
+		<tr><td colspan="2" align="center"><h1>book name</h1></td></tr>
+		<tr>
+		  <td width="300" align="right"><img src="images/logo_internal.png" class="detailBookImage"/>
+          </td>
+		  <td width="450">
+            	<table width="100%">
+            		<tr><td align="right" width="20%">作者&nbsp;&nbsp;</td><td align="left">auth</td></tr>
+                    <tr><td align="right">ISBN&nbsp;&nbsp;</td><td align="left">isbn</td></tr>
+            	    <tr><td align="right">出版社&nbsp;&nbsp;</td><td align="left">chubanshe</td></tr>
+            	    <tr><td align="right">出版时间&nbsp;&nbsp;</td><td align="left">chubanshijian</td></tr>
+            	    <tr><td align="right">版次&nbsp;&nbsp;</td><td align="left">di1ban</td></tr>
+            	    <tr><td align="right">描述&nbsp;&nbsp;</td><td align="left">mdassaaaaaaaaaaaaaaaaaaaaaasdfffffffffffffffffffffasdfa sadfaefaewf asdfawefaewr sdfaw eraewr eab aweravgiaoshu</td></tr>
+           		</table>
+          </td>
+        </tr>
+	</tbody>
+</table>
+<br/>
+<table>
+<tr>
+	<td></td>
+</tr>
+</table>
+#parse("footer.vm")

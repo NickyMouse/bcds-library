@@ -1,16 +1,16 @@
 #parse("header.vm")
 Total Result:$totalCount
 #parse("navigator.vm")
-<table width="935" cellspacing="0" cellpadding="3" border="0">
+<table width="100%" cellspacing="0" cellpadding="3" border="0">
 	<tbody>
 		<tr height="25">
-			<td class="lines" width="20%" valign="top" bgcolor="#cce4a3" align="left">
+			<td class="lines" width="15%" valign="top" bgcolor="#cce4a3" align="left">
 				<strong>Image</strong>
 			</td>
-			<td class="lines" width="10%" valign="top" bgcolor="#cce4a3" align="left">
+			<td class="lines" width="15%" valign="top" bgcolor="#cce4a3" align="left">
 				<strong>Name</strong>
 			</td>
-			<td class="lines" width="20%" valign="top" bgcolor="#cce4a3" align="left">
+			<td class="lines" width="10%" valign="top" bgcolor="#cce4a3" align="left">
 				<strong>Edition</strong>
 			</td>
 			<td class="lines" width="137" valign="top" bgcolor="#cce4a3" align="left">
@@ -22,7 +22,7 @@ Total Result:$totalCount
 		</tr>
 		#foreach($book in $list)
 		<tr #if($velocityCount)class="highlight"#end height="120" >
-			<td class="lines" width="35" valign="middle"  align="left" >
+			<td class="lines" width="35" valign="middle"  align="center" >
 				<img class="bookImage" src="$book.bookImgUrl"/>
 			</td>
 			<td class="lines">$book.bookName</td>
