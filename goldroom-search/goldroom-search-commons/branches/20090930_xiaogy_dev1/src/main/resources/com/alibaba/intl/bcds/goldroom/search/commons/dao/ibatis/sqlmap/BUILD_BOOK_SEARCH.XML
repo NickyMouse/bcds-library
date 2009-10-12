@@ -5,7 +5,7 @@
 		type="com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearchDO" />
 	<resultMap class="BuildBookSearchDO" id="bookSearchResult">
 		<result property="itemId" column="ITEM_ID" jdbcType="DECIMAL"/>
-		<result property="itemState" column="ITEM_STATE" jdbcType="DECIMAL"/>
+		<result property="itemState" column="ITEM_STATE" jdbcType="VARCHAR"/>
 		<result property="itemAddTime" column="ITEM_ADD_TIME" jdbcType="DATETIME"/>
 		<result property="itemFirstAddTime" column="ITEM_FIRST_ADD_TIME" jdbcType="DATETIME"/>
 		<result property="itemGmtCreate" column="ITEM_GMT_CREATE" jdbcType="DATETIME"/>
@@ -70,10 +70,10 @@
 			m.ALI_TALK_ID		MEMBER_ALI_TALK_ID
 		FROM BOOK_ITEM item
 			JOIN BOOK_INFO info ON item.BOOK_INFO_ID = info.ID
-			JOIN MEMBER m ON item.OWNER_ID = m.ID
+			JOIN MEMBER m ON item.LOGIN_ID = m.LOGIN_ID
 		WHERE
 		<![CDATA[
-			m.ENABLE=1 AND item.STATE<>0 
+			m.ENABLE=1 AND item.STATE<>0
 		]]>
 		ORDER BY item.FIRST_ADD_TIME DESC
 		LIMIT #skipRow#,#pageSize#
