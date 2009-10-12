@@ -79,7 +79,7 @@ CYGWIN*) cygwin=true;;
 OS400*) os400=true;;
 Darwin*) darwin=true;;
 esac
-
+CATALINA_BASE=`pwd`
 # resolve links - $0 may be a softlink
 PRG="$0"
 
@@ -186,6 +186,7 @@ if [ -r "$CATALINA_BASE"/conf/logging.properties ]; then
 fi
 
 # ----- Execute The Requested Command -----------------------------------------
+
 
 # Bugzilla 37848: only output this if we have a TTY
 if [ $have_tty -eq 1 ]; then
