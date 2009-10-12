@@ -15,7 +15,7 @@ public class BookItem {
 
     private Integer            id;
     private String             state;
-    private Integer            ownerId;
+    private String             loginId;
     private Date               addTime;
     private Date               removeTime;
     private Integer            bookInfoId;
@@ -55,13 +55,6 @@ public class BookItem {
         this.state = state;
     }
 
-    public Integer getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(Integer ownerId) {
-        this.ownerId = ownerId;
-    }
 
     public Date getAddTime() {
         return addTime;
@@ -118,4 +111,12 @@ public class BookItem {
     public void setTags(String tags) {
         this.tags = tags;
     }
+
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
+
+	public String getLoginId() {
+		return loginId;
+	}
 }
