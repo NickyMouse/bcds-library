@@ -23,7 +23,8 @@ public class BookItem {
     private Date               gmtCreate;
     private Date               gmtModified;
     private BookInfo           bookInfo;
-
+    private String 			   tags;
+    
     /**
      * @return the bookInfo
      */
@@ -117,6 +118,4 @@ public class BookItem {
     public void setTags(String tags) {
         this.tags = tags;
     }
-
-    private String tags;
 }
