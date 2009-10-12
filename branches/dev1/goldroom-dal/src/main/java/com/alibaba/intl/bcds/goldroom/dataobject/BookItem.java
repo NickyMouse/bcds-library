@@ -3,15 +3,40 @@ package com.alibaba.intl.bcds.goldroom.dataobject;
 import java.util.Date;
 
 public class BookItem {
-    private Integer id;
-    private Integer state;
-    private Integer ownerId;
-    private Date    addTime;
-    private Date    removeTime;
-    private Integer bookInfoId;
-    private Date    firstAddTime;
-    private Date    gmtCreate;
-    private Date    gmtModified;
+
+    /** 空闲 */
+    public static final String STATE_IDLE        = "idle";
+    /** 不可用--下架 */
+    public static final String STATE_UNAVAILABLE = "unavailable";
+    /** 已被借 */
+    public static final String STATE_LENDED      = "lended";
+    /** 已被预约 */
+    public static final String STATE_RESERVATED  = "reservated";
+
+    private Integer            id;
+    private String             state;
+    private Integer            ownerId;
+    private Date               addTime;
+    private Date               removeTime;
+    private Integer            bookInfoId;
+    private Date               firstAddTime;
+    private Date               gmtCreate;
+    private Date               gmtModified;
+    private BookInfo           bookInfo;
+
+    /**
+     * @return the bookInfo
+     */
+    public BookInfo getBookInfo() {
+        return bookInfo;
+    }
+
+    /**
+     * @param bookInfo the bookInfo to set
+     */
+    public void setBookInfo(BookInfo bookInfo) {
+        this.bookInfo = bookInfo;
+    }
 
     public Integer getId() {
         return id;
@@ -21,11 +46,11 @@ public class BookItem {
         this.id = id;
     }
 
-    public Integer getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(Integer state) {
+    public void setState(String state) {
         this.state = state;
     }
 

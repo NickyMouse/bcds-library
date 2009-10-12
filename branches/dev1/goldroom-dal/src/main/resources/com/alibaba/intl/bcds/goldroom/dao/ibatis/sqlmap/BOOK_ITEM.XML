@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap namespace="BOOK_ITEM">
-	<typeAlias alias="BookItemDO"
-		type="com.alibaba.intl.bcds.goldroom.dataobject.BookItemDO" />
-	<resultMap class="BookItemDO" id="BookItemResult">
+	<typeAlias alias="BookItem"
+		type="com.alibaba.intl.bcds.goldroom.dataobject.BookItem" />
+	<resultMap class="BookItem" id="BookItemResult">
 		<result property="id" column="ID" jdbcType="DECIMAL" />
-		<result property="state" column="STATE" jdbcType="DECIMAL" />
+		<result property="state" column="STATE" jdbcType="VARCHAR" />
 		<result property="ownerId" column="OWNER_ID" jdbcType="DECIMAL" />
 		<result property="addTime" column="ADD_TIME" jdbcType="DATETIME" />
 		<result property="removeTime" column="REMOVE_TIME" jdbcType="DATETIME" />
@@ -16,7 +16,63 @@
 		<result property="gmtModified" column="GMT_MODIFIED" jdbcType="DATETIME" />
 		<result property="tags" column="TAGS" jdbcType="VARCHAR" />
 	</resultMap>
-
+	<resultMap class="BookItem" id="BookItemWithInfoResult">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="state" column="STATE" jdbcType="VARCHAR" />
+		<result property="ownerId" column="OWNER_ID" jdbcType="DECIMAL" />
+		<result property="addTime" column="ADD_TIME" jdbcType="DATETIME" />
+		<result property="removeTime" column="REMOVE_TIME" jdbcType="DATETIME" />
+		<result property="bookInfoId" column="BOOK_INFO_ID" jdbcType="DECIMAL" />
+		<result property="firstAddTime" column="FIRST_ADD_TIME"
+			jdbcType="DATETIME" />
+		<result property="gmtCreate" column="GMT_CREATE" jdbcType="DATETIME" />
+		<result property="gmtModified" column="GMT_MODIFIED" jdbcType="DATETIME" />
+		<result property="tags" column="TAGS" jdbcType="VARCHAR" />
+		<result property="bookInfo.id" column="BOOKINFO_ID" jdbcType="DECIMAL" />
+		<result property="bookInfo.author" column="BOOKINFO_AUTHOR"
+			jdbcType="VARCHAR" />
+		<result property="bookInfo.name" column="BOOKINFO_NAME"
+			jdbcType="VARCHAR" />
+		<result property="bookInfo.publisher" column="BOOKINFO_PUBLISHER"
+			jdbcType="VARCHAR" />
+		<result property="bookInfo.publishTime" column="BOOKINFO_PUBLISH_TIME"
+			jdbcType="DATE" />
+		<result property="bookInfo.isbn" column="BOOKINFO_ISBN"
+			jdbcType="VARCHAR" />
+		<result property="bookInfo.categoryName" column="BOOKINFO_CATEGORY_NAME"
+			jdbcType="VARCHAR" />
+		<result property="bookInfo.categoryId" column="BOOKINFO_CATEGORY_ID"
+			jdbcType="DECIMAL" />
+		<result property="bookInfo.imgUrl" column="BOOKINFO_IMG_URL"
+			jdbcType="VARCHAR" />
+		<result property="bookInfo.description" column="BOOKINFO_DESCRIPTION"
+			jdbcType="VARCHAR" />
+		<result property="bookInfo.gmtCreate" column="BOOKINFO_GMT_CREATE"
+			jdbcType="DATETIME" />
+		<result property="bookInfo.gmtModified" column="BOOKINFO_GMT_MODIFIED"
+			jdbcType="DATETIME" />
+		<result property="bookInfo.edition" column="BOOKINFO_EDITION"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="selectBookItemWithInfo">
+		select t.ID as ID,t.STATE as STATE,t.OWNER_ID as
+		OWNER_ID,t.ADD_TIME as ADD_TIME,t.REMOVE_TIME as REMOVE_TIME
+		,t.BOOK_INFO_ID as BOOK_INFO_ID,t.FIRST_ADD_TIME as
+		FIRST_ADD_TIME,t.GMT_CREATE as GMT_CREATE,t.GMT_MODIFIED as
+		GMT_MODIFIED,t.TAGS as TAGS,n.ID as BOOKINFO_ID,n.AUTHOR as
+		BOOKINFO_AUTHOR,n.NAME as
+		BOOKINFO_NAME,n.PUBLISHER as
+		BOOKINFO_PUBLISHER,n.PUBLISH_TIME as BOOKINFO_PUBLISH_TIME,n.ISBN as
+		BOOKINFO_ISBN,n.CATEGORY_NAME as BOOKINFO_CATEGORY_NAME,n.CATEGORY_ID
+		as BOOKINFO_CATEGORY_ID,
+		n.IMG_URL as BOOKINFO_IMG_URL,n.DESCRIPTION as
+		BOOKINFO_DESCRIPTION,n.GMT_CREATE as
+		BOOKINFO_GMT_CREATE,n.GMT_MODIFIED as BOOKINFO_GMT_MODIFIED,n.EDITION
+		as BOOKINFO_EDITION from
+		BOOK_ITEM t join BOOK_INFO n on
+		t.BOOK_INFO_ID
+		= n.ID
+	</sql>
 	<select id="listAll" resultMap="BookItemResult">
 		SELECT
 		ID,STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
@@ -29,7 +85,7 @@
 		(STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
 		)
 		VALUES
-		(1,(select id from MEMBER where LOGIN_ID =
+		('idle',(select id from MEMBER where LOGIN_ID =
 		#loginId:VARCHAR#),now(),now(),(select id from book_info where
 		isbn=#ISBN:VARCHAR#),NOW(),NOW(),NOW(),null)
 	</insert>
@@ -39,12 +95,12 @@
 		(STATE,OWNER_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
 		)
 		VALUES
-		(#state:DECIMAL#,#ownerId:DECIMAL#,#addTime:DATETIME#,#removeTime:DATETIME#,#bookInfoId:DECIMAL#,#firstAddTime:DATETIME#,NOW(),NOW(),#tags:VARCHAR#)
+		(#state:VARCHAR#,#ownerId:DECIMAL#,#addTime:DATETIME#,#removeTime:DATETIME#,#bookInfoId:DECIMAL#,#firstAddTime:DATETIME#,NOW(),NOW(),#tags:VARCHAR#)
 	</insert>
 
 	<update id="updateById" parameterClass="BookItemDO">
 		UPDATE BOOK_ITEM SET
-		STATE=#state:DECIMAL#,
+		STATE=#state:VARCHAR#,
 		OWNER_ID=#ownerId:DECIMAL#,
 		ADD_TIME=#addTime:DATETIME#,
 		REMOVE_TIME=#removeTime:DATETIME#,
@@ -75,5 +131,14 @@
 		FROM BOOK_ITEM
 		WHERE OWNER_ID=(select id from member where
 		login_id=#value:VARCHAR#)
+	</select>
+
+	<select id="listBookItemsByStateAndOwner" parameterClass="java.util.HashMap"
+		resultMap="BookItemResult">
+		<include refid="selectBookItemWithInfo" />
+		where t.owner_id=( select id from member where
+		login_id=#login_id:varchar#)
+		<isNotEmpty property="state" open="and "> t.state=#state:varchar#
+		</isNotEmpty>
 	</select>
 </sqlMap>

@@ -62,4 +62,5 @@ else
   fi
 fi
 
-exec "$PRGDIR"/"$EXECUTABLE" start "$@"
+sh -x $EXECUTABLE  start "$@"
+#exec "$PRGDIR"/"$EXECUTABLE" start "$@"
