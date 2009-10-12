@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class BuildBookSearchDO {
 	private Integer itemId;
-	private Integer itemState;
+	private String itemState;
 	private Date itemAddTime;
 	private Date itemFirstAddTime;
 	private Date itemGmtCreate;
@@ -35,11 +35,11 @@ public class BuildBookSearchDO {
 		this.itemId = itemId;
 	}
 
-	public Integer getItemState() {
+	public String getItemState() {
 		return itemState;
 	}
 
-	public void setItemState(Integer itemState) {
+	public void setItemState(String itemState) {
 		this.itemState = itemState;
 	}
 
