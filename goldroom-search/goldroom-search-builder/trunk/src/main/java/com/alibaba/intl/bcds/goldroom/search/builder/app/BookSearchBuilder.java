@@ -19,7 +19,7 @@ import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearchD
 import com.alibaba.intl.bcds.goldroom.search.commons.service.BookSearchServiceLocator;
 
 public class BookSearchBuilder {
-	public static String INDEX_DIR = "f:/bookSearchIndex";
+	public static String INDEX_DIR = "./bookSearchIndex";
 
 	/**
 	 * @param args
