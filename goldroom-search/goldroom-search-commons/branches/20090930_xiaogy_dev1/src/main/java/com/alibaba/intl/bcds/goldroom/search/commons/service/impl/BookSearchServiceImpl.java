@@ -26,7 +26,9 @@ public class BookSearchServiceImpl implements BookSearchService {
 		SearchConditionBuilder builder = SearchConditionBuilder.getInstance()
 				.addTerm(BookSearchConstrains.BOOK_CATEGORY_ID, id.toString());
 		BookSearchQueryObject query = BookSearchQueryObject
-				.getInstance(builder).setN(number).setSkipResult(skipResult)
+				.getInstance(builder)
+				.setN(number)
+				.setSkipResult(skipResult)
 				.setPrimarySortFiled("");
 		bookSearchDao.searchByQuery(query);
 		return query;
@@ -35,11 +37,15 @@ public class BookSearchServiceImpl implements BookSearchService {
 	public BookSearchQueryObject searchBookByKeyword(String keyword,
 			Integer skipResult, Integer number) {
 		SearchConditionBuilder builder = SearchConditionBuilder.getInstance()
-				.addTerm(BookSearchConstrains.BOOK_NAME, keyword).addTerm(
-						BookSearchConstrains.BOOK_DESCRIPTION, keyword);
+				.addTerm(BookSearchConstrains.BOOK_NAME, keyword)
+				.addTerm(BookSearchConstrains.BOOK_DESCRIPTION, keyword)
+				.addTerm(BookSearchConstrains.ITEM_TAGS, keyword);
 		BookSearchQueryObject query = BookSearchQueryObject
-				.getInstance(builder).setN(number).setSkipResult(skipResult)
-				.setPrimarySortFiled("").setHighlight(true);
+				.getInstance(builder)
+				.setN(number)
+				.setSkipResult(skipResult)
+				.setPrimarySortFiled("")
+				.setHighlight(true);
 		bookSearchDao.searchByQuery(query);
 		return query;
 	}
@@ -50,7 +56,9 @@ public class BookSearchServiceImpl implements BookSearchService {
 				.addDateRange(BookSearchConstrains.ITEM_FIRST_ADD_TIME,
 						startTime, endTime);
 		BookSearchQueryObject query = BookSearchQueryObject
-				.getInstance(builder).setN(number).setSkipResult(skipResult)
+				.getInstance(builder)
+				.setN(number)
+				.setSkipResult(skipResult)
 				.setPrimarySortFiled("");
 		bookSearchDao.searchByQuery(query);
 		return query;
