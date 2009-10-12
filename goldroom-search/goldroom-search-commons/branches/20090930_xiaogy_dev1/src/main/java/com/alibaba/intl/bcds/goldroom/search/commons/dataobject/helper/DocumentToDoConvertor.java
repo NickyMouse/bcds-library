@@ -48,8 +48,7 @@ public class DocumentToDoConvertor {
 		try {
 			aDO.setItemId(Integer
 					.valueOf(doc.get(BookSearchConstrains.ITEM_ID)));
-			aDO.setItemState(Integer.valueOf(doc
-					.get(BookSearchConstrains.ITEM_STATE)));
+			aDO.setItemState(doc.get(BookSearchConstrains.ITEM_STATE));
 			aDO.setItemAddTime(new Date(Long.valueOf(doc
 					.get(BookSearchConstrains.ITEM_ADD_TIME))));
 			aDO.setItemFirstAddTime(new Date(Long.valueOf(doc
