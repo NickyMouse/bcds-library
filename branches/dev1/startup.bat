@@ -36,7 +36,7 @@ echo This environment variable is needed to run this program
 goto end
 :okHome
 
-set EXECUTABLE=%cd%\catalina.bat
+set EXECUTABLE=%CATALINA_HOME%\bin\catalina.bat
 
 rem Check that target executable exists
 if exist "%EXECUTABLE%" goto okExec
@@ -53,7 +53,6 @@ set CMD_LINE_ARGS=%CMD_LINE_ARGS% %1
 shift
 goto setArgs
 :doneSetArgs
-
 
 call "%EXECUTABLE%" start %CMD_LINE_ARGS%
 

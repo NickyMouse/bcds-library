@@ -22,6 +22,7 @@
 # -----------------------------------------------------------------------------
 
 # Better OS/400 detection: see Bugzilla 31132
+export CATALINA_BASE=`pwd`
 os400=false
 darwin=false
 case "`uname`" in
@@ -45,7 +46,6 @@ done
  
 PRGDIR=`dirname "$PRG"`
 EXECUTABLE=catalina.sh
-echo $PRGDIR
 
 # Check that target executable exists
 if $os400; then
@@ -60,7 +60,6 @@ else
     echo "This file is needed to run this program"
     exit 1
   fi
-fi
+fi 
 
-sh -x $EXECUTABLE  start "$@"
-#exec "$PRGDIR"/"$EXECUTABLE" start "$@"
+exec "$PRGDIR"/"$EXECUTABLE" start "$@"

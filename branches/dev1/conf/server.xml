@@ -129,7 +129,7 @@
                prefix="localhost_access_log." suffix=".txt" pattern="common" resolveHosts="false"/>
         -->
 		
-      <Context docBase="../goldroom-web/target/goldroom-web" path="/" reloadable="true" source="org.eclipse.jst.jee.server:goldroom-web" /></Host>
+      <Context docBase="../goldroom-web/target/goldroom-web" path="/" reloadable="true"/></Host>
     </Engine>
   </Service>
 </Server>

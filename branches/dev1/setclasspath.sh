@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 #  Set CLASSPATH and Java options
 #
-#  $Id: setclasspath.sh 589060 2007-10-27 08:19:24Z jfclere $
+#  $Id: setclasspath.sh 758165 2009-03-25 07:22:44Z mturk $
 # -----------------------------------------------------------------------------
 
 # First clear out the user classpath
@@ -95,8 +95,11 @@ if [ ! -x "$BASEDIR"/bin/setclasspath.sh ]; then
   fi
 fi
 
-# Set the default -Djava.endorsed.dirs argument
-JAVA_ENDORSED_DIRS="$BASEDIR"/endorsed
+# Don't override the endorsed dir if the user has set it previously
+if [ -z "$JAVA_ENDORSED_DIRS" ]; then
+  # Set the default -Djava.endorsed.dirs argument
+  JAVA_ENDORSED_DIRS="$BASEDIR"/endorsed
+fi
 
 # Set standard CLASSPATH
 if [ "$1" = "javac" ] ; then
@@ -124,7 +127,7 @@ if [ `uname -s` = "Darwin" ]; then
 fi
 
 # Set standard commands for invoking Java.
-  _RUNJAVA="$JRE_HOME"/bin/java
+_RUNJAVA="$JRE_HOME"/bin/java
 if [ "$os400" != "true" ]; then
   _RUNJDB="$JAVA_HOME"/bin/jdb
 fi
