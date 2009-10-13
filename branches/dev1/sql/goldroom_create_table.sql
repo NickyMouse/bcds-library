@@ -130,4 +130,6 @@ create table role(
 PRIMARY KEY(ID)
 );
 
-
+ALTER table BOOK_INFO drop CATEGORY_NAME;
+ALTER table BOOK_ITEM modify STATE VARCHAR(10);
+ALTER table BOOK_ITEM change OWNER_ID LOGIN_ID VARCHAR(50);
