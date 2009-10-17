@@ -6,5 +6,5 @@ public interface UserInfoDao {
 	/**
 	 * 更改用户信息
 	 */
-	void updateUserInfo(Member member);
+	void update(Member member);
 }

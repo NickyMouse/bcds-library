@@ -6,5 +6,5 @@ public interface UsersService {
 	/*
 	 * 更改用户信息
 	 */
-	void update(Member member);
+	void updateUserInfo(Member member);
 }

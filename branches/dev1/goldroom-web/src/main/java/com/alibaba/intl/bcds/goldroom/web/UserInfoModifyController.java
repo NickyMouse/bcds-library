@@ -17,7 +17,7 @@ public class UserInfoModifyController extends SimpleFormController {
 	protected ModelAndView onSubmit(Object command) throws Exception {
 		Member member = (Member) command;
 		// 更改用户信息
-		usersService.update(member);
+		usersService.updateUserInfo(member);
 		return new ModelAndView("");
 	}
 }

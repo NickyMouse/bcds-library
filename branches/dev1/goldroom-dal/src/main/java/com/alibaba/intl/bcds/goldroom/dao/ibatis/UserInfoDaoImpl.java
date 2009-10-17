@@ -10,7 +10,7 @@ public class UserInfoDaoImpl extends SqlMapClientDaoSupport implements
 	/**
 	 * 更改用户信息
 	 */
-	public void updateUserInfo(Member member) {
+	public void update(Member member) {
 		getSqlMapClientTemplate().update("", member);
 	}
 }

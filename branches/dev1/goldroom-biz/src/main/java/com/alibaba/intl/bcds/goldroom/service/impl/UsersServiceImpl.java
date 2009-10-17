@@ -19,7 +19,7 @@ public class UsersServiceImpl implements UsersService {
 	 * com.alibaba.intl.bcds.goldroom.service.UsersService#update(com.alibaba
 	 * .intl.bcds.goldroom.dataobject.Member)
 	 */
-	public void update(Member member) {
-		userInfoDao.updateUserInfo(member);
+	public void updateUserInfo(Member member) {
+		userInfoDao.update(member);
 	}
 }
