@@ -4,20 +4,20 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
-import com.alibaba.intl.bcds.goldroom.service.UsersService;
+import com.alibaba.intl.bcds.goldroom.service.UserService;
 
 public class UserInfoModifyController extends SimpleFormController {
 
-	private UsersService usersService;
+	private UserService userService;
 
-	public void setUsersService(UsersService usersService) {
-		this.usersService = usersService;
+	public void setUsersService(UserService usersService) {
+		this.userService = usersService;
 	}
 
 	protected ModelAndView onSubmit(Object command) throws Exception {
 		Member member = (Member) command;
 		// 更改用户信息
-		usersService.updateUserInfo(member);
+		userService.updateUserInfo(member);
 		return new ModelAndView("");
 	}
 }

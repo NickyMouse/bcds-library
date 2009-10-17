@@ -22,7 +22,7 @@
 		</tr>
 		<tr>
 			<td>旺旺Id：</td>
-			<td><input type = "text" name="ali_talk_id" /></td>
+			<td><input type = "text" name="aliTalkId" /></td>
 		</tr>
 		<tr>
 			<td><input type="submit" value="submit"/></td>

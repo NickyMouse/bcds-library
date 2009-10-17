@@ -2,9 +2,9 @@ package com.alibaba.intl.bcds.goldroom.service.impl;
 
 import com.alibaba.intl.bcds.goldroom.dao.UserInfoDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
-import com.alibaba.intl.bcds.goldroom.service.UsersService;
+import com.alibaba.intl.bcds.goldroom.service.UserService;
 
-public class UsersServiceImpl implements UsersService {
+public class UserServiceImpl implements UserService {
 
 	private UserInfoDao userInfoDao;
 
