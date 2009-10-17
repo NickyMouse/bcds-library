@@ -14,10 +14,11 @@ public class UserInfoModifyController extends SimpleFormController {
 		this.userService = usersService;
 	}
 
-	protected ModelAndView onSubmit(Object command) throws Exception {
+	@Override
+    protected ModelAndView onSubmit(Object command) throws Exception {
 		Member member = (Member) command;
 		// 更改用户信息
 		userService.updateUserInfo(member);
-		return new ModelAndView("");
+		return new ModelAndView("/index.jsp");
 	}
 }

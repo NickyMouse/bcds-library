@@ -41,7 +41,10 @@
 			</field>
 		</form>
 
-
+		<form name="member">
+			<field property="name" depends="required">				
+			</field>
+		</form>
 
 	</formset>
 

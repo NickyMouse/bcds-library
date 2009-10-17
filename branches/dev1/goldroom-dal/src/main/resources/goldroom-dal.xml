@@ -20,18 +20,26 @@
 	</bean>
 	<bean id="userDao"
 		class="com.alibaba.intl.bcds.goldroom.sample.dao.ibatis.UserDaoImpl" />
-		
+
 	<bean id="bookInfoDao"
 		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.BookInfoDaoImpl" />
 	<bean id="bookItemDao"
 		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.BookItemDaoImpl" />
 	<bean id="bookItemLogDao"
 		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.BookItemLogDaoImpl" />
-		
-		
+
+
 	<bean id="bookSearchDao"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.BookSearchDaoImpl">
 	</bean>
+
+	<bean id="userService"
+		class="com.alibaba.intl.bcds.goldroom.service.impl.UserServiceImpl" />
+
+	<bean id="userInfoDao"
+		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.UserInfoDaoImpl" />
+
+
 	<bean id="searchDatasource"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.BookSearchDatasource">
 		<property name="indexLocation" value="f:/bookSearchIndex" />
