@@ -1,5 +1,10 @@
 package com.alibaba.intl.bcds.goldroom.dao;
 
-public interface UserInfoDao {
+import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 
+public interface UserInfoDao {
+	/**
+	 * 更改用户信息
+	 */
+	void updateUserInfo(Member member);
 }

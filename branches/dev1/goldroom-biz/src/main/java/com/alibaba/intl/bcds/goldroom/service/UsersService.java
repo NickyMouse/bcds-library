@@ -1,5 +1,10 @@
 package com.alibaba.intl.bcds.goldroom.service;
 
-public interface UsersService {
+import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 
+public interface UsersService {
+	/*
+	 * 更改用户信息
+	 */
+	void update(Member member);
 }

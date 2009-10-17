@@ -109,7 +109,11 @@
 			value="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo" />
 	</bean>
 	
-	<bean name="/user/userInfoModify.htm" class="com.alibaba.intl.bcds.goldroom.web.UserInfoModifyController" />
+	<bean name="/user/userInfoModify.htm" class="com.alibaba.intl.bcds.goldroom.web.UserInfoModifyController" >
+		<property name="commandName" value="member" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.dataobject.Member" />
+	</bean>
 	
 	<!--
 		<context:component-scan
