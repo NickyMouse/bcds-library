@@ -12,7 +12,7 @@
 		<intercept-url pattern="/images/**" filters="none" />
 		<intercept-url pattern="/login.htm" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/sample.htm" access="ROLE_ADMIN" />
-		<intercept-url pattern="/**" access="ROLE_USER" />
+		<intercept-url pattern="/user/**" access="ROLE_USER" />
 		<form-login login-page="/login.htm"
 			authentication-failure-url="/login.htm?error=true"
 			default-target-url="/" />
@@ -24,7 +24,7 @@
 			authorities="ROLE_USER, ROLE_ADMIN" /> <user name="user"
 			password="user" authorities="ROLE_USER" /> </user-service>
 		-->
-		<password-encoder hash="md5"/>
+		<password-encoder hash="md5" />
 		<jdbc-user-service data-source-ref="dataSource"
 			users-by-username-query="select LOGIN_ID as username,password ,TRUE
                                          from MEMBER

@@ -9,8 +9,8 @@
 
 		<form name="user">
 			<field property="username" depends="required">
-				<arg0 key="username" resource="false" />
 				<msg key="username.required" name="username.required" />
+				<arg0 key="name" resource="false" />
 			</field>
 			<field property="age" depends="required,integer">
 				<msg key="age.required" name="age.required" />
@@ -20,32 +20,43 @@
 
 		<form name="bookInfo">
 			<field property="name" depends="required">
-				<arg0 key="username" resource="false" />
-				<msg key="username.required" name="username.required" />
+				<arg0 key="name" resource="false" />
+				<msg key="validation.bookInfo.name.required" name="validation.bookInfo.name.required" />
 			</field>
 			<field property="author" depends="required">
-				<msg key="age.required" name="age.required" />
-				<arg0 key="age" resource="false" />
+				<msg key="validation.bookInfo.author.required" name="validation.bookInfo.author.required" />
+				<arg0 key="author" resource="false" />
 			</field>
-			<field property="categoryName" depends="required">
-				<msg key="age.required" name="age.required" />
-				<arg0 key="age" resource="false" />
+			<field property="categoryId" depends="required">
+				<msg key="validation.bookInfo.categoryId.required" name="validation.bookInfo.categoryId.required" />
+				<arg0 key="category" resource="false" />
 			</field>
 			<field property="description" depends="required">
-				<msg key="age.required" name="age.required" />
-				<arg0 key="age" resource="false" />
+				<msg key="validation.bookInfo.description.required" name="validation.bookInfo.description.required" />
+				<arg0 key="description" resource="false" />
 			</field>
 			<field property="publisher" depends="required">
-				<msg key="age.required" name="age.required" />
-				<arg0 key="age" resource="false" />
+				<msg key="validation.bookInfo.publisher.required" name="validation.bookInfo.publisher.required" />
+				<arg0 key="publisher" resource="false" />
+			</field>
+			<field property="publishTime" depends="required">
+				<msg key="validation.bookInfo.publishTime.required" name="validation.bookInfo.publishTime.required" />
+				<arg0 key="publishTime" resource="false" />
+			</field>
+			<field property="imgUrl" depends="required">
+				<msg key="validation.bookInfo.imgUrl.required" name="validation.bookInfo.imgUrl.required" />
+				<arg0 key="imgUrl" resource="false" />
 			</field>
 		</form>
 
-		<form name="member">
+		<form name="bookItem">
+			<field property="tags"></field>
+		</form>
+
+<form name="member">
 			<field property="name" depends="required">				
 			</field>
 		</form>
-
 	</formset>
 
 </form-validation>

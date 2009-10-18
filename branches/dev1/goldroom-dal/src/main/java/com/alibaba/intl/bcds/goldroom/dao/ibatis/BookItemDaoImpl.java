@@ -1,11 +1,11 @@
 package com.alibaba.intl.bcds.goldroom.dao.ibatis;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
+import com.alibaba.intl.bcds.goldroom.dao.util.ParameterMap;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 
 @SuppressWarnings("unchecked")
@@ -23,8 +23,7 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
         return (Integer) getSqlMapClientTemplate().insert("BOOK_ITEM.insert", bookItemDO);
     }
 
-
-	public List<BookItemDao> listAll() {
+    public List<BookItemDao> listAll() {
         return getSqlMapClientTemplate().queryForList("BOOK_ITEM.listAll");
     }
 
@@ -40,14 +39,10 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
      */
     @Override
     public void addBookItem(final String loginId, final String isbn) {
-        getSqlMapClientTemplate().insert("BOOK_ITEM.addBookItemWithLoginIdAndIsbn",
-                new HashMap<String, String>() {
-                    {
-                        put("loginId", loginId);
-                        put("isbn", isbn);
-                    }
-
-                });
+        getSqlMapClientTemplate().insert(
+                "BOOK_ITEM.addBookItemWithLoginIdAndIsbn",
+                new ParameterMap<String, String>().addParameter("loginId", loginId).addParameter(
+                        "isbn", isbn));
     }
 
     /*
@@ -61,4 +56,32 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
         return getSqlMapClientTemplate().queryForList("listBookItemsByLoginId", loginId);
 
     }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.dao.BookItemDao#listBookItemsByLoginIdAndState
+     * (java.lang.String, java.lang.String)
+     */
+    @Override
+    public List<BookItem> listBookItemsByLoginIdAndState(String loginId, String state) {
+        return getSqlMapClientTemplate().queryForList(
+                "BOOK_ITEM.listBookItemsByLoginIdAndState",
+                new ParameterMap<String, String>().addParameter("loginId", loginId).addParameter(
+                        "state", state));
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.dao.BookItemDao#getBookItemWithInfoById
+     * (int)
+     */
+    @Override
+    public BookItem getBookItemWithInfoById(int i) {
+        return (BookItem) getSqlMapClientTemplate().queryForObject(
+                "BOOK_ITEM.getBookItemWithInfoById", i);
+
+    }
+
 }

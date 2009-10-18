@@ -14,7 +14,7 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.gjt.mm.mysql.Driver" />
-		<property name="url" value="jdbc:mysql://10.16.106.117/goldroom" />
+		<property name="url" value="jdbc:mysql://localhost/goldroom" />
 		<property name="username" value="goldroom" />
 		<property name="password" value="hello123321" />
 	</bean>
@@ -27,6 +27,8 @@
 		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.BookItemDaoImpl" />
 	<bean id="bookItemLogDao"
 		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.BookItemLogDaoImpl" />
+	<bean id="categoryDao"
+		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.CategoryDaoImpl" />
 
 
 	<bean id="bookSearchDao"

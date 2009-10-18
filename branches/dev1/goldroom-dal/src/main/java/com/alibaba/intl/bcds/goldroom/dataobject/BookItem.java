@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class BookItem {
 
+ 
+
     /** 空闲 */
     public static final String STATE_IDLE        = "idle";
     /** 不可用--下架 */
@@ -23,8 +25,8 @@ public class BookItem {
     private Date               gmtCreate;
     private Date               gmtModified;
     private BookInfo           bookInfo;
-    private String 			   tags;
-    
+    private String             tags;
+
     /**
      * @return the bookInfo
      */
@@ -54,7 +56,6 @@ public class BookItem {
     public void setState(String state) {
         this.state = state;
     }
-
 
     public Date getAddTime() {
         return addTime;
@@ -112,11 +113,11 @@ public class BookItem {
         this.tags = tags;
     }
 
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
 
-	public String getLoginId() {
-		return loginId;
-	}
+    public String getLoginId() {
+        return loginId;
+    }
 }

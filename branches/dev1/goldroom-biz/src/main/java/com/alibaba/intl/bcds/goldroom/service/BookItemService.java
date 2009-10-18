@@ -42,8 +42,17 @@ public interface BookItemService {
 
     /**
      * 通过loginId查找bookitem
+     * 
      * @param loginId
      * @return
      */
     List<BookItem> listBookItemsByLoginId(String loginId);
+
+    /**
+     * 通过loginId和state查找bookitem
+     * 
+     * @param loginId
+     * @return
+     */
+    List<BookItem> listBookItemsByLoginIdAndState(String loginId, String state);
 }

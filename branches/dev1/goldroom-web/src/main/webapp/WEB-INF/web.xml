@@ -29,6 +29,7 @@
 			classpath:goldroom-dal.xml
 			classpath:goldroom-biz.xml
 			/WEB-INF/goldroom-security.xml
+			/WEB-INF/goldroom-util.xml
 		</param-value>
 	</context-param>
 </web-app>

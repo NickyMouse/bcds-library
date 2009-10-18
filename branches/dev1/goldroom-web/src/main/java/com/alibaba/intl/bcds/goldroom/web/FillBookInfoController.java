@@ -15,6 +15,19 @@
  */
 package com.alibaba.intl.bcds.goldroom.web;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
@@ -41,7 +54,34 @@ public class FillBookInfoController extends SimpleFormController {
     protected ModelAndView onSubmit(Object command) throws Exception {
         BookInfo bookInfo = (BookInfo) command;
         bookInfoService.addBookInfo(bookInfo);
-        return new ModelAndView("confirmedShelves", "bookInfo", bookInfo);
+        return new ModelAndView("redirect:confirmedShelves.htm", "isbn", bookInfo.getIsbn());
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.springframework.web.servlet.mvc.SimpleFormController#showForm(javax
+     * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
+     * org.springframework.validation.BindException, java.util.Map)
+     */
+    @Override
+    protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response,
+                                    BindException errors, Map controlModel) throws Exception {
+        controlModel = new HashMap();
+        String isbn = request.getParameter("isbn");
+        if (StringUtils.isNotEmpty(isbn)) {
+            controlModel.put("isbn", isbn);
+        }
+        return super.showForm(request, response, errors, controlModel);
+    }
+
+    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
+            throws Exception {
+
+        DateFormat fmt = new SimpleDateFormat("yyyy-M-d");
+        CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);
+        binder.registerCustomEditor(Date.class, dateEditor);
+        super.initBinder(request, binder);
     }
 
 }

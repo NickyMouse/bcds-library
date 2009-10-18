@@ -46,7 +46,7 @@ public class BookItemServiceImpl implements BookItemService {
      */
     @Override
     public void addBookItem(BookItem bookItem) {
-        // TODO Auto-generated method stub
+        bookItemDao.insert(bookItem);
 
     }
 
@@ -71,5 +71,15 @@ public class BookItemServiceImpl implements BookItemService {
     @Override
     public List<BookItem> listBookItemsByLoginId(String loginId) {
         return bookItemDao.listBookItemsByLoginId(loginId);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @seecom.alibaba.intl.bcds.goldroom.service.BookItemService#
+     * listBookItemsByLoginIdAndState(java.lang.String, java.lang.String)
+     */
+    @Override
+    public List<BookItem> listBookItemsByLoginIdAndState(String loginId, String state) {
+        return bookItemDao.listBookItemsByLoginIdAndState(loginId, state);
     }
 }

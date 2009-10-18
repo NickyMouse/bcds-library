@@ -10,6 +10,7 @@
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+		<property name="toolboxConfigLocation" value="WEB-INF/toolbox.xml" />
 		<property name="suffix" value=".vm" />
 		<property name="exposeSpringMacroHelpers" value="true" />
 		<property name="layoutUrl" value="/layout/default.vm" />
@@ -20,7 +21,7 @@
 
 	<bean id="velocityConfigurer"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-		<property name="resourceLoaderPath" value="WEB-INF/templates/" />
+		<property name="resourceLoaderPath" value="../../src/main/webapp/WEB-INF/templates/" />
 
 		<property name="velocityProperties">
 			<props>
@@ -99,11 +100,20 @@
 
 	<bean name="/user/findIsbn.htm" class="com.alibaba.intl.bcds.goldroom.web.FindIsbnController" />
 
+	<bean name="/user/myBooks.htm" class="com.alibaba.intl.bcds.goldroom.web.MyBooksController" />
+
 	<bean name="/user/confirmedShelves.htm"
-		class="com.alibaba.intl.bcds.goldroom.web.ConfirmedShelvesController" />
+		class="com.alibaba.intl.bcds.goldroom.web.ConfirmedShelvesController">
+		<property name="formView" value="user/confirmedShelves" />
+		<property name="successView" value="redirect:shelveSuccess.htm" />
+		<property name="commandName" value="bookItem" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.dataobject.BookItem" />
+	</bean>
 
 	<bean name="/user/fillBookInfo.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.FillBookInfoController">
+		<property name="formView" value="user/fillBookInfo" />
 		<property name="commandName" value="bookInfo" />
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo" />

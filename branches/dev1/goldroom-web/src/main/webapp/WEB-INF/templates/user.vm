@@ -53,4 +53,8 @@
 	<td>$!{user.age}</td>
 </tr>
 #end
+
+#foreach($c in ${categoryCache.categorys})
+	${c.id}</br>
+#end
 </table>

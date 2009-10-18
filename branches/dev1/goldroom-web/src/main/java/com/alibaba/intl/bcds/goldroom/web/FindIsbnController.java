@@ -50,10 +50,10 @@ public class FindIsbnController extends AbstractController {
         String isbn = (String) request.getParameter("isbn");
         BookInfo bookInfo = bookInfoService.findBookInfoByIsbn(isbn);
         if (bookInfo == null) {
-            return new ModelAndView("fillBookInfo", "isbn", isbn);
+            return new ModelAndView("redirect:fillBookInfo.htm", "isbn", isbn);
         }
         else {
-            return new ModelAndView("confirmedShelves", "bookInfo", bookInfo);
+            return new ModelAndView("redirect:confirmedShelves.htm", "isbn", isbn);
         }
     }
 
