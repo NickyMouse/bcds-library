@@ -39,12 +39,12 @@ public class BookSearchServiceImpl implements BookSearchService {
 		SearchConditionBuilder builder = SearchConditionBuilder.getInstance()
 				.addTerm(BookSearchConstrains.BOOK_NAME, keyword)
 				.addTerm(BookSearchConstrains.BOOK_DESCRIPTION, keyword)
-				.addTerm(BookSearchConstrains.ITEM_TAGS, keyword);
+				.addTerm(BookSearchConstrains.BOOK_TAGS, keyword);
 		BookSearchQueryObject query = BookSearchQueryObject
 				.getInstance(builder)
 				.setN(number)
 				.setSkipResult(skipResult)
-				.setPrimarySortFiled("")
+				.setPrimarySortFiled(BookSearchConstrains.BOOK_INFO_ID)
 				.setHighlight(true);
 		bookSearchDao.searchByQuery(query);
 		return query;
@@ -63,5 +63,4 @@ public class BookSearchServiceImpl implements BookSearchService {
 		bookSearchDao.searchByQuery(query);
 		return query;
 	}
-
 }

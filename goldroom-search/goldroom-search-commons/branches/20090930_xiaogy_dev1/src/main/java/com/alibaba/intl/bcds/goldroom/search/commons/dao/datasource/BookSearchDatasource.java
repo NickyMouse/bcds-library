@@ -10,6 +10,7 @@ public class BookSearchDatasource implements SearchDatasource {
 	private String indexLocation;
 	private static Searcher searcher;
 	private static Logger logger = Logger.getLogger(BookSearchDatasource.class);
+	private static IndexReader reader;
 
 	public String getIndexLocation() {
 		return indexLocation;
@@ -21,7 +22,6 @@ public class BookSearchDatasource implements SearchDatasource {
 
 	public Searcher getSearcher() {
 		if (searcher == null) {
-			IndexReader reader = null;
 			try {
 				reader = IndexReader.open(indexLocation);
 			} catch (Exception e) {
@@ -31,6 +31,18 @@ public class BookSearchDatasource implements SearchDatasource {
 			searcher = new IndexSearcher(reader);
 		}
 		return searcher;
+	}
+
+	public IndexReader getIndexReader() {
+		if (reader == null) {
+			try {
+				reader = IndexReader.open(indexLocation);
+			} catch (Exception e) {
+				logger.error("Could not open index file location", e);
+				return null;
+			}
+		}
+		return reader;
 	}
 
 }

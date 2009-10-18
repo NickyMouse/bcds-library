@@ -16,7 +16,7 @@ import org.apache.lucene.search.TopDocs;
 
 import com.alibaba.intl.bcds.goldroom.search.commons.dao.BookSearchDao;
 import com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.SearchDatasource;
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearchDO;
+import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearch;
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.helper.DocumentToDoConvertor;
 import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQueryObject;
 
@@ -67,10 +67,10 @@ public class BookSearchDaoImpl implements BookSearchDao {
 		bsQueryObj.setTotalCount(docs.totalHits);
 	}
 
-	protected List<BookSearchDO> getResult(Searcher searcher,
+	protected List<BookSearch> getResult(Searcher searcher,
 			DocumentToDoConvertor convertor, TopDocs topDocs, int skipResult,
 			int n) {
-		List<BookSearchDO> doList = new ArrayList<BookSearchDO>();
+		List<BookSearch> doList = new ArrayList<BookSearch>();
 		ScoreDoc[] scoreDocList = topDocs.scoreDocs;
 		if (skipResult >= topDocs.scoreDocs.length) {
 			return doList;

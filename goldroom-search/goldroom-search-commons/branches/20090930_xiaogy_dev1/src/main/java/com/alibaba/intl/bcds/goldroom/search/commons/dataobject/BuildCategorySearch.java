@@ -1,6 +1,6 @@
 package com.alibaba.intl.bcds.goldroom.search.commons.dataobject;
 
-public class BuildCategorySearchDO {
+public class BuildCategorySearch {
 	private Integer Id;
 	private Integer parentId;
 	private String name;

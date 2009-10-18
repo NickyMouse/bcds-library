@@ -2,14 +2,11 @@ package com.alibaba.intl.bcds.goldroom.search.commons.dataobject;
 
 import java.util.Date;
 
-public class BuildBookSearchDO {
-	private Integer itemId;
-	private String itemState;
+public class BuildBookSearch {
+	
 	private Date itemAddTime;
 	private Date itemFirstAddTime;
-	private Date itemGmtCreate;
-	private Date itemGmtModified;
-	private String itemTags;
+	private String bookTags;
 	private Integer bookInfoId;
 	private String bookAuthor;
 	private String bookName;
@@ -20,28 +17,6 @@ public class BuildBookSearchDO {
 	private String bookImgUrl;
 	private String bookDescription;
 	private String bookEdition;
-	private Integer memberId;
-	private String memberName;
-	private Integer memberWorkId;
-	private String memberLoginId;
-	private String memberEmail;
-	private String memberAlitalkId;
-
-	public Integer getItemId() {
-		return itemId;
-	}
-
-	public void setItemId(Integer itemId) {
-		this.itemId = itemId;
-	}
-
-	public String getItemState() {
-		return itemState;
-	}
-
-	public void setItemState(String itemState) {
-		this.itemState = itemState;
-	}
 
 	public Date getItemAddTime() {
 		return itemAddTime;
@@ -57,30 +32,6 @@ public class BuildBookSearchDO {
 
 	public void setItemFirstAddTime(Date itemFirstAddTime) {
 		this.itemFirstAddTime = itemFirstAddTime;
-	}
-
-	public Date getItemGmtCreate() {
-		return itemGmtCreate;
-	}
-
-	public void setItemGmtCreate(Date itemGmtCreate) {
-		this.itemGmtCreate = itemGmtCreate;
-	}
-
-	public Date getItemGmtModified() {
-		return itemGmtModified;
-	}
-
-	public void setItemGmtModified(Date itemGmtModified) {
-		this.itemGmtModified = itemGmtModified;
-	}
-
-	public String getItemTags() {
-		return itemTags;
-	}
-
-	public void setItemTags(String itemTags) {
-		this.itemTags = itemTags;
 	}
 
 	public Integer getBookInfoId() {
@@ -163,52 +114,11 @@ public class BuildBookSearchDO {
 		this.bookEdition = bookEdition;
 	}
 
-	public Integer getMemberId() {
-		return memberId;
+	public void setBookTags(String bookTags) {
+		this.bookTags = bookTags;
 	}
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
+	public String getBookTags() {
+		return bookTags;
 	}
-
-	public String getMemberName() {
-		return memberName;
-	}
-
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
-
-	public Integer getMemberWorkId() {
-		return memberWorkId;
-	}
-
-	public void setMemberWorkId(Integer memberWorkId) {
-		this.memberWorkId = memberWorkId;
-	}
-
-	public String getMemberLoginId() {
-		return memberLoginId;
-	}
-
-	public void setMemberLoginId(String memberLoginId) {
-		this.memberLoginId = memberLoginId;
-	}
-
-	public String getMemberEmail() {
-		return memberEmail;
-	}
-
-	public void setMemberEmail(String memberEmail) {
-		this.memberEmail = memberEmail;
-	}
-
-	public String getMemberAlitalkId() {
-		return memberAlitalkId;
-	}
-
-	public void setMemberAlitalkId(String memberAlitalkId) {
-		this.memberAlitalkId = memberAlitalkId;
-	}
-
 }
