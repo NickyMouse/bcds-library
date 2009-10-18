@@ -1,68 +1,92 @@
 package com.alibaba.intl.bcds.goldroom.search.builder.app;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import jeasy.analysis.MMAnalyzer;
+import org.apache.log4j.Logger;
 
-import org.apache.lucene.document.Document;
-import org.apache.lucene.index.CorruptIndexException;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.store.LockObtainFailedException;
-import org.springframework.context.ApplicationContext;
-
-import com.alibaba.intl.bcds.goldroom.search.builder.utils.ConvertObjectHandler;
-import com.alibaba.intl.bcds.goldroom.search.builder.utils.DocumentFactory;
-import com.alibaba.intl.bcds.goldroom.search.builder.utils.SearchApplicationContext;
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearchDO;
-import com.alibaba.intl.bcds.goldroom.search.commons.service.BookSearchServiceLocator;
+import com.alibaba.intl.bcds.goldroom.search.builder.builder.BookInfoBuilder;
+import com.alibaba.intl.bcds.goldroom.search.builder.utils.BuildSearchMode;
 
 public class BookSearchBuilder {
-	public static String INDEX_DIR = "./bookSearchIndex";
+	static BookInfoBuilder builder;
+	private static Logger logger = Logger.getLogger(BookInfoBuilder.class);
+	static int startHour;
+	static int endHour;
 
 	/**
 	 * @param args
 	 * @throws IOException
-	 * @throws LockObtainFailedException
-	 * @throws CorruptIndexException
 	 */
-	public static void main(String[] args) throws CorruptIndexException,
-			LockObtainFailedException, IOException {
-		ApplicationContext handlerContext = SearchApplicationContext
-				.getConvertObjectHandlerContext();
-		ConvertObjectHandler handler = (ConvertObjectHandler) handlerContext
-				.getBean("convertObjectHandler");
-		DocumentFactory factory = DocumentFactory.getInstance(
-				BuildBookSearchDO.class, handler);
+	public static void main(String[] args) throws IOException {
+		String usage = "<Usage> java com.alibaba.intl.bcds.goldroom.search.builder.app.BookSearchBuilder "
+				+ "[mode] [targeIndexFolder] [interval] [startHour] [endHour]";
+		String fullExample = "<Example> Full Build : java com.alibaba.intl.bcds.goldroom.search.builder.app."
+				+ "BookSearchBuilder full /home/admin/index/ 60 0 8\nfull build every 60 mins between 0~8 o'clock";
+		String incExample = "<Example> Increment Build : java com.alibaba.intl.bcds.goldroom.search.builder.app."
+				+ "BookSearchBuilder inc /home/admin/index/ 3 8 23\nincrement build every 3 mins between 8~23 o'clock";
 
-		IndexWriter writer = new IndexWriter(INDEX_DIR, new MMAnalyzer(), true,
-				IndexWriter.MaxFieldLength.LIMITED);
-		int page = 1;
-		List<BuildBookSearchDO> bookList = BookSearchServiceLocator
-				.getBuildBookSearchService().listAllBook(page);
-		Date start = new Date();
-		System.out.println("Indexing to directory '" + INDEX_DIR + "'...");
-		while (bookList != null && bookList.size()>0) {
-			List<Document> docList = factory.convertList(bookList);
-			System.out.println("page:"+page +" list:"+bookList.size());
-
-			for (Document doc : docList) {
-				writer.addDocument(doc);
-			}
-			page++;
-			bookList = BookSearchServiceLocator.getBuildBookSearchService()
-					.listAllBook(page);
+		if (args.length != 5) {
+			System.out.println(usage);
+			System.out.println(fullExample);
+			System.out.println(incExample);
+			return;
 		}
 
-		System.out.println("Optimizing...");
-		writer.optimize();
-		writer.close();
+		// build 模式
+		String mode = args[0];
+		// 目标路径
+		String targeIndexFolder = args[1];
+		// 时间间隔为分钟
+		long interval = Integer.valueOf(args[2]) * 60000;
+		startHour = Integer.valueOf(args[3]);
+		endHour = Integer.valueOf(args[4]);
 
-		Date end = new Date();
-		System.out.println(end.getTime() - start.getTime()
-				+ " total milliseconds");
+		builder = new BookInfoBuilder();
+		Date endTime = new Date();
+		if (BuildSearchMode.FULL.getValue().equalsIgnoreCase(mode)) {
+			builder.setIncrementBuild(false);
+		} else {
+			builder.setIncrementBuild(true);
+			builder.setModifiedEndTime(endTime);
+		}
+		builder.setDestination(targeIndexFolder);
+		builder.setInterval(interval);
 
-		System.out.println("Done");
+		Timer timer = new Timer("BookSearchBuilder");
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				if (builder.isIncrementBuild()
+						&& !isWorkingHour(startHour, endHour)) {
+					logger.info("[Sleep]Increament Build Sleep " + new Date());
+					return;
+				} else if (!builder.isIncrementBuild()
+						&& !isWorkingHour(startHour, endHour)) {
+					logger.info("[Sleep]Full Build Sleep " + new Date());
+					return;
+				}
+				builder.process();
+			}
+		}, new Date(), interval);
+	}
+
+	public static boolean isWorkingHour(int startHour, int endHour) {
+		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		if (startHour > endHour) {
+			if (hour >= startHour && hour <= 23) {
+				return true;
+			} else if (hour >= 0 && hour <= endHour) {
+				return true;
+			}
+		}else{
+			if(hour >= startHour && hour <= endHour){
+				return true;
+			}
+		}
+		return false;
 	}
 }

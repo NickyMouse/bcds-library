@@ -77,7 +77,7 @@ public class SimpleConvertObjectHandler implements ConvertObjectHandler {
 		ApplicationContext context = SearchApplicationContext
 				.getConvertObjectHandlerContext();
 		ConvertObjectHandler convertor = (ConvertObjectHandler) context
-				.getBean("convertObjectHandler");
+				.getBean("bookInfoConvertObjectHandler");
 		Map<String, Rule> a = convertor.getRules();
 		System.out.println(a);
 	}

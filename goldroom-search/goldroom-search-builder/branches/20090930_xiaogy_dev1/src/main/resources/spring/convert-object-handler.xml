@@ -4,9 +4,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
 	default-autowire="byName">
 
-	<bean id="convertObjectHandler" class="com.alibaba.intl.bcds.goldroom.search.builder.utils.SimpleConvertObjectHandler">
+	<bean id="bookInfoConvertObjectHandler" class="com.alibaba.intl.bcds.goldroom.search.builder.utils.SimpleConvertObjectHandler">
 		<property name="rules">
 			<map>
+			
 				<entry key="itemId" value-ref="itemId"/>
 				<entry key="itemState" value-ref="itemState"/>
 				<entry key="itemAddTime" value-ref="itemAddTime"/>
@@ -14,6 +15,7 @@
 				<entry key="itemGmtCreate" value-ref="itemGmtCreate"/>
 				<entry key="itemGmtModified" value-ref="itemGmtModified"/>
 				<entry key="itemTags" value-ref="itemTags"/>
+				<entry key="bookTags" value-ref="bookTags"/>
 				<entry key="bookInfoId" value-ref="bookInfoId"/>
 				<entry key="bookAuthor" value-ref="bookAuthor"/>
 				<entry key="bookName" value-ref="bookName"/>
@@ -45,35 +47,35 @@
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="itemState" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="itemAddTime"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="itemAddTime" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="itemFirstAddTime"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="itemFirstAddTime" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="itemGmtCreate"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="itemGmtCreate" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="itemGmtModified"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="itemGmtModified" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="itemTags"
@@ -82,12 +84,18 @@
 		<constructor-arg value="YES" />
 		<constructor-arg value="ANALYZED" />
 	</bean>
-
+	
+	<bean id="bookTags"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookTags" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="ANALYZED" />
+	</bean>
 	<bean id="bookInfoId"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="bookInfoId" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="bookAuthor"
@@ -115,28 +123,28 @@
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="bookPublishTime" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="bookIsbn"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="bookIsbn" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="bookCategoryId"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="bookCategoryId" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="bookImgUrl"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="bookImgUrl" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="bookDescription"
@@ -157,41 +165,41 @@
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="memberId" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="memberName"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="memberName" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="memberWorkId"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="memberWorkId" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="memberLoginId"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="memberLoginId" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="memberEmail"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="memberEmail" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 
 	<bean id="memberAlitalkId"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="memberAlitalkId" />
 		<constructor-arg value="YES" />
-		<constructor-arg value="ANALYZED" />
+		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
 </beans>
