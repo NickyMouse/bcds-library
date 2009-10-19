@@ -82,4 +82,34 @@ public class BookItemServiceImpl implements BookItemService {
     public List<BookItem> listBookItemsByLoginIdAndState(String loginId, String state) {
         return bookItemDao.listBookItemsByLoginIdAndState(loginId, state);
     }
+
+    /*
+     * (non-Javadoc)
+     * @seecom.alibaba.intl.bcds.goldroom.service.BookItemService#
+     * listBookItemByBookInfoId(int)
+     */
+    @Override
+    public List<BookItem> listBookItemByBookInfoId(int bookInfoId) {
+        return bookItemDao.listBookItemByBookInfoId(bookInfoId);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @seecom.alibaba.intl.bcds.goldroom.service.BookItemService#
+     * listBookItemBySubscriber(java.lang.String)
+     */
+    @Override
+    public List<BookItem> listLendedBookItemBySubscriber(String ownerLoginID) {
+        return bookItemDao.listLendedBookItemBySubscriber(ownerLoginID);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @seecom.alibaba.intl.bcds.goldroom.service.BookItemService#
+     * listReservatedBooksBySubscriber(java.lang.String)
+     */
+    @Override
+    public List<BookItem> listReservatedBooksBySubscriber(String loginId) {
+        return bookItemDao.listReservatedBooksBySubscriber(loginId);
+    }
 }

@@ -55,4 +55,22 @@ public interface BookItemService {
      * @return
      */
     List<BookItem> listBookItemsByLoginIdAndState(String loginId, String state);
+
+    /**
+     * @param bookInfoId
+     * @return
+     */
+    List<BookItem> listBookItemByBookInfoId(int bookInfoId);
+
+    /**
+     * @param ownerLoginID
+     * @return
+     */
+    List<BookItem> listLendedBookItemBySubscriber(String ownerLoginID);
+
+    /**
+     * @param loginId
+     * @return
+     */
+    List<BookItem> listReservatedBooksBySubscriber(String loginId);
 }

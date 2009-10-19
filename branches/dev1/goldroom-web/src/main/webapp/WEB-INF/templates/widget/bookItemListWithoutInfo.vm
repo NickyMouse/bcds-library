@@ -1,19 +1,12 @@
 <table width="100%">
 	<tr>
-		<td></td>
-		<td>书名</td>
 		<td>主人</td>
 		<td>状态</td>
 		<td>上架时间</td>
 	</tr>
 	#foreach($bookItem in $bookItemList)
 	<tr>
-		<td>
-		#if(${bookItem.bookInfo.imgUrl})
-		<img src="$!{bookItem.bookInfo.imgUrl}" width="60" height="60">
-		#end
-		</td>
-		<td><a href="/bookDetail.htm?id=$!{bookItem.bookInfo.id}">$!{bookItem.bookInfo.name}</a></td>
+		
 		<td>$!{bookItem.loginId}</td>
 		<td>$!{bookItem.state}</td>
 		<td>$!{bookItem.addTime}</td>

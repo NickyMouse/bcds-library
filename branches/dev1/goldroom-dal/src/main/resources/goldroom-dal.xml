@@ -35,10 +35,10 @@
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.BookSearchDaoImpl">
 	</bean>
 
-	<bean id="userService"
+	<!--<bean id="userService"
 		class="com.alibaba.intl.bcds.goldroom.service.impl.UserServiceImpl" />
 
-	<bean id="userInfoDao"
+	--><bean id="userInfoDao"
 		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.UserInfoDaoImpl" />
 
 

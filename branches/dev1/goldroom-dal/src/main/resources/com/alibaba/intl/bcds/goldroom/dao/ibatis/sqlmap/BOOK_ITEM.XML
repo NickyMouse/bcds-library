@@ -22,6 +22,11 @@
 		<result property="bookInfo" column="BOOK_INFO_ID"
 			javaType="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo" select="BOOK_INFO.findById" />
 	</resultMap>
+	<sql id="selectBookItem">
+		SELECT
+		ID,STATE,LOGIN_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
+		FROM BOOK_ITEM
+	</sql>
 	<sql id="selectBookItemWithInfo">
 		select t.ID as ID,t.STATE as STATE,t.LOGIN_ID as
 		LOGIN_ID,t.ADD_TIME as ADD_TIME,t.REMOVE_TIME as REMOVE_TIME
@@ -123,4 +128,40 @@
 		FROM BOOK_ITEM
 		WHERE id=#value#
 	</select>
+
+	<select id="listBookItemByBookInfoId" parameterClass="java.lang.Integer"
+		resultMap="BookItemResult">
+		<include refid="selectBookItem" />
+		WHERE BOOK_INFO_ID=#value:DECIMAL#
+	</select>
+
+	<select id="listLendedBookItemBySubscriber" parameterClass="java.lang.String"
+		resultMap="BookItemWithInfoResult">
+		SELECT
+		bi.ID as ID ,bi.STATE as STATE ,bi.LOGIN_ID AS
+		LOGIN_ID,bi.ADD_TIME as ADD_TIME,bi.REMOVE_TIME as
+		REMOVE_TIME,bi.BOOK_INFO_ID as BOOK_INFO_ID ,bi.FIRST_ADD_TIME as
+		FIRST_ADD_TIME,bi.GMT_CREATE as GMT_CREATE,bi.GMT_MODIFIED as
+		GMT_MODIFIED , bi.TAGS as TAGS
+		FROM BOOK_ITEM bi join LENDING l on
+		bi.id = l.BOOK_ITEM_ID
+		WHERE
+		l.SUBSCRIBER=#value:VARCHAR#
+	</select>
+
+	<select id="listReservatedBooksBySubscriber" parameterClass="java.lang.String"
+		resultMap="BookItemWithInfoResult">
+		SELECT
+		bi.ID as ID ,bi.STATE as STATE ,bi.LOGIN_ID AS
+		LOGIN_ID,bi.ADD_TIME as ADD_TIME,bi.REMOVE_TIME as
+		REMOVE_TIME,bi.BOOK_INFO_ID as BOOK_INFO_ID ,bi.FIRST_ADD_TIME as
+		FIRST_ADD_TIME,bi.GMT_CREATE as GMT_CREATE,bi.GMT_MODIFIED as
+		GMT_MODIFIED , bi.TAGS as TAGS
+		FROM BOOK_ITEM bi join RESERVATION r on
+		bi.id = r.BOOK_ITEM_ID
+		WHERE
+		r.SUBSCRIBER=#value:VARCHAR#
+	</select>
+
+
 </sqlMap>

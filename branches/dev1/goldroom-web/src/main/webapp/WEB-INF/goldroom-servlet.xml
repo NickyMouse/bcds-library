@@ -96,12 +96,17 @@
 
 	<bean class="com.alibaba.intl.bcds.goldroom.web.HomeController" />
 
-	<bean id="screenCtroller" class="com.alibaba.intl.bcds.goldroom.web.ScreenController" />
+	<bean name="/bookDetail.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.BookDetailController" />
 
 	<bean name="/user/findIsbn.htm" class="com.alibaba.intl.bcds.goldroom.web.FindIsbnController" />
 
 	<bean name="/user/myBooks.htm" class="com.alibaba.intl.bcds.goldroom.web.MyBooksController" />
 
+	<bean name="/user/lendedBooks.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.LendedBooksController" />
+	<bean name="/user/reservatedBooks.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ReservatedBooksController" />
 	<bean name="/user/confirmedShelves.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.ConfirmedShelvesController">
 		<property name="formView" value="user/confirmedShelves" />

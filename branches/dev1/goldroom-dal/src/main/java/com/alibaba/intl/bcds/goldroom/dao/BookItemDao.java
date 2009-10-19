@@ -42,7 +42,23 @@ public interface BookItemDao {
     List<BookItem> listBookItemsByLoginIdAndState(String loginId, String state);
 
     /**
-     * @param i
+     * @param bookInfoId
      */
-    BookItem getBookItemWithInfoById(int i);
+    List<BookItem> listBookItemByBookInfoId(int bookInfoId);
+
+    /**
+     * 通过book_item_id获取带有bookInfo属性的bookItem对象
+     * 
+     * @param id
+     * @return
+     */
+    BookItem getBookItemWithInfoById(int id);
+
+    List<BookItem> listLendedBookItemBySubscriber(String owner_loginID);
+
+    /**
+     * @param loginId
+     * @return
+     */
+    List<BookItem> listReservatedBooksBySubscriber(String loginId);
 }

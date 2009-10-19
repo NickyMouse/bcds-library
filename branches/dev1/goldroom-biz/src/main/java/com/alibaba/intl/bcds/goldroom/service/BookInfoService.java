@@ -23,10 +23,10 @@ import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
  * @author Zimmem
  */
 public interface BookInfoService {
-    
+
     /**
-     * 
      * 根据ISBN查找书籍信息
+     * 
      * @param isbn
      * @return
      */
@@ -34,8 +34,17 @@ public interface BookInfoService {
 
     /**
      * 添加书籍信息
+     * 
      * @param bookInfo
      */
     void addBookInfo(BookInfo bookInfo);
+
+    /**
+     * 根据ISBN查找书籍信息
+     * 
+     * @param isbn
+     * @return
+     */
+    BookInfo findBookInfoById(int id);
 
 }

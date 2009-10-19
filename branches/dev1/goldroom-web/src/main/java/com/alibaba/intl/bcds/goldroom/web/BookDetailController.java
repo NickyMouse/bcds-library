@@ -1,7 +1,7 @@
 /**
  * Project: goldroom-web
  * 
- * File Created at 2009-10-7
+ * File Created at 2009-10-18
  * $Id$
  * 
  * Copyright 2008 Alibaba.com Croporation Limited.
@@ -20,22 +20,30 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
+import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 
 /**
- * 我的所有书本
+ * TODO Comment of BookDetailController
  * 
  * @author Zimmem
  */
-public class AllMyBookController extends AbstractController {
+public class BookDetailController extends AbstractController {
 
-    BookItemService bookItemService;
+    private BookItemService bookItemService;
+    private BookInfoService bookInfoService;
+
+    /**
+     * @param bookInfoService the bookInfoService to set
+     */
+    public void setBookInfoService(BookInfoService bookInfoService) {
+        this.bookInfoService = bookInfoService;
+    }
 
     /**
      * @param bookItemService the bookItemService to set
@@ -47,11 +55,14 @@ public class AllMyBookController extends AbstractController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal();
-        String loginId = userDetails.getUsername();
-        List<BookItem> bookItems = bookItemService.listBookItemsByLoginId(loginId);
-        return new ModelAndView("bookItemList", "bookItems", bookItems);
-    }
 
+        int bookInfoId = Integer.parseInt(request.getParameter("id"));
+        BookInfo bookInfo = bookInfoService.findBookInfoById(bookInfoId);
+        List<BookItem> items = bookItemService.listBookItemByBookInfoId(bookInfoId);
+        ModelAndView mv = new ModelAndView("bookDetail");
+        mv.addObject("bookInfo", bookInfo);
+        mv.addObject("bookItemList", items);
+        return mv;
+
+    }
 }

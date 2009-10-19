@@ -1,7 +1,7 @@
 /**
- * Project: goldroom-web 
+ * Project: goldroom-web
  * 
- * File Created at 2009-10-7
+ * File Created at 2009-10-18
  * $Id$
  * 
  * Copyright 2008 Alibaba.com Croporation Limited.
@@ -15,18 +15,33 @@
  */
 package com.alibaba.intl.bcds.goldroom.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
+import com.alibaba.intl.bcds.goldroom.service.BookItemService;
+import com.alibaba.intl.bcds.goldroom.web.utils.UserUtil;
+
 /**
- * 我被预约的书
+ * TODO Comment of LendedBooksController
  * 
  * @author Zimmem
  */
-public class MyReservatingBooksController extends AbstractController {
+public class LendedBooksController extends AbstractController {
+
+    private BookItemService bookItemService;
+
+    /**
+     * @param bookItemService the bookItemService to set
+     */
+    public void setBookItemService(BookItemService bookItemService) {
+        this.bookItemService = bookItemService;
+    }
 
     /*
      * (non-Javadoc)
@@ -38,8 +53,8 @@ public class MyReservatingBooksController extends AbstractController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        List<BookItem> items = bookItemService.listLendedBookItemBySubscriber(UserUtil.getLoginId());
+        return new ModelAndView("user/lendedBooks", "bookItemList", items);
     }
 
 }

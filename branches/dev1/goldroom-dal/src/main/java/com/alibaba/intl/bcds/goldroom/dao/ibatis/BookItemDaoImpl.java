@@ -78,10 +78,45 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
      * (int)
      */
     @Override
-    public BookItem getBookItemWithInfoById(int i) {
+    public BookItem getBookItemWithInfoById(int id) {
         return (BookItem) getSqlMapClientTemplate().queryForObject(
-                "BOOK_ITEM.getBookItemWithInfoById", i);
+                "BOOK_ITEM.getBookItemWithInfoById", id);
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.dao.BookItemDao#listBookItemByBookInfoId
+     * (int)
+     */
+    @Override
+    public List<BookItem> listBookItemByBookInfoId(int bookInfoId) {
+        return getSqlMapClientTemplate().queryForList("BOOK_ITEM.listBookItemByBookInfoId",
+                bookInfoId);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.dao.BookItemDao#listBookItemBySubscriber
+     * (java.lang.String)
+     */
+    @Override
+    public List<BookItem> listLendedBookItemBySubscriber(String ownerLoginID) {
+        return getSqlMapClientTemplate().queryForList("BOOK_ITEM.listLendedBookItemBySubscriber",
+                ownerLoginID);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @seecom.alibaba.intl.bcds.goldroom.dao.BookItemDao#
+     * listReservatedBooksBySubscriber(java.lang.String)
+     */
+    @Override
+    public List<BookItem> listReservatedBooksBySubscriber(String loginId) {
+        return getSqlMapClientTemplate().queryForList("BOOK_ITEM.listReservatedBooksBySubscriber",
+                loginId);
     }
 
 }

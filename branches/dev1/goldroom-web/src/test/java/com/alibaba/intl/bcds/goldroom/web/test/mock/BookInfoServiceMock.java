@@ -41,13 +41,28 @@ public class BookInfoServiceMock implements BookInfoService {
         }
     }
 
-    /* (non-Javadoc)
-     * @see com.alibaba.intl.bcds.goldroom.service.BookInfoService#addBookInfo(com.alibaba.intl.bcds.goldroom.dataobject.BookInfo)
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.service.BookInfoService#addBookInfo(com
+     * .alibaba.intl.bcds.goldroom.dataobject.BookInfo)
      */
     @Override
     public void addBookInfo(BookInfo bookInfo) {
         // TODO Auto-generated method stub
-        
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.service.BookInfoService#findBookInfoById
+     * (int)
+     */
+    @Override
+    public BookInfo findBookInfoById(int id) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

@@ -60,4 +60,15 @@ public class BookInfoServiceImpl implements BookInfoService {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.service.BookInfoService#findBookInfoById
+     * (int)
+     */
+    @Override
+    public BookInfo findBookInfoById(int id) {
+        return bookInfoDao.findById(id);
+    }
+
 }

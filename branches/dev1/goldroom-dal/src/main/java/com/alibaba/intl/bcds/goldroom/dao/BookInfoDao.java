@@ -21,4 +21,5 @@ public interface BookInfoDao {
      * @param isbn
      */
     BookInfo findBookInfoByIsbn(String isbn);
+
 }

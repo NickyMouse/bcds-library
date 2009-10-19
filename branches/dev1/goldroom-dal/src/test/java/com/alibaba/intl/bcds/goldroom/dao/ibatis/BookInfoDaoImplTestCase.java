@@ -30,6 +30,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
+import com.alibaba.intl.bcds.goldroom.dao.test.BaseTest;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 
 /**
@@ -37,9 +38,7 @@ import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
  * 
  * @author Zimmem
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:goldroom-dal.xml")
-public class BookInfoDaoImplTestCase {
+public class BookInfoDaoImplTestCase extends BaseTest {
 
     /**
      * @throws java.lang.Exception
