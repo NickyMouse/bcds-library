@@ -24,12 +24,14 @@ import java.util.Date;
  */
 public class Category {
 
-    private long   id;
-    private long   parentId;
-    private String name;
-    private String description;
-    private Date   gmtCreate;
-    private Date   gmtModified;
+    private long    id;
+    private long    parentId;
+    private String  name;
+    private String  description;
+    private Date    gmtCreate;
+    private Date    gmtModified;
+    private boolean leaf;
+    private int     level;
 
     /**
      * @return the leaf
@@ -58,9 +60,6 @@ public class Category {
     public void setLevel(int level) {
         this.level = level;
     }
-
-    private boolean leaf;
-    private int     level;
 
     /**
      * @return the id
