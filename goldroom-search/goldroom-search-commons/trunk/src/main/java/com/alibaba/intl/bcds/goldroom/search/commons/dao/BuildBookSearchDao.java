@@ -1,13 +1,16 @@
 package com.alibaba.intl.bcds.goldroom.search.commons.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearchDO;
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildCategorySearchDO;
+import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearch;
+import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildCategorySearch;
 
 public interface BuildBookSearchDao {
-	public Map<Integer, BuildCategorySearchDO> listAllCategory();
+	public Map<Integer, BuildCategorySearch> listAllCategory();
 
-	public List<BuildBookSearchDO> listAllBook(Integer page);
+	public List<BuildBookSearch> listAllBook(Integer page);
+	
+	public List<BuildBookSearch> listBookByTime(Date startTime, Date endTime);
 }
