@@ -26,7 +26,7 @@ public class ReservationDAOImpl extends SqlMapClientDaoSupport implements Reserv
      * 
      * @ibatorgenerated Tue Sep 29 19:05:09 CST 2009
      */
-    public int deleteByPrimaryKey(Integer id) throws SQLException {
+    public int deleteByPrimaryKey(Integer id) {
         Reservation key = new Reservation();
         key.setId(id);
         int rows = getSqlMapClientTemplate().delete("RESERVATION.deleteByPrimaryKey", key);
@@ -39,7 +39,7 @@ public class ReservationDAOImpl extends SqlMapClientDaoSupport implements Reserv
      * 
      * @ibatorgenerated Tue Sep 29 19:05:09 CST 2009
      */
-    public void insert(Reservation record) throws SQLException {
+    public void insert(Reservation record) {
         getSqlMapClientTemplate().insert("RESERVATION.insert", record);
     }
 
@@ -49,7 +49,7 @@ public class ReservationDAOImpl extends SqlMapClientDaoSupport implements Reserv
      * 
      * @ibatorgenerated Tue Sep 29 19:05:09 CST 2009
      */
-    public void insertSelective(Reservation record) throws SQLException {
+    public void insertSelective(Reservation record) {
         getSqlMapClientTemplate().insert("RESERVATION.insertSelective", record);
     }
 
@@ -59,7 +59,7 @@ public class ReservationDAOImpl extends SqlMapClientDaoSupport implements Reserv
      * 
      * @ibatorgenerated Tue Sep 29 19:05:09 CST 2009
      */
-    public Reservation selectByPrimaryKey(Integer id) throws SQLException {
+    public Reservation selectByPrimaryKey(Integer id) {
         Reservation key = new Reservation();
         key.setId(id);
         Reservation record = (Reservation) getSqlMapClientTemplate().queryForObject(
@@ -73,7 +73,7 @@ public class ReservationDAOImpl extends SqlMapClientDaoSupport implements Reserv
      * 
      * @ibatorgenerated Tue Sep 29 19:05:09 CST 2009
      */
-    public int updateByPrimaryKeySelective(Reservation record) throws SQLException {
+    public int updateByPrimaryKeySelective(Reservation record) {
         int rows = getSqlMapClientTemplate().update("RESERVATION.updateByPrimaryKeySelective",
                 record);
         return rows;
@@ -85,7 +85,7 @@ public class ReservationDAOImpl extends SqlMapClientDaoSupport implements Reserv
      * 
      * @ibatorgenerated Tue Sep 29 19:05:09 CST 2009
      */
-    public int updateByPrimaryKey(Reservation record) throws SQLException {
+    public int updateByPrimaryKey(Reservation record) {
         int rows = getSqlMapClientTemplate().update("RESERVATION.updateByPrimaryKey", record);
         return rows;
     }

@@ -15,9 +15,11 @@
  */
 package com.alibaba.intl.bcds.goldroom.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
+import com.alibaba.intl.bcds.goldroom.service.result.Result;
 
 /**
  * TODO Comment of BookItemService
@@ -73,4 +75,29 @@ public interface BookItemService {
      * @return
      */
     List<BookItem> listReservatedBooksBySubscriber(String loginId);
+
+    /**
+     * 预约
+     * 
+     * @param subscriber
+     * @param bookItemId
+     */
+    Result reserve(String subscriber, int bookItemId);
+
+    /**
+     * 确定借书
+     * 
+     * @param reservationId
+     * @param lendTime
+     * @param returnTime
+     */
+    Result lend(int reservationId, Date lendTime, Date returnTime);
+
+    /**
+     * 还书
+     * 
+     * @param lendId
+     */
+    Result returnBook(int lendId);
+
 }

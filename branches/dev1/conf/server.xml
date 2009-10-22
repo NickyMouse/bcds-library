@@ -114,7 +114,7 @@
       <!-- Define the default virtual host
            Note: XML Schema validation will not work with Xerces 2.2.
        -->
-      <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true" xmlNamespaceAware="false" xmlValidation="false">
+      <Host appBase="" autoDeploy="true" name="localhost" unpackWARs="true" xmlNamespaceAware="false" xmlValidation="false">
 
         <!-- SingleSignOn valve, share authentication between web applications
              Documentation at: /docs/config/valve.html -->
@@ -129,7 +129,7 @@
                prefix="localhost_access_log." suffix=".txt" pattern="common" resolveHosts="false"/>
         -->
 		
-      <Context docBase="../goldroom-web/target/goldroom-web" path="/" reloadable="true"/></Host>
+      <Context docBase="goldroom-web/target/goldroom-web" path="/" reloadable="true"/></Host>
     </Engine>
   </Service>
 </Server>

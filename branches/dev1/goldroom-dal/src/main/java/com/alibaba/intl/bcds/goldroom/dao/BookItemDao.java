@@ -61,4 +61,10 @@ public interface BookItemDao {
      * @return
      */
     List<BookItem> listReservatedBooksBySubscriber(String loginId);
+
+    /**
+     * @param reservationId
+     * @return
+     */
+    BookItem getBookItemByReservationId(int reservationId);
 }

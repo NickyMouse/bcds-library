@@ -15,12 +15,15 @@
  */
 package com.alibaba.intl.bcds.goldroom.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
-import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
+import com.alibaba.intl.bcds.goldroom.dao.ReservationDAO;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
+import com.alibaba.intl.bcds.goldroom.dataobject.Reservation;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
+import com.alibaba.intl.bcds.goldroom.service.result.Result;
 
 /**
  * TODO Comment of BookItemServiceImpl
@@ -29,7 +32,15 @@ import com.alibaba.intl.bcds.goldroom.service.BookItemService;
  */
 public class BookItemServiceImpl implements BookItemService {
 
-    BookItemDao bookItemDao;
+    BookItemDao    bookItemDao;
+    ReservationDAO reservationDAO;
+
+    /**
+     * @param reservationDAO the reservationDAO to set
+     */
+    public void setReservationDAO(ReservationDAO reservationDAO) {
+        this.reservationDAO = reservationDAO;
+    }
 
     /**
      * @param bookItemDao the bookItemDao to set
@@ -111,5 +122,63 @@ public class BookItemServiceImpl implements BookItemService {
     @Override
     public List<BookItem> listReservatedBooksBySubscriber(String loginId) {
         return bookItemDao.listReservatedBooksBySubscriber(loginId);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.service.BookItemService#reserve(java.lang
+     * .String, int)
+     */
+    @Override
+    public Result reserve(String subscriber, int bookItemId) {
+        BookItem item = bookItemDao.findById(bookItemId);
+        if (item.getState().equals(BookItem.STATE_IDLE)) {
+
+            Reservation reservation = new Reservation();
+            reservation.setBookItemId(bookItemId);
+            reservation.setSubscriberId(subscriber);
+            reservationDAO.insert(reservation);
+            //TODO 往reservation里添加预约信息
+            //TODO 改不改书的状态？
+            return Result.SUCCESS;
+        } else {
+            return new Result(false);
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see com.alibaba.intl.bcds.goldroom.service.BookItemService#lend(int,
+     * java.util.Date, java.util.Date)
+     */
+    @Override
+    public Result lend(int reservationId, Date lendTime, Date returnTime) {
+        Reservation reservation = reservationDAO.selectByPrimaryKey(reservationId);
+        BookItem bookItem = bookItemDao.getBookItemByReservationId(reservationId);
+        if (bookItem.getState().equals(BookItem.STATE_IDLE)) {
+            //TODO 
+            //TODO 把预约信息迁至log表?
+            //TODO 添加借阅信息
+            bookItem.setState(BookItem.STATE_LENDED);
+            bookItemDao.updateById(bookItem);
+            return Result.SUCCESS;
+        } else {
+            return new Result(false);
+        }
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.service.BookItemService#returnBook(int)
+     */
+    @Override
+    public Result returnBook(int lendId) {
+        //TODO 把借阅信息迁到log表
+        //TODO 更改书本状态 
+        //
+        return new Result(false);
     }
 }
