@@ -16,7 +16,7 @@
 		<property name="driverClassName" value="org.gjt.mm.mysql.Driver" />
 		<property name="url" value="jdbc:mysql://localhost/goldroom" />
 		<property name="username" value="goldroom" />
-		<property name="password" value="hello123321" />
+		<property name="password" value="goldroom" />
 	</bean>
 	<bean id="userDao"
 		class="com.alibaba.intl.bcds.goldroom.sample.dao.ibatis.UserDaoImpl" />
@@ -44,6 +44,6 @@
 
 	<bean id="searchDatasource"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.BookSearchDatasource">
-		<property name="indexLocation" value="f:/bookSearchIndex" />
+		<property name="indexLocation" value="/home/admin/index" />
 	</bean>
 </beans>

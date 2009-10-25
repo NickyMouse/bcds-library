@@ -15,7 +15,7 @@
 		<property name="exposeSpringMacroHelpers" value="true" />
 		<property name="layoutUrl" value="/layout/default.vm" />
 		<property name="contentType">
-			<value>text/html;charset=UTF-8 </value>
+			<value>text/html;charset=UTF-8</value>
 		</property>
 	</bean>
 
@@ -27,8 +27,8 @@
 			<props>
 				<prop key="directive.foreach.counter.name">loopCounter</prop>
 				<prop key="directive.foreach.counter.initial.value">0</prop>
-				<prop key="input.encoding">utf-8 </prop>
-				<prop key="output.encoding">utf-8 </prop>
+				<prop key="input.encoding">utf-8</prop>
+				<prop key="output.encoding">utf-8</prop>
 				<prop key="velocimacro.library">macro/macro.vm</prop>
 			</props>
 		</property>

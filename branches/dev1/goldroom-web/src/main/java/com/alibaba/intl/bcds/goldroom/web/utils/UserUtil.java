@@ -42,4 +42,8 @@ public class UserUtil {
     public static UserDetails getUserDetails() {
         return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
+    
+    public static boolean isLogin(){
+    	return SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+    }
 }

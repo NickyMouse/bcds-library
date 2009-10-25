@@ -8,34 +8,8 @@
       <tbody><tr>
         <td align="left" valign="top" width="328"><img src="$SERVER_NAME/images/logo_internal.png" alt="opensubscriber" height="105" width="399"></td>
         <td align="right" valign="middle" width="627">
-		<table border="0" cellpadding="0" cellspacing="0" width="289">          
-		<form action="$SERVER_NAME/search.htm" method="get" name="search" id="search">
-          <tbody><tr>
-            <td align="left" valign="top" width="271"><table border="0" cellpadding="0" cellspacing="0" width="254">
-              <tbody><tr>
-                <td colspan="3" align="left" valign="top"><img src="$SERVER_NAME/images/internal_txtbox_top.gif" height="9" width="406"></td>
-                </tr>
-              <tr>
-                <td align="left" valign="top" width="5"><img src="$SERVER_NAME/images/internal_txtbox_left.gif" height="22" width="5"></td>
-                <td align="left" bgcolor="#acd674" valign="middle" width="396"><input name="q" class="searchbox_internal" id="q" value="#if($keywords)$keywords #else Search the archives...#end" size="35" onclick="this.value='';" onblur="javascript:if (this.value=='') this.value='Search the archives...';" type="text"></td>
-                <td align="left" valign="top" width="5"><img src="$SERVER_NAME/images/internal_txtbox_right.gif" height="22" width="5"></td>
-              </tr>
-              <tr>
-                <td colspan="3" align="left" valign="top"><img src="$SERVER_NAME/images/internal_txtbox_bottom.gif" height="9" width="406"></td>
-                </tr></tbody></table>
-			</td>
-            <td align="left" valign="top" width="8">
-			<a href="#"><img src="$SERVER_NAME/images/internal_txtbox_button.gif" onclick="javascript:document.search.submit();" align="absmiddle" border="0" height="40" width="28"></a></td>
-            <td align="left" valign="top" width="10"><img src="$SERVER_NAME/images/internal_txtbox_side.gif" height="40" width="7"></td>
-          </tr>
-          <tr>
-            <td colspan="3" align="left" valign="top">
-			</td>
-           </tr>          
-		  
-        </tbody>
-		</form>
-		</table></td>
+			#parse("widget/searchBox.vm")
+		</td>
       </tr>
     </tbody></table></td>
   </tr><!-- END Header, search box-->
@@ -43,20 +17,28 @@
   <!-- Main Menu-->
   <tr>
     <td class="nav_internal" align="left" valign="middle">
-	<a href="home.htm">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="$SERVER_NAME/home.htm">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="$SERVER_NAME/advancedSearch.htm">搜索书籍</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="$SERVER_NAME/login.htm">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	
-	<a href="http://www.opensubscriber.com/logIn.os">Log In</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href="http://www.opensubscriber.com/signUp.os">Sign Up</a>&nbsp;&nbsp;&nbsp;&nbsp;		
-    
-
-	<a href="http://www.opensubscriber.com/static/faq.os">FAQ11</a>&nbsp;&nbsp;&nbsp;&nbsp;
-    		
+	<a href="$SERVER_NAME/faq/index.htm">FAQ</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	
+    #if($userName)
+		|&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="$SERVER_NAME/user/myBooks.htm">我的书籍</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="$SERVER_NAME/user/reservatedBooks.htm">我要预约</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="$SERVER_NAME/user/lendedBooks.htm">我要还书</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="$SERVER_NAME/user/beforeShelve.htm">书籍上架</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="$SERVER_NAME/#">书籍下架</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	#end
 	</td>
   </tr>
   <!-- End Main Menu-->
   <!-- BreadCrumb-->
+  #if($breadCrumb)
   <tr>
-    <td align="left" valign="middle">&nbsp;home > haha</td>
+    <td align="left" valign="middle">$breadCrumb.view</td>
   </tr>
+  #end
 </table>
   <!-- End BreadCrumb-->
