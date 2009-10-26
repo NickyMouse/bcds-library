@@ -119,4 +119,10 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
                 loginId);
     }
 
+	@Override
+	public BookItem getBookItemByReservationId(int reservationId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
