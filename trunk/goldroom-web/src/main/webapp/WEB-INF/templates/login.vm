@@ -1,0 +1,12 @@
+#parse("macro/serverName.vm")
+<p align="center"> 
+<table class="blue" width="935">
+    <tbody>
+        <tr>
+            <td valign="top" align="center">
+                #parse("widget/loginBox.vm")
+			</td>
+		</tr>
+	</tbody>
+</table>
+</p>

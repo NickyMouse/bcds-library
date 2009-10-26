@@ -1,55 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flow="http://www.springframework.org/schema/webflow-config"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd"
+		http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+		 http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-2.5.xsd"
 	default-autowire="byName">
 
 	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+		<property name="toolboxConfigLocation" value="WEB-INF/toolbox.xml" />
 		<property name="suffix" value=".vm" />
 		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="layoutUrl" value="/layout/default.vm" />
+		<property name="contentType">
+			<value>text/html;charset=UTF-8</value>
+		</property>
 	</bean>
 
 	<bean id="velocityConfigurer"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-		<property name="resourceLoaderPath" value="WEB-INF/templates/" />
+		<property name="resourceLoaderPath" value="../../src/main/webapp/WEB-INF/templates/" />
+
 		<property name="velocityProperties">
 			<props>
 				<prop key="directive.foreach.counter.name">loopCounter</prop>
 				<prop key="directive.foreach.counter.initial.value">0</prop>
+				<prop key="input.encoding">utf-8</prop>
+				<prop key="output.encoding">utf-8</prop>
+				<prop key="velocimacro.library">macro/macro.vm</prop>
 			</props>
 		</property>
 	</bean>
 
-	<!--
-		<bean id="validatorFactory"
+
+	<bean id="validatorFactory"
 		class="org.springmodules.validation.commons.DefaultValidatorFactory">
-		<property name="validationConfigLocations"> <list>
-		<value>/WEB-INF/validator-rules.xml</value>
-		<value>/WEB-INF/validation.xml</value> </list> </property> </bean>
-	-->
-	<!--
-		<bean id="validator"
-		class="org.springmodules.validation.commons.DefaultBeanValidator" />
-	-->
-	<bean id="userValidator" class="org.springmodules.validation.valang.ValangValidator">
-		<property name="valang">
-			<value>
-<![CDATA[
-{ username : length(?) < 30 : 'username too long' : 'username_length' : 30}
-{ age : length(?) < 50 : 'age too long' : 'age_length' : 50 }
-]]>
-			</value>
+		<property name="validationConfigLocations">
+			<list>
+				<value>/WEB-INF/validator-rules.xml</value>
+				<value>/WEB-INF/validation.xml</value>
+			</list>
 		</property>
 	</bean>
+
+	<bean id="validator"
+		class="org.springmodules.validation.commons.DefaultBeanValidator" />
+
+	<!--
+		<bean id="userValidator"
+		class="org.springmodules.validation.valang.ValangValidator"> <property
+		name="valang"> <value> <![CDATA[ { username : length(?) < 10 :
+		'username too long' : 'username_length' : 30} { age : length(?) < 50 :
+		'age too long' : 'age_length' : 50 } ]]> </value> </property> </bean>
+	-->
+	<bean id="handlerMapping"
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+		<property name="order">
+			<value>0</value>
+		</property>
+	</bean>
+
+
 	<bean id="urlMapping"
 		class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
-		<property name="interceptors">
-			<list>
-				<bean
-					class="org.springmodules.validation.valang.javascript.taglib.ValangRulesExportInterceptor" />
-			</list>
+		<!--
+			<property name="interceptors"> <list> <bean
+			class="org.springmodules.validation.valang.javascript.taglib.ValangRulesExportInterceptor"
+			/> </list> </property>
+		-->
+		<property name="order">
+			<value>1</value>
+		</property>
+		<property name="defaultHandler">
+			<bean class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
 		</property>
 	</bean>
 
@@ -59,10 +84,58 @@
 	</bean>
 
 
-	<bean class="com.alibaba.intl.bcds.goldroom.web.sample.SampleController">
-		<property name="validator" ref="userValidator" />
+	<bean id="sampleController"
+		class="com.alibaba.intl.bcds.goldroom.web.sample.SampleController">
+		<property name="validator" ref="validator" />
 		<property name="formView" value="user" />
 		<property name="commandName" value="user" />
 		<property name="commandClass" value="com.alibaba.intl.bcds.goldroom.sample.User" />
 	</bean>
+
+	<bean class="com.alibaba.intl.bcds.goldroom.web.search.SearchController" />
+
+	<bean class="com.alibaba.intl.bcds.goldroom.web.HomeController" />
+
+	<bean name="/bookDetail.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.BookDetailController" />
+
+	<bean name="/user/findIsbn.htm" class="com.alibaba.intl.bcds.goldroom.web.FindIsbnController" />
+
+	<bean name="/user/myBooks.htm" class="com.alibaba.intl.bcds.goldroom.web.MyBooksController" />
+
+	<bean name="/user/lendedBooks.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.LendedBooksController" />
+	<bean name="/user/reservatedBooks.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ReservatedBooksController" />
+	<bean name="/user/confirmedShelves.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ConfirmedShelvesController">
+		<property name="formView" value="user/confirmedShelves" />
+		<property name="successView" value="redirect:shelveSuccess.htm" />
+		<property name="commandName" value="bookItem" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.dataobject.BookItem" />
+	</bean>
+
+	<bean name="/user/fillBookInfo.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.FillBookInfoController">
+		<property name="formView" value="user/fillBookInfo" />
+		<property name="commandName" value="bookInfo" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo" />
+	</bean>
+
+	<bean name="/user/userInfoModify.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.UserInfoModifyController">
+		<property name="commandName" value="member" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.dataobject.Member" />
+	</bean>
+
+	<!--
+		<context:component-scan
+		base-package="com.intl.alibaba.bcds.goldroom.web" /> <bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"
+		/>
+	-->
+
 </beans>

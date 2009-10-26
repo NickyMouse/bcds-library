@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.alibaba.intl.bcds.goldroom.dao.BookInfoDao;
-import com.alibaba.intl.bcds.goldroom.dataobject.BookInfoDO;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 
 public class BookInfoDaoTest extends TestCase{
 
@@ -26,7 +26,7 @@ public class BookInfoDaoTest extends TestCase{
 
 	@Test
 	public void testInsert() {
-		BookInfoDO bookInfoDO = new BookInfoDO();
+		BookInfo bookInfoDO = new BookInfo();
 		bookInfoDO.setAuthor("Author");
 		bookInfoDO.setCategoryId(1);
 		bookInfoDO.setCategoryName("Tec");
@@ -42,12 +42,12 @@ public class BookInfoDaoTest extends TestCase{
 
 	@Test
 	public void testUpdateById() {
-		
+		//fail("Not yet implemented");
 	}
 
 	@Test
 	public void testFindById() {
-		
+		//fail("Not yet implemented");
 	}
 
 }

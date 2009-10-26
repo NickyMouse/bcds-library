@@ -2,12 +2,24 @@ package com.alibaba.intl.bcds.goldroom.dao;
 
 import java.util.List;
 
-import com.alibaba.intl.bcds.goldroom.dataobject.BookInfoDO;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 
 public interface BookInfoDao {
-	List<BookInfoDO> listAll();
-	Integer insert(BookInfoDO bookInfoDO);
-	int updateById(BookInfoDO bookInfoDO);
-	int deleteById(Integer id);
-	BookInfoDO findById(Integer id);
+    List<BookInfo> listAll();
+
+    Integer insert(BookInfo bookInfoDO);
+
+    int updateById(BookInfo bookInfoDO);
+
+    int deleteById(Integer id);
+
+    BookInfo findById(Integer id);
+
+    /**
+     * 通过isbn查询书的信息
+     * 
+     * @param isbn
+     */
+    BookInfo findBookInfoByIsbn(String isbn);
+
 }

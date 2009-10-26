@@ -1,0 +1,16 @@
+<table width="100%">
+	<tr>
+		<td>主人</td>
+		<td>状态</td>
+		<td>上架时间</td>
+	</tr>
+	#foreach($bookItem in $bookItemList)
+	<tr>
+		
+		<td>$!{bookItem.loginId}</td>
+		<td>$!{bookItem.state}</td>
+		<td>$!{bookItem.addTime}</td>
+
+	</tr>
+	#end
+</table>

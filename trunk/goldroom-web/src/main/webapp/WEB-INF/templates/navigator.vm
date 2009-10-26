@@ -1,0 +1,16 @@
+#set($pageSize = 15)
+Total:$totalCount
+#if(!$page)
+	#set($page = 1)
+#end
+
+#if($!totalCount != 0)
+	#set($totalPage = $totalCount/$pageSize)
+	#if($totalCount%$pageSize>0)
+		#set($totalPage = $totalPage + 1)
+	#end
+#else
+	#set($totalPage = 1)
+#end
+
+$totalPage

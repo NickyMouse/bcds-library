@@ -1,0 +1,23 @@
+<table>
+	<tr ><td>#parse("widget/bookInfoDetail.vm")
+	</td>
+    </tr>
+	<tr>
+		<td>
+			#springBind("bookItem.*")
+			<form action="/user/confirmedShelves.htm" method="POST">
+				<input type="hidden" name="isbn" value="$!{bookInfo.isbn}"/>
+				<table>
+					<tr>
+						<td>为这本书添加一些标签以方便他人查找#springFormInput("bookItem.tags")
+						</td>
+					</tr>
+					<tr>
+						<td><input  type="submit" value ="确定上架"/>
+						</td>
+					</tr>
+				</table>
+			</form>
+        </td>
+    </tr>
+	</table>

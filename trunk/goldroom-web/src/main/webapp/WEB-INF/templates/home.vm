@@ -1,0 +1,40 @@
+#parse("macro/serverName.vm")
+<br>
+<table width="100%" height="550px" cellspacing="0" cellpadding="3" border="0">
+  <tr>
+    <td width="65%" valign="top">
+		<h2>最近上架的书籍......</h2>
+        	<table align="center">
+            	<tr>
+				#foreach($book in $newBookList)
+                <td align="center" width="150px">
+					<a href="#"><img class="bookImage" src="$book.bookImgUrl"/></a><br>
+					<a href="#">$book.bookName</a>
+                </td>
+				#end
+                </tr>
+            </table>
+        <br/><br/>
+        <h2>最受欢迎的书籍</h2>
+			<table align="center">
+            	<tr>
+				#foreach($book in $popularBookList)
+                <td align="center" width="150px">
+					<a href="#"><img class="bookImage" src="$book.bookImgUrl"/></a><br>
+					<a href="#">$book.bookName</a>
+                </td>
+				#end
+                </tr>
+            </table>
+	</td>
+	<td width="50" valign="top">
+	</td>
+    <td width="330px" valign="top">
+		#if($userName)
+			#parse("widget/userMenu.vm")
+		#else
+			#parse("widget/loginBox.vm")
+		#end
+	</td>
+  </tr>  
+</table>

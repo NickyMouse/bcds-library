@@ -5,8 +5,7 @@ import java.util.List;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import com.alibaba.intl.bcds.goldroom.dao.BookItemLogDao;
-import com.alibaba.intl.bcds.goldroom.dataobject.BookItemDO;
-import com.alibaba.intl.bcds.goldroom.dataobject.BookItemLogDO;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookItemLog;
 
 public class BookItemLogDaoImpl extends SqlMapClientDaoSupport implements
 		BookItemLogDao {
@@ -15,21 +14,21 @@ public class BookItemLogDaoImpl extends SqlMapClientDaoSupport implements
 		return getSqlMapClientTemplate().delete("BOOK_ITEM_LOG.deleteById", id);
 	}
 
-	public BookItemLogDO findById(Integer id) {
-		return (BookItemLogDO) getSqlMapClientTemplate().queryForObject(
+	public BookItemLog findById(Integer id) {
+		return (BookItemLog) getSqlMapClientTemplate().queryForObject(
 				"BOOK_ITEM_LOG.findById", id);
 	}
 
-	public Integer insert(BookItemLogDO bookItemLogDO) {
+	public Integer insert(BookItemLog bookItemLogDO) {
 		return (Integer) getSqlMapClientTemplate().insert("BOOK_ITEM_LOG.insert",
 				bookItemLogDO);
 	}
 
-	public List<BookItemLogDO> listAll() {
+	public List<BookItemLog> listAll() {
 		return getSqlMapClientTemplate().queryForList("BOOK_ITEM_LOG.listAll");
 	}
 
-	public int updateById(BookItemLogDO bookItemLogDO) {
+	public int updateById(BookItemLog bookItemLogDO) {
 		return getSqlMapClientTemplate().update("BOOK_ITEM_LOG.updateById", bookItemLogDO);
 	}
 

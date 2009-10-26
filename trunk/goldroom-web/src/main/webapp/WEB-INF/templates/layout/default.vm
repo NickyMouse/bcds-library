@@ -1,0 +1,13 @@
+#parse("macro/serverName.vm")
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Gold Room</title>
+<link href="$SERVER_NAME/css/styles.css" rel="stylesheet" type="text/css">
+
+</head><body>
+	#parse("header.vm")
+	$screen_content
+	#parse("footer.vm")
+</body></html>

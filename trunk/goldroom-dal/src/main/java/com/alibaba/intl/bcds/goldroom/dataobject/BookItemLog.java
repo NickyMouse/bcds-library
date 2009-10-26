@@ -2,7 +2,7 @@ package com.alibaba.intl.bcds.goldroom.dataobject;
 
 import java.util.Date;
 
-public class BookItemLogDO {
+public class BookItemLog {
 	private Integer id;
 	private Date gmtCreate;
 	private Date gmtModified;
