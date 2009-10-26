@@ -25,25 +25,45 @@ import org.springframework.security.userdetails.UserDetails;
  * @author Zimmem
  */
 public class UserUtil {
-    public static String getLoginId() {
-        return getUserDetails().getUsername();
-    }
+	public static String getLoginId() {
+		UserDetails details = getUserDetails();
+		if (details != null) {
+			return details.getUsername();
+		}else{
+			return null;
+		}
+	}
 
-    public static String getPassword() {
-        return getUserDetails().getPassword();
-    }
+	public static String getPassword() {
+		UserDetails details = getUserDetails();
+		if (details != null) {
+			return details.getPassword();
+		}else{
+			return null;
+		}
+	}
 
-    public static GrantedAuthority[] getAuthorities() {
-        getUserDetails().getAuthorities();
-        return null;
+	public static GrantedAuthority[] getAuthorities() {
+		UserDetails details = getUserDetails();
+		if (details != null) {
+			return details.getAuthorities();
+		}else{
+			return null;
+		}
+	}
 
-    }
+	public static UserDetails getUserDetails() {
+		Object result = SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
+		if (result instanceof String) {
+			return null;
+		} else {
+			return (UserDetails) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+		}
+	}
 
-    public static UserDetails getUserDetails() {
-        return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
-    
-    public static boolean isLogin(){
-    	return SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
-    }
+	public static boolean isLogin() {
+		return getUserDetails() != null;
+	}
 }
