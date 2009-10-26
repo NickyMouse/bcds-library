@@ -19,8 +19,9 @@
     <td class="nav_internal" align="left" valign="middle">
 	<a href="$SERVER_NAME/home.htm">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	<a href="$SERVER_NAME/advancedSearch.htm">搜索书籍</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href="$SERVER_NAME/login.htm">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	
+	#if(!$userName)
+		<a href="$SERVER_NAME/login.htm">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	#end
 	<a href="$SERVER_NAME/faq/index.htm">FAQ</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	
     #if($userName)

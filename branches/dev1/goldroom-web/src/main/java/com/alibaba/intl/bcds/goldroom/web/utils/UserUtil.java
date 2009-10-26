@@ -52,14 +52,21 @@ public class UserUtil {
 		}
 	}
 
+	public static String getUserName(){
+		UserDetails details = getUserDetails();
+		if (details != null) {
+			return details.getUsername();
+		}else{
+			return null;
+		}
+	}
 	public static UserDetails getUserDetails() {
 		Object result = SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
-		if (result instanceof String) {
-			return null;
+		if (result instanceof UserDetails) {
+			return (UserDetails) result;
 		} else {
-			return (UserDetails) SecurityContextHolder.getContext()
-					.getAuthentication().getPrincipal();
+			return null;
 		}
 	}
 
