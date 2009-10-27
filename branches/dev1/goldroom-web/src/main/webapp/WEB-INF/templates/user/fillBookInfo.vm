@@ -1,73 +1,73 @@
-该书籍信息不存在，请先填写书籍信息
 #springBind("bookInfo.*")
 #validationError()
-<form action="/user/fillBookInfo.htm" method="POST">
-<table >
-	<tr >
-        <td >isbn
-        </td>
-        <td >$!{isbn}
-			<input type="hidden" name="isbn" value="$!{isbn}"/>
-        </td>
-    </tr>
-    <tr >
-        <td >NAME
-        </td>
-        <td >#springFormInput("bookInfo.name" 'size="45" maxlength="45"')
-        </td>
-    </tr>
-	
-	 <tr>
-        <td>Edition</td>
-        <td >
-           #springFormInput("bookInfo.edition" 'size="45" maxlength="45"')
-        </td>
+<table width="100%" cellspacing="0" cellpadding="3" border="0">
+  <tbody>
+    <tr>
+      <td align="center"><h1>书籍上架</h1></td>
     </tr>
     <tr>
-        <td>AUTHOR</td>
-        <td >
-           #springFormInput("bookInfo.author" 'size="45" maxlength="45"')
-        </td>
-    </tr>
-	 <tr>
-        <td>CATEGORY</td>
-        <td >
-			<select name="categoryId">
-					<option value="">select....</option>
+      <td align="center"><h2>该书籍信息不存在，请填写书籍信息</h2>
+        <form action="/user/fillBookInfo.htm" method="POST">
+          <table >
+            <tr >
+              <td align="right">ISBN：&nbsp;&nbsp; </td>
+              <td align="left">$!{isbn}
+                <input type="hidden" name="isbn" value="$!{isbn}"/>
+              </td>
+            </tr>
+            <tr >
+              <td align="right">书本名称：&nbsp;&nbsp; </td>
+              <td >#springFormInput("bookInfo.name" 'size="45" maxlength="45"')
+              </td>
+            </tr>
+            <tr>
+              <td align="right">作者：&nbsp;&nbsp;</td>
+              <td >#springFormInput("bookInfo.author" 'size="45" maxlength="45"')</td>
+            </tr>
+            <tr>
+              <td align="right">类目：&nbsp;&nbsp;</td>
+              <td ><select name="categoryId">
+					<option value="1">select....</option>
 				#foreach($category in ${categoryCache.categorys})
 						<option value="${category.id}">${category.name}</option>
 				#end
-            </select>
-        </td>
+				</select>
+			  </td>
+            </tr>
+            <tr>
+              <td align="right">出版社：&nbsp;&nbsp; </td>
+              <td >#springFormInput("bookInfo.publisher" 'size="45" maxlength="45"')
+              </td>
+            </tr>
+			 <tr>
+              <td align="right">出版时间：&nbsp;&nbsp; </td>
+              <td >#springFormInput("bookInfo.publishTime" 'size="45" maxlength="45"')
+              </td>
+            </tr>
+			<tr >
+              <td align="right">版本：&nbsp;&nbsp; </td>
+              <td >#springFormInput("bookInfo.edition" 'size="45" maxlength="45"')
+              </td>
+            </tr>
+			<tr >
+              <td align="right">图片链接：&nbsp;&nbsp; </td>
+              <td >#springFormInput("bookInfo.imgUrl" 'size="45" maxlength="200"')
+              </td>
+            </tr>
+            <tr >
+              <td align="right">书本描述：&nbsp;&nbsp; </td>
+              <td >#springFormTextarea("bookInfo.description" 'rows="10" cols="30"')
+			
+              </td>
+            </tr>
+            <tr >
+              <td colspan="2" align="center"><input type="button" value="上一步"/>
+                &nbsp;&nbsp;
+                <input name="submit" type="submit" value="下一步"/>
+              </td>
+            </tr>
+          </table>
+        </form></td>
     </tr>
-    <tr >
-        <td >DESCRIPTION
-        </td>
-        <td >#springFormTextarea("bookInfo.description" '')
-        </td>
-    </tr>
-    <tr >
-        <td >PUBLISHER
-        </td>
-        <td >#springFormInput("bookInfo.publisher" 'size="45" maxlength="45"')
-        </td>
-    </tr>
-	<tr >
-        <td >PUBLISHER Time
-        </td>
-        <td >#springFormInput("bookInfo.publishTime" 'size="45" maxlength="45"')
-        </td>
-    </tr>
-	<tr >
-        <td >Image Url
-        </td>
-        <td >#springFormInput("bookInfo.imgUrl" 'size="45" maxlength="45"')
-        </td>
-    </tr>
-	<tr >
-        <td ><input name="submit" type="submit" value="submit"/>
-        </td>
-        
-    </tr>
+  </tbody>
 </table>
-</form>

@@ -26,8 +26,8 @@ public class SearchController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		boolean isAdvancedSearch = request.getAttribute("isAdvancedSearch") == null ? true
-				: false;
+		boolean isAdvancedSearch = request.getAttribute("isAdvancedSearch") == null ? false
+				: true;
 		String pageStr = request.getParameter("page");
 
 		Map resultMap = new HashMap();

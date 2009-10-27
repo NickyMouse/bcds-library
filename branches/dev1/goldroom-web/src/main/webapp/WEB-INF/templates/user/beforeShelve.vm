@@ -1,13 +1,26 @@
-<form action="/user/findIsbn.htm" method="POST">
-    <table>
-        <tr>
-            <td>请先填写要上架的书的isbn:</td>
-            <td>
-                <input  type="text" name="isbn"/>
-            </td>
-            <td>
-                <input type="submit" value="submit"/>
-            </td>
-        </tr>
-    </table>
-</form>
+<table width="100%" cellspacing="0" cellpadding="3" border="0">
+  <tbody>
+    <tr>
+      <td align="center"><h1>图书上架</h1></td>
+    </tr>
+    <tr>
+      <td align="center"><form action="/user/findIsbn.htm" method="POST">
+          <table>
+            <tr>
+              <td>请填写要上架的书的ISBN:</td>
+              <td><input  type="text" name="isbn"/>
+              </td>
+            </tr>
+            <tr>
+              <td align="right"><br/>
+                <input type="button" value="取　消"/>
+              </td>
+              <td align="left"><br/>
+                <input type="submit" value="下一步"/>
+              </td>
+            </tr>
+          </table>
+        </form></td>
+    </tr>
+  </tbody>
+</table>

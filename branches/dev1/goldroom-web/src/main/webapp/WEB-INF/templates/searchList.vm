@@ -4,19 +4,19 @@ Total Result:$totalCount
 	<tbody>
 		<tr height="25">
 			<td class="lines" width="15%" valign="top" bgcolor="#cce4a3" align="left">
-				<strong>Image</strong>
+				<strong>图片</strong>
 			</td>
 			<td class="lines" width="15%" valign="top" bgcolor="#cce4a3" align="left">
-				<strong>Name</strong>
+				<strong>书籍名称</strong>
 			</td>
 			<td class="lines" width="10%" valign="top" bgcolor="#cce4a3" align="left">
-				<strong>Edition</strong>
+				<strong>版本</strong>
 			</td>
 			<td class="lines" width="137" valign="top" bgcolor="#cce4a3" align="left">
-				<strong>Description</strong>
+				<strong>描述</strong>
 			</td>
 			<td class="lines" width="109" valign="top" bgcolor="#cce4a3" align="left">
-				<strong>Publish Time</strong>
+				<strong>出版时间</strong>
 			</td>
 		</tr>
 		#foreach($book in $list)
@@ -24,12 +24,12 @@ Total Result:$totalCount
 			<td class="lines" width="35" valign="middle"  align="center" >
 				<img class="bookImage" src="$book.bookImgUrl"/>
 			</td>
-			<td class="lines">$book.bookName</td>
-			<td class="lines">$book.bookEdition</td>
+			<td class="lines">&nbsp;$book.bookName</td>
+			<td class="lines">&nbsp;$book.bookEdition</td>
 			<td class="lines">
 				<a href="http://www.opensubscriber.com/message/java-user@lucene.apache.org/7285227.html" title="">$book.bookDescription</a>
 			</td>
-			<td class="lines">$book.bookPublishTime</td>
+			<td class="lines">&nbsp;$book.bookPublishTime</td>
 		</tr>
 		#end
 </tbody>

@@ -1,1 +1,36 @@
-#parse("widget/bookItemList.vm")
+<table width="100%" cellspacing="0" cellpadding="3" border="0">
+  <tbody>
+    <tr>
+      <td align="center"><h1>我预约的书籍</h1></td>
+    </tr>
+    <tr>
+      <td align="center"><table width="100%" align="center">
+          <tr height="25">
+            <td class="lines" width="15%" valign="top" bgcolor="#cce4a3" align="left"><strong>书本名称</strong> </td>
+            <td class="lines" width="10%" valign="top" bgcolor="#cce4a3" align="left"><strong>作者</strong> </td>
+            <td class="lines" width="10%" valign="top" bgcolor="#cce4a3" align="left"><strong>版本</strong> </td>
+            <td class="lines" width="109" valign="top" bgcolor="#cce4a3" align="left"><strong>出版社</strong> </td>
+            <td class="lines" width="109" valign="top" bgcolor="#cce4a3" align="left"><strong>预约日期</strong> </td>
+            <td class="lines" width="109" valign="top" bgcolor="#cce4a3" align="left"><strong>借阅开始时间</strong> </td>
+            <td class="lines" width="109" valign="top" bgcolor="#cce4a3" align="left"><strong>借阅结束时间</strong> </td>
+            <td class="lines" width="50" valign="top" bgcolor="#cce4a3" align="left"><strong>查看</strong> </td>
+            <td class="lines" width="50" valign="top" bgcolor="#cce4a3" align="left"><strong>操作</strong> </td>
+          </tr>
+		  #foreach($bookItem in $bookItemList)
+			#set($bookInfo=$bookItem.bookInfo)
+          <tr height="25">
+            <td class="lines"><a href="书本详细信息页面">$bookInfo.name</a> </td>
+            <td class="lines">$!bookInfo.author</td>
+            <td class="lines">$!bookInfo.edition</td>
+            <td class="lines">$!bookInfo.publisher</td>
+            <td class="lines">reservateTime</td>
+            <td class="lines">2009-10-20</td>
+            <td class="lines">2009-10-20</td>
+            <td class="lines"><input type="button" value="查看"></td>
+            <td class="lines"><input type="button" value="确认领书"></td>
+          </tr>
+		  #end
+        </table></td>
+    </tr>
+  </tbody>
+</table>
