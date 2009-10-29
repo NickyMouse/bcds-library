@@ -1,6 +1,9 @@
 package com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource;
 
+import java.io.IOException;
+
 import org.apache.log4j.Logger;
+import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Searcher;
@@ -21,6 +24,7 @@ public class BookSearchDatasource implements SearchDatasource {
 	}
 
 	public Searcher getSearcher() {
+		
 		if (searcher == null) {
 			try {
 				reader = IndexReader.open(indexLocation);
@@ -29,6 +33,17 @@ public class BookSearchDatasource implements SearchDatasource {
 				return null;
 			}
 			searcher = new IndexSearcher(reader);
+		}
+		
+		try {
+			if (!reader.isCurrent()){
+				reader = reader.reopen();
+				searcher = new IndexSearcher(reader);
+			}
+		} catch (CorruptIndexException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 		return searcher;
 	}
