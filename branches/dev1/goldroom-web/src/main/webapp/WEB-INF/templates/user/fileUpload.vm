@@ -1,0 +1,12 @@
+#parse("macro/serverName.vm")
+#if($imgSrc)
+	<img class="bookImage" src="$SERVER_NAME/$imgSrc"/>
+#else
+	<img class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
+#end
+
+<form id="fileUpload" method="post" action="/user/fileUpload.htm" enctype="multipart/form-data">
+	<input id="isbn" type="hidden" name="isbn" value="$!isbn"/>
+	<input id="file" type="file" name="file" style="widht:300px"/>
+	<input type="submit" id="btnOk" value="OK" />
+</form>
