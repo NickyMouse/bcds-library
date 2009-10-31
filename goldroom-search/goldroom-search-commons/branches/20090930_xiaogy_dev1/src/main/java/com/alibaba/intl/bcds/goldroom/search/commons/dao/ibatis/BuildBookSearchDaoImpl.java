@@ -9,11 +9,13 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import com.alibaba.intl.bcds.goldroom.search.commons.dao.BuildBookSearchDao;
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearch;
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildCategorySearch;
 
 @SuppressWarnings("unchecked")
 public class BuildBookSearchDaoImpl extends SqlMapClientDaoSupport implements
 		BuildBookSearchDao {
+	/**
+	 * 一页的大小：一次获取的记录数
+	 */
 	private Integer pageSize;
 
 	public void setPageSize(Integer pageSize) {
@@ -28,10 +30,7 @@ public class BuildBookSearchDaoImpl extends SqlMapClientDaoSupport implements
 				"BUILD_BOOK_SEARCH.listAllBook", param);
 	}
 
-	public Map<Integer, BuildCategorySearch> listAllCategory() {
-		return getSqlMapClientTemplate().queryForMap(
-				"BUILD_BOOK_SEARCH.listAllCategory", null, "id");
-	}
+	
 
 	public List<BuildBookSearch> listBookByTime(Date startTime, Date endTime) {
 		Map param = new Hashtable();
