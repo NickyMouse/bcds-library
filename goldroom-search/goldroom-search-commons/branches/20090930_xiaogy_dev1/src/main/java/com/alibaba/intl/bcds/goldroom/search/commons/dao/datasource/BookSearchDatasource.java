@@ -24,7 +24,7 @@ public class BookSearchDatasource implements SearchDatasource {
 	}
 
 	public Searcher getSearcher() {
-		
+
 		if (searcher == null) {
 			try {
 				reader = IndexReader.open(indexLocation);
@@ -34,11 +34,13 @@ public class BookSearchDatasource implements SearchDatasource {
 			}
 			searcher = new IndexSearcher(reader);
 		}
-		
+
 		try {
-			if (!reader.isCurrent()){
-				reader = reader.reopen();
-				searcher = new IndexSearcher(reader);
+			if (!reader.isCurrent()) {
+				synchronized (reader) {
+					reader = reader.reopen();
+					searcher = new IndexSearcher(reader);
+				}
 			}
 		} catch (CorruptIndexException e1) {
 			e1.printStackTrace();
