@@ -1,6 +1,5 @@
 package com.alibaba.intl.bcds.goldroom.web.search;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchOption;
 import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQueryObject;
 import com.alibaba.intl.bcds.goldroom.search.commons.service.BookSearchService;
 import com.alibaba.intl.bcds.goldroom.web.utils.PageUtils;
@@ -26,13 +26,19 @@ public class SearchController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		boolean isAdvancedSearch = request.getAttribute("isAdvancedSearch") == null ? false
+		boolean isAdvancedSearch = request.getParameter("isAdvancedSearch") == null ? false
 				: true;
 		String pageStr = request.getParameter("page");
 
 		Map resultMap = new HashMap();
 		if (isAdvancedSearch) {
-
+			BookSearchOption option = new BookSearchOption();
+			option.setBookName(request.getParameter("bookName"));
+			option.setDescription(request.getParameter("description"));
+			option.setIsbn(request.getParameter("isbn"));
+			option.setPublisher(request.getParameter("publisher"));
+			option.setDaysBefore(request.getParameter("daysBefore"));
+			advancedSearch(option, pageStr, resultMap);
 		} else {
 			String keywords = request.getParameter("q");
 			keywordSearch(keywords, pageStr, resultMap);
@@ -50,9 +56,12 @@ public class SearchController extends AbstractController {
 		resultMap.put("keywords", keywords);
 	}
 
-	protected void advancedSearch(Map resultMap) {
-		//TODO
-		resultMap.put("list", new ArrayList());
-		resultMap.put("totalCount", 0);
+	protected void advancedSearch(BookSearchOption option, String pageStr,
+			Map resultMap) {
+		BookSearchQueryObject queryObj = bookSearchService.advancedBookSearch(
+				option, PageUtils.getSkipResult(pageStr), PageUtils.PAGE_SIZE);
+		resultMap.put("list", queryObj.getResultList());
+		resultMap.put("totalCount", queryObj.getTotalCount());
+		resultMap.put("searchOption", option);
 	}
 }

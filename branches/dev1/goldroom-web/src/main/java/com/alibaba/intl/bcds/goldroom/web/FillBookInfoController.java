@@ -39,49 +39,59 @@ import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
  * 
  * @author Zimmem
  */
+@SuppressWarnings("unchecked")
 public class FillBookInfoController extends SimpleFormController {
 
-    private BookInfoService bookInfoService;
+	private BookInfoService bookInfoService;
 
-    /**
-     * @param bookInfoService the bookInfoService to set
-     */
-    public void setBookInfoService(BookInfoService bookInfoService) {
-        this.bookInfoService = bookInfoService;
-    }
+	/**
+	 * @param bookInfoService
+	 *            the bookInfoService to set
+	 */
+	public void setBookInfoService(BookInfoService bookInfoService) {
+		this.bookInfoService = bookInfoService;
+	}
 
-    @Override
-    protected ModelAndView onSubmit(Object command) throws Exception {
-        BookInfo bookInfo = (BookInfo) command;
-        bookInfoService.addBookInfo(bookInfo);
-        return new ModelAndView("redirect:confirmedShelves.htm", "isbn", bookInfo.getIsbn());
-    }
+	@Override
+	protected ModelAndView onSubmit(Object command) throws Exception {
+		BookInfo bookInfo = (BookInfo) command;
+		bookInfoService.addBookInfo(bookInfo);
+		return new ModelAndView("redirect:confirmedShelves.htm", "isbn",
+				bookInfo.getIsbn());
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.springframework.web.servlet.mvc.SimpleFormController#showForm(javax
-     * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
-     * org.springframework.validation.BindException, java.util.Map)
-     */
-    @Override
-    protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response,
-                                    BindException errors, Map controlModel) throws Exception {
-        controlModel = new HashMap();
-        String isbn = request.getParameter("isbn");
-        if (StringUtils.isNotEmpty(isbn)) {
-            controlModel.put("isbn", isbn);
-        }
-        return super.showForm(request, response, errors, controlModel);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#showForm(javax
+	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
+	 * org.springframework.validation.BindException, java.util.Map)
+	 */
 
-    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
-            throws Exception {
+	@Override
+	protected ModelAndView showForm(HttpServletRequest request,
+			HttpServletResponse response, BindException errors, Map controlModel)
+			throws Exception {
+		controlModel = new HashMap();
+		String isbn = request.getParameter("isbn");
+		String imgSrc = request.getParameter("imgSrc");
+		if (StringUtils.isNotEmpty(isbn)) {
+			controlModel.put("isbn", isbn);
+			if (!StringUtils.isEmpty(imgSrc)) {
+				controlModel.put("imgSrc", imgSrc);
+			}
+		}
+		return super.showForm(request, response, errors, controlModel);
+	}
 
-        DateFormat fmt = new SimpleDateFormat("yyyy-M-d");
-        CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);
-        binder.registerCustomEditor(Date.class, dateEditor);
-        super.initBinder(request, binder);
-    }
+	protected void initBinder(HttpServletRequest request,
+			ServletRequestDataBinder binder) throws Exception {
+
+		DateFormat fmt = new SimpleDateFormat("yyyy-M-d");
+		CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);
+		binder.registerCustomEditor(Date.class, dateEditor);
+		super.initBinder(request, binder);
+	}
 
 }
