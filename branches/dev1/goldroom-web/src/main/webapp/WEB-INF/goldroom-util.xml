@@ -5,6 +5,6 @@
 	default-autowire="byName">
 
 	<bean class="com.alibaba.intl.bcds.goldroom.web.utils.CategoryCache"
-		init-method="init" lazy-init="false" />
+		init-method="init" lazy-init="true" />
 
 </beans>

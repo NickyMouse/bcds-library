@@ -105,8 +105,10 @@
 
 	<bean name="/user/lendedBooks.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.LendedBooksController" />
+
 	<bean name="/user/reservatedBooks.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.ReservatedBooksController" />
+
 	<bean name="/user/confirmedShelves.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.ConfirmedShelvesController">
 		<property name="formView" value="user/confirmedShelves" />
@@ -130,6 +132,25 @@
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.dataobject.Member" />
 	</bean>
+
+	<bean name="/user/fileUpload.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.FileUploadController">
+		<property name="uploadRoot" value="./" />
+		<property name="commandName" value="uploadFile" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.web.dataobject.UploadFile" />
+		<!-- 上传失败时跳转页面 -->
+		<!--<property name="formView" value="err.jsp" /> -->
+		<!-- 上传成功时跳转页面 -->
+		<!-- <property name="successView" value="confirmation.jsp" /> -->
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes -->
+		<property name="maxUploadSize" value="10000000" />
+	</bean>
+
 
 	<!--
 		<context:component-scan

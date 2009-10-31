@@ -53,9 +53,11 @@
 			<field property="tags"></field>
 		</form>
 
-<form name="member">
-			<field property="name" depends="required">				
+		<form name="member">
+			<field property="name" depends="required">
 			</field>
+		</form>
+		<form name="uploadFile">
 		</form>
 	</formset>
 

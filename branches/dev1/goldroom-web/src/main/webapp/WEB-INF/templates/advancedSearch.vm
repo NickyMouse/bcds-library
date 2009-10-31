@@ -23,18 +23,18 @@
             </tr>
             <tr align="right">
               <td>描述信息：</td>
-              <td align="left"><input  type="text" name="descrption"/></td>
+              <td align="left"><input  type="text" name="description"/></td>
             </tr>
-            <tr align="right">
+            <!--<tr align="right">
               <td>上架时间：</td>
-              <td align="left"><select>
+              <td align="left"><select name="daysBefore">
                   <option value="0">所有时间范围</option>
                   <option value="3">近3天</option>
                   <option value="10">近10天</option>
                   <option value="30">近30天</option>
                   <option value="40">大于30天</option>
                 </select></td>
-            </tr>
+			</tr>-->
             <tr>
               <td colspan="2" align="center"><input type="submit" value="搜索"/>
               </td>
