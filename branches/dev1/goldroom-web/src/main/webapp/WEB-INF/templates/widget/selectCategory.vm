@@ -1,18 +1,17 @@
 <style type="text/css">
-    body,span,div,td{font-size:12px;line-height:1.5em;color:#849BCA;}
+
     #selectDiv{ 
-    width:420px;
-    height:220px;
-    background:#EDF1F8; 
-    border: 1px solid #849BCA;
-    float:left;
-    overflow:hidden;
-    position:absolute;
-    left:0px;
-    top:0px;
-    cursor:move;
-    float:left;
-    /*filter:alpha(opacity=50);*/
+        width:420px;
+        height:220px;
+        background:#EDF1F8; 
+        border: 1px solid #849BCA;
+        float:left;
+        overflow:hidden;
+        position:absolute;
+        left:0px;
+        top:0px;
+        cursor:move;
+        float:left;
     }
     .content{
     padding:5px;
@@ -400,14 +399,13 @@
                                                     }
                                                     } 
 </script>
-<table style="width:700">
+<table width="150">
     <tr>
         <td>
-            <input type="hidden" id="categoryId" name="categoryId" readonly="true" style="width:422px" />
-            <div>
-                <input type="text" id="categoryPath" name="categoryPath" style="width:422px" title="点击选择类目" onClick="initAndShowOrHiddenDiv();"  readonly/>
-                <input type="button" id="cate" value="select" onClick="initAndShowOrHiddenDiv();" />
-            </div>
+            <input type="hidden" id="categoryId" name="categoryId" readonly="true" size="45" />
+            <input type="text" id="categoryPath" name="categoryPath" title="点击选择类目" onClick="initAndShowOrHiddenDiv();"  readonly/>
+			</td> <td>
+            <input type="button" id="cate" value="选择" onClick="initAndShowOrHiddenDiv();" />
         </td>
     </tr>
     <tr>
