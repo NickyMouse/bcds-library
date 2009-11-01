@@ -67,9 +67,9 @@
               <td>
 	
 				#if($bookItem.getState().equals("idle"))
-						<a href="#">借阅</a>
+						<a href="/user/reserveBook.htm?bookItemId=$bookItem.id">预约</a>
 				#else
-						不能借阅
+						不能预约
 				#end
               </td>
             </tr>
