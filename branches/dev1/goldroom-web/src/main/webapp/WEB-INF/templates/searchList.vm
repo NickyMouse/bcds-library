@@ -21,7 +21,7 @@
 		#foreach($book in $list)
 		<tr #if($velocityCount)class="highlight"#end height="120" >
 			<td class="lines" width="35" valign="middle"  align="center" >
-				<img class="bookImage" src="$book.bookImgUrl"/>
+				<img class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/>
 			</td>
 			<td class="lines">&nbsp;$book.bookName</td>
 			<td class="lines">&nbsp;$book.bookEdition</td>

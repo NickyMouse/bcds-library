@@ -42,7 +42,7 @@
 <br/>
 #if($bookItemList && $bookItemList.size()==0)
 暂无
-#elseif( $bookItemList.size()>0)
+#elseif($bookItemList.size()>0)
 <table width="100%" cellspacing="0" cellpadding="3" border="1" bordercolor="#cce4a3" >
   <tbody>
     <tr>
@@ -53,7 +53,7 @@
       <td class="lines" width="15%" valign="top" bgcolor="#ACD36B">上架时间</td>
       <td class="lines" width="15%" valign="top" bgcolor="#ACD36B">旺旺</td>
       <td class="lines" width="15%" valign="top" bgcolor="#ACD36B">&nbsp;</td>
-    </tr>bookItemList
+    </tr>
 	#foreach($bookItem in $bookItemList)
 		#foreach($owner in $ownerInfoList)
 			#if($owner.getLoginId().equals($bookItem.getLoginId()))
@@ -65,6 +65,12 @@
         		<A href=" http://web.im.alisoft.com/msg.aw?v=2&amp;uid=$owner.aliTalkId&amp;site=cnalichn&amp;s=1" target=_blank><IMG border=0 alt=点击这里给我发消息 src=" http://web.im.alisoft.com/online.aw?v=2&amp;uid=$owner.aliTalkId&amp;site=cnalichn&amp;s=1"></A>
         	  </td>
               <td>
+	
+				#if($bookItem.getState().equals("idle"))
+						<a href="#">借阅</a>
+				#else
+						不能借阅
+				#end
               </td>
             </tr>
 			#end
