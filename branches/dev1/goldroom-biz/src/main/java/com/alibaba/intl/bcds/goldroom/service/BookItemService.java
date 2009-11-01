@@ -18,6 +18,9 @@ package com.alibaba.intl.bcds.goldroom.service;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.service.result.Result;
 
@@ -26,9 +29,10 @@ import com.alibaba.intl.bcds.goldroom.service.result.Result;
  * 
  * @author Zimmem
  */
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public interface BookItemService {
     /**
-     * ����鱾
+     *添加图书
      * 
      * @param bookInfo
      */
@@ -37,7 +41,7 @@ public interface BookItemService {
     /**
      * 新书上架
      * 
-     * @param loginId �û���¼ id
+     * @param loginId 
      * @param isbn
      */
     void newShelves(String loginId, String isbn);
@@ -82,6 +86,7 @@ public interface BookItemService {
      * @param subscriber
      * @param bookItemId
      */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     Result reserve(String subscriber, int bookItemId);
 
     /**
@@ -89,6 +94,7 @@ public interface BookItemService {
      * 
      * @param lendId
      */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     Result returnBook(int lendId, String currentUser);
 
     /**
@@ -100,6 +106,7 @@ public interface BookItemService {
      * @param owner
      * @return
      */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     Result lend(int reservationId, Date lendTime, Date returnTime, String currentUser);
 
 }

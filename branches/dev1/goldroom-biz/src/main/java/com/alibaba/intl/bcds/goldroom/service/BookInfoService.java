@@ -15,6 +15,9 @@
  */
 package com.alibaba.intl.bcds.goldroom.service;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 
 /**
@@ -22,6 +25,7 @@ import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
  * 
  * @author Zimmem
  */
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public interface BookInfoService {
 
     /**

@@ -21,7 +21,7 @@
           </tr>
           <tr>
             <td colspan="3" align="right" valign="top">
-                <a href="$SERVER_NAME/advancedSearch.htm"<font color="#75A413" size="2">高级搜索</font></a>
+                <a href="$SERVER_NAME/advancedSearch.htm"><font color="#75A413" size="2">高级搜索</font></a>
 			</td>
            </tr>          
 		  

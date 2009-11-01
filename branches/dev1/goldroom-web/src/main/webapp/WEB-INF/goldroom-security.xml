@@ -33,9 +33,9 @@
                                         where LOGIN_ID=?"
 			authorities-by-username-query="select m.LOGIN_ID as username,r.name as authority
                                              from MEMBER m
-                                             join member_role mr
+                                             join MEMBER_ROLE mr
                                                on m.id=mr.member_id
-                                             join role r
+                                             join ROLE r
                                                on r.id=mr.role_id 
                                             where m.LOGIN_ID=?" />
 

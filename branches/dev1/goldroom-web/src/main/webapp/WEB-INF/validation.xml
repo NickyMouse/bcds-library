@@ -75,9 +75,10 @@
 			</field>
 		</form>
 
-<form name="uploadFile">
+		<!--<form name="uploadFile">
 		</form>
 
+	-->
 	</formset>
 
 </form-validation>
