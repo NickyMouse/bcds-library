@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
+import com.alibaba.intl.bcds.goldroom.service.result.Result;
 
 /**
  * TODO Comment of BookInfoService
@@ -42,7 +43,7 @@ public interface BookInfoService {
      * @param bookInfo
      */
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    void addBookInfo(BookInfo bookInfo);
+    Result addBookInfo(BookInfo bookInfo);
 
     /**
      * 根据ISBN查找书籍信息

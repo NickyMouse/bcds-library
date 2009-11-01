@@ -33,6 +33,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
+import com.alibaba.intl.bcds.goldroom.service.result.Result;
 
 /**
  * TODO Comment of FillBookInfoController
@@ -42,56 +43,49 @@ import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
 @SuppressWarnings("unchecked")
 public class FillBookInfoController extends SimpleFormController {
 
-	private BookInfoService bookInfoService;
+    private BookInfoService bookInfoService;
 
-	/**
-	 * @param bookInfoService
-	 *            the bookInfoService to set
-	 */
-	public void setBookInfoService(BookInfoService bookInfoService) {
-		this.bookInfoService = bookInfoService;
-	}
+    /**
+     * @param bookInfoService the bookInfoService to set
+     */
+    public void setBookInfoService(BookInfoService bookInfoService) {
+        this.bookInfoService = bookInfoService;
+    }
 
-	@Override
-	protected ModelAndView onSubmit(Object command) throws Exception {
-		BookInfo bookInfo = (BookInfo) command;
-		bookInfoService.addBookInfo(bookInfo);
-		return new ModelAndView("redirect:confirmedShelves.htm", "isbn",
-				bookInfo.getIsbn());
-	}
+    @Override
+    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
+                                    Object command, BindException errors) throws Exception {
+        BookInfo bookInfo = (BookInfo) command;
+        Result result = bookInfoService.addBookInfo(bookInfo);
+        if (result.isSuccess()) {
+            return new ModelAndView("redirect:confirmedShelves.htm", "isbn", bookInfo.getIsbn());
+        } else {
+            return showForm(request, response, errors);
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.web.servlet.mvc.SimpleFormController#showForm(javax
-	 * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
-	 * org.springframework.validation.BindException, java.util.Map)
-	 */
+    @Override
+    protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response,
+                                    BindException errors, Map controlModel) throws Exception {
+        controlModel = new HashMap();
+        String isbn = request.getParameter("isbn");
+        String imgSrc = request.getParameter("imgSrc");
+        if (StringUtils.isNotEmpty(isbn)) {
+            controlModel.put("isbn", isbn);
+            if (!StringUtils.isEmpty(imgSrc)) {
+                controlModel.put("imgSrc", imgSrc);
+            }
+        }
+        return super.showForm(request, response, errors, controlModel);
+    }
 
-	@Override
-	protected ModelAndView showForm(HttpServletRequest request,
-			HttpServletResponse response, BindException errors, Map controlModel)
-			throws Exception {
-		controlModel = new HashMap();
-		String isbn = request.getParameter("isbn");
-		String imgSrc = request.getParameter("imgSrc");
-		if (StringUtils.isNotEmpty(isbn)) {
-			controlModel.put("isbn", isbn);
-			if (!StringUtils.isEmpty(imgSrc)) {
-				controlModel.put("imgSrc", imgSrc);
-			}
-		}
-		return super.showForm(request, response, errors, controlModel);
-	}
+    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
+            throws Exception {
 
-	protected void initBinder(HttpServletRequest request,
-			ServletRequestDataBinder binder) throws Exception {
-
-		DateFormat fmt = new SimpleDateFormat("yyyy-M-d");
-		CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);
-		binder.registerCustomEditor(Date.class, dateEditor);
-		super.initBinder(request, binder);
-	}
+        DateFormat fmt = new SimpleDateFormat("yyyy-M-d");
+        CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);
+        binder.registerCustomEditor(Date.class, dateEditor);
+        super.initBinder(request, binder);
+    }
 
 }
