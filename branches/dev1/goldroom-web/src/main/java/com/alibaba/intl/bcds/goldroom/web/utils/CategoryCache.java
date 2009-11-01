@@ -26,9 +26,9 @@ import com.alibaba.intl.bcds.goldroom.dataobject.Category;
  * @author Zimmem
  */
 public class CategoryCache {
-    private static List<Category> cache;
+    private List<Category> cache;
 
-    private CategoryDao           categoryDao;
+    private CategoryDao    categoryDao;
 
     /**
      * @return the categoryDao
@@ -44,7 +44,7 @@ public class CategoryCache {
         this.categoryDao = categoryDao;
     }
 
-    public static List<Category> getCategorys() {
+    public List<Category> getCategorys() {
         return cache;
     }
 

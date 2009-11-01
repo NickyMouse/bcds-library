@@ -10,7 +10,6 @@
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
-		<property name="toolboxConfigLocation" value="WEB-INF/toolbox.xml" />
 		<property name="suffix" value=".vm" />
 		<property name="exposeSpringMacroHelpers" value="true" />
 		<property name="layoutUrl" value="/layout/default.vm" />
@@ -19,8 +18,9 @@
 		</property>
 		<property name="attributesMap">
 			<map>
-				<entry key="SERVER_NAME" value-ref="serverName" />
+				<entry key="SERVER_NAME" value="http://127.0.0.1:8080" />
 				<entry key="authz" value-ref="authzImpl" />
+				<entry key="categoryCache" value-ref="categoryCache" />
 			</map>
 		</property>
 	</bean>
@@ -140,15 +140,15 @@
 			value="com.alibaba.intl.bcds.goldroom.dataobject.Member" />
 	</bean>
 
-	<!--<bean name="/user/fileUpload.htm"
+	<!--
+		<bean name="/user/fileUpload.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.FileUploadController">
-		<property name="uploadRoot" value="./" />
-		<property name="commandName" value="uploadFile" />
-		<property name="commandClass"
-			value="com.alibaba.intl.bcds.goldroom.web.dataobject.UploadFile" />
-	</bean>
-
-	--><bean id="multipartResolver"
+		<property name="uploadRoot" value="./" /> <property name="commandName"
+		value="uploadFile" /> <property name="commandClass"
+		value="com.alibaba.intl.bcds.goldroom.web.dataobject.UploadFile" />
+		</bean>
+	-->
+	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- one of the properties available; the maximum file size in bytes -->
 		<property name="maxUploadSize" value="10000000" />

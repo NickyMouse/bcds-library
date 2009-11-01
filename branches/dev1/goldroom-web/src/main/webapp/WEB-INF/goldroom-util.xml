@@ -4,7 +4,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
 	default-autowire="byName">
 
-	<bean class="com.alibaba.intl.bcds.goldroom.web.utils.CategoryCache"
-		init-method="init" lazy-init="true" />
+	<bean id="categoryCache" class="com.alibaba.intl.bcds.goldroom.web.utils.CategoryCache"
+		init-method="init" lazy-init="false" />
 
 </beans>
+ 
