@@ -146,10 +146,6 @@
 		<property name="commandName" value="uploadFile" />
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.web.dataobject.UploadFile" />
-		<!-- 上传失败时跳转页面 -->
-		<!--<property name="formView" value="err.jsp" /> -->
-		<!-- 上传成功时跳转页面 -->
-		<!-- <property name="successView" value="confirmation.jsp" /> -->
 	</bean>
 
 	<bean id="multipartResolver"
