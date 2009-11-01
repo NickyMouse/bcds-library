@@ -41,6 +41,7 @@ public interface BookInfoService {
      * 
      * @param bookInfo
      */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     void addBookInfo(BookInfo bookInfo);
 
     /**

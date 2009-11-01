@@ -56,6 +56,9 @@ public class BookInfoServiceImpl implements BookInfoService {
      */
     @Override
     public void addBookInfo(BookInfo bookInfo) {
+       /* if (bookInfoDao.) {
+            
+        }*/
         bookInfoDao.insert(bookInfo);
 
     }

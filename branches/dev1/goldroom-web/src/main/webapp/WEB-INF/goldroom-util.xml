@@ -6,6 +6,17 @@
 
 	<bean id="categoryCache" class="com.alibaba.intl.bcds.goldroom.web.utils.CategoryCache"
 		init-method="init" lazy-init="false" />
+	<bean id="propertyConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>file:${user.home}/goldroom.properties</value>
+		</property>
+	</bean>
 
+	<bean id="serverName" class="java.lang.String">
+		<constructor-arg>
+			<value>http://${goldroom.server.name}</value>
+		</constructor-arg>
+	</bean>
 </beans>
  
