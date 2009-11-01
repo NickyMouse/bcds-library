@@ -47,7 +47,7 @@ public class BookSearchServiceImpl implements BookSearchService {
 		BookSearchQueryObject query = BookSearchQueryObject
 				.getInstance(builder).setN(number).setSkipResult(skipResult)
 				.setPrimarySortFiled(BookSearchConstrains.BOOK_INFO_ID)
-				.setHighlight(true);
+				.setHighlight(true).setReverse(true);
 		bookSearchDao.searchByQuery(query);
 		return query;
 	}

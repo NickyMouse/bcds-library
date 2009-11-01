@@ -92,7 +92,7 @@ public class BookSearchDaoImpl implements BookSearchDao {
 		int count = 0;
 		for (ScoreDoc scoreDoc : scoreDocList) {
 			count++;
-			if (count < skipResult) {
+			if (count <= skipResult) {
 				continue;
 			}
 			Document doc = null;
