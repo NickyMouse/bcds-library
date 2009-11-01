@@ -18,7 +18,7 @@
 		</property>
 		<property name="attributesMap">
 			<map>
-				<entry key="SERVER_NAME" value="serverName" />
+				<entry key="SERVER_NAME" value-ref="serverName" />
 				<entry key="authz" value-ref="authzImpl" />
 				<entry key="categoryCache" value-ref="categoryCache" />
 			</map>
@@ -99,6 +99,7 @@
 		<property name="commandClass" value="com.alibaba.intl.bcds.goldroom.sample.User" />
 	</bean>
 
+	
 	<bean class="com.alibaba.intl.bcds.goldroom.web.search.SearchController" />
 
 	<bean class="com.alibaba.intl.bcds.goldroom.web.HomeController" />
