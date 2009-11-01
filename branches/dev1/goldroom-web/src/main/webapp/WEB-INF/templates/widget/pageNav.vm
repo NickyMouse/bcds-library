@@ -1,68 +1,48 @@
-#set($pageSize = 15)
-Total:$totalCount
-#if(!$page)
-	#set($page = 1)
-#end
-
-#if($!totalCount != 0)
-	#set($totalPage = $totalCount/$pageSize)
-	#if($totalCount%$pageSize>0)
-		#set($totalPage = $totalPage + 1)
-	#end
-#else
-	#set($totalPage = 1)
-#end
-
-#set($prePage = $page - 1)
-#if($totalPage >= $page + 1)
-	#set($nextPage = $page + 1)
-#end
-
-/////
-
-
 ##如果总的记录数为0,则不显示该翻页条
-#if($!totalCount > 0)
+#if($pageNavView.totalPage > 0)
 	<script language="javascript">
+	
 	## 实现跳转的函数
 	function gotoPage(){
 	  ##匹配formatString中的页码符号
-	  var formatString = '$pageNavView.FormatString';
 	  var gotopage=document.getElementById('gotopage')
 	 ##检查输入的是否数字
-	  if(!isNumber(gotopage.value)){
+	  if(isNaN(gotopage.value)){
 	    alert('Please input valid page number !');
 	    return;
 	  }
-	  
 	  //
 	  var page = eval(gotopage.value);
 	  
 	  ##检查页码是否在正确的范围内
-	  if(page < 1 || page > $pageNavView.TotalPages){
-	    alert('Please input valid page number !');
+	  if(page < 1 || page > $pageNavView.totalPage){
+	    alert('请输入正确的页数（1～$pageNavView.totalPage）!');
 	    return;
 	  }
-	  
 	  ##替换并跳转
-	  var gotoUrl = formatString.replace("{0}",page);
+	  var gotoUrl = '${pageNavView.currentUrl}'+"&page="+page;
 	  //alert(gotoUrl);
 	  document.location = gotoUrl;
 	}
 	</script>
 	<div id="pagenav">
 	  ##判断是否需要出现跳转按钮
-	  #if($totalPage > 1)
-	   <div class="floatright">
-	    <label for="gotopage">Go to Page <input size="3" id="gotopage"></label>
+	  #if($pageNavView.totalPage > 1)
+	  <div style="float:right; font-size:14px">
+		$pageNavView.currentPage / $pageNavView.totalPage &nbsp;
+	    <label for="gotopage">跳转到第 <input size="3" id="gotopage">页</label>
 	    <input type="button" value="Go" onclick="gotoPage()">
 	   </div>
 	  #end
-	  Page $page of $totalPage &nbsp; 
-	  #if($prePage > 0)<a href="$pageNavView.getQueryUrl($pageNavView.PrevPage)">&lt;&lt; Previous</a> #end
-	  #foreach( $item in [1..$totalPage])
-	    #if($item.Url)<a href="$item.Url">$item.Name</a> #else <strong>$!viewTool.htmlEscape($item.Name)</strong> #end
-	  #end  
-	  #if($nextPage>0)<a href="$pageNavView.getQueryUrl($pageNavView.NextPage)">Next&gt;&gt;</a> #end
+	  
+	  <div style=" float:left; font-size:14px">
+		
+	  #if($pageNavView.prePage > 0)<a href="${SERVER_NAME}${pageNavView.currentUrl}&page=${pageNavView.prePage}">&lt;&lt; 上一页</a> #end
+	  #foreach($item in [1..$pageNavView.totalPage])
+		<a href="${SERVER_NAME}${pageNavView.currentUrl}&page=$item">$item</a>
+	  #end
+	  #if($pageNavView.nextPage > 0)<a href="${SERVER_NAME}${pageNavView.currentUrl}&page=${pageNavView.nextPage}">下一页&gt;&gt;</a> #end
+
+	  </div>
 	</div>
 #end
