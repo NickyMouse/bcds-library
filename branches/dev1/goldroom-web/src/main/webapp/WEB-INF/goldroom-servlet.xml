@@ -18,7 +18,7 @@
 		</property>
 		<property name="attributesMap">
 			<map>
-				<entry key="SERVER_NAME" value="http://127.0.0.1:8080" />
+				<entry key="SERVER_NAME" value="serverName" />
 				<entry key="authz" value-ref="authzImpl" />
 				<entry key="categoryCache" value-ref="categoryCache" />
 			</map>
@@ -140,14 +140,15 @@
 			value="com.alibaba.intl.bcds.goldroom.dataobject.Member" />
 	</bean>
 
-	<!--
-		<bean name="/user/fileUpload.htm"
+
+	<bean name="/user/fileUpload.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.FileUploadController">
-		<property name="uploadRoot" value="./" /> <property name="commandName"
-		value="uploadFile" /> <property name="commandClass"
-		value="com.alibaba.intl.bcds.goldroom.web.dataobject.UploadFile" />
-		</bean>
-	-->
+		<property name="uploadRoot" value="./" />
+		<property name="commandName" value="uploadFile" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.web.dataobject.UploadFile" />
+	</bean>
+
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- one of the properties available; the maximum file size in bytes -->
@@ -178,7 +179,6 @@
 		<property name="commandName" value="confirmLending" />
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.web.command.ConfirmLending" />
-
 	</bean>
 	<!--
 		<context:component-scan
@@ -186,6 +186,8 @@
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"
 		/>
 	-->
+
+
 	<bean id="serverName" class="java.lang.String">
 		<constructor-arg>
 			<value>http://127.0.0.1:8080</value>
