@@ -12,10 +12,21 @@
 			<value>file:${user.home}/goldroom.properties</value>
 		</property>
 	</bean>
+	<bean id="fileUploadPath" class="java.lang.String">
+		<constructor-arg>
+			<value>${goldroom.fileupload.path}</value>
+		</constructor-arg>
+	</bean>
 
 	<bean id="serverName" class="java.lang.String">
 		<constructor-arg>
 			<value>http://${goldroom.server.name}</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="uploadImagePath" class="java.lang.String">
+		<constructor-arg>
+			<value>http://${goldroom.server.name}/upload</value>
 		</constructor-arg>
 	</bean>
 </beans>

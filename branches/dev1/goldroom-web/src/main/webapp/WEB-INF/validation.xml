@@ -75,10 +75,10 @@
 			</field>
 		</form>
 
-		<!--<form name="uploadFile">
+		<form name="uploadFile">
+			<field property="isbn" depends="required" />
 		</form>
 
-	-->
 	</formset>
 
 </form-validation>
