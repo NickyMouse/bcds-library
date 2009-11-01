@@ -15,7 +15,7 @@
 	]]></insert>
 
 	<select id="listAll" resultMap="UserResult"><![CDATA[
-		select id,username,age from sample_user
+		select id,username,age from sample_user order by id desc
 	]]>
 	</select>
 </sqlMap>

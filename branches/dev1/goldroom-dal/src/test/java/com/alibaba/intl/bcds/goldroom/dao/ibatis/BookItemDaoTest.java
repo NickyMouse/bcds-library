@@ -1,6 +1,8 @@
 package com.alibaba.intl.bcds.goldroom.dao.ibatis;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -21,6 +23,9 @@ public class BookItemDaoTest extends BaseTest {
     /**
      * @throws java.lang.Exception
      */
+    /**
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
     }
@@ -37,9 +42,9 @@ public class BookItemDaoTest extends BaseTest {
         //fail("Not yet implemented");
     }
 
-    //@Test
+    @Test
     public void testFindById() {
-        //fail("Not yet implemented");
+        assertNotNull(bookItemDao.findById(1));
     }
 
     //@Test
@@ -52,20 +57,31 @@ public class BookItemDaoTest extends BaseTest {
         //fail("Not yet implemented");
     }
 
-    @Test
+    //@Test
     public void testUpdateById() {
         //fail("Not yet implemented");
     }
 
-    @Test
+    //@Test
     public void testListReservatedBooksBySubscriber() {
-        List<BookItem> list = bookItemDao.listLendedBookItemBySubscriber("zhaowen.zhuangzw");
+        List<BookItem> list = bookItemDao.listReservatedBooksBySubscriber("zhaowen.zhuangzw");
         assertTrue(list.size() > 0);
+        assertNotNull(list.get(0).getBookInfo());
+        assertNotNull(list.get(0).getReservation());
     }
 
-    @Test
+    //@Test
     public void testListLendedBookItemBySubscriber() {
         List<BookItem> list = bookItemDao.listLendedBookItemBySubscriber("zhaowen.zhuangzw");
         assertTrue(list.size() > 0);
+        assertNotNull(list.get(0).getLending());
     }
+
+    //@Test
+    public void testGetBookItemByReservationId() {
+        BookItem bookItem = bookItemDao.getBookItemByReservationId(1);
+        assertNotNull(bookItem);
+        assertTrue(bookItem.getId() == 16);
+    }
+
 }

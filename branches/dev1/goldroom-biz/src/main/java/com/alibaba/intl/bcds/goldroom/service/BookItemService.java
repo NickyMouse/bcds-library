@@ -85,19 +85,21 @@ public interface BookItemService {
     Result reserve(String subscriber, int bookItemId);
 
     /**
+     * 还书
+     * 
+     * @param lendId
+     */
+    Result returnBook(int lendId, String currentUser);
+
+    /**
      * 确定借书
      * 
      * @param reservationId
      * @param lendTime
      * @param returnTime
+     * @param owner
+     * @return
      */
-    Result lend(int reservationId, Date lendTime, Date returnTime);
-
-    /**
-     * 还书
-     * 
-     * @param lendId
-     */
-    Result returnBook(int lendId);
+    Result lend(int reservationId, Date lendTime, Date returnTime, String currentUser);
 
 }

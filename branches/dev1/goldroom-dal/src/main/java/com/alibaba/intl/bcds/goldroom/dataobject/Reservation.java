@@ -137,7 +137,7 @@ public class Reservation {
      * @param subscriberId the value for RESERVATION.SUBSCRIBER_ID
      * @ibatorgenerated Tue Sep 29 19:05:09 CST 2009
      */
-    public void setSubscriberId(String subscriber) {
+    public void setSubscriber(String subscriber) {
         this.subscriber = subscriber;
     }
 

@@ -5,6 +5,7 @@
 		<td>主人</td>
 		<td>状态</td>
 		<td>上架时间</td>
+		<td>操作</td>
 	</tr>
 	#foreach($bookItem in $bookItemList)
 	<tr>
@@ -17,7 +18,39 @@
 		<td>$!{bookItem.loginId}</td>
 		<td>$!{bookItem.state}</td>
 		<td>$!{bookItem.addTime}</td>
-
+		<td>
+			#if($bookItem.state== "lended")
+				<button onClick="javascript:returnBook($!{bookItem.lending.id});"/>确认归还</button>
+			#end
+			#if($bookItem.state == "reservated")
+				<input type="text" id="returnTime_$!{bookItem.reservation.id}" />
+				<button onClick="javascript:confirmLend($!{bookItem.reservation.id});"/>确认借阅</button>
+			#end
+		</td>
 	</tr>
 	#end
 </table>
+
+<form action="/user/confirmLend.htm" name="confirmLendForm" method="POST">
+	<input type="hidden" name="reservationId" />
+	<input type="hidden" name="returnTime"/>
+</form>
+
+<form action="/user/returnBook.htm" name="returnBookForm" method="POST">
+	<input type="hidden" name="lendingId" />
+</form>
+	
+<script>
+<!--
+function confirmLend(reservationId){
+	document.confirmLendForm.reservationId.value=reservationId;
+	document.confirmLendForm.returnTime.value=document.getElementById("returnTime_"+reservationId).value;
+	document.confirmLendForm.submit();
+}
+
+function returnBook(lendingId){
+	document.returnBookForm.lendingId.value=lendingId;
+	document.returnBookForm.submit();
+}
+-->
+</script>

@@ -119,10 +119,26 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
                 loginId);
     }
 
-	@Override
-	public BookItem getBookItemByReservationId(int reservationId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.dao.BookItemDao#getBookItemByReservationId
+     * (int)
+     */
+    @Override
+    public BookItem getBookItemByReservationId(int reservationId) {
+        return (BookItem) getSqlMapClientTemplate().queryForObject(
+                "BOOK_ITEM.getBookItemByReservationId", reservationId);
+    }
 
+    /*
+     * (non-Javadoc)
+     * @see com.alibaba.intl.bcds.goldroom.dao.BookItemDao#changeItemState(int,
+     * java.lang.String)
+     */
+    @Override
+    public void changeItemState(BookItem bookItem) {
+        getSqlMapClientTemplate().update("BOOK_ITEM.changeItemState", bookItem);
+
+    }
 }

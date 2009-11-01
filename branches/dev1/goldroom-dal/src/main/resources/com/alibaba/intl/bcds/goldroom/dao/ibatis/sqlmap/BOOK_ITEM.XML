@@ -22,6 +22,22 @@
 		<result property="bookInfo" column="BOOK_INFO_ID"
 			javaType="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo" select="BOOK_INFO.findById" />
 	</resultMap>
+	<resultMap class="BookItem" id="BookItemWithBookInfoAndLendInfoResult"
+		extends="BookItemWithInfoResult">
+		<result property="lending" column="ID"
+			javaType="com.alibaba.intl.bcds.goldroom.dataobject.Lending" select="LENDING.findByBookItemId" />
+	</resultMap>
+	<resultMap class="BookItem" id="BookItemWithBookInfoAndReservatioinResult"
+		extends="BookItemWithInfoResult">
+		<result property="reservation" column="ID"
+			javaType="com.alibaba.intl.bcds.goldroom.dataobject.Reservation"
+			select="RESERVATION.findByBookItemId" />
+	</resultMap>
+	<resultMap class="BookItem"
+		id="BookItemWithBookInfoAndReservatioinAndLendResult" extends="BookItemWithBookInfoAndReservatioinResult">
+		<result property="lending" column="ID"
+			javaType="com.alibaba.intl.bcds.goldroom.dataobject.Lending" select="LENDING.findByBookItemId" />
+	</resultMap>
 	<sql id="selectBookItem">
 		SELECT
 		ID,STATE,LOGIN_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
@@ -86,6 +102,10 @@
 		WHERE ID=#id:DECIMAL#
 	</update>
 
+	<update id="changeItemState" parameterClass="BookItem">
+		UPDATE BOOK_ITEM SET STATE=#state:VARCHAR#	WHERE ID=#id:DECIMAL#
+	</update>
+
 	<delete id="deleteById" parameterClass="java.lang.Integer">
 		DELETE FROM BOOK_ITEM
 		WHERE ID=#id:DECIMAL#
@@ -110,7 +130,7 @@
 
 
 	<select id="listBookItemsByLoginIdAndState" parameterClass="java.util.HashMap"
-		resultMap="BookItemWithInfoResult">
+		resultMap="BookItemWithBookInfoAndReservatioinAndLendResult">
 		<!--<include refid="selectBookItemWithInfo" />-->
 		SELECT
 		ID,STATE,LOGIN_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
@@ -136,7 +156,7 @@
 	</select>
 
 	<select id="listLendedBookItemBySubscriber" parameterClass="java.lang.String"
-		resultMap="BookItemWithInfoResult">
+		resultMap="BookItemWithBookInfoAndLendInfoResult">
 		SELECT
 		bi.ID as ID ,bi.STATE as STATE ,bi.LOGIN_ID AS
 		LOGIN_ID,bi.ADD_TIME as ADD_TIME,bi.REMOVE_TIME as
@@ -150,7 +170,7 @@
 	</select>
 
 	<select id="listReservatedBooksBySubscriber" parameterClass="java.lang.String"
-		resultMap="BookItemWithInfoResult">
+		resultMap="BookItemWithBookInfoAndReservatioinResult">
 		SELECT
 		bi.ID as ID ,bi.STATE as STATE ,bi.LOGIN_ID AS
 		LOGIN_ID,bi.ADD_TIME as ADD_TIME,bi.REMOVE_TIME as
@@ -162,6 +182,17 @@
 		WHERE
 		r.SUBSCRIBER=#value:VARCHAR#
 	</select>
-
-
+	<select id="getBookItemByReservationId" parameterClass="java.lang.Integer"
+		resultMap="BookItemWithInfoResult">
+		SELECT
+		bi.ID as ID ,bi.STATE as STATE ,bi.LOGIN_ID AS
+		LOGIN_ID,bi.ADD_TIME as ADD_TIME,bi.REMOVE_TIME as
+		REMOVE_TIME,bi.BOOK_INFO_ID as BOOK_INFO_ID ,bi.FIRST_ADD_TIME as
+		FIRST_ADD_TIME,bi.GMT_CREATE as GMT_CREATE,bi.GMT_MODIFIED as
+		GMT_MODIFIED , bi.TAGS as TAGS
+		FROM BOOK_ITEM bi join RESERVATION r on
+		bi.id = r.BOOK_ITEM_ID
+		WHERE
+		r.ID=#value:DECIMAL#
+	</select>
 </sqlMap>

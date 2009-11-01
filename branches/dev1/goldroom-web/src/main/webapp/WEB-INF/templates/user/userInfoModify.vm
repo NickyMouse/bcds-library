@@ -1,0 +1,34 @@
+<form action="/user/userInfoModify.htm" method="POST">
+	<table>
+		<tr>
+			<td>Old Password：</td>
+			<td><input type = "text" name="oldPassword" /><font color="red">*</font></td>
+		</tr>
+		<tr>
+			<td>New Password：</td>
+			<td><input type = "text" name="newPassword" /><font color="red">*</font></td>
+		</tr>
+		<tr>
+			<td>Confirm New：</td>
+			<td><input type = "text" name="confirmPassword" /><font color="red">*</font></td>
+		</tr>
+		<tr>
+			#springBind("member.name")
+			<td>Name：</td>
+			<td>#springFormInput("member.name" 'size="45" maxlength="45"')
+			#validationError()
+			</td>
+		</tr>
+		<tr>
+			<td>Email：</td>
+			<td><input type = "text" name="email" /></td>
+		</tr>
+		<tr>
+			<td>旺旺Id：</td>
+			<td><input type = "text" name="aliTalkId" /></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="submit"/></td>
+		</tr>
+	</table>
+</form>

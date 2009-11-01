@@ -30,6 +30,10 @@ public class SampleController extends SimpleFormController {
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
                                     Object command, BindException errors) throws Exception {
         User user = (User) command;
+        System.out.println(user.getUsername());
+        System.out.println(new String(user.getUsername().getBytes(), "UTF-8"));
+
+        System.out.println(new String(user.getUsername().getBytes(), "GBK"));
         if (user != null && StringUtils.isNotEmpty(user.getUsername())) {
             userService.addUser(user);
         }

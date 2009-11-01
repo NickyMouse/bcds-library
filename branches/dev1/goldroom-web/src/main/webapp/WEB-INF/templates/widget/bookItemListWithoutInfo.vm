@@ -3,6 +3,7 @@
 		<td>主人</td>
 		<td>状态</td>
 		<td>上架时间</td>
+		<td>操作</td>
 	</tr>
 	#foreach($bookItem in $bookItemList)
 	<tr>
@@ -10,7 +11,22 @@
 		<td>$!{bookItem.loginId}</td>
 		<td>$!{bookItem.state}</td>
 		<td>$!{bookItem.addTime}</td>
-
+        <td><button onClick="javascript:reserve($!{bookItem.id})"  >预约</button></td>
 	</tr>
 	#end
 </table>
+	
+<form action="/user/reserveBook.htm" name="reserveForm" method="POST">
+	<input type="hidden" name="bookItemId" id="bookItemId"/>
+</form>
+	
+<script >
+<!--
+	function reserve(bookItemId){
+	
+		document.getElementById("bookItemId").value=bookItemId;
+		document.reserveForm.submit();
+	}
+
+-->
+</script>

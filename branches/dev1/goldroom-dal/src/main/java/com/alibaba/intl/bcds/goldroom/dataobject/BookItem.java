@@ -4,8 +4,6 @@ import java.util.Date;
 
 public class BookItem {
 
- 
-
     /** 空闲 */
     public static final String STATE_IDLE        = "idle";
     /** 不可用--下架 */
@@ -26,6 +24,36 @@ public class BookItem {
     private Date               gmtModified;
     private BookInfo           bookInfo;
     private String             tags;
+    private Lending            lending;
+    private Reservation        reservation;
+
+    /**
+     * @return the lending
+     */
+    public Lending getLending() {
+        return lending;
+    }
+
+    /**
+     * @param lending the lending to set
+     */
+    public void setLending(Lending lending) {
+        this.lending = lending;
+    }
+
+    /**
+     * @return the reservation
+     */
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    /**
+     * @param reservation the reservation to set
+     */
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
 
     /**
      * @return the bookInfo

@@ -1,34 +1,42 @@
-<table width="100%" cellspacing="0" cellpadding="3" border="0">
-  <tbody>
-	<tr><td colspan="2" align="center"><h1>$!{bookInfo.name}</h1></td></tr>
+<table>
     <tr>
-      <td width="300" align="right" valign="top"><img src="images/logo_internal.png" class="detailBookImage"/> </td>
-      <td width="600"><table width="100%"">
-          <tr>
-            <td align="right" width="20%">作者:&nbsp;&nbsp;</td>
-            <td align="left">$!{bookInfo.author}</td>
-          </tr>
-          <tr>
-            <td align="right">ISBN:&nbsp;&nbsp;</td>
-            <td align="left">$!{bookInfo.isbn}</td>
-          </tr>
-          <tr>
-            <td align="right">出版社:&nbsp;&nbsp;</td>
-            <td align="left">$!{bookInfo.publisher}</td>
-          </tr>
-          <tr>
-            <td align="right">出版时间:&nbsp;&nbsp;</td>
-            <td align="left">$!{bookInfo.publishTime}</td>
-          </tr>
-          <tr>
-            <td align="right">版次:&nbsp;&nbsp;</td>
-            <td align="left">$!{bookInfo.edition}</td>
-          </tr>
-          <tr>
-            <td align="right">描述:&nbsp;&nbsp;</td>
-            <td align="left"><textarea name="description" rows="10" cols="30" readonly="true">$!{bookInfo.description}</textarea></td>
-          </tr>
-        </table></td>
+        <td>
+		#if(${bookInfo.imgUrl})
+				<div width="250" height="250"><img src="$!{bookInfo.imgUrl}" /></div>
+		#end
+        </td>
+        <td>
+            <table >
+                <tr >
+                    <td >NAME
+                    </td>
+                    <td >$!{bookInfo.name}
+                    </td>
+                </tr>
+                <tr>
+                    <td>AUTHOR</td>
+                    <td >
+                        $!{bookInfo.author}</td>
+                </tr>
+                <tr >
+                    <td >isbn
+                    </td>
+                    <td >$!{bookInfo.isbn}
+                    </td>
+                </tr>
+                <tr >
+                    <td >DESCRIPTION
+                    </td>
+                    <td >$!{bookInfo.description}
+                    </td>
+                </tr>
+                <tr >
+                    <td >PUBLISHER
+                    </td>
+                    <td >$!{bookInfo.publisher}
+                    </td>
+                </tr>
+            </table>
+        </td>
     </tr>
-  </tbody>
 </table>

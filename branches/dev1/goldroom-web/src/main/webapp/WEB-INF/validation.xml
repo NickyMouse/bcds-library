@@ -55,10 +55,29 @@
 
 		<form name="member">
 			<field property="name" depends="required">
+				<arg0 key="name" resource="false" />
 			</field>
 		</form>
-		<form name="uploadFile">
+
+		<form name="reserveCommand">
+			<field property="bookItemId" depends="required">
+			</field>
 		</form>
+
+
+		<form name="confirmLending">
+			<field property="reservationId" depends="required">
+			</field>
+		</form>
+
+		<form name="returnBookCommand">
+			<field property="lendingId" depends="required">
+			</field>
+		</form>
+
+<form name="uploadFile">
+		</form>
+
 	</formset>
 
 </form-validation>

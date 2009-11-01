@@ -146,9 +146,9 @@
 		<property name="commandName" value="uploadFile" />
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.web.dataobject.UploadFile" />
-		<!-- ä¸Šä¼ å¤±è´¥æ—¶è·³è½¬é¡µé¢ -->
+		<!-- ÉÏ´«Ê§°ÜÊ±Ìø×ªÒ³Ãæ -->
 		<!--<property name="formView" value="err.jsp" /> -->
-		<!-- ä¸Šä¼ æˆåŠŸæ—¶è·³è½¬é¡µé¢ -->
+		<!-- ÉÏ´«³É¹¦Ê±Ìø×ªÒ³Ãæ -->
 		<!-- <property name="successView" value="confirmation.jsp" /> -->
 	</bean>
 
@@ -158,7 +158,32 @@
 		<property name="maxUploadSize" value="10000000" />
 	</bean>
 
+	<bean name="/user/reserveBook.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ReserveBookController">
+		<property name="successView" value="redirect:/user/myBooks.htm" />
+		<property name="commandName" value="reserveCommand" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.web.command.ReserveCommand" />
 
+	</bean>
+
+	<bean name="/user/returnBook.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ReturnBookController">
+		<property name="successView" value="redirect:/user/myBooks.htm" />
+		<property name="commandName" value="returnBookCommand" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.web.command.ReturnBookCommand" />
+
+	</bean>
+
+	<bean name="/user/confirmLend.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ConfirmLendController">
+		<property name="successView" value="redirect:/user/myBooks.htm" />
+		<property name="commandName" value="confirmLending" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.web.command.ConfirmLending" />
+
+	</bean>
 	<!--
 		<context:component-scan
 		base-package="com.intl.alibaba.bcds.goldroom.web" /> <bean

@@ -1,12 +1,9 @@
 package com.alibaba.intl.bcds.goldroom.dao.ibatis;
 
-import java.sql.SQLException;
-
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import com.alibaba.intl.bcds.goldroom.dao.ReservationDAO;
 import com.alibaba.intl.bcds.goldroom.dataobject.Reservation;
-import com.ibatis.sqlmap.client.SqlMapClient;
 
 public class ReservationDAOImpl extends SqlMapClientDaoSupport implements ReservationDAO {
 
@@ -88,6 +85,18 @@ public class ReservationDAOImpl extends SqlMapClientDaoSupport implements Reserv
     public int updateByPrimaryKey(Reservation record) {
         int rows = getSqlMapClientTemplate().update("RESERVATION.updateByPrimaryKey", record);
         return rows;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.dao.ReservationDAO#cutReservationToLog
+     * (com.alibaba.intl.bcds.goldroom.dataobject.Reservation)
+     */
+    @Override
+    public void cutReservationToLog(Reservation reservation) {
+        this.deleteByPrimaryKey(reservation.getId());
+
     }
 
 }

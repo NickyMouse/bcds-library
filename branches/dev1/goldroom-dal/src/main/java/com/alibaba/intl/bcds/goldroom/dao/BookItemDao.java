@@ -67,4 +67,11 @@ public interface BookItemDao {
      * @return
      */
     BookItem getBookItemByReservationId(int reservationId);
+
+    /**
+     * @param bookItemId
+     * @param stateIdle
+     */
+    void changeItemState(BookItem bookItem);
+
 }

@@ -4,6 +4,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
 	default-autowire="byName">
 
+
+	<bean id="propertyConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:jdbc.properties</value>
+		</property>
+	</bean>
 	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
@@ -13,10 +20,10 @@
 	</bean>
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.gjt.mm.mysql.Driver" />
-		<property name="url" value="jdbc:mysql://localhost/goldroom" />
-		<property name="username" value="goldroom" />
-		<property name="password" value="goldroom" />
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
 	</bean>
 	<bean id="userDao"
 		class="com.alibaba.intl.bcds.goldroom.sample.dao.ibatis.UserDaoImpl" />
@@ -29,16 +36,20 @@
 		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.BookItemLogDaoImpl" />
 	<bean id="categoryDao"
 		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.CategoryDaoImpl" />
-
+	<bean id="lendingDao"
+		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.LendingDaoImpl" />
+	<bean id="reservationDAO"
+		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.ReservationDAOImpl" />
 
 	<bean id="bookSearchDao"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.BookSearchDaoImpl">
 	</bean>
 
-	<!--<bean id="userService"
+	<!--
+		<bean id="userService"
 		class="com.alibaba.intl.bcds.goldroom.service.impl.UserServiceImpl" />
-
-	--><bean id="userInfoDao"
+	-->
+	<bean id="userInfoDao"
 		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.UserInfoDaoImpl" />
 
 
