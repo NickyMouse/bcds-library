@@ -17,8 +17,15 @@
 		<property name="contentType">
 			<value>text/html;charset=UTF-8</value>
 		</property>
+		<property name="attributesMap">
+			<map>
+				<entry key="SERVER_NAME" value-ref="serverName" />
+				<entry key="authz" value-ref="authzImpl" />
+			</map>
+		</property>
 	</bean>
-
+	<bean id="authzImpl" class="org.springframework.security.taglibs.velocity.AuthzImpl" />
+	<bean id="serverName" class="java.lang.String"><constructor-arg><value>http://127.0.0.1:8080</value></constructor-arg></bean>
 	<bean id="velocityConfigurer"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
 		<property name="resourceLoaderPath" value="../../src/main/webapp/WEB-INF/templates/" />

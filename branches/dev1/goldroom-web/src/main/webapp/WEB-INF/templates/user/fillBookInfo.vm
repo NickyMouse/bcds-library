@@ -69,7 +69,7 @@
               </td>
             </tr>
 			
-			<input type="text" name="imgUrl" id="imgUrlimgUrl" value="$!imgSrc"/>
+			<input type="hidden" name="imgUrl" id="imgUrlimgUrl" value="$!imgSrc"/>
 			</form>
           </table>
         </td>

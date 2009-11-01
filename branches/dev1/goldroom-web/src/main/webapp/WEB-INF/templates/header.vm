@@ -19,12 +19,12 @@
     <td class="nav_internal" align="left" valign="middle">
 	<a href="$SERVER_NAME/home.htm">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	<a href="$SERVER_NAME/advancedSearch.htm">搜索书籍</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	#if(!$userName)
+	#if(!$!authz.anyGranted("ROLE_USER,ROLE_ADMIN"))
 		<a href="$SERVER_NAME/login.htm">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	#end
 	<a href="$SERVER_NAME/faq/index.htm">FAQ</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	
-    #if($userName)
+	#if($!authz.anyGranted("ROLE_USER,ROLE_ADMIN"))
 		|&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="$SERVER_NAME/user/myBooks.htm">我的书籍</a>&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="$SERVER_NAME/user/reservatedBooks.htm">我要预约</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -41,5 +41,8 @@
     <td align="left" valign="middle">$breadCrumb.view</td>
   </tr>
   #end
+
+    
+
 </table>
   <!-- End BreadCrumb-->

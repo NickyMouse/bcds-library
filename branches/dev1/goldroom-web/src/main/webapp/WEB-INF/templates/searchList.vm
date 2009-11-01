@@ -1,5 +1,4 @@
-Total Result:$totalCount
-#parse("navigator.vm")
+#parse("widget/pageNav.vm")
 <table width="100%" cellspacing="0" cellpadding="3" border="0">
 	<tbody>
 		<tr height="25">
