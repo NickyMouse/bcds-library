@@ -8,7 +8,7 @@
             	<tr>
 				#foreach($book in $newBookList)
                 <td align="center" width="150px">
-					<a href="#"><img class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/></a><br>
+					<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId"><img class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/></a><br>
 					<a href="#">$book.bookName</a>
                 </td>
 				#end
