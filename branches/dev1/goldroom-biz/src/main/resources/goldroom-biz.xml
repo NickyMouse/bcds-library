@@ -19,4 +19,6 @@ http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
 	<bean id="bookItemService"
 		class="com.alibaba.intl.bcds.goldroom.service.impl.BookItemServiceImpl" />
 
+	<bean id="memberService"
+		class="com.alibaba.intl.bcds.goldroom.service.impl.MemberServiceImpl" />
 </beans>
