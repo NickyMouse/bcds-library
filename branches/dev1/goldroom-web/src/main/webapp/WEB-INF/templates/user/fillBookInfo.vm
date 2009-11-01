@@ -18,7 +18,7 @@
 				<td>#parse("user/fileUpload.vm")
   				</td>
             </tr>
-			 <form action="/user/fillBookInfo.htm" method="POST">
+			<form action="/user/fillBookInfo.htm" method="POST">
 			<input type="hidden" name="isbn" value="$!{isbn}"/>
             <tr >
               #springBind("bookInfo.name")

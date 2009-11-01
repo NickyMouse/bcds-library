@@ -1,5 +1,5 @@
 #if($imgSrc)
-	<img class="bookImage" src="$SERVER_NAME/$imgSrc"/>
+	<img class="bookImage" style="maxWidth:100px; maxHeight:100px" src="$UPLOAD_IMAGE_PATH/$imgSrc"/>
 #else
 	<img class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
 #end

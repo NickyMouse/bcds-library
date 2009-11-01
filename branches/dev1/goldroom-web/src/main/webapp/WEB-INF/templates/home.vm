@@ -2,13 +2,13 @@
 <br>
 <table width="100%" height="550px" cellspacing="0" cellpadding="3" border="0">
   <tr>
-    <td width="65%" valign="top">
+    <td width="62%" valign="top">
 		<h2>最近上架的书籍......</h2>
         	<table align="center">
             	<tr>
 				#foreach($book in $newBookList)
                 <td align="center" width="150px">
-					<a href="#"><img class="bookImage" src="$book.bookImgUrl"/></a><br>
+					<a href="#"><img class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/></a><br>
 					<a href="#">$book.bookName</a>
                 </td>
 				#end
@@ -20,7 +20,7 @@
             	<tr>
 				#foreach($book in $popularBookList)
                 <td align="center" width="150px">
-					<a href="#"><img class="bookImage" src="$book.bookImgUrl"/></a><br>
+					<a href="#"><img class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/></a><br>
 					<a href="#">$book.bookName</a>
                 </td>
 				#end
