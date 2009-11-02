@@ -317,5 +317,4 @@ form {
     width:expression(this.width > 160 && this.width > this.height ? 160 : true);
     height:expression(this.height > 240 && this.height > this.width ? 240 : true);
     overflow:hidden;
-	border: 1px solid #EAEAEA;
 }
