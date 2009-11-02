@@ -8,8 +8,8 @@
         float:left;
         overflow:hidden;
         position:absolute;
-        left:0px;
-        top:0px;
+        left:500px;
+        top:537px;
         cursor:move;
         float:left;
     }
@@ -310,12 +310,14 @@
                                             document.ondblclick=hiddenDiv;
                                             function hiddenDiv()
                                             {
+                                           
                                             if(isLeaf==0)
-                                            {
-                                            if(confirm("您当前选择的不是叶子类目,是否放弃当前选择的类目？"))
-                                            {
-                                            closeed('selectDiv');	
-                                            }
+                                            {                                         
+                                                if($('selectDiv').style.display=="none")return;
+                                                if(confirm("您当前选择的不是叶子类目,是否放弃当前选择的类目？"))
+                                                {
+                                                closeed('selectDiv');
+                                                }                                           
                                             }else{  	
                                             closeed('selectDiv');	
                                             }	
@@ -334,8 +336,8 @@
                                             //打开层的相对位置
                                             o.style.width = "1px";
                                             o.style.height = "1px"; 
-                                            o.style.top="41px";
-                                            o.style.left=65;
+                                            o.style.top="537px";
+                                            o.style.left=420;
                                             $("childDiv").style.display="";
                                             prox = setInterval(function(){openx(o,423)},5);
                                             } 
@@ -402,8 +404,8 @@
 <table width="150">
     <tr>
         <td>
-            <input type="hidden" id="categoryId" name="categoryId" readonly="true" size="45" />
-            <input type="text" id="categoryPath" name="categoryPath" title="点击选择类目" onClick="initAndShowOrHiddenDiv();"  readonly/>
+            <input type="hidden" id="categoryId" name="categoryId" readonly="true"  />
+            <input type="text" id="categoryPath" name="categoryPath" title="点击选择类目" onClick="initAndShowOrHiddenDiv();" style="width:410px;"  readonly/>
 			</td> <td>
             <input type="button" id="cate" value="选择" onClick="initAndShowOrHiddenDiv();" />
         </td>
