@@ -18,7 +18,7 @@ public class BookSearchQueryObject extends BaseQueryObject {
 
 	private SearchConditionBuilder searchConditionBuilder;
 	private int n;
-	private String primarySortFiled;
+	private String primarySortFiled = "";
 	private int skipResult = 0;
 	private boolean reverse = false;
 	private List bookSearchDoList;
