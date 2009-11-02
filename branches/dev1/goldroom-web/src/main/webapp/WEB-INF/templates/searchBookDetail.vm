@@ -67,7 +67,10 @@
               <td>
 	
 				#if($bookItem.getState().equals("idle"))
-						<a href="/user/reserveBook.htm?bookItemId=$bookItem.id">预约</a>
+					<form action="/user/reserveBook.htm" name="reserveForm" method="POST">
+						<input type="hidden" name="bookItemId" id="bookItemId" value="$bookItem.id"/>
+						<input type="submit" value="预约"/>
+					</form>					
 				#else
 						不能预约
 				#end
