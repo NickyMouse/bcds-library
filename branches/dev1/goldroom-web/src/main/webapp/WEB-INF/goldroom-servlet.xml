@@ -106,7 +106,7 @@
 
 	<bean class="com.alibaba.intl.bcds.goldroom.web.HomeController" />
 
-	<bean name="/bookDetail.htm"
+	<bean name="/user/bookDetail.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.BookDetailController" />
 
 	<bean name="/user/findIsbn.htm" class="com.alibaba.intl.bcds.goldroom.web.FindIsbnController" />

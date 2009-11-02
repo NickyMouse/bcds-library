@@ -14,7 +14,7 @@
 		<img src="$UPLOAD_IMAGE_PATH/$!{bookItem.bookInfo.imgUrl}" class="bookImage">
 		#end
 		</td>
-		<td><a href="/bookDetail.htm?id=$!{bookItem.bookInfo.id}">$!{bookItem.bookInfo.name}</a></td>
+		<td><a href="/user/bookDetail.htm?id=$!{bookItem.bookInfo.id}">$!{bookItem.bookInfo.name}</a></td>
 		<td>$!{bookItem.loginId}</td>
 		<td>$!{bookItem.state}</td>
 		<td>$!{bookItem.addTime}</td>

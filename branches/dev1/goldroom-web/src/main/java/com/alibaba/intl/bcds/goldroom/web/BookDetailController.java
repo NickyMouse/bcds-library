@@ -59,7 +59,7 @@ public class BookDetailController extends AbstractController {
         int bookInfoId = Integer.parseInt(request.getParameter("id"));
         BookInfo bookInfo = bookInfoService.findBookInfoById(bookInfoId);
         List<BookItem> items = bookItemService.listBookItemByBookInfoId(bookInfoId);
-        ModelAndView mv = new ModelAndView("bookDetail");
+        ModelAndView mv = new ModelAndView("/user/bookDetail");
         mv.addObject("bookInfo", bookInfo);
         mv.addObject("bookItemList", items);
         return mv;
