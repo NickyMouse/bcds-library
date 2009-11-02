@@ -57,6 +57,6 @@
 		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.MemberDAOImpl" />
 	<bean id="searchDatasource"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.BookSearchDatasource">
-		<property name="indexLocation" value="/home/admin/index" />
+		<property name="indexLocation" value="/home/intlbcds/work/index" />
 	</bean>
 </beans>
