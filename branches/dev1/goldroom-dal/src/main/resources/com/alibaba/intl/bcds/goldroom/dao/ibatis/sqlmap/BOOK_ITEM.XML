@@ -75,7 +75,7 @@
 		)
 		VALUES
 		('idle',(select id from MEMBER where LOGIN_ID =
-		#loginId:VARCHAR#),now(),now(),(select id from book_info where
+		#loginId:VARCHAR#),now(),now(),(select id from BOOK_INFO where
 		isbn=#ISBN:VARCHAR#),NOW(),NOW(),NOW(),null)
 	</insert>
 
@@ -85,7 +85,7 @@
 		)
 		VALUES
 		('idle',#loginId:VARCHAR#,NOW(),#removeTime:DATETIME#,(select
-		id from book_info where
+		id from BOOK_INFO where
 		isbn=#bookInfo.isbn:VARCHAR#),NOW(),NOW(),NOW(),#tags:VARCHAR#)
 	</insert>
 
