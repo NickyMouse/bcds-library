@@ -2,7 +2,7 @@
     <tr>
         <td>
 		#if(${bookInfo.imgUrl})
-				<div width="250" height="250"><img src="$UPLOAD_IMAGE_PATH/$!{bookInfo.imgUrl}" /></div>
+				<div><img class="bookImage" src="$UPLOAD_IMAGE_PATH/$!{bookInfo.imgUrl}" /></div>
 		#end
         </td>
         <td>
