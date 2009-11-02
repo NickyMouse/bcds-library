@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 cd ../..
 mvn package -Dmaven.test.skip=true
 cd target
-INDEX_PATH=/home/admin/index/
+INDEX_PATH=/home/intlbcds/work/index/
 BUILD_INTERVAL_MINUTES=5
 START_HOUR=6
 END_HOUR=23
