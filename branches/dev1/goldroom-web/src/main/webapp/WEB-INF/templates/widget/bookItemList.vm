@@ -11,7 +11,7 @@
 	<tr>
 		<td>
 		#if(${bookItem.bookInfo.imgUrl})
-		<img src="$UPLOAD_IMAGE_PATH/$!{bookItem.bookInfo.imgUrl}" width="60" height="60">
+		<img src="$UPLOAD_IMAGE_PATH/$!{bookItem.bookInfo.imgUrl}" class="bookItemList">
 		#end
 		</td>
 		<td><a href="/bookDetail.htm?id=$!{bookItem.bookInfo.id}">$!{bookItem.bookInfo.name}</a></td>
