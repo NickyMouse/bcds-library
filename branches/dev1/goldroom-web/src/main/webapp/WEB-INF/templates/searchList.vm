@@ -26,7 +26,7 @@
 			<td class="lines">&nbsp;$book.bookName</td>
 			<td class="lines">&nbsp;$book.bookEdition</td>
 			<td class="lines">
-				<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId" title="">$book.bookDescription</a>
+				<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId" title="" target="_blank">$book.bookDescription</a>
 			</td>
 			<td class="lines">&nbsp;$book.bookPublishTime</td>
 		</tr>

@@ -8,8 +8,8 @@
             	<tr>
 				#foreach($book in $newBookList)
                 <td align="center" width="150px">
-					<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId"><img class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/></a><br>
-					<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId">$book.bookName</a>
+					<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId" target="_blank"><img class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/></a><br>
+					<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId" target="_blank">$book.bookName</a>
                 </td>
 				#end
                 </tr>
@@ -20,8 +20,8 @@
             	<tr>
 				#foreach($book in $popularBookList)
                 <td align="center" width="150px">
-					<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId"><img class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/></a><br>
-					<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId">$book.bookName</a>
+					<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId" target="_blank"><img class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/></a><br>
+					<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId" target="_blank">$book.bookName</a>
                 </td>
 				#end
                 </tr>
