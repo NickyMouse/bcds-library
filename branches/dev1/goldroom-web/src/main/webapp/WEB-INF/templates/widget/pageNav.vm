@@ -35,11 +35,11 @@
     	   </div>
     	   <div style=" float:left; font-size:14px">
     		
-    	  #if($pageNavView.prePage > 0)<a href="${SERVER_NAME}${pageNavView.currentUrl}&page=${pageNavView.prePage}">&lt;&lt; 上一页</a> #end
+    	  #if($pageNavView.prePage > 0)<a href="${SERVER_NAME}${pageNavView.currentUrl}&page=${pageNavView.prePage}">&lt;&lt; 上一页&nbsp;</a> #end
     	  #foreach($item in [1..$pageNavView.totalPage])
-    		<a href="${SERVER_NAME}${pageNavView.currentUrl}&page=$item">$item</a>
+    		<a href="${SERVER_NAME}${pageNavView.currentUrl}&page=$item">[${item}]</a>
     	  #end
-    	  #if($pageNavView.nextPage > 0)<a href="${SERVER_NAME}${pageNavView.currentUrl}&page=${pageNavView.nextPage}">下一页&gt;&gt;</a> #end
+    	  #if($pageNavView.nextPage > 0)<a href="${SERVER_NAME}${pageNavView.currentUrl}&page=${pageNavView.nextPage}">&nbsp;下一页&gt;&gt;</a> #end
     
     	  </div>
 	  #else
