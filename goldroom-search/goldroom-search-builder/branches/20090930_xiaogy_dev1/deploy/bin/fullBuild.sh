@@ -1,6 +1,6 @@
 #!/bin/sh
 cd ../..
-mvn package -Dmaven.test.skip=true
+~/program/maven/bin/mvn package -Dmaven.test.skip=true
 cd target
 INDEX_PATH=/home/intlbcds/work/index/
 BUILD_INTERVAL_MINUTES=60
