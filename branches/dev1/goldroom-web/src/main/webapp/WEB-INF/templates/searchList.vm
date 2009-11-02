@@ -1,3 +1,6 @@
+#if($noResult)
+	没有符合的书籍
+#else
 #parse("widget/pageNav.vm")
 <table width="100%" cellspacing="0" cellpadding="3" border="0">
 	<tbody>
@@ -34,3 +37,4 @@
 </tbody>
 </table>
 #parse("widget/pageNav.vm")
+#end
