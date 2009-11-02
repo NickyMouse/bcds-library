@@ -782,3 +782,6 @@ insert into CATEGORY values (878,48,'行业专业刊物',null,null,null,sysdate(
 insert into CATEGORY values (879,48,'语言与教学',null,null,null,sysdate(),sysdate());
 insert into CATEGORY values (880,48,'期刊合订本',null,null,null,sysdate(),sysdate());
 insert into CATEGORY values (881,48,'综合',null,null,null,sysdate(),sysdate());
+
+update CATEGORY set level=1, is_leaf=0 where id<100;
+update CATEGORY set level=2, is_leaf=1 where id>=100;
