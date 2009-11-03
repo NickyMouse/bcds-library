@@ -1,10 +1,12 @@
 package com.alibaba.intl.bcds.goldroom.service;
 
-import com.alibaba.intl.bcds.goldroom.dataobject.Member;
+import java.util.Map;
+
 
 public interface UserService {
+	@SuppressWarnings("unchecked")
 	/*
 	 * 更改用户信息
 	 */
-	void updateUserInfo(Member member);
+	void updateUserInfo(Map userInfo);
 }
