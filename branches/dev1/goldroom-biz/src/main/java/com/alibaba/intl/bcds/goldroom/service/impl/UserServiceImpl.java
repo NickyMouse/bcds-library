@@ -1,7 +1,8 @@
 package com.alibaba.intl.bcds.goldroom.service.impl;
 
+import java.util.Map;
+
 import com.alibaba.intl.bcds.goldroom.dao.UserInfoDao;
-import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.service.UserService;
 
 public class UserServiceImpl implements UserService {
@@ -19,7 +20,8 @@ public class UserServiceImpl implements UserService {
 	 * com.alibaba.intl.bcds.goldroom.service.UsersService#update(com.alibaba
 	 * .intl.bcds.goldroom.dataobject.Member)
 	 */
-	public void updateUserInfo(Member member) {
-		userInfoDao.update(member);
+	@SuppressWarnings("unchecked")
+	public void updateUserInfo(Map userInfo) {
+		userInfoDao.update(userInfo);
 	}
 }
