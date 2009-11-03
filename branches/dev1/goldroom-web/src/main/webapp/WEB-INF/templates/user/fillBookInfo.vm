@@ -7,62 +7,62 @@
       <td align="center"><h2>该书籍信息不存在，请填写书籍信息</h2>
        
           <table >
-            <tr >
+            <tr  valign="top">
               <td align="right">ISBN：&nbsp;&nbsp; </td>
               <td align="left">$!{isbn}
                 
               </td>
             </tr>
-			<tr height="200px">
+			<tr valign="top">
 				<td align="right">书本封面：&nbsp;&nbsp; </td>
 				<td>#parse("user/fileUpload.vm")
   				</td>
             </tr>
 			<form action="/user/fillBookInfo.htm" method="POST">
 			<input type="hidden" name="isbn" value="$!{isbn}"/>
-            <tr >
+            <tr  valign="top">
               #springBind("bookInfo.name")
               <td align="right">书本名称：&nbsp;&nbsp; </td>
               <td >#springFormInput("bookInfo.name" 'size="45" maxlength="45"')
                #validationError()
               </td>
             </tr>
-            <tr>
+            <tr valign="top">
               #springBind("bookInfo.author")
               <td align="right">作者：&nbsp;&nbsp;</td>
               <td >#springFormInput("bookInfo.author" 'size="45" maxlength="45"')
               #validationError()
-            </td>
+			  </td>
             </tr>
-            <tr>
+            <tr valign="top">
               #springBind("bookInfo.categoryId")
 				<td align="right">选择类目：&nbsp;&nbsp;</td>
                 <td >#parse("widget/selectCategory.vm")
                 #validationError()
                 </td>
             </tr>
-            <tr>
+            <tr valign="top">
              #springBind("bookInfo.publisher")
               <td align="right">出版社：&nbsp;&nbsp; </td>
               <td >#springFormInput("bookInfo.publisher" 'size="45" maxlength="45"')
               #validationError()
               </td>
             </tr>
-			 <tr>
+			 <tr valign="top">
 			  #springBind("bookInfo.publishTime")
               <td align="right">出版时间：&nbsp;&nbsp; </td>
               <td >#springFormInput("bookInfo.publishTime" 'size="45" maxlength="45"')
               #validationError()
               </td>
             </tr>
-			<tr >
+			<tr valign="top">
 			  #springBind("bookInfo.edition")
               <td align="right">版本：&nbsp;&nbsp; </td>
               <td >#springFormInput("bookInfo.edition" 'size="45" maxlength="45"')
               #validationError()
               </td>
             </tr>
-            <tr >
+            <tr valign="top">
 	          #springBind("bookInfo.description")
               <td align="right">书本描述：&nbsp;&nbsp; </td>
               <td >#springFormTextarea("bookInfo.description" 'rows="10" cols="30"')
@@ -70,7 +70,7 @@
               </td>
             </tr>
 			
-            <tr >
+            <tr valign="top">
               <td colspan="2" align="center"><input type="button" value="上一步"/>
                 &nbsp;&nbsp;
                 <input name="submit" type="submit" value="下一步"/>
