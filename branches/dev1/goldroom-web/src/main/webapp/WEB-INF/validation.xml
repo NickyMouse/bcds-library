@@ -43,7 +43,7 @@
 				<msg key="validation.bookInfo.publishTime.required" name="validation.bookInfo.publishTime.required" />
 				<arg0 key="publishTime" resource="false" />
 			</field>
-			<field property="imgUrl" depends="required">
+			<field property="imgUrl" depends="">
 				<msg key="validation.bookInfo.imgUrl.required" name="validation.bookInfo.imgUrl.required" />
 				<arg0 key="imgUrl" resource="false" />
 			</field>

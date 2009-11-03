@@ -1,8 +1,10 @@
 <table>
     <tr>
         <td>
-		#if(${bookInfo.imgUrl})
-				<div><img class="bookImage" src="$UPLOAD_IMAGE_PATH/$!{bookInfo.imgUrl}" /></div>
+		#if(${bookInfo.imgUrl} && !$bookInfo.getImgUrl().equals(""))
+			<div><img class="bookImage" src="$UPLOAD_IMAGE_PATH/$!{bookInfo.imgUrl}" /></div>
+		#else
+			<div><img class="bookImage" src="$SERVER_NAME/images/noPhoto.png" /></div>
 		#end
         </td>
         <td>
