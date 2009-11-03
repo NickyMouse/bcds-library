@@ -49,6 +49,21 @@
 			</field>
 		</form>
 
+		<form name="userInfo">
+			<field property="oldPassword" depends="required">
+				<msg key="validation.userInfo.oldPassword.required" name="validation.userInfo.oldPassword.required" />
+				<arg0 key="oldPassword" resource="false" />
+			</field>
+			<field property="newPassword" depends="required">
+				<msg key="validation.userInfo.newPassword.required" name="validation.userInfo.newPassword.required" />
+				<arg0 key="newPassword" resource="false" />
+			</field>
+			<field property="confirmPassword" depends="required">
+				<msg key="validation.userInfo.confirmPassword.required" name="validation.userInfo.confirmPassword.required" />
+				<arg0 key="confirmPassword" resource="false" />
+			</field>
+		</form>
+
 		<form name="bookItem">
 			<field property="tags"></field>
 		</form>
