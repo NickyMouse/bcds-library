@@ -33,12 +33,6 @@
 		<a href="$SERVER_NAME/#">书籍下架</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	#end
 	</td>
-    <td align="right">
-		$authz
-		#if($!authz.principal)
-			$!authz.principal
-		#end
-	</td>
   </tr>
   <!-- End Main Menu-->
   <!-- BreadCrumb-->
