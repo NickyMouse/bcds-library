@@ -30,17 +30,14 @@ h2 {
 
 a {
 	color: #89A945;
-	text-decoration: none;
 }
 
 a:hover {
 	color: #ACD674;
-	text-decoration: underline;
 }
 
 a:visited {
 	color: #47661E;
-	text-decoration: none;
 }
 
 .big_text {
@@ -298,7 +295,7 @@ form {
 
 .button_dark {
 	background-color: #b9dd88;
-	font-size: 11px;
+	font-size: 12px;
 	font-weight: bold;
 	color: #486213;
 }
