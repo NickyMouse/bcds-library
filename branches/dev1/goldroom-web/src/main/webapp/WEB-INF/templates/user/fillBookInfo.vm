@@ -1,3 +1,4 @@
+<script type="text/javascript" src="$SERVER_NAME/js/datePicker.js"></script> 
 <table width="100%" cellspacing="0" cellpadding="3" border="0">
   <tbody>
     <tr>
@@ -51,7 +52,7 @@
 			 <tr valign="top">
 			  #springBind("bookInfo.publishTime")
               <td align="right">出版时间：&nbsp;&nbsp; </td>
-              <td >#springFormInput("bookInfo.publishTime" 'size="45" maxlength="45"')
+              <td >#springFormInput("bookInfo.publishTime" 'size="45" maxlength="45" onfocus="setday(this)"')
               #validationError()
               </td>
             </tr>

@@ -1,3 +1,4 @@
+<script type="text/javascript" src="$SERVER_NAME/js/datePicker.js"></script> 
 <table width="100%">
 	<tr>
 		<td></td>
@@ -32,7 +33,7 @@
 				<button onClick="javascript:returnBook($!{bookItem.lending.id});"/>确认归还</button>
 			#end
 			#if($bookItem.state == "reservated")
-				<input type="text" id="returnTime_$!{bookItem.reservation.id}" />
+				<input type="text" id="returnTime_$!{bookItem.reservation.id}" onfocus="setday(this)"/>
 				<button onClick="javascript:confirmLend($!{bookItem.reservation.id});"/>确认借阅</button>
 			#end
 		</td>
