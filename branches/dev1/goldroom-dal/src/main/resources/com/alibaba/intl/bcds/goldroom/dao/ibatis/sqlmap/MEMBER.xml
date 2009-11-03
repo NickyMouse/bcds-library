@@ -213,4 +213,11 @@
 		</iterate>
 		)
 	</select>
+
+	<update id="updatePassword" parameterClass="java.util.Map">
+		update MEMBER
+		set PASSWORD = #password:VARCHAR#		
+		where LOGIN_ID = #login_id:VARCHAR#
+	</update>
+	
 </sqlMap>
