@@ -27,14 +27,14 @@
 		<result property="lending" column="ID"
 			javaType="com.alibaba.intl.bcds.goldroom.dataobject.Lending" select="LENDING.findByBookItemId" />
 	</resultMap>
-	<resultMap class="BookItem" id="BookItemWithBookInfoAndReservatioinResult"
+	<resultMap class="BookItem" id="BookItemWithBookInfoAndReservationResult"
 		extends="BookItemWithInfoResult">
 		<result property="reservation" column="ID"
 			javaType="com.alibaba.intl.bcds.goldroom.dataobject.Reservation"
 			select="RESERVATION.findByBookItemId" />
 	</resultMap>
 	<resultMap class="BookItem"
-		id="BookItemWithBookInfoAndReservatioinAndLendResult" extends="BookItemWithBookInfoAndReservatioinResult">
+		id="BookItemWithBookInfoAndReservatioinAndLendResult" extends="BookItemWithBookInfoAndReservationResult">
 		<result property="lending" column="ID"
 			javaType="com.alibaba.intl.bcds.goldroom.dataobject.Lending" select="LENDING.findByBookItemId" />
 	</resultMap>
@@ -103,7 +103,8 @@
 	</update>
 
 	<update id="changeItemState" parameterClass="BookItem">
-		UPDATE BOOK_ITEM SET STATE=#state:VARCHAR#	WHERE ID=#id:DECIMAL#
+		UPDATE BOOK_ITEM SET
+		STATE=#state:VARCHAR# WHERE ID=#id:DECIMAL#
 	</update>
 
 	<delete id="deleteById" parameterClass="java.lang.Integer">
@@ -138,6 +139,17 @@
 		where LOGIN_ID=#loginId:VARCHAR#
 		<isNotEmpty property="state" open="and ">state=#state:VARCHAR#
 		</isNotEmpty>
+		LIMIT #skipRows:INTEGER#,#pageSize:INTEGER#
+	</select>
+
+
+	<select id="countBookItemsByLoginIdAndState" parameterClass="java.util.HashMap"
+		resultClass="int">
+		SELECT COUNT(*)
+		FROM BOOK_ITEM
+		where LOGIN_ID=#loginId:VARCHAR#
+		<isNotEmpty property="state" open="and ">state=#state:VARCHAR#
+		</isNotEmpty>
 	</select>
 
 
@@ -155,7 +167,7 @@
 		WHERE BOOK_INFO_ID=#value:DECIMAL#
 	</select>
 
-	<select id="listLendedBookItemBySubscriber" parameterClass="java.lang.String"
+	<select id="listLendedBookItemBySubscriber" parameterClass="java.util.HashMap"
 		resultMap="BookItemWithBookInfoAndLendInfoResult">
 		SELECT
 		bi.ID as ID ,bi.STATE as STATE ,bi.LOGIN_ID AS
@@ -166,17 +178,42 @@
 		FROM BOOK_ITEM bi join LENDING l on
 		bi.id = l.BOOK_ITEM_ID
 		WHERE
+		l.SUBSCRIBER=#subscriber:VARCHAR#
+		LIMIT
+		#skipRows:INTEGER#,#pageSize:INTEGER#
+	</select>
+
+	<select id="countLendedBookItemBySubscriber" parameterClass="string"
+		resultClass="int">
+		SELECT
+		COUNT(*)
+		FROM BOOK_ITEM bi join LENDING l on
+		bi.id =
+		l.BOOK_ITEM_ID
+		WHERE
 		l.SUBSCRIBER=#value:VARCHAR#
 	</select>
 
-	<select id="listReservatedBooksBySubscriber" parameterClass="java.lang.String"
-		resultMap="BookItemWithBookInfoAndReservatioinResult">
+	<select id="listReservatedBooksBySubscriber" parameterClass="java.util.HashMap"
+		resultMap="BookItemWithBookInfoAndReservationResult">
 		SELECT
 		bi.ID as ID ,bi.STATE as STATE ,bi.LOGIN_ID AS
 		LOGIN_ID,bi.ADD_TIME as ADD_TIME,bi.REMOVE_TIME as
 		REMOVE_TIME,bi.BOOK_INFO_ID as BOOK_INFO_ID ,bi.FIRST_ADD_TIME as
 		FIRST_ADD_TIME,bi.GMT_CREATE as GMT_CREATE,bi.GMT_MODIFIED as
 		GMT_MODIFIED , bi.TAGS as TAGS
+		FROM BOOK_ITEM bi join RESERVATION r on
+		bi.id = r.BOOK_ITEM_ID
+		WHERE
+		r.SUBSCRIBER=#subscriber:VARCHAR#
+		LIMIT
+		#skipRows:INTEGER#,#pageSize:INTEGER#
+	</select>
+	
+	<select id="countReservatedBooksBySubscriber" parameterClass="string"
+		resultClass="int">
+		SELECT
+		COUNT(*)
 		FROM BOOK_ITEM bi join RESERVATION r on
 		bi.id = r.BOOK_ITEM_ID
 		WHERE

@@ -7,6 +7,7 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
 import com.alibaba.intl.bcds.goldroom.dao.util.ParameterMap;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
+import com.ibatis.sqlmap.client.event.RowHandler;
 
 @SuppressWarnings("unchecked")
 public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemDao {
@@ -64,11 +65,13 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
      * (java.lang.String, java.lang.String)
      */
     @Override
-    public List<BookItem> listBookItemsByLoginIdAndState(String loginId, String state) {
+    public List<BookItem> listBookItemsByLoginIdAndState(String loginId, String state, int page,
+                                                         int pagesize) {
         return getSqlMapClientTemplate().queryForList(
                 "BOOK_ITEM.listBookItemsByLoginIdAndState",
-                new ParameterMap<String, String>().addParameter("loginId", loginId).addParameter(
-                        "state", state));
+                new ParameterMap<String, Object>().addParameter("loginId", loginId).addParameter(
+                        "state", state).addParameter("skipRows", (page - 1) * pagesize)
+                        .addParameter("pageSize", pagesize));
     }
 
     /*
@@ -103,9 +106,12 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
      * (java.lang.String)
      */
     @Override
-    public List<BookItem> listLendedBookItemBySubscriber(String ownerLoginID) {
-        return getSqlMapClientTemplate().queryForList("BOOK_ITEM.listLendedBookItemBySubscriber",
-                ownerLoginID);
+    public List<BookItem> listLendedBookItemBySubscriber(String subscriber, int page, int pagesize) {
+        return getSqlMapClientTemplate().queryForList(
+                "BOOK_ITEM.listLendedBookItemBySubscriber",
+                new ParameterMap<String, Object>().addParameter("subscriber", subscriber)
+                        .addParameter("skipRows", (page - 1) * pagesize).addParameter("pageSize",
+                                pagesize));
     }
 
     /*
@@ -114,9 +120,12 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
      * listReservatedBooksBySubscriber(java.lang.String)
      */
     @Override
-    public List<BookItem> listReservatedBooksBySubscriber(String loginId) {
-        return getSqlMapClientTemplate().queryForList("BOOK_ITEM.listReservatedBooksBySubscriber",
-                loginId);
+    public List<BookItem> listReservatedBooksBySubscriber(String subscriber, int page, int pagesize) {
+        return getSqlMapClientTemplate().queryForList(
+                "BOOK_ITEM.listReservatedBooksBySubscriber",
+                new ParameterMap<String, Object>().addParameter("subscriber", subscriber)
+                        .addParameter("skipRows", (page - 1) * pagesize).addParameter("pageSize",
+                                pagesize));
     }
 
     /*
@@ -140,5 +149,40 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
     public void changeItemState(BookItem bookItem) {
         getSqlMapClientTemplate().update("BOOK_ITEM.changeItemState", bookItem);
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * @seecom.alibaba.intl.bcds.goldroom.dao.BookItemDao#
+     * countBookItemsByLoginIdAndState(java.lang.String, java.lang.String)
+     */
+    @Override
+    public int countBookItemsByLoginIdAndState(String owner, String state) {
+        return (Integer) getSqlMapClientTemplate().queryForObject(
+                "BOOK_ITEM.countBookItemsByLoginIdAndState",
+                new ParameterMap<String, String>().addParameter("loginId", owner).addParameter(
+                        "state", state));
+    }
+
+    /*
+     * (non-Javadoc)
+     * @seecom.alibaba.intl.bcds.goldroom.dao.BookItemDao#
+     * countLendedBookItemBySubscriber(java.lang.String)
+     */
+    @Override
+    public int countLendedBookItemBySubscriber(String subscriber) {
+        return (Integer) getSqlMapClientTemplate().queryForObject(
+                "BOOK_ITEM.countLendedBookItemBySubscriber", subscriber);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @seecom.alibaba.intl.bcds.goldroom.dao.BookItemDao#
+     * countReservatedBooksBySubscriber(java.lang.String)
+     */
+    @Override
+    public int countReservatedBooksBySubscriber(String subscriber) {
+        return (Integer) getSqlMapClientTemplate().queryForObject(
+                "BOOK_ITEM.countReservatedBooksBySubscriber", subscriber);
     }
 }

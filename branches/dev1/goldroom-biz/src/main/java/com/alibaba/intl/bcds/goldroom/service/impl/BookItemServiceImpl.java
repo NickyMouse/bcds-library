@@ -16,7 +16,9 @@
 package com.alibaba.intl.bcds.goldroom.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
 import com.alibaba.intl.bcds.goldroom.dao.LendingDao;
@@ -100,8 +102,14 @@ public class BookItemServiceImpl implements BookItemService {
      * listBookItemsByLoginIdAndState(java.lang.String, java.lang.String)
      */
     @Override
-    public List<BookItem> listBookItemsByLoginIdAndState(String loginId, String state) {
-        return bookItemDao.listBookItemsByLoginIdAndState(loginId, state);
+    public Result listBookItemsByLoginIdAndState(String loginId, String state, int page,
+                                                 int pagesize) {
+
+        Map<String, Object> returnMap = new HashMap<String, Object>(2);
+        returnMap.put("totalCount", bookItemDao.countBookItemsByLoginIdAndState(loginId, state));
+        returnMap.put("bookItemList", bookItemDao.listBookItemsByLoginIdAndState(loginId, state,
+                page, pagesize));
+        return new Result(true, null, returnMap);
     }
 
     /*
@@ -120,8 +128,12 @@ public class BookItemServiceImpl implements BookItemService {
      * listBookItemBySubscriber(java.lang.String)
      */
     @Override
-    public List<BookItem> listLendedBookItemBySubscriber(String ownerLoginID) {
-        return bookItemDao.listLendedBookItemBySubscriber(ownerLoginID);
+    public Result listLendedBookItemBySubscriber(String ownerLoginID, int page, int pagesize) {
+        Map<String, Object> returnMap = new HashMap<String, Object>(2);
+        returnMap.put("totalCount", bookItemDao.countLendedBookItemBySubscriber(ownerLoginID));
+        returnMap.put("bookItemList", bookItemDao.listLendedBookItemBySubscriber(ownerLoginID,
+                page, pagesize));
+        return new Result(true, null, returnMap);
     }
 
     /*
@@ -130,8 +142,13 @@ public class BookItemServiceImpl implements BookItemService {
      * listReservatedBooksBySubscriber(java.lang.String)
      */
     @Override
-    public List<BookItem> listReservatedBooksBySubscriber(String loginId) {
-        return bookItemDao.listReservatedBooksBySubscriber(loginId);
+    public Result listReservatedBooksBySubscriber(String loginId, int page, int pagesize) {
+
+        Map<String, Object> returnMap = new HashMap<String, Object>(2);
+        returnMap.put("totalCount", bookItemDao.countReservatedBooksBySubscriber(loginId));
+        returnMap.put("bookItemList", bookItemDao.listReservatedBooksBySubscriber(loginId, page,
+                pagesize));
+        return new Result(true, null, returnMap);
     }
 
     /*

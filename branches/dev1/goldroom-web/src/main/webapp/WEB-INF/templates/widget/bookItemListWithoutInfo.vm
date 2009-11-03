@@ -11,7 +11,7 @@
 		<td>$!{bookItem.loginId}</td>
 		<td>$!{bookItem.state}</td>
 		<td>$!{bookItem.addTime}</td>
-        <td><button onClick="javascript:reserve($!{bookItem.id})"  >预约</button></td>
+        <td>#if($bookItem.state=="idle")<button onClick="javascript:reserve($!{bookItem.id})"  >预约</button>#end</td>
 	</tr>
 	#end
 </table>

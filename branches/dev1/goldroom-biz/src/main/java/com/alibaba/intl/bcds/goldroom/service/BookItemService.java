@@ -41,7 +41,7 @@ public interface BookItemService {
     /**
      * 新书上架
      * 
-     * @param loginId 
+     * @param loginId
      * @param isbn
      */
     void newShelves(String loginId, String isbn);
@@ -60,7 +60,8 @@ public interface BookItemService {
      * @param loginId
      * @return
      */
-    List<BookItem> listBookItemsByLoginIdAndState(String loginId, String state);
+    Result listBookItemsByLoginIdAndState(String loginId, String state, int page,
+                                                  int pagesize);
 
     /**
      * @param bookInfoId
@@ -72,13 +73,13 @@ public interface BookItemService {
      * @param ownerLoginID
      * @return
      */
-    List<BookItem> listLendedBookItemBySubscriber(String ownerLoginID);
+    Result listLendedBookItemBySubscriber(String ownerLoginID, int page, int pagesize);
 
     /**
      * @param loginId
      * @return
      */
-    List<BookItem> listReservatedBooksBySubscriber(String loginId);
+    Result listReservatedBooksBySubscriber(String loginId, int page, int pagesize);
 
     /**
      * 预约

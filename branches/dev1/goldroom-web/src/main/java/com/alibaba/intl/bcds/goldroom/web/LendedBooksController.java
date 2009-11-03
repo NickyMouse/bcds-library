@@ -16,15 +16,19 @@
 package com.alibaba.intl.bcds.goldroom.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
+import com.alibaba.intl.bcds.goldroom.service.result.Result;
+import com.alibaba.intl.bcds.goldroom.web.utils.PageUtils;
 import com.alibaba.intl.bcds.goldroom.web.utils.UserUtil;
 
 /**
@@ -53,8 +57,16 @@ public class LendedBooksController extends AbstractController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
-        List<BookItem> items = bookItemService.listLendedBookItemBySubscriber(UserUtil.getLoginId());
-        return new ModelAndView("user/lendedBooks", "bookItemList", items);
-    }
 
+        String pageStr = request.getParameter("page");
+        String pagesizeStr = request.getParameter("pagesize");
+        Result result = bookItemService.listLendedBookItemBySubscriber(UserUtil.getLoginId(),
+                NumberUtils.toInt(pageStr, 1), NumberUtils.toInt(pagesizeStr, 10));
+        Map<String, Object> map = (Map<String, Object>) result.getReturnObject();
+        ModelAndView mv = new ModelAndView("user/lendedBooks");
+        mv.addObject("bookItemList", map.get("bookItemList"));
+        mv.addObject("pageNavView", PageUtils.createPageNavView((Integer) map.get("totalCount"),
+                request));
+        return mv;
+    }
 }

@@ -16,7 +16,14 @@
 		</td>
 		<td><a href="/user/bookDetail.htm?id=$!{bookItem.bookInfo.id}">$!{bookItem.bookInfo.name}</a></td>
 		<td>$!{bookItem.loginId}</td>
-		<td>$!{bookItem.state}</td>
+		<td>
+			#if($bookItem.state== "lended")
+				该书已被$!{bookItem.lending.subscriber}借阅
+			#end
+			#if($bookItem.state == "reservated")
+				该书已被$!{bookItem.reservation.subscriber}预约
+			#end
+		</td>
 		<td>$!{bookItem.addTime}</td>
 		<td>
 			#if($bookItem.state== "lended")
@@ -30,7 +37,7 @@
 	</tr>
 	#end
 </table>
-
+#parse("widget/pageNav.vm")
 <form action="/user/confirmLend.htm" name="confirmLendForm" method="POST">
 	<input type="hidden" name="reservationId" />
 	<input type="hidden" name="returnTime"/>
