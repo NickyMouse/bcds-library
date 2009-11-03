@@ -136,11 +136,14 @@
 			value="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo" />
 	</bean>
 
-	<bean name="/user/userInfoModify.htm"
+	<bean name="/userInfoModify.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.UserInfoModifyController">
-		<property name="commandName" value="member" />
+		<property name="formView" value="userInfoModify" />
+		<property name="successView" value="redirect:beforeShelve.htm" />
+		<property name="commandName" value="userInfo" />
 		<property name="commandClass"
-			value="com.alibaba.intl.bcds.goldroom.dataobject.Member" />
+			value="com.alibaba.intl.bcds.goldroom.dataobject.User" />
+		<property name="validator" ref="validator"></property>
 	</bean>
 
 
