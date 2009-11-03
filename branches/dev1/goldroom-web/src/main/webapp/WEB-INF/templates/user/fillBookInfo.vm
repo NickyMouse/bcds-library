@@ -18,7 +18,7 @@
 				<td>#parse("user/fileUpload.vm")
   				</td>
             </tr>
-			<form action="/user/fillBookInfo.htm" method="POST">
+			<form action="/user/fillBookInfo.htm" method="POST" onSubmit="category2Cookie();">
 			<input type="hidden" name="isbn" value="$!{isbn}"/>
             <tr  valign="top">
               #springBind("bookInfo.name")
@@ -65,7 +65,7 @@
             <tr valign="top">
 	          #springBind("bookInfo.description")
               <td align="right">书本描述：&nbsp;&nbsp; </td>
-              <td >#springFormTextarea("bookInfo.description" 'rows="10" cols="30"')
+              <td >#springFormTextarea("bookInfo.description" 'rows="10" cols="55"')
               #validationError()
               </td>
             </tr>

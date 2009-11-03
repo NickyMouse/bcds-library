@@ -69,7 +69,7 @@
         var selectDiv=$("selectDiv");
         if(selectDiv.style.display=="none")
         {
-        show('selectDiv');
+        show('selectDiv',getInputObj());
         }else
         {
         closeed('selectDiv');
@@ -209,9 +209,11 @@
                                 $("categoryPath").value=pathLength>categoryPathSize?'...'+categoryPath.substring(pathLength-categoryPathSize,pathLength):categoryPath;
                                 $("categoryPath").title=categoryPath;
                                 $("categoryId").value=categoryId;
+                                 isLeaf=1;
                                 }
                                 function category2Cookie()
                                 {
+                               
                                 var c_name=$('categoryId').value;
                                 var c_value=$('categoryPath').title.length>categoryPathSize?$('categoryPath').title.substring(0,categoryPathSize)+'...':$('categoryPath').title;
                                 SetCookie(c_name,c_value,1000);	
@@ -230,7 +232,7 @@
                                 document.cookie = c_name + "=" + escape (c_value) +((expires == null) ? "" : ("; expires="+ expdate.toGMTString()))
                                 +((path == null) ? "" : ("; path=" + path)) +((domain == null) ? "" : ("; domain=" + domain))
                                 +((secure == true) ? "; secure" : "");
-                                alert("系统提示您："+c_name+"="+c_value+"成功添加cookie");
+                                //alert("系统提示您："+c_name+"="+c_value+"成功添加cookie");
                                 }
                                 //根据cookie key查找值
                                 function getCookie(searchName)
@@ -281,66 +283,77 @@
                                         document.cookie = name + "=" + cval + "; expires="+ exp.toGMTString();
                                         window.history.go(0);
                                         }
-                                        function DelAllCookie()
-                                        {
-                                        var exp = new Date();
-                                        exp.setTime (exp.getTime() - 1);	
-                                        var cookies=document.cookie.split(";");
-                                        for(var i=0;i<cookies.length;i++)
-                                            {
-                                            var cookCrumbs=cookies[i].split("=");
-                                            var cookName=cookCrumbs[0];
-                                            DelCookie(cookName);	 
-                                            }
-                                            }
-                                            function ltrim(s) {
-                                            return s.replace(/^\s*/, "");
-                                            }
-                                            function rtrim(s) {
-                                            return s.replace(/\s*$/, "");
-                                            }
-                                            function trim(s) {
-                                            return rtrim(ltrim(s));
-                                            }
-                                            //获取对象
-                                            function $(elementId)
-                                            {
-                                            return document.getElementById(elementId);
-                                            }
-                                            document.ondblclick=hiddenDiv;
-                                            function hiddenDiv()
-                                            {
-                                           
-                                            if(isLeaf==0)
-                                            {                                         
-                                                if($('selectDiv').style.display=="none")return;
-                                                if(confirm("您当前选择的不是叶子类目,是否放弃当前选择的类目？"))
-                                                {
-                                                closeed('selectDiv');
-                                                }                                           
-                                            }else{  	
-                                            closeed('selectDiv');	
-                                            }	
-                                            }
-                                            var prox;
-                                            var proy;
-                                            var proxc;
-                                            var proyc;
-                                            function show(id){/*--打开--*/
-                                            clearInterval(prox);
-                                            clearInterval(proy);
-                                            clearInterval(proxc);
-                                            clearInterval(proyc);
-                                            var o = $(id);
-                                            o.style.display = "block";
-                                            //打开层的相对位置
-                                            o.style.width = "1px";
-                                            o.style.height = "1px"; 
-                                            o.style.top="537px";
-                                            o.style.left=420;
-                                            $("childDiv").style.display="";
-                                            prox = setInterval(function(){openx(o,423)},5);
-                                            } 
+function DelAllCookie()
+{
+    var exp = new Date();
+    exp.setTime (exp.getTime() - 1);	
+    var cookies=document.cookie.split(";");
+    for(var i=0;i<cookies.length;i++)
+        {
+        var cookCrumbs=cookies[i].split("=");
+        var cookName=cookCrumbs[0];
+        DelCookie(cookName);	 
+        }
+  }
+function ltrim(s) {
+return s.replace(/^\s*/, "");
+}
+function rtrim(s) {
+return s.replace(/\s*$/, "");
+}
+function trim(s) {
+return rtrim(ltrim(s));
+}
+    //获取对象
+    function $(elementId)
+    {
+    return document.getElementById(elementId);
+    }
+    document.ondblclick=hiddenDiv;
+    function hiddenDiv()
+    {
+   
+    if(isLeaf==0)
+    {                                         
+        if($('selectDiv').style.display=="none")return;
+        if(confirm("您当前选择的不是叶子类目,是否放弃当前选择的类目？"))
+        {
+        closeed('selectDiv');
+        }                                           
+    }else{  	
+    closeed('selectDiv');	
+    }	
+    }
+	var prox;
+	var proy;
+	var proxc;
+	var proyc;
+  function show(id,objL){/*--打开(需要打开的对象Id，显示在obj对象下方位置)--*/
+   clearInterval(prox);
+   clearInterval(proy);
+   clearInterval(proxc);
+   clearInterval(proyc);
+   var o = $(id);
+   o.style.display = "block";
+   //打开层的相对位置
+   o.style.width = "1px";
+   o.style.height = "1px"; 
+    var ttop = objL.offsetTop; //TT控件的定位点高   
+    var thei = objL.clientHeight; //TT控件本身的高
+    var tleft = objL.offsetLeft; //TT控件的定位点宽
+   
+    var ttyp = objL.type; //TT控件的类型
+   while (objL = objL.offsetParent){ttop+=objL.offsetTop; tleft+=objL.offsetLeft;}
+   o.style.top=(ttyp=="image") ? ttop+thei : ttop+thei+6;
+   o.style.left=tleft;
+   $("childDiv").style.display="";
+   prox = setInterval(function(){openx(o,423)},5);
+} 
+//获取输入框对象
+function getInputObj()
+{
+   return $('categoryPath');
+}
                                             function openx(o,x){/*--打开x--*/
                                             var cx = parseInt(o.style.width);
                                             if(cx < x)
@@ -405,7 +418,7 @@
     <tr>
         <td>
             <input type="hidden" id="categoryId" name="categoryId" readonly="true"  />
-            <input type="text" id="categoryPath" name="categoryPath" title="点击选择类目" onClick="initAndShowOrHiddenDiv();" style="width:410px;"  readonly/>
+            <input type="text" id="categoryPath" name="categoryPath" title="点击选择类目" onClick="initAndShowOrHiddenDiv();" style="width:423px;"  readonly/>
 			</td> <td>
             <input type="button" id="cate" value="选择" onClick="initAndShowOrHiddenDiv();" />
         </td>
