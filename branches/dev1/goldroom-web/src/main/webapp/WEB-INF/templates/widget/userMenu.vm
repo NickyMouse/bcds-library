@@ -13,7 +13,6 @@
                                         <li><a href="$SERVER_NAME/user/lendedBooks.htm">我要还书</a></li>
 										<br/>
 										<li><a href="$SERVER_NAME/user/beforeShelve.htm">书籍上架</a></li>
-										<li><a href="#">书籍下架</a></li>
 										</ul>
                                     </ul>
                                 </td>

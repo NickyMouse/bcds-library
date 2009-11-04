@@ -1,5 +1,5 @@
 <script type="text/javascript" src="$SERVER_NAME/js/datePicker.js"></script> 
-<table width="100%">
+<table style="width: 80%;margin:auto;">
 	<tr>
 		<td></td>
 		<td>书名</td>

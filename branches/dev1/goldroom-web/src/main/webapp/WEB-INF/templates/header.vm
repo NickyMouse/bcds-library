@@ -1,6 +1,6 @@
 
 <!-- page body -->
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" style="width: 80%;margin:auto;">
   <tbody>
 	<!-- Header, search box-->
 	<tr>
@@ -30,7 +30,6 @@
 		<a href="$SERVER_NAME/user/reservatedBooks.htm">我要预约</a>&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="$SERVER_NAME/user/lendedBooks.htm">我要还书</a>&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="$SERVER_NAME/user/beforeShelve.htm">书籍上架</a>&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="$SERVER_NAME/#">书籍下架</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	#end
 	</td>
   </tr>
