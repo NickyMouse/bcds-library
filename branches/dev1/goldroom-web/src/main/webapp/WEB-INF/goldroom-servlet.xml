@@ -102,8 +102,10 @@
 		<property name="commandClass" value="com.alibaba.intl.bcds.goldroom.sample.User" />
 	</bean> -->
 
-	<bean name="/searchBookDetail.htm" class="com.alibaba.intl.bcds.goldroom.web.search.SearchBookDetailController" />
-	<bean name="/search.htm" class="com.alibaba.intl.bcds.goldroom.web.search.SearchController" />
+	<bean name="/searchBookDetail.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.search.SearchBookDetailController" />
+	<bean name="/search.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.search.SearchController" />
 
 	<bean class="com.alibaba.intl.bcds.goldroom.web.HomeController" />
 
@@ -150,7 +152,7 @@
 
 	<bean name="/user/fileUpload.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.FileUploadController">
-		<property name="uploadRoot" ref="fileUploadPath"/>
+		<property name="uploadRoot" ref="fileUploadPath" />
 		<property name="commandName" value="uploadFile" />
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.web.dataobject.UploadFile" />

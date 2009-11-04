@@ -24,8 +24,8 @@ import java.util.Date;
  */
 public class Category {
 
-    private long    id;
-    private long    parentId;
+    private int     id;
+    private int    parentId;
     private String  name;
     private String  description;
     private Date    gmtCreate;
@@ -64,28 +64,28 @@ public class Category {
     /**
      * @return the id
      */
-    public long getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     /**
      * @return the parentId
      */
-    public long getParentId() {
+    public int getParentId() {
         return parentId;
     }
 
     /**
      * @param parentId the parentId to set
      */
-    public void setParentId(long parentId) {
+    public void setParentId(int parentId) {
         this.parentId = parentId;
     }
 

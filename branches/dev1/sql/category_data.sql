@@ -7,7 +7,7 @@ insert into CATEGORY values (148,3,'科幻小说',null,null,null,sysdate(),sysda
 insert into CATEGORY values (149,3,'魔幻/奇幻/玄幻小说',null,null,null,sysdate(),sysdate());
 insert into CATEGORY values (150,3,'侦探/推理小说',null,null,null,sysdate(),sysdate());
 insert into CATEGORY values (151,3,'恐怖/惊悚/悬疑小说',null,null,null,sysdate(),sysdate());
-insert into CATEGORY values (152,3,'爱情小说',null,null,null,sysdate(),sysdate());
+insert into CATEG\ORY values (152,3,'爱情小说',null,null,null,sysdate(),sysdate());
 insert into CATEGORY values (153,3,'青春小说',null,null,null,sysdate(),sysdate());
 insert into CATEGORY values (154,3,'历史小说',null,null,null,sysdate(),sysdate());
 insert into CATEGORY values (155,3,'官场小说',null,null,null,sysdate(),sysdate());

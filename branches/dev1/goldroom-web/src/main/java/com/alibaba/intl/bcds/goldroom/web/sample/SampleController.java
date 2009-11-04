@@ -22,9 +22,9 @@ public class SampleController extends SimpleFormController {
     /**
      * @param userService the userService to set
      */
-    public void setUserService(UserService userService) {
+    /*public void setUserService(UserService userService) {
         this.userService = userService;
-    }
+    }*/
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,

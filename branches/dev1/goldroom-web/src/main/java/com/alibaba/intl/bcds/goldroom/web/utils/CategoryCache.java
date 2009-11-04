@@ -15,7 +15,9 @@
  */
 package com.alibaba.intl.bcds.goldroom.web.utils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.intl.bcds.goldroom.dao.CategoryDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.Category;
@@ -26,9 +28,24 @@ import com.alibaba.intl.bcds.goldroom.dataobject.Category;
  * @author Zimmem
  */
 public class CategoryCache {
-    private List<Category> cache;
+    private List<Category>         cache;
+    private Map<Integer, Category> cacheMap;
 
-    private CategoryDao    categoryDao;
+    /**
+     * @return the cacheMap
+     */
+    public Map<Integer, Category> getCacheMap() {
+        return cacheMap;
+    }
+
+    /**
+     * @param cacheMap the cacheMap to set
+     */
+    public void setCacheMap(Map<Integer, Category> cacheMap) {
+        this.cacheMap = cacheMap;
+    }
+
+    private CategoryDao categoryDao;
 
     /**
      * @return the categoryDao
@@ -50,10 +67,38 @@ public class CategoryCache {
 
     public void init() {
         List<Category> categories = categoryDao.listAll();
+
+        Map<Integer, Category> map = new HashMap<Integer, Category>(categories.size());
+        for (Category category : categories) {
+            map.put(category.getId(), category);
+        }
         cache = categories;
+        cacheMap = map;
     }
 
     public void reBuild() {
         init();
+    }
+
+    public String getName(Integer id) {
+        Category category = cacheMap.get(id);
+        if (category != null && category.getId() > 0) {
+            return category.getName();
+        }
+        return null;
+    }
+
+    public String getFullName(Integer id, String separator) {
+        StringBuilder sb = new StringBuilder();
+        Category category = cacheMap.get(id);
+        if (category != null && category.getId() > 0) {
+            sb.append(category.getName());
+            while (category != null && category.getParentId() > 0) {
+                int parentId = category.getParentId();
+                category = cacheMap.get(parentId);
+                sb.insert(0, separator).insert(0, category.getName());
+            }
+        }
+        return sb.toString();
     }
 }

@@ -15,6 +15,12 @@
                     <td >$!{bookInfo.name}
                     </td>
                 </tr>
+				<tr >
+                    <td >Category
+                    </td>
+                    <td >$!categoryCache.getFullName($!{bookInfo.categoryId},">>")
+                    </td>
+                </tr>
                 <tr>
                     <td>AUTHOR</td>
                     <td >

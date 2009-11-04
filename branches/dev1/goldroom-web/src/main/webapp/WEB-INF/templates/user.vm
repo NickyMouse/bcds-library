@@ -1,4 +1,4 @@
-
+$clientValidator.createValidator($request,$response,'user')
 
 <table class="blue" style="width: 80%;margin:auto;">
 	
@@ -7,7 +7,7 @@
 			<td valign="top" align="center">
 				#springBind("user.*")
 				#validationError()
-			<form method="POST" name="aaa">
+			<form method="POST" name="aaa" onSubmit="return validatZimmem(this);">
 			<table  width="330" cellspacing="0" cellpadding="0" border="0">
 				<tr> 
               <td align="left" valign="top"><img src="images/boxlogin_top.gif" width="330" height="7"></td> 
@@ -37,7 +37,7 @@
                 </td> 
             </tr> 
             <tr> 
-              <td align="left" valign="top"><img src="images/boxlogin_bottom.gif" width="330" height="7"></td> 
+              <td align="left" valign="top"><img src="images/boxlogin_bottom.gif" width="330" height="7"><input type="submit" value="submit"/></td> 
             </tr> 
 				
 			</table>
@@ -52,9 +52,5 @@
 	<td>$!{user.username}</td>
 	<td>$!{user.age}</td>
 </tr>
-#end
-
-#foreach($c in ${categoryCache.categorys})
-	${c.id}</br>
 #end
 </table>
