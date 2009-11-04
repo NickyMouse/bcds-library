@@ -14,7 +14,7 @@
 			authentication-failure-url="/login.htm?error=true"
 			default-target-url="/home.htm" />
 		<logout invalidate-session="true" logout-success-url="/home.htm"
-			logout-url="/loginout.htm" />
+			logout-url="/logout.htm" />
 	</http>
 
 	<authentication-provider>

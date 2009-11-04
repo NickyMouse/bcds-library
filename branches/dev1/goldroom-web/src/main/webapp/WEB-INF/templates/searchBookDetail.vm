@@ -1,4 +1,4 @@
-<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0">
+<table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
   <tbody>
     <tr>
       <td colspan="2" align="center"><h1>$bookSearchInfo.bookName</h1></td>
@@ -38,7 +38,19 @@
             </p></td>
           </tr>
 		  <tr>
-            <td colspan="2" align="left"><a href="$SERVER_NAME/searchBookDetail.htm?id=${bookSearchInfo.bookInfoId}&showOwners=true">查看拥有该图书的人</a></td>
+            <td colspan="2">
+				<div style="cursor: pointer;position:relative; left:80px; top:0px">
+				<table onClick="window.open('$SERVER_NAME/searchBookDetail.htm?id=${bookSearchInfo.bookInfoId}&showOwners=true','_self')"  border="0" cellpadding="0" cellspacing="0">	
+					<tbody><tr>
+                    <td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
+                    <td class="button_dark">
+						查看拥有该图书的人
+                    </td>
+                    <td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
+                    </tr>
+				</tbody></table>
+				</div>
+			</td>
 		  </tr>
         </table></td>
     </tr>
@@ -49,7 +61,7 @@
 #if($bookItemList && $bookItemList.size()==0)
 暂无
 #elseif($bookItemList.size()>0)
-<table width="100%" cellspacing="0" cellpadding="3" border="1" bordercolor="#cce4a3" >
+<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="1" bordercolor="#cce4a3" >
   <tbody>
     <tr>
       <td colspan="4" align="center"><h1>拥有该书的人</h1></td>

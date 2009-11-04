@@ -2,7 +2,7 @@
 	没有符合的书籍
 #else
 #parse("widget/pageNav.vm")
-<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0">
+<table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
 	<tbody>
 		
 		#foreach($book in $list)
