@@ -27,7 +27,7 @@
 				该书已被$!{bookItem.reservation.subscriber}预约
 			#end
 		</td>
-		<td>$!{bookItem.addTime}</td>
+		<td>$dateTool.format("yyyy年mm月dd日",$!{bookItem.addTime})</td>
 		<td>
 			#if($bookItem.state== "lended")
 				<button onClick="javascript:returnBook($!{bookItem.lending.id});"/>确认归还</button>
