@@ -1,0 +1,11 @@
+<table style="width:80%;margin:auto;" cellspacing="0" cellpadding="3" border="0">
+    <tr>
+		<td align="center">
+			#if($keywords)
+				暂无符合关键字 <font color="#FF0000" style="font-style:italic">$keywords</font>的结果。
+			#else
+				暂无符合结果。
+			#end
+		</td>
+	</tr>
+</table>

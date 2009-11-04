@@ -1,21 +1,24 @@
 
 <!-- page body -->
-<table border="0" cellpadding="3" cellspacing="0" style="width: 80%;margin:auto;">
+<table border="0" cellpadding="3" cellspacing="0" style="width:80%; margin:auto;">
   <tbody>
 	<!-- Header, search box-->
 	<tr>
     <td align="left" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tbody><tr>
-        <td align="left" valign="top" width="50%"><img src="$SERVER_NAME/images/logo_internal.png" alt="opensubscriber" height="105" width="399"></td>
-        <td align="right" valign="middle" width="50%">
+        <td align="left" valign="top" width="40%"><img src="$SERVER_NAME/images/logo_internal.png" alt="opensubscriber" height="105" width="399"></td>
+        <td align="right" valign="middle" width="60%">
+            <table width="100%"><tr><td align="right">
 			#if($userUtil.userName)<font color="#75A413" size="2">
-			    <div >$userUtil.userName &nbsp;&nbsp; <a href="$SERVER_NAME/logout.htm"><font color="#75A413" size="2" style="text-decoration:none;">[注销]</font></a></div>
+			    $userUtil.userName &nbsp;&nbsp; <a href="$SERVER_NAME/logout.htm">[注销]</a>
 			#else
-				 <div ><a href="$SERVER_NAME/login.htm"><font color="#75A413" size="2" style="text-decoration:none;">[登录]</font></a></div>
+				<a href="$SERVER_NAME/login.htm"><font color="#75A413" size="2" style="text-decoration:none;">[登录]</font></a>
 			#end
-			<div style=" float:right">
+			&nbsp;&nbsp;<a href="$SERVER_NAME/advancedSearch.htm"><font color="#75A413" size="2" style="text-decoration:none;">[高级搜索]</font></a>
+			</td></tr>
+			<tr><td align="right">
 				#parse("widget/searchBox.vm")
-			</div>
+			</td></tr></table>
 		</td>
       </tr>
     </tbody></table></td>
