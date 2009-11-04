@@ -22,6 +22,7 @@
 # -----------------------------------------------------------------------------
 
 # Better OS/400 detection: see Bugzilla 31132
+export CATALINA_HOME=~/program/apache-tomcat-6.0.20
 export CATALINA_BASE=`pwd`
 os400=false
 darwin=false
