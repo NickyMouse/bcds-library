@@ -23,7 +23,9 @@
 				<entry key="authz" value-ref="authzImpl" />
 				<entry key="categoryCache" value-ref="categoryCache" />
 				<entry key="UPLOAD_IMAGE_PATH" value-ref="uploadImagePath" />
-				<entry key="userUtil" ><bean class="com.alibaba.intl.bcds.goldroom.web.utils.UserUtil"/></entry>
+				<entry key="userUtil">
+					<bean class="com.alibaba.intl.bcds.goldroom.web.utils.UserUtil" />
+				</entry>
 			</map>
 		</property>
 	</bean>
@@ -94,13 +96,22 @@
 	</bean>
 
 
-<!-- 	<bean id="sampleController"
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">friendlyError</prop>
+			</props>
+		</property>
+	</bean>
+	<!--
+		<bean id="sampleController"
 		class="com.alibaba.intl.bcds.goldroom.web.sample.SampleController">
-		<property name="validator" ref="validator" />
-		<property name="formView" value="user" />
-		<property name="commandName" value="user" />
-		<property name="commandClass" value="com.alibaba.intl.bcds.goldroom.sample.User" />
-	</bean> -->
+		<property name="validator" ref="validator" /> <property
+		name="formView" value="user" /> <property name="commandName"
+		value="user" /> <property name="commandClass"
+		value="com.alibaba.intl.bcds.goldroom.sample.User" /> </bean>
+	-->
 
 	<bean name="/searchBookDetail.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.search.SearchBookDetailController" />
