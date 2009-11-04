@@ -4,7 +4,13 @@
       <td colspan="2" align="center"><h1>$bookSearchInfo.bookName</h1></td>
     </tr>
     <tr>
-      <td width="300" align="right"><img src="$UPLOAD_IMAGE_PATH/$bookSearchInfo.bookImgUrl" class="detailBookImage"/> </td>
+      <td width="300" align="right">
+		#if($$bookSearchInfo.bookImgUrl && !$bookSearchInfo.getBookImgUrl().equals(""))
+			<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$bookSearchInfo.bookImgUrl"/>
+		#else
+			<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
+		#end
+	  </td>
       <td width="600"><table width="100%"">
           <tr>
             <td align="right" width="20%">作者:&nbsp;&nbsp;</td>

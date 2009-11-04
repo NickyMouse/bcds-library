@@ -14,7 +14,11 @@
 					<tr  valign="middle">
 						<td width="150px" align="center">
 							<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId" title="" target="_blank">
-								<img class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/>
+								#if($book.bookImgUrl && !$book.getBookImgUrl().equals(""))
+									<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/>
+								#else
+									<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
+								#end
 							</a>
 						</td>
 						<td width="700px" valign="top" style="font-size:16px; color:#89A945;">
@@ -25,7 +29,7 @@
 							作　　者：$book.bookAuthor  <br/>
 							ＩＳＢＮ：$book.bookIsbn  <br/>
 							版　　本：$book.bookEdition	 <br/>
-							出版时间：$book.bookPublishTime  <br/>
+							出版时间：$dateTool.format("yyyy-MM-dd",$book.bookPublishTime)  <br/>
 							标　　签：$book.bookTags <br/>
 						</td>
 						<td valign="top" width="120px">

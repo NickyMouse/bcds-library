@@ -37,7 +37,7 @@
 <input type="radio" name="haveImage" value="1" onclick="javascript:photoChange(1)" #if($imgSrc)checked#end>有图&nbsp;
 <br/>
 <div style="height:150;width:100;vertical-align:middle">
-#if($imgSrc)
+#if($imgSrc && !$imgSrc.equals(""))
 	<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$imgSrc"/>
 #else
 	<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
