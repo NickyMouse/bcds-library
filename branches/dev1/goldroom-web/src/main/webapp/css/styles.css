@@ -2,14 +2,14 @@
 
 /* General Styles */
 body {
+	width: 100%;
 	margin-top: 0 px;
-	margin-left: 10%;
 	text-align: center;
 	margin-bottom: 0px;
-	padding: 0px;
 	font-family: "Trebuchet MS", Arial;
-	width: 80%;
+	margin:auto;
 }
+
 
 td {
 	font-size: 16px;
