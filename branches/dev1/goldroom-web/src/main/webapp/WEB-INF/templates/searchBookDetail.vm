@@ -5,7 +5,7 @@
     </tr>
     <tr>
       <td width="300" align="right">
-		#if($$bookSearchInfo.bookImgUrl && !$bookSearchInfo.getBookImgUrl().equals(""))
+		#if($bookSearchInfo.bookImgUrl && !$bookSearchInfo.getBookImgUrl().equals(""))
 			<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$bookSearchInfo.bookImgUrl"/>
 		#else
 			<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
