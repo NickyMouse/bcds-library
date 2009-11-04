@@ -52,6 +52,9 @@ public class SearchController extends AbstractController {
 			queryObj = keywordSearch(keywords, pageStr, pageSize, resultMap);
 			resultMap.put("keywords", keywords);
 		}
+		if(queryObj.getResultList().size() == 0){
+			return new ModelAndView("noResultFound", resultMap);
+		}
 		resultMap.put("list", queryObj.getResultList());
 		resultMap.put("pageNavView", PageUtils.createPageNavView(
 				queryObj.getTotalCount(), request));
