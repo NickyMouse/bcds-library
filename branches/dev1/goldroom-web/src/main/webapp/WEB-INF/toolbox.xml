@@ -20,9 +20,10 @@
 		ViewContext.
 	-->
 <toolbox>
-	<tool>
+	<!-- <tool>
 		<key>categoryCache</key>
 		<scope>application</scope>
 		<class>com.alibaba.intl.bcds.goldroom.web.utils.CategoryCache</class>
 	</tool>
+	 -->
 </toolbox>
