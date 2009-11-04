@@ -16,7 +16,7 @@
             </tr>
 			<tr valign="top">
 				<td align="right">书本封面：&nbsp;&nbsp; </td>
-				<td>#parse("user/fileUpload.vm")
+				<td>#parse("user/fileUploadForm.vm")
   				</td>
             </tr>
 			<form action="/user/fillBookInfo.htm" method="POST" onSubmit="category2Cookie();">

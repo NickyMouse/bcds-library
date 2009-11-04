@@ -43,7 +43,7 @@
 	<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
 #end
 </div>
-<div id="uploadImageForm">
+<div id="uploadImageForm" #if(!$imgSrc)style="display:none"#end>
 <form name="fileUpload" id="fileUpload" method="post" action="/user/fileUpload.htm" enctype="multipart/form-data">
 	<input id="isbn" type="hidden" name="isbn" value="$!isbn"/>
 	<input id="file" type="file" name="file" onchange="javascript:checkAndUpload()" value="$!imgSrc"/>
