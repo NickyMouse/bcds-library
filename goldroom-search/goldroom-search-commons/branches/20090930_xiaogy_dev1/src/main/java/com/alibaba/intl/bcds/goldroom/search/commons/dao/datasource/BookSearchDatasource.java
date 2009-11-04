@@ -3,6 +3,7 @@ package com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
+import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Searcher;
@@ -75,6 +76,14 @@ public class BookSearchDatasource implements SearchDatasource {
 					}
 				}
 			} catch (IOException e1) {
+				synchronized (reader) {
+					try {
+						reader = reader.reopen();
+						searcher = new IndexSearcher(reader);
+					} catch (IOException e) {
+						logger.warn("reopen reader");
+					}
+				}
 				logger.error("Refresh IndexReader Error", e1);
 			}
 		}
