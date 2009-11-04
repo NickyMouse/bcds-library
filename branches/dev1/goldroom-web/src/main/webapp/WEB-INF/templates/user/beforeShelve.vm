@@ -13,7 +13,7 @@
             </tr>
             <tr>
               <td align="right"><br/>
-                <input type="button" value="取　消"/>
+                <input type="button" value="取　消" onclick="window.location.href='$SERVER_NAME/home.htm'"/>
               </td>
               <td align="left"><br/>
                 <input type="submit" value="下一步"/>
