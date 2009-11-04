@@ -6,7 +6,7 @@
             				</tr>
                             <tr>
                                 <td class="boxlogin" valign="top" align="left">
-									<h1>欢迎，$userName &nbsp;&nbsp;&nbsp;<a href="$SERVER_NAME/loginout.htm" style="font-size:14px">[注销]</a> </h1>
+									<h1>欢迎，$userName &nbsp;&nbsp;&nbsp;<a href="$SERVER_NAME/logout.htm" style="font-size:14px">[注销]</a> </h1>
                                     <ul><ul>
 										<li><a href="$SERVER_NAME/user/myBooks.htm">我的书籍</a></li>
 										<li><a href="$SERVER_NAME/user/reservatedBooks.htm">我要预约</a></li>
