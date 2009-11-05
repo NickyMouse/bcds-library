@@ -6,17 +6,14 @@
             				</tr>
                             <tr>
                                 <td class="boxlogin" valign="top" align="left"><font color="#75A413">用户名</font>
-                                    <br />
                                     <input type="text" name="j_username" id="username" class="logintxtbox"/>
-                                    <br />
                                     <font color="#75A413">密　码 </font><input   id="password" type="password" name="j_password" class="logintxtbox"/>
-                                    <br />
                                     <input type="checkbox" name="_spring_security_remember_me" id="spring_security_remember_me"/>
 									<lable for="spring_security_remember_me"><font color="#999999" size="2">在这台电脑上记住我</font></lable>
-									
 									<br/>
-									<input type="submit" value="登录" />
-                                    <a href="#"><font color="#75A413" size="2">忘记密码了</font></a>
+									<input type="submit" value="登录" />&nbsp;&nbsp;&nbsp;
+									<a href="#"><font color="#75A413" size="2">申请帐号</font></a>&nbsp;&nbsp;&nbsp;
+									<a href="#"><font color="#75A413" size="2">忘记密码了</font></a>
 									<br/>
                                       
                                 </td>
