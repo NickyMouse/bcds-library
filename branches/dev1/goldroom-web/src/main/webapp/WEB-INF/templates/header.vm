@@ -32,7 +32,7 @@
 	#if(!$!authz.anyGranted("ROLE_USER,ROLE_ADMIN"))
 		<a href="$SERVER_NAME/login.htm">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	#end
-	<a href="$SERVER_NAME/resources/faq/index.htm">FAQ</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="$SERVER_NAME/faq/index.htm">FAQ</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	
 	#if($!authz.anyGranted("ROLE_USER,ROLE_ADMIN"))
 		|&nbsp;&nbsp;&nbsp;&nbsp;
