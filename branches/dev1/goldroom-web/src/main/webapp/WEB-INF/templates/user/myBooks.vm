@@ -3,11 +3,13 @@
 #parse("widget/pageNav.vm")
 <table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
 	<tbody>
+		<tr height="15px" valign="middle"><td>&nbsp;&nbsp;&nbsp;&nbsp;
 		<select id="stateFilter" onchange="javascript:changeFilter();">
 			<option value="">全部</option>
 			<option value="reservated" #if($state &&$state.equals("reservated"))selected="true"#end>被预约</option>
 			<option value="lended" #if($state &&$state.equals("lended"))selected="true"#end>被借阅</option>
 		</select>
+		</td></tr>
 		#foreach($bookItem in $bookItemList)
 		<tr height="170" valign="middle">
 			<td class="lines" align="left" valign="middle">
