@@ -458,10 +458,9 @@ function getInputObj()
                     </tr>
                 </table>
                 <div class="content" align="right" id="childDiv">
-                    <a href="#" onClick="showNearCategory();">最近选用类目</a>
-                    <a href="#" onClick="initAndShowCategory();">查找类目</a>
-                    <a href="#" onClick="closeed('selectDiv');">保存</a>
-					<a href="#" onClick="DelAllCookie();">清空最近类目列表</a>
+                    <a onClick="showNearCategory();" title="显示您上一次选择过的类目">[最近选用过的类目]</a>
+                    <a onClick="initAndShowCategory();" title="显示书籍的类目树">[显示类目树]</a>
+                    <a onClick="closeed('selectDiv');" title="保存你选择的类目，并关闭类目选择框">[确定]</a>
                 </div>
             </div>
         </td>

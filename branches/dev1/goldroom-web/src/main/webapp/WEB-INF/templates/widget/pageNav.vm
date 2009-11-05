@@ -34,7 +34,7 @@
     	    <input type="button" value="Go" onclick="gotoPage()">
     	   </div>
     	   <div style=" float:left; font-size:14px">
-    		
+    	  &nbsp;&nbsp;&nbsp;&nbsp;
     	  #if($pageNavView.prePage > 0)<a href="${pageNavView.currentUrl}&page=${pageNavView.prePage}">&lt;&lt; 上一页&nbsp;</a> #end
     	  #foreach($item in [1..$pageNavView.totalPage])
 			#if($item == $pageNavView.currentPage)
