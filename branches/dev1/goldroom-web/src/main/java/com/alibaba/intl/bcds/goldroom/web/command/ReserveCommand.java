@@ -15,6 +15,8 @@
  */
 package com.alibaba.intl.bcds.goldroom.web.command;
 
+import java.util.Date;
+
 /**
  * TODO Comment of ReserveCommand
  * @author Zimmem
@@ -22,7 +24,24 @@ package com.alibaba.intl.bcds.goldroom.web.command;
  */
 public class ReserveCommand {
     private int bookItemId;
+    private Date lendTime;
+    public Date getLendTime() {
+		return lendTime;
+	}
 
+	public void setLendTime(Date lendTime) {
+		this.lendTime = lendTime;
+	}
+
+	public Date getReturnTime() {
+		return returnTime;
+	}
+
+	public void setReturnTime(Date returnTime) {
+		this.returnTime = returnTime;
+	}
+
+	private Date returnTime;
     /**
      * @return the bookItemId
      */
@@ -37,4 +56,5 @@ public class ReserveCommand {
         this.bookItemId = bookItemId;
     }
 
+ 
 }

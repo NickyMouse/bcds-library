@@ -8,14 +8,16 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
+import com.alibaba.intl.bcds.goldroom.service.result.Result;
 import com.alibaba.intl.bcds.goldroom.web.utils.UserUtil;
 
 /**
- * 书籍下架
+ * 将书籍重新上架
+ * 
  * @author Giraffe
- *
+ * 
  */
-public class OffShelvesController extends AbstractController {
+public class ReputOnShelvesController extends AbstractController {
 
 	private BookItemService bookItemService;
 
@@ -35,7 +37,11 @@ public class OffShelvesController extends AbstractController {
 		if (StringUtils.isNumeric(bookItemIdStr)) {
 			bookItemId = Integer.valueOf(bookItemIdStr);
 		}
-		bookItemService.offShelves(bookItemId, UserUtil.getUserName());
-		return new ModelAndView("/resources/offShelvesSucess");
+		Result result= bookItemService.reputOnShelves(bookItemId, UserUtil.getUserName());
+		if(result.isSuccess()){
+			return new ModelAndView("/resources/reputOnShelvesSuccess");
+		}else{
+			return new ModelAndView("/friendlyError");
+		}
 	}
 }

@@ -56,4 +56,18 @@ public interface ReservationDAO {
      * @param reservation
      */
     void cutReservationToLog(Reservation reservation);
+    
+    /**
+     * 根据bookItemId 更新借阅的状态
+     * @param bookItemId
+     * @param state
+     */
+    void updateStateByBookItemId(int bookItemId, String state);
+    
+    /**
+     * 根据id 更新借阅的状态
+     * @param bookItemId
+     * @param state
+     */
+    void updateStateById(int reservationId, String state);
 }

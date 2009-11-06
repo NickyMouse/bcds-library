@@ -176,7 +176,8 @@ public class BookItemServiceImpl implements BookItemService {
 	 * .String, int)
 	 */
 	@Override
-	public Result reserve(String subscriber, int bookItemId) {
+	public Result reserve(String subscriber, int bookItemId, Date lendTime,
+			Date returnTime) {
 		BookItem item = bookItemDao.findById(bookItemId);
 		if (item.getLoginId().equals(subscriber)) {
 			// 不能预约自已的书
@@ -185,8 +186,11 @@ public class BookItemServiceImpl implements BookItemService {
 		if (item.getState().equals(BookItem.STATE_IDLE)) {
 
 			Reservation reservation = new Reservation();
+			reservation.setLendTime(lendTime);
+			reservation.setReturnTime(returnTime);
 			reservation.setBookItemId(bookItemId);
 			reservation.setSubscriber(subscriber);
+			reservation.setState(Reservation.STATE_TO_BE_COMFIRM);
 			reservationDAO.insert(reservation);
 			item.setState(BookItem.STATE_RESERVATED);
 			bookItemDao.updateById(item);
@@ -257,13 +261,81 @@ public class BookItemServiceImpl implements BookItemService {
 		if (bookItem == null || currentUser == null) {
 			return new Result(false);
 		} else {
-			if (currentUser.equals(bookItem.getLoginId())) {
+			// 确定该书是属于currentUser的，并且这本书不处于借出（lended）这个状态
+			if (currentUser.equals(bookItem.getLoginId())
+					&& !BookItem.STATE_LENDED.equals(bookItem.getState())) {
+				// 改变书籍状态
 				bookItem.setState(BookItem.STATE_UNAVAILABLE);
+				bookItemDao.changeItemState(bookItem);
+
+				// 拒绝所有预约
+				reservationDAO.updateStateByBookItemId(bookItem.getId(),
+						Reservation.STATE_REJECT);
+
+				return Result.SUCCESS;
+			} else {
+				return new Result(false);
+			}
+		}
+	}
+
+	@Override
+	public Result reputOnShelves(int bookItemId, String currentUser) {
+		BookItem bookItem = bookItemDao.findById(bookItemId);
+		if (bookItem == null || currentUser == null) {
+			return new Result(false);
+		} else {
+			// 确保该书是属于currentUser的，并且书的状态是UNAVAILABLE
+			if (currentUser.equals(bookItem.getLoginId())
+					&& BookItem.STATE_UNAVAILABLE.equals(bookItem.getState())) {
+				bookItem.setState(BookItem.STATE_IDLE);
 				bookItemDao.changeItemState(bookItem);
 				return Result.SUCCESS;
 			} else {
 				return new Result(false);
 			}
 		}
+	}
+
+	@Override
+	public Result lend(int reservationId, String currentUser) {
+		Reservation reservation = reservationDAO
+				.selectByPrimaryKey(reservationId);
+		BookItem bookItem = bookItemDao
+				.getBookItemByReservationId(reservationId);
+		if (!bookItem.getLoginId().equals(currentUser)) {
+			// 如果书的主人跟登录用户不同
+			return new Result(false);
+		}
+		if (bookItem.getState().equals(BookItem.STATE_RESERVATED)) {
+			Lending lending = new Lending();
+			lending.setBookItemId(reservation.getBookItemId());
+			lending.setReturnTime(reservation.getReturnTime());
+			lending.setSubscriber(reservation.getSubscriber());
+			lending.setLendTime(reservation.getLendTime());
+			lendingDao.insert(lending);
+			bookItem.setState(BookItem.STATE_LENDED);
+			bookItemDao.changeItemState(bookItem);
+			reservationDAO.cutReservationToLog(reservation);
+			return Result.SUCCESS;
+		} else {
+			return new Result(false);
+		}
+	}
+
+	public Result rejectLend(int reservationId, String currentUser) {
+		BookItem bookItem = bookItemDao
+				.getBookItemByReservationId(reservationId);
+
+		// 如果书的主人跟登录用户不同 或者该书不在预约状态
+		if (bookItem == null || !bookItem.getLoginId().equals(currentUser)
+				|| !BookItem.STATE_RESERVATED.equals(bookItem.getState())) {
+			return new Result(false);
+		}
+		reservationDAO.updateStateByBookItemId(bookItem.getId(),
+				Reservation.STATE_REJECT);
+		bookItem.setState(BookItem.STATE_IDLE);
+		bookItemDao.updateById(bookItem);
+		return Result.SUCCESS;
 	}
 }

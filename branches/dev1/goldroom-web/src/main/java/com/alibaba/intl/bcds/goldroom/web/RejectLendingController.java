@@ -11,11 +11,12 @@ import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 import com.alibaba.intl.bcds.goldroom.web.utils.UserUtil;
 
 /**
- * 书籍下架
+ * 当书本被预约时，拥有者不批准借阅
+ * 
  * @author Giraffe
- *
+ * 
  */
-public class OffShelvesController extends AbstractController {
+public class RejectLendingController extends AbstractController {
 
 	private BookItemService bookItemService;
 
@@ -30,12 +31,13 @@ public class OffShelvesController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		String bookItemIdStr = (String) request.getParameter("bookItemId");
-		int bookItemId = 0;
-		if (StringUtils.isNumeric(bookItemIdStr)) {
-			bookItemId = Integer.valueOf(bookItemIdStr);
+		String reservationIdStr = (String) request.getParameter("reservationId");
+		int reservationId = 0;
+		if (StringUtils.isNumeric(reservationIdStr)) {
+			reservationId = Integer.valueOf(reservationIdStr);
 		}
-		bookItemService.offShelves(bookItemId, UserUtil.getUserName());
-		return new ModelAndView("/resources/offShelvesSucess");
+		bookItemService.rejectLend(reservationId, UserUtil.getUserName());
+		return new ModelAndView("redirect:/user/myBooks.htm");
 	}
+
 }

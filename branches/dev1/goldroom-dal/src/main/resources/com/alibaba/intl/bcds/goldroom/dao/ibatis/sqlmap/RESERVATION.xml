@@ -14,8 +14,8 @@
 		<result column="OWNER_ID" property="ownerId" jdbcType="INTEGER" />
 		<result column="SUBSCRIBER" property="subscriber"
 			jdbcType="VARCHAR" />
-		<result column="LEND_TIME" property="lendTime" jdbcType="TIMESTAMP" />
-		<result column="RETURN_TIME" property="returnTime" jdbcType="TIMESTAMP" />
+		<result column="LEND_TIME" property="lendTime" jdbcType="DATETIME" />
+		<result column="RETURN_TIME" property="returnTime" jdbcType="DATETIME" />
 		<result column="STATE" property="state" jdbcType="VARCHAR" />
 		<result column="BOOK_ITEM_ID" property="bookItemId" jdbcType="INTEGER" />
 		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
@@ -72,10 +72,10 @@
 		BOOK_ITEM_ID, GMT_CREATE, GMT_MODIFIED)
 		values
 		(#id:INTEGER#, #ownerId:INTEGER#, #subscriber:VARCHAR#,
-		#lendTime:TIMESTAMP#,
-		#returnTime:TIMESTAMP#, #state:VARCHAR#,
-		#bookItemId:INTEGER#, #gmtCreate:TIMESTAMP#,
-		#gmtModified:TIMESTAMP#)
+		#lendTime:DATETIME#,
+		#returnTime:DATETIME#, #state:VARCHAR#,
+		#bookItemId:INTEGER#, now(),
+		now())
 	</insert>
 	<insert id="insertSelective" parameterClass="Reservation">
 		<!--
@@ -126,10 +126,10 @@
 				#subscriber:VARCHAR#
 			</isNotNull>
 			<isNotNull prepend="," property="lendTime">
-				#lendTime:TIMESTAMP#
+				#lendTime:DATETIME#
 			</isNotNull>
 			<isNotNull prepend="," property="returnTime">
-				#returnTime:TIMESTAMP#
+				#returnTime:DATETIME#
 			</isNotNull>
 			<isNotNull prepend="," property="state">
 				#state:VARCHAR#
@@ -159,15 +159,25 @@
 		set OWNER_ID = #ownerId:INTEGER#,
 		SUBSCRIBER =
 		#subscriber:VARCHAR#,
-		LEND_TIME = #lendTime:TIMESTAMP#,
-		RETURN_TIME =
-		#returnTime:TIMESTAMP#,
+		LEND_TIME = #lendTime:DATETIME#,
+		RETURN_TIME = #returnTime:DATETIME#,
 		STATE = #state:VARCHAR#,
 		BOOK_ITEM_ID =
 		#bookItemId:INTEGER#,
-		GMT_CREATE = #gmtCreate:TIMESTAMP#,
-		GMT_MODIFIED =
-		#gmtModified:TIMESTAMP#
+		GMT_MODIFIED =now()
 		where ID = #id:INTEGER#
 	</update>
+	
+	<update id="updateStateByBookItemId" parameterClass="Reservation">
+		update RESERVATION
+		set STATE = #state:VARCHAR#
+		where BOOK_ITEM_ID = #bookItemId:INTEGER#
+	</update>
+	
+	<update id="updateStateById" parameterClass="Reservation">
+		update RESERVATION
+		set STATE = #state:VARCHAR#
+		where ID = #id:INTEGER#
+	</update>
+	
 </sqlMap>

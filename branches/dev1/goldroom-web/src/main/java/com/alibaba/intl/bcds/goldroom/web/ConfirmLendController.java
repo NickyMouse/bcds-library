@@ -56,8 +56,7 @@ public class ConfirmLendController extends SimpleFormController {
     @Override
     protected ModelAndView onSubmit(Object command) throws Exception {
         ConfirmLending confirmLending = (ConfirmLending) command;
-        Result result = bookItemService.lend(confirmLending.getReservationId(), new Date(),
-                confirmLending.getReturnTime(), UserUtil.getLoginId());
+        Result result = bookItemService.lend(confirmLending.getReservationId(), UserUtil.getLoginId());
         if (result.isSuccess())
             return new ModelAndView(getSuccessView());
         else
@@ -72,5 +71,4 @@ public class ConfirmLendController extends SimpleFormController {
         binder.registerCustomEditor(Date.class, dateEditor);
         super.initBinder(request, binder);
     }
-
 }

@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import com.alibaba.intl.bcds.goldroom.web.dataobject.UploadFile;
+import com.alibaba.intl.bcds.goldroom.web.command.UploadFileCommand;
 
 public class FileUploadController extends SimpleFormController {
 	private String uploadRoot;
@@ -24,7 +24,7 @@ public class FileUploadController extends SimpleFormController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors) {
 		try {
-			UploadFile bean = (UploadFile) command;
+			UploadFileCommand bean = (UploadFileCommand) command;
 			String isbn = bean.getIsbn();
 			MultipartFile file = bean.getFile();
 

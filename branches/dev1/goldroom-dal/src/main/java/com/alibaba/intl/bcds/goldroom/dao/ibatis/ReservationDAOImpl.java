@@ -99,4 +99,17 @@ public class ReservationDAOImpl extends SqlMapClientDaoSupport implements Reserv
 
     }
 
+    public void updateStateByBookItemId(int bookItemId, String state){
+    	Reservation reservation = new Reservation();
+    	reservation.setBookItemId(bookItemId);
+    	reservation.setState(state);
+    	getSqlMapClientTemplate().update("RESERVATION.updateStateByBookItemId",reservation);
+    }
+    
+    public void updateStateById(int reservationId, String state){
+    	Reservation reservation = new Reservation();
+    	reservation.setId(reservationId);
+    	reservation.setState(state);
+    	getSqlMapClientTemplate().update("RESERVATION.updateStateById",reservation);
+    }
 }

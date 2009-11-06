@@ -15,6 +15,14 @@
  */
 package com.alibaba.intl.bcds.goldroom.web;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
@@ -30,41 +38,55 @@ import com.alibaba.intl.bcds.goldroom.web.utils.UserUtil;
  */
 public class ReserveBookController extends SimpleFormController {
 
-    BookItemService bookItemService = null;
+	BookItemService bookItemService = null;
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(java
-     * .lang.Object)
-     */
-    /**
-     * @param bookItemService the bookItemService to set
-     */
-    public void setBookItemService(BookItemService bookItemService) {
-        this.bookItemService = bookItemService;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(java
+	 * .lang.Object)
+	 */
+	/**
+	 * @param bookItemService
+	 *            the bookItemService to set
+	 */
+	public void setBookItemService(BookItemService bookItemService) {
+		this.bookItemService = bookItemService;
+	}
 
-    @Override
-    protected ModelAndView onSubmit(Object command) throws Exception {
-        ReserveCommand reserveCommand = (ReserveCommand) command;
-        Result result = bookItemService.reserve(UserUtil.getLoginId(), reserveCommand
-                .getBookItemId());
-        if (result.isSuccess())
-            return new ModelAndView(getSuccessView());
-        return new ModelAndView("reserveError");
-    }
+	@Override
+	protected ModelAndView onSubmit(Object command) throws Exception {
+		ReserveCommand reserveCommand = (ReserveCommand) command;
+		Result result = bookItemService.reserve(UserUtil.getLoginId(),
+				reserveCommand.getBookItemId(), reserveCommand.getLendTime(),
+				reserveCommand.getReturnTime());
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
-     * (javax.servlet.http.HttpServletRequest)
-     */
-    //    @Override
-    //    protected Object formBackingObject(HttpServletRequest request) throws Exception {
-    //        int bookItemId = Integer.parseInt(request.getParameter("bookItemId"));
-    //        return bookItemId;
-    //    }
+		if (result.isSuccess())
+			return new ModelAndView(getSuccessView());
+		return new ModelAndView("reserveError");
+	}
+
+	protected void initBinder(HttpServletRequest request,
+			ServletRequestDataBinder binder) throws Exception {
+		DateFormat fmt = new SimpleDateFormat("yyyy-M-d");
+		CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);
+		binder.registerCustomEditor(Date.class, dateEditor);
+		super.initBinder(request, binder);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject
+	 * (javax.servlet.http.HttpServletRequest)
+	 */
+	// @Override
+	// protected Object formBackingObject(HttpServletRequest request) throws
+	// Exception {
+	// int bookItemId = Integer.parseInt(request.getParameter("bookItemId"));
+	// return bookItemId;
+	// }
 
 }

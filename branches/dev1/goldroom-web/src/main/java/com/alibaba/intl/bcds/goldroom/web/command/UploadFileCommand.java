@@ -1,8 +1,8 @@
-package com.alibaba.intl.bcds.goldroom.web.dataobject;
+package com.alibaba.intl.bcds.goldroom.web.command;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class UploadFile {
+public class UploadFileCommand {
 	private MultipartFile file;
 	private String isbn;
 
