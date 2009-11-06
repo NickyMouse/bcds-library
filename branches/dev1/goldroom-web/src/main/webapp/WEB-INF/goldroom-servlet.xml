@@ -160,16 +160,13 @@
 			value="com.alibaba.intl.bcds.goldroom.dataobject.Member" />
 	</bean>
 	
-<!-- 	<bean name="/userInfoModify.htm"
+	<bean name="/user/userInfoModify.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.UserInfoModifyController">
-		<property name="formView" value="userInfoModify" />
-		<property name="successView" value="redirect:beforeShelve.htm" />
-		<property name="commandName" value="userInfo" />
+		<property name="commandName" value="userInfoCommand" />
 		<property name="commandClass"
-			value="com.alibaba.intl.bcds.goldroom.dataobject.User" />
-		<property name="validator" ref="validator"></property>
+			value="com.alibaba.intl.bcds.goldroom.web.command.UserInfoCommand" />
 		<property name="successView" value="redirect:/home.htm" />
-	</bean> -->
+	</bean> 
 	<bean name="/user/approveUser.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.ApproveUserController">
 		<property name="formView" value="user/approveUser" />
@@ -177,7 +174,6 @@
 		<property name="commandName" value="memberCommand" />
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.web.command.MemberCommand" />
-
 	</bean>
 
 

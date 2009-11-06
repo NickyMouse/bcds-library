@@ -1,41 +1,39 @@
 package com.alibaba.intl.bcds.goldroom.web;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import com.alibaba.intl.bcds.goldroom.dataobject.User;
-import com.alibaba.intl.bcds.goldroom.service.UserService;
-import com.alibaba.intl.bcds.goldroom.util.MD5;
+import com.alibaba.intl.bcds.goldroom.service.MemberService;
+import com.alibaba.intl.bcds.goldroom.service.result.Result;
+import com.alibaba.intl.bcds.goldroom.web.command.UserInfoCommand;
 import com.alibaba.intl.bcds.goldroom.web.utils.UserUtil;
 
 public class UserInfoModifyController extends SimpleFormController {
 
-	private UserService userService;
+	private MemberService memberService;
 
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+	public void setMemberService(MemberService memberService) {
+		this.memberService = memberService;
 	}
 
-	@SuppressWarnings("unchecked")
+	public MemberService getMemberService() {
+		return memberService;
+	}
+
 	@Override
 	protected ModelAndView onSubmit(Object command) throws Exception {
-		User userInfo = (User) command;
-		Map map = new HashMap();
-		if (userInfo.getNewPassword().equals(userInfo.getConfirmPassword())) {
-			// MD5加密
-			map.put("password", MD5
-					.getMD5(userInfo.getNewPassword().getBytes()));
-			// 登录名
-			map.put("login_id", UserUtil.getLoginId());
-			// 更改用户信息
-			userService.updateUserInfo(map);
-			return new ModelAndView(getSuccessView());
-		} else {
-			return new ModelAndView("userInfoModify");
+		UserInfoCommand userInfo = (UserInfoCommand) command;
+		Result result = new Result(false);
+		if (UserUtil.getPassword().equals(userInfo.getOldPassword())
+				&& StringUtils.isNotEmpty(userInfo.getNewPassword())) {
+			result = memberService.changePasswordByLoginId(UserUtil
+					.getLoginId(), userInfo.getNewPassword());
+		}
+		if(result.isSuccess()){
+			return new ModelAndView("/resources/changePasswordSuccess");
+		}else{
+			return new ModelAndView("/resources/changePasswordFailed");
 		}
 	}
-
 }

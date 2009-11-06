@@ -1,34 +1,74 @@
-<form action="/user/userInfoModify.htm" method="POST">
+<script src="$SERVER_NAME/js/md5-min.js"></script>
+<script>
+	function checkPassword(){
+		
+		
+		var oldPassword = document.getElementById("oldPassword").value.replace(/(^\s*)|(\s*$)/g, "");
+		var newPassword = document.getElementById("newPassword").value.replace(/(^\s*)|(\s*$)/g, "");
+		var confirmPassword = document.getElementById("confirmPassword").value.replace(/(^\s*)|(\s*$)/g, "");
+		if(oldPassword.length == 0 ){
+			alert("请输入原密码");
+			document.getElementById("oldPassword").focus();
+			return false;
+		}
+		if(newPassword.length == 0 ){
+			alert("请输入新密码");
+			document.getElementById("newPassword").focus();
+			return false;
+		}
+		if(confirmPassword.length == 0 ){
+			alert("请输入重复输入新密码");
+			document.getElementById("confirmPassword").focus();
+			return false;
+		}
+		if(newPassword != confirmPassword){
+			alert("两次输入的密码不一致")
+			return false;
+		}
+		document.getElementById("oldPassword").value = hex_md5(document.getElementById("oldPassword").value);
+		document.getElementById("newPassword").value = hex_md5(document.getElementById("newPassword").value);
+		document.getElementById("confirmPassword").value = hex_md5(document.getElementById("confirmPassword").value);
+		changePasswordForm.submit();		
+	}
+</script>
+
+
+<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0"><tr><td align="center">
+#springBind("userInfoCommand.*")
+#validationError()
+
+<form action="/user/userInfoModify.htm" method="POST" name="changePasswordForm">
 	<table>
 		<tr>
-			<td>Old Password：</td>
-			<td><input type = "text" name="oldPassword" /><font color="red">*</font></td>
+			<td align="right">原密码：</td>			
+			
+			<td>#springFormPasswordInput("userInfoCommand.oldPassword" 'size="45" maxlength="45"')<font color="red">*</font></td>
 		</tr>
 		<tr>
-			<td>New Password：</td>
-			<td><input type = "text" name="newPassword" /><font color="red">*</font></td>
+			<td align="right">新密码：</td>			
+			
+			<td>#springFormPasswordInput("userInfoCommand.newPassword" 'size="45" maxlength="45"')<font color="red">*</font></td>
 		</tr>
 		<tr>
-			<td>Confirm New：</td>
-			<td><input type = "text" name="confirmPassword" /><font color="red">*</font></td>
+			<td align="right">重复输入新密码：</td>			
+			
+			<td>#springFormPasswordInput("userInfoCommand.confirmPassword" 'size="45" maxlength="45"')<font color="red">*</font></td>
 		</tr>
+		
 		<tr>
-			#springBind("member.name")
-			<td>Name：</td>
-			<td>#springFormInput("member.name" 'size="45" maxlength="45"')
-			#validationError()
+			<td align="center" colspan="2">
+				<table onclick="checkPassword();"  border="0" cellpadding="0" cellspacing="0" style="cursor:pointer">	
+					<tbody><tr>
+                    <td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
+                    <td class="button_dark">
+						确　定
+                    </td>
+                    <td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
+                    </tr>
+				</tbody></table>
 			</td>
-		</tr>
-		<tr>
-			<td>Email：</td>
-			<td><input type = "text" name="email" /></td>
-		</tr>
-		<tr>
-			<td>旺旺Id：</td>
-			<td><input type = "text" name="aliTalkId" /></td>
-		</tr>
-		<tr>
-			<td><input type="submit" value="submit"/></td>
 		</tr>
 	</table>
 </form>
+</td></tr>
+</table>

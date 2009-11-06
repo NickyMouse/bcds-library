@@ -18,5 +18,7 @@ public interface MemberDAO {
     public Integer updateByLoginIds(final List<Member> members);
 
     Member selectByLoginId(String loginId);
+    
+    int updatePasswordByLoginId(String loginId, String password);
 
 }

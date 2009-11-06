@@ -64,7 +64,7 @@ public class BookItemDaoTest extends BaseTest {
 
     //@Test
     public void testListReservatedBooksBySubscriber() {
-        List<BookItem> list = bookItemDao.listReservatedBooksBySubscriber("zhaowen.zhuangzw");
+        List<BookItem> list = bookItemDao.listReservatedBooksBySubscriber("zhaowen.zhuangzw", 0, 0);
         assertTrue(list.size() > 0);
         assertNotNull(list.get(0).getBookInfo());
         assertNotNull(list.get(0).getReservation());
@@ -72,7 +72,7 @@ public class BookItemDaoTest extends BaseTest {
 
     //@Test
     public void testListLendedBookItemBySubscriber() {
-        List<BookItem> list = bookItemDao.listLendedBookItemBySubscriber("zhaowen.zhuangzw");
+        List<BookItem> list = bookItemDao.listLendedBookItemBySubscriber("zhaowen.zhuangzw", 0, 0);
         assertTrue(list.size() > 0);
         assertNotNull(list.get(0).getLending());
     }

@@ -85,10 +85,10 @@
 		ENABLE=#status:INTEGER#
 	</select>
 
-	<update id="updatePassword" parameterClass="java.util.Map">
+	<update id="updatePasswordByLoginId" parameterClass="Member">
 		update MEMBER
 		set PASSWORD = #password:VARCHAR#		
-		where LOGIN_ID = #login_id:VARCHAR#
+		where LOGIN_ID = #loginId:VARCHAR#
 	</update>
 	
 </sqlMap>

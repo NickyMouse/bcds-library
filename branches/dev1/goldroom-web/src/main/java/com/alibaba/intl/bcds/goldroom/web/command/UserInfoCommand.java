@@ -1,6 +1,6 @@
-package com.alibaba.intl.bcds.goldroom.dataobject;
+package com.alibaba.intl.bcds.goldroom.web.command;
 
-public class User {
+public class UserInfoCommand {
 
 	private String oldPassword;
 
