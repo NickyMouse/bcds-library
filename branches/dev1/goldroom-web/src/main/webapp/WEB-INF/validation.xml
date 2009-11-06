@@ -72,6 +72,10 @@
 		<form name="reserveCommand">
 			<field property="bookItemId" depends="required">
 			</field>
+			<field property="lendTime" depends="required">
+			</field>
+			<field property="returnTime" depends="required">
+			</field>
 		</form>
 
 
@@ -85,7 +89,7 @@
 			</field>
 		</form>
 
-		<form name="uploadFile">
+		<form name="uploadFileCommand">
 			<field property="isbn" depends="required" />
 		</form>
 

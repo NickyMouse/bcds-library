@@ -184,9 +184,9 @@
 	<bean name="/user/fileUpload.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.FileUploadController">
 		<property name="uploadRoot" ref="fileUploadPath" />
-		<property name="commandName" value="uploadFile" />
+		<property name="commandName" value="uploadFileCommand" />
 		<property name="commandClass"
-			value="com.alibaba.intl.bcds.goldroom.web.dataobject.UploadFile" />
+			value="com.alibaba.intl.bcds.goldroom.web.command.UploadFileCommand" />
 	</bean>
 
 	<bean id="multipartResolver"
@@ -197,7 +197,7 @@
 
 	<bean name="/user/reserveBook.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.ReserveBookController">
-		<property name="successView" value="redirect:/user/myBooks.htm" />
+		<property name="successView" value="redirect:/user/reservatedBooks.htm" />
 		<property name="commandName" value="reserveCommand" />
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.web.command.ReserveCommand" />
@@ -228,5 +228,14 @@
 	-->
 	<bean name="/user/offShelves.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.OffShelvesController">
+	</bean>
+	<bean name="/user/reputOnShelves.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ReputOnShelvesController">
+	</bean>
+	<bean name="/user/rejectLending.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.RejectLendingController">
+	</bean>
+	<bean name="/allBook.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.search.AllBookController">
 	</bean>
 </beans>

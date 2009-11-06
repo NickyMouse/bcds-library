@@ -1,50 +1,48 @@
-<table>
+<table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
+  <tbody>
     <tr>
-        <td>
-		#if(${bookInfo.imgUrl} && !$bookInfo.getImgUrl().equals(""))
-			<div><img class="bookImage" src="$UPLOAD_IMAGE_PATH/$!{bookInfo.imgUrl}" /></div>
-		#else
-			<div><img class="bookImage" src="$SERVER_NAME/images/noPhoto.png" /></div>
-		#end
-        </td>
-        <td>
-            <table >
-                <tr >
-                    <td >NAME
-                    </td>
-                    <td >$!{bookInfo.name}
-                    </td>
-                </tr>
-				<tr >
-                    <td >Category
-                    </td>
-                    <td >$!categoryCache.getFullName($!{bookInfo.categoryId},">>")
-                    </td>
-                </tr>
-                <tr>
-                    <td>AUTHOR</td>
-                    <td >
-                        $!{bookInfo.author}</td>
-                </tr>
-                <tr >
-                    <td >isbn
-                    </td>
-                    <td >$!{bookInfo.isbn}
-                    </td>
-                </tr>
-                <tr >
-                    <td >DESCRIPTION
-                    </td>
-                    <td >$!{bookInfo.description}
-                    </td>
-                </tr>
-                <tr >
-                    <td >PUBLISHER
-                    </td>
-                    <td >$!{bookInfo.publisher}
-                    </td>
-                </tr>
-            </table>
-        </td>
+      <td colspan="2" align="center"><h1>$bookInfo.name</h1></td>
     </tr>
+    <tr>
+      <td width="300" align="right">
+		#if($bookInfo.imgUrl && !$bookInfo.getImgUrl().equals(""))
+			<img id="bookCoverImage" class="detailBookImage" src="$UPLOAD_IMAGE_PATH/$bookInfo.imgUrl"/>
+		#else
+			<img id="bookCoverImage" class="detailBookImage" src="$SERVER_NAME/images/noPhoto.png"/>
+		#end
+	  </td>
+      <td width="600"><table width="80%"">
+          <tr>
+            <td align="right" width="25%">作者:&nbsp;&nbsp;</td>
+            <td align="left">$bookInfo.author</td>
+          </tr>
+          <tr>
+            <td align="right">ISBN:&nbsp;&nbsp;</td>
+            <td align="left">$bookInfo.isbn</td>
+          </tr>
+		  <tr>
+            <td align="right">类目:&nbsp;&nbsp;</td>
+            <td align="left">$!categoryCache.getFullName($!{bookInfo.categoryId},">>")</td>
+          </tr>
+          <tr>
+            <td align="right">出版社:&nbsp;&nbsp;</td>
+            <td align="left">$bookInfo.publisher</td>
+          </tr>
+          <tr>
+            <td align="right">出版时间:&nbsp;&nbsp;</td>
+            <td align="left">$dateTool.format("yyyy-MM-dd",$bookInfo.publishTime)</td>
+          </tr>
+          <tr>
+            <td align="right">版次:&nbsp;&nbsp;</td>
+            <td align="left">$bookInfo.edition</td>
+          </tr>
+          <tr>
+            <td align="right">描述:&nbsp;&nbsp;</td>
+            <td align="left"><p>$bookInfo.description
+            </p></td>
+          </tr>
+		 
+        </table></td>
+    </tr>
+  </tbody>
 </table>

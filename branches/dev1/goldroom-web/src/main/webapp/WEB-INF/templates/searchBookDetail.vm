@@ -6,19 +6,23 @@
     <tr>
       <td width="300" align="right">
 		#if($bookSearchInfo.bookImgUrl && !$bookSearchInfo.getBookImgUrl().equals(""))
-			<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$bookSearchInfo.bookImgUrl"/>
+			<img id="bookCoverImage" class="detailBookImage" src="$UPLOAD_IMAGE_PATH/$bookSearchInfo.bookImgUrl"/>
 		#else
-			<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
+			<img id="bookCoverImage" class="detailBookImage" src="$SERVER_NAME/images/noPhoto.png"/>
 		#end
 	  </td>
-      <td width="600"><table width="100%"">
+      <td width="600"><table width="80%"">
           <tr>
-            <td align="right" width="20%">作者:&nbsp;&nbsp;</td>
+            <td align="right" width="25%">作者:&nbsp;&nbsp;</td>
             <td align="left">$bookSearchInfo.bookAuthor</td>
           </tr>
           <tr>
             <td align="right">ISBN:&nbsp;&nbsp;</td>
             <td align="left">$bookSearchInfo.bookIsbn</td>
+          </tr>
+		   <tr>
+            <td align="right">类目:&nbsp;&nbsp;</td>
+            <td align="left">$!categoryCache.getFullName($!{bookSearchInfo.bookCategoryId},">>")</td>
           </tr>
           <tr>
             <td align="right">出版社:&nbsp;&nbsp;</td>
@@ -26,7 +30,7 @@
           </tr>
           <tr>
             <td align="right">出版时间:&nbsp;&nbsp;</td>
-            <td align="left">$bookSearchInfo.bookPublishTime</td>
+            <td align="left">$dateTool.format("yyyy-MM-dd",$bookSearchInfo.bookPublishTime)</td>
           </tr>
           <tr>
             <td align="right">版次:&nbsp;&nbsp;</td>
@@ -80,17 +84,21 @@
             <tr align="center">
         		<td>$owner.name
         		</td>
-              <td>$bookItem.addTime</td>
+              <td>$dateTool.format("yyyy-MM-dd",$bookItem.addTime)</td>
               <td>
         		<A href=" http://web.im.alisoft.com/msg.aw?v=2&amp;uid=$owner.aliTalkId&amp;site=cnalichn&amp;s=1" target=_blank><IMG border=0 alt=点击这里给我发消息 src=" http://web.im.alisoft.com/online.aw?v=2&amp;uid=$owner.aliTalkId&amp;site=cnalichn&amp;s=1"></A>
         	  </td>
               <td>
 	
 				#if($bookItem.getState().equals("idle"))
-					<form action="/user/reserveBook.htm" name="reserveForm" method="POST">
+                    <a onclick="javascript:reserveForm.style.display=''; this.style.display='none';" style="cursor:pointer;">预约</a>
+					<form action="/user/reserveBook.htm" name="reserveForm" method="POST" style="display:none;">
 						<input type="hidden" name="bookItemId" id="bookItemId" value="$bookItem.id"/>
-						<input type="submit" value="预约"/>
-					</form>					
+                        <label for="lendTime">借阅时间</label><input type="text" name="lendTime" id="lendTime" value=""/>
+						<br/>
+                        <label for="returnTime">归还时间</label><input type="text" name="returnTime" id="returnTime" value=""/>
+						<input type="submit" value="确定"/>
+					</form>	
 				#else
 						不能预约
 				#end

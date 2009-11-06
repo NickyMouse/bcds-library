@@ -3,7 +3,7 @@
 <table style="width:80%;margin:auto;" height="550px" cellspacing="3" cellpadding="0" border="0">
   <tr>
     <td  valign="top">
-		<h2>最近上架的书籍......</h2>
+		<h2>最近上架的书籍......         <a href="$SERVER_NAME/allBook.htm"><font size="2">[更多]</font></a></h2>
         	<table align="center">
             	<tr>
 				#foreach($book in $newBookList)

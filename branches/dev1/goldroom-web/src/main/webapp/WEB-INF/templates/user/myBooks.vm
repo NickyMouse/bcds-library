@@ -50,7 +50,7 @@
 							#elseif($bookItem.state== "unavailable")
 								已下架
 							#end
-							#if($bookItem.state != "unavailable")
+							#if($bookItem.state != "unavailable" && $bookItem.state != "lended")
 							<table onClick="offShelves('$bookItem.id','$bookItem.bookInfo.name')" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
                             	<tbody><tr>
                             		<td><img src="$SERVER_NAME/images/button_warn_left.gif" border="0"></td>
@@ -60,8 +60,8 @@
                             		<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
                             	</tr>
                             </tbody></table>
-							#else
-							<table onClick="offShelves('$bookItem.id','$bookItem.bookInfo.name')" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
+							#elseif($bookItem.state == "unavailable")
+							<table onClick="reputOnShelves('$bookItem.id','$bookItem.bookInfo.name')" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
                             	<tbody><tr>
                             		<td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
                             		<td class="button_dark">
@@ -77,13 +77,14 @@
 							
 							
 							#if($bookItem.state== "lended")
-								被借阅
 								借阅者：$!{bookItem.lending.subscriber}
 							#elseif($bookItem.state == "reservated")
 								预约者：$!{bookItem.reservation.subscriber}
 								<br/>
-								预约时间：$!{bookItem.reservation.lendTime}~$!{bookItem.reservation.returnTime}
-							#elseif($bookItem.state== "lended")
+								预约时间：$!dateTool.format("yyyy-MM-dd",$!{bookItem.reservation.lendTime}) 至 $!dateTool.format("yyyy-MM-dd",$!{bookItem.reservation.returnTime})
+							#end
+							
+							#if($bookItem.state== "lended")
 								<table onClick="javascript:returnBook($!{bookItem.lending.id});" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
                             	<tbody><tr>
                             		<td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
@@ -93,9 +94,8 @@
                             		<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
                             	</tr>
                             	</tbody></table>
-						
 							#elseif($bookItem.state == "reservated")
-								<input type="text" id="returnTime_$!{bookItem.reservation.id}" onfocus="setday(this)"/>
+								##<input type="text" id="returnTime_$!{bookItem.reservation.id}" onfocus="setday(this)"/>
 								<table onClick="javascript:confirmLend($!{bookItem.reservation.id});" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
                             	<tbody><tr>
                             		<td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
@@ -105,8 +105,16 @@
                             		<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
                             	</tr>
                             	</tbody></table>
-							#elseif($bookItem.state == "unavailable")
-								已下架
+								<br/>
+								<table onClick="javascript:rejectLending($!{bookItem.reservation.id});" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
+                            	<tbody><tr>
+                            		<td><img src="$SERVER_NAME/images/button_warn_left.gif" border="0"></td>
+                            		<td class="button_dark">
+                            		拒绝借阅
+                            		</td>
+                            		<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
+                            	</tr>
+                            	</tbody></table>
 							#end
 							
 						</td>
@@ -124,7 +132,7 @@
 #parse("widget/pageNav.vm")
 <form action="/user/confirmLend.htm" name="confirmLendForm" method="POST">
 	<input type="hidden" name="reservationId" />
-	<input type="hidden" name="returnTime"/>
+	##<input type="hidden" name="returnTime"/>
 </form>
 
 <form action="/user/returnBook.htm" name="returnBookForm" method="POST">
@@ -133,12 +141,27 @@
 <form action="/user/offShelves.htm" name="offShelvesForm" method="POST">
 	<input type="hidden" name="bookItemId">
 </form>
+
+<form action="/user/reputOnShelves.htm" name="reputOnShelvesForm" method="POST">
+	<input type="hidden" name="bookItemId">
+</form>
+
+<form action="/user/rejectLending.htm" name="rejectLendingForm" method="POST">
+	<input type="hidden" name="reservationId">
+</form>
+
 <script>
 <!--
 function confirmLend(reservationId){
 	document.confirmLendForm.reservationId.value=reservationId;
-	document.confirmLendForm.returnTime.value=document.getElementById("returnTime_"+reservationId).value;
+	//document.confirmLendForm.returnTime.value=document.getElementById("returnTime_"+reservationId).value;
 	document.confirmLendForm.submit();
+}
+
+function rejectLending(reservationId){
+	document.rejectLendingForm.reservationId.value=reservationId;
+	//document.confirmLendForm.returnTime.value=document.getElementById("returnTime_"+reservationId).value;
+	document.rejectLendingForm.submit();
 }
 
 function returnBook(lendingId){
@@ -147,9 +170,17 @@ function returnBook(lendingId){
 }
 
 function offShelves(bookItemId, bookName){
-	if(confirm("确定将\""+bookName +"\"下架?")){
+	if(confirm("确定将\""+bookName +"\" 下架?")){
 		document.offShelvesForm.bookItemId.value=bookItemId;
 		document.offShelvesForm.submit();
+	}else {
+		return false;
+	}
+}
+function reputOnShelves(bookItemId, bookName){
+	if(confirm("确定将 \""+bookName +"\" 重新上架?")){
+		document.reputOnShelvesForm.bookItemId.value=bookItemId;
+		document.reputOnShelvesForm.submit();
 	}else {
 		return false;
 	}
