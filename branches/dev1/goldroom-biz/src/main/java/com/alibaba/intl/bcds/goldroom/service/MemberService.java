@@ -41,4 +41,13 @@ public interface MemberService {
      * @return
      */
     List<MemberDTO> listMemberByStatus(MemberEnableEnum memberEnable);
+    
+    /**
+     * 根据loginId修改用户密码
+     * @param loginId
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    Result changePasswordByLoginId(String loginId, String newPassword);
 }
