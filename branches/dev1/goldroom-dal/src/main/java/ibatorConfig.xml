@@ -2,27 +2,19 @@
 <!DOCTYPE ibatorConfiguration PUBLIC "-//Apache Software Foundation//DTD Apache iBATIS Ibator Configuration 1.0//EN" "http://ibatis.apache.org/dtd/ibator-config_1_0.dtd" >
 <ibatorConfiguration>
 	<classPathEntry
-		location="E:\maven_repository\mysql\mysql-connector-java\5.1.3\mysql-connector-java-5.1.3.jar" />
+		location="C:\Users\NickyMouse\.m2\repository\mysql\mysql-connector-java\5.1.6\mysql-connector-java-5.1.6.jar" />
 	<ibatorContext id="context1">
 		<jdbcConnection driverClass="org.gjt.mm.mysql.Driver"
-			connectionURL="jdbc:mysql://10.16.106.92/goldroom" userId="goldroom"
-			password="hello123321">
+			connectionURL="jdbc:mysql://127.0.0.1/goldroom" userId="root"
+			password="root">
 		</jdbcConnection>
-		<javaModelGenerator targetPackage="com.alibaba.intl.bcds.goldroom.entity"
+		<javaModelGenerator targetPackage="com.alibaba.intl.bcds.goldroom.dataobject"
 			targetProject="goldroom-dal" />
 		<sqlMapGenerator targetPackage="com.alibaba.intl.bcds.goldroom.dao.ibatis.sqlmap"
 			targetProject="goldroom-dal" />
 		<daoGenerator targetPackage="com.alibaba.intl.bcds.goldroom.dao"
 			targetProject="goldroom-dal" type="GENERIC-CI" />
-		<table  tableName="Member" schema="goldroom">
-			<columnOverride column="ID" property="id" />
-			<columnOverride column="WORK_ID" property="workId" />
-			<columnOverride column="LOGIN_ID" property="loginId" />
-			<columnOverride column="PASSWORD_" property="password" />
-			<columnOverride column="ALI_TALK_ID" property="aliTalkId" />
-			<columnOverride column="GMT_CREATE" property="gmtCreate" />
-			<columnOverride column="GMT_MODIFIED" property="gmtModified" />
-			<columnOverride column="ENABLE" property="enable" />
+		<table  tableName="Member_Role" schema="goldroom">
 		</table>
 	</ibatorContext>
 </ibatorConfiguration>

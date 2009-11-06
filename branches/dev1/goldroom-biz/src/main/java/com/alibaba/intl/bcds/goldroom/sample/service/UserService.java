@@ -25,8 +25,11 @@ import com.alibaba.intl.bcds.goldroom.sample.User;
  * @author Zimmem
  */
 public interface UserService {
-    void addUser(User user);
 
-    List<User> listAllUser();
+	void addUser(User user);
+
+	List<User> listAllUser();
+
+	void approveUser(User user);
 
 }

@@ -7,7 +7,8 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
 http://www.springframework.org/schema/tx
 http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
 	default-autowire="byName">
-	<tx:annotation-driven />
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
 	<bean id="userService"
 		class="com.alibaba.intl.bcds.goldroom.service.impl.UserServiceImpl" />
 	<bean id="bookSearchService"

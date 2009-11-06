@@ -1,0 +1,38 @@
+<form action="/user/applyUser.htm" method="POST">
+	<table>
+		<tr>
+			#springBind("member.loginId")
+			<td>Login ID：</td>
+			<td>#springFormInput("member.loginId" 'size="45" maxlength="45"')
+			#validationError()
+			</td>
+		</tr>
+		<tr>
+			#springBind("member.name")
+			<td>Name：</td>
+			<td>#springFormInput("member.name" 'size="45" maxlength="45"')
+			#validationError()
+			</td>
+		</tr>
+		<tr>
+			#springBind("member.password")
+			<td>Password：</td>
+			<td><input type = "text" name="password" /><font color="red">*</font></td>
+			#validationError()
+		</tr>
+	
+		<tr>
+			#springBind("member.email")
+			<td>Email：</td>
+			<td><input type = "text" name="email" /></td>
+			#validationError()
+		</tr>
+		<tr>
+			<td>AliTalk ID：</td>
+			<td><input type = "text" name="aliTalkId" /></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="submit"/></td>
+		</tr>
+	</table>
+</form>

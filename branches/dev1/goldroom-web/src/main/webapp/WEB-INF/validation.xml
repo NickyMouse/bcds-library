@@ -6,18 +6,6 @@
 <form-validation>
 
 	<formset>
-
-		<form name="user">
-			<field property="username" depends="required">
-				<msg key="username.required" name="username.required" />
-				<arg0 key="name" resource="false" />
-			</field>
-			<field property="age" depends="required,integer">
-				<msg key="age.required" name="age.required" />
-				<arg0 key="age" resource="false" />
-			</field>
-		</form>
-
 		<form name="bookInfo">
 			<field property="name" depends="required">
 				<arg0 key="name" resource="false" />
@@ -48,7 +36,6 @@
 				<arg0 key="imgUrl" resource="false" />
 			</field>
 		</form>
-
 		<form name="userInfo">
 			<field property="oldPassword" depends="required">
 				<msg key="validation.userInfo.oldPassword.required" name="validation.userInfo.oldPassword.required" />
@@ -70,8 +57,16 @@
 
 		<form name="member">
 			<field property="name" depends="required">
-				<arg0 key="name" resource="false" />
 			</field>
+			<field property="password" depends="required">
+			</field>
+		</form>
+		<form name="memberCommand">
+			<field property="id"></field>
+		</form>
+
+		<form name="bookItem">
+			<field property="tags"></field>
 		</form>
 
 		<form name="reserveCommand">

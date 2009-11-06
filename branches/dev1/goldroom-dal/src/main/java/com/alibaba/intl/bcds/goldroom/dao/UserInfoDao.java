@@ -8,4 +8,7 @@ public interface UserInfoDao {
 	 */
 	@SuppressWarnings("unchecked")
 	void update(Map userInfo);
+
+	void insertUser();
+
 }

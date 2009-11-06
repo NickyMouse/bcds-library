@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="MEMBER_ROLE">
+	<typeAlias alias="MemberRole"
+		type="com.alibaba.intl.bcds.goldroom.dataobject.MemberRole" />
+	<resultMap id="BaseResultMap" class="MemberRole">
+		<result column="ID" property="id" jdbcType="INTEGER" />
+		<result column="member_id" property="memberId" jdbcType="INTEGER" />
+		<result column="role_id" property="roleId" jdbcType="INTEGER" />
+	</resultMap>
+
+	<insert id="insert" parameterClass="MemberRole">
+		insert into member_role (ID,
+		member_id, role_id)
+		values
+		(#id:INTEGER#,
+		#memberId:INTEGER#,
+		#roleId:INTEGER#)
+	</insert>
+
+	<select id="listMemberRoleByMemberIds" parameterClass="java.util.List"
+		resultMap="BaseResultMap">
+		select ID, MEMBER_ID,ROLE_ID
+		from MEMBER_ROLE
+		WHERE MEMBER_ID IN (
+		<iterate conjunction="," >
+			#memberIds[]#
+		</iterate>
+		)
+	</select>
+</sqlMap>

@@ -46,15 +46,15 @@
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.BookSearchDaoImpl">
 	</bean>
 
-	<!--
-		<bean id="userService"
-		class="com.alibaba.intl.bcds.goldroom.service.impl.UserServiceImpl" />
-	-->
 	<bean id="userInfoDao"
 		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.UserInfoDaoImpl" />
 
-	<bean id="memberDAO"
-		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.MemberDAOImpl" />
+	<bean id="memberDAO" class="com.alibaba.intl.bcds.goldroom.dao.ibatis.MemberDAOImpl" />
+	<bean id="memberLogDAO"
+		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.MemberLogDAOImpl" />
+	<bean id="memberRoleDAO"
+		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.MemberRoleDAOImpl" />
+
 	<bean id="searchDatasource"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.BookSearchDatasource">
 		<property name="indexLocation" value="/home/intlbcds/work/index" />

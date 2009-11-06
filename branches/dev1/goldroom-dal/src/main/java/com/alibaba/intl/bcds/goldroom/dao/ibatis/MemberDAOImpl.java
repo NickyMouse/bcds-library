@@ -4,50 +4,56 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.orm.ibatis.SqlMapClientCallback;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import com.alibaba.intl.bcds.goldroom.dao.MemberDAO;
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
+import com.ibatis.sqlmap.client.SqlMapExecutor;
 
 @SuppressWarnings("unchecked")
 public class MemberDAOImpl extends SqlMapClientDaoSupport implements MemberDAO {
-	public int deleteByPrimaryKey(Integer id) throws SQLException {
-		Member key = new Member();
-		key.setId(id);
-		return getSqlMapClientTemplate().delete("MEMBER.deleteByPrimaryKey",
-				key);
-	}
 
-	public void insert(Member record) throws SQLException {
-		getSqlMapClientTemplate().insert("MEMBER.insert", record);
-	}
+    @Override
+    public List<Member> listMemberByLoginIds(List<Integer> loginIds) throws SQLException {
+        HashMap map = new HashMap();
+        map.put("loginIdsList", loginIds);
+        return getSqlMapClientTemplate().queryForList("MEMBER.listMemberByLoginIds", map);
+    }
 
-	public void insertSelective(Member record) throws SQLException {
-		getSqlMapClientTemplate().insert("MEMBER.insertSelective", record);
-	}
+    public Integer updateByLoginIds(final List<Member> members) {
+        return (Integer) getSqlMapClientTemplate().execute(new SqlMapClientCallback() {
 
-	public Member selectByPrimaryKey(Integer id) throws SQLException {
-		Member key = new Member();
-		key.setId(id);
-		return (Member) getSqlMapClientTemplate().queryForObject(
-				"MEMBER.selectByPrimaryKey", key);
-	}
+            @Override
+            public Object doInSqlMapClient(SqlMapExecutor executor) throws SQLException {
+                for (Member member : members) {
+                    executor.update("MEMBER.updateByLoginId", member);
+                }
+                return members.size();
+            }
+        });
 
-	public int updateByPrimaryKeySelective(Member record) throws SQLException {
-		return getSqlMapClientTemplate().update(
-				"MEMBER.updateByPrimaryKeySelective", record);
-	}
+    }
 
-	public int updateByPrimaryKey(Member record) throws SQLException {
-		return getSqlMapClientTemplate().update("MEMBER.updateByPrimaryKey",
-				record);
-	}
+    @Override
+    public Member selectByLoginId(String loginId) {
+        return (Member) getSqlMapClientTemplate().queryForObject("MEMBER.selectByLoginId", loginId);
+    }
 
-	@Override
-	public List<Member> listMemberByLoginIds(List loginIds) throws SQLException {
-		HashMap map = new HashMap();
-		map.put("loginIdsList", loginIds);
-		return getSqlMapClientTemplate().queryForList(
-				"MEMBER.listMemberByLoginIds", map);
-	}
+    @Override
+    public Integer insert(Member member) {
+        return (Integer) getSqlMapClientTemplate().insert("MEMBER.insert", member);
+    }
+
+    @Override
+    public List<Member> listMemberByStatus(Integer status) {
+        return getSqlMapClientTemplate().queryForList("MEMBER.listMemberByStatus", status);
+    }
+
+    @Override
+    public List<Member> listMemberByIds(List<Integer> ids) throws SQLException {
+        HashMap map = new HashMap();
+        map.put("idList", ids);
+        return getSqlMapClientTemplate().queryForList("MEMBER.listMemberByIds", map);
+    }
 }

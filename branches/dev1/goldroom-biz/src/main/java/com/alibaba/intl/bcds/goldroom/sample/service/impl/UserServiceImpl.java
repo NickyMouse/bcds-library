@@ -28,35 +28,44 @@ import com.alibaba.intl.bcds.goldroom.sample.service.UserService;
  */
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDao;
+	private UserDao userDao;
 
-    /**
-     * @param userDao the userDao to set
-     */
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
+	/**
+	 * @param userDao
+	 *            the userDao to set
+	 */
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.alibaba.intl.bcds.goldroom.sample.service.UserService#addUser(com
-     * .alibaba.intl.bcds.goldroom.sample.User)
-     */
-    @Override
-    public void addUser(User user) {
-        userDao.insertUser(user);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.alibaba.intl.bcds.goldroom.sample.service.UserService#addUser(com
+	 * .alibaba.intl.bcds.goldroom.sample.User)
+	 */
+	@Override
+	public void addUser(User user) {
+		userDao.insertUser(user);
 
-    }
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.alibaba.intl.bcds.goldroom.sample.service.UserService#listAllUser()
-     */
-    @Override
-    public List<User> listAllUser() {
-        return userDao.listAllUser();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.alibaba.intl.bcds.goldroom.sample.service.UserService#listAllUser()
+	 */
+	@Override
+	public List<User> listAllUser() {
+		return userDao.listAllUser();
+	}
+
+	@Override
+	public void approveUser(User user) {
+		// TODO Auto-generated method stub
+
+	}
 
 }
