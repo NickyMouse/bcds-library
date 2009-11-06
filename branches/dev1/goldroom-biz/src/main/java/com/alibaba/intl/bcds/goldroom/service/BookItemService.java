@@ -110,4 +110,12 @@ public interface BookItemService {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     Result lend(int reservationId, Date lendTime, Date returnTime, String currentUser);
 
+    /**
+     * 书籍下架
+     * @param bookItemId
+     * @param currentUser
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    Result offShelves(int bookItemId, String currentUser);
 }
