@@ -36,7 +36,7 @@
 							作　　者：$bookItem.bookInfo.author  <br/>
 							ＩＳＢＮ：$bookItem.bookInfo.isbn  <br/>
 							版　　本：$bookItem.bookInfo.edition	 <br/>
-							出版时间：$dateTool.format("yyyy-MM-dd",$bookItem.bookInfo.publishTime)  <br/>
+							上架日期：$dateTool.format("yyyy-MM-dd",$bookItem.addTime)  <br/>
 							
 						</td>
 						<td width="300px" valign="top" style="font-size:16px; color:#89A945;">

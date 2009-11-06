@@ -29,7 +29,7 @@
             <td align="left">$bookInfo.publisher</td>
           </tr>
           <tr>
-            <td align="right">出版时间:&nbsp;&nbsp;</td>
+            <td align="right">出版日期:&nbsp;&nbsp;</td>
             <td align="left">$dateTool.format("yyyy-MM-dd",$bookInfo.publishTime)</td>
           </tr>
           <tr>
