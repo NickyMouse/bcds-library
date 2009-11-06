@@ -20,4 +20,6 @@ public interface BookSearchService {
 
 	public BookSearchQueryObject advancedBookSearch(BookSearchOption option,
 			Integer skipResult, Integer number);
+
+	public BookSearchQueryObject listAllBook(Integer skipResult, Integer number);
 }

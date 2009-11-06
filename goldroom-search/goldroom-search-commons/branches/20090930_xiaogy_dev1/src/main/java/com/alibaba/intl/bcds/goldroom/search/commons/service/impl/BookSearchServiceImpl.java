@@ -59,7 +59,8 @@ public class BookSearchServiceImpl implements BookSearchService {
 						startTime, endTime);
 		BookSearchQueryObject query = BookSearchQueryObject
 				.getInstance(builder).setN(number).setSkipResult(skipResult)
-				.setPrimarySortFiled(BookSearchConstrains.ITEM_FIRST_ADD_TIME).setReverse(true);
+				.setPrimarySortFiled(BookSearchConstrains.ITEM_FIRST_ADD_TIME)
+				.setReverse(true);
 		bookSearchDao.searchByQuery(query);
 		return query;
 	}
@@ -134,5 +135,16 @@ public class BookSearchServiceImpl implements BookSearchService {
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
 		return calendar.getTime();
+	}
+
+	public BookSearchQueryObject listAllBook(Integer skipResult, Integer number) {
+		SearchConditionBuilder builder = SearchConditionBuilder.getInstance().addDateRange(BookSearchConstrains.ITEM_FIRST_ADD_TIME, new Date(0), new Date());
+				
+		BookSearchQueryObject query = BookSearchQueryObject
+				.getInstance(builder).setN(number).setSkipResult(skipResult)
+				.setPrimarySortFiled(BookSearchConstrains.ITEM_FIRST_ADD_TIME)
+				.setReverse(true);
+		bookSearchDao.searchByQuery(query);
+		return query;
 	}
 }
