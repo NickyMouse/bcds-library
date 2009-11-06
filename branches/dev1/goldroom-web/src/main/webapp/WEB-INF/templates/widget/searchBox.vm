@@ -1,7 +1,7 @@
 <script>
 //<![CDATA[
 	function doSearch(){
-		var searchValue = document.getElementById("q").value.trim();
+		var searchValue = document.getElementById("q").value.replace(/(^\s*)|(\s*$)/g, "");
 		if(searchValue.length==0 || searchValue =="搜索图书"  ){
 			alert("请输入搜索条件");
 			return false;
