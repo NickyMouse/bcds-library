@@ -18,7 +18,7 @@ public class MemberRoleDAOImpl extends SqlMapClientDaoSupport implements MemberR
 
     @Override
     public Map<Integer, MemberRole> mapMemberRoleByMemberIds(List<Integer> memberIds) {
-        if (memberIds == null && memberIds.size() == 0) {
+        if (memberIds == null || memberIds.size() == 0) {
             return new HashMap<Integer, MemberRole>(0);
         }
         return getSqlMapClientTemplate().queryForMap("MEMBER_ROLE.listMemberRoleByMemberIds", memberIds, "memberId");

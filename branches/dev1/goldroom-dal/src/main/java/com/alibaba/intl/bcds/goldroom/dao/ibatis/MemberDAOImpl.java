@@ -1,6 +1,7 @@
 package com.alibaba.intl.bcds.goldroom.dao.ibatis;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,6 +17,9 @@ public class MemberDAOImpl extends SqlMapClientDaoSupport implements MemberDAO {
 
     @Override
     public List<Member> listMemberByLoginIds(List<Integer> loginIds) throws SQLException {
+        if (loginIds == null || loginIds.size() == 0) {
+            return new ArrayList<Member>(0);
+        }
         HashMap map = new HashMap();
         map.put("loginIdsList", loginIds);
         return getSqlMapClientTemplate().queryForList("MEMBER.listMemberByLoginIds", map);
