@@ -15,7 +15,6 @@
  */
 package com.alibaba.intl.bcds.goldroom.web;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +24,6 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
-import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 import com.alibaba.intl.bcds.goldroom.service.result.Result;
 import com.alibaba.intl.bcds.goldroom.web.utils.PageUtils;

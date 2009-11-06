@@ -1,5 +1,18 @@
+<script>
+//<![CDATA[
+	function doSearch(){
+		var searchValue = document.getElementById("q").value.trim();
+		if(searchValue.length==0 || searchValue =="搜索图书"  ){
+			alert("请输入搜索条件");
+			return false;
+		}else{
+			document.search.submit();
+		}
+	}
+//]]>
+</script>
 <table border="0" cellpadding="0" cellspacing="0" width="389">          
-	<form action="$SERVER_NAME/search.htm" method="get" name="search" id="search">
+	<form action="$SERVER_NAME/search.htm" method="get" name="search" id="search" onsubmit="javascript:return doSearch();">
           <tbody><tr>
             <td align="left" valign="top" width="271"><table border="0" cellpadding="0" cellspacing="0" width="254">
               <tbody><tr>
@@ -7,7 +20,7 @@
                 </tr>
               <tr>
                 <td align="left" valign="top" width="5"><img src="$SERVER_NAME/images/internal_txtbox_left.gif" height="22" width="5"></td>
-                <td align="left" bgcolor="#acd674" valign="middle" width="396"><input name="q" class="searchbox_internal" id="q" value="#if($keywords)$keywords #else 搜索图书 #end" size="55" onclick="this.value='';" onblur="javascript:if (this.value=='') this.value='搜索图书';" type="text"></td>
+                <td align="left" bgcolor="#acd674" valign="middle" width="396"><input name="q" class="searchbox_internal" id="q" value="#if($keywords)$keywords #else搜索图书 #end" size="55" onclick="this.value='';" onblur="javascript:if (this.value=='') this.value='搜索图书';" type="text"></td>
                 <td align="left" valign="top" width="5"><img src="$SERVER_NAME/images/internal_txtbox_right.gif" height="22" width="5"></td>
               </tr>
               <tr>
@@ -15,7 +28,7 @@
                 </tr></tbody></table>
 			</td>
             <td align="left" valign="top" width="8">
-				<a href="#"><img src="$SERVER_NAME/images/internal_txtbox_button.gif" onclick="javascript:document.search.submit();" align="absmiddle" border="0" height="40" width="28"></a>
+				<a href="#"><img src="$SERVER_NAME/images/internal_txtbox_button.gif" onclick="javascript:doSearch();" align="absmiddle" border="0" height="40" width="28"></a>
 			</td>
             <td align="left" valign="top" width="10"><img src="$SERVER_NAME/images/internal_txtbox_side.gif" height="40" width="7"></td>
           </tr>

@@ -42,6 +42,9 @@ public class SearchBookDetailController extends AbstractController {
 				.valueOf(request.getParameter("showOwners"));
 		BookSearch bookSearchInfo = bookSearchService
 				.searchBookByInfoId(new Integer(bookInfoId));
+		if(bookSearchInfo == null){
+			return new ModelAndView("friendlyError");
+		}
 		ModelAndView mv = new ModelAndView("searchBookDetail");
 		mv.addObject("bookSearchInfo", bookSearchInfo);
 		if (showOwners) {

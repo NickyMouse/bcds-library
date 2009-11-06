@@ -10,7 +10,7 @@
         position:absolute;
         left:500px;
         top:537px;
-        cursor:move;
+
         float:left;
     }
     .content{
@@ -458,9 +458,9 @@ function getInputObj()
                     </tr>
                 </table>
                 <div class="content" align="right" id="childDiv">
-                    <a onClick="showNearCategory();" title="显示您上一次选择过的类目">[最近选用过的类目]</a>
-                    <a onClick="initAndShowCategory();" title="显示书籍的类目树">[显示类目树]</a>
-                    <a onClick="closeed('selectDiv');" title="保存你选择的类目，并关闭类目选择框">[确定]</a>
+                    <a onClick="showNearCategory();" title="显示您上一次选择过的类目" style="cursor: pointer;">[最近选用过的类目]</a>
+                    <a onClick="initAndShowCategory();" title="显示书籍的类目树" style="cursor: pointer;">[显示类目树]</a>
+                    <a onClick="closeed('selectDiv');" title="保存你选择的类目，并关闭类目选择框" style="cursor: pointer;">[确定]</a>
                 </div>
             </div>
         </td>

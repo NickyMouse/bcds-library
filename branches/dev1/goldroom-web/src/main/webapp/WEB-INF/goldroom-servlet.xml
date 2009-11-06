@@ -119,11 +119,6 @@
 	<bean name="/search.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.search.SearchController" />
 
-	<bean name="/searchBookDetail.htm"
-		class="com.alibaba.intl.bcds.goldroom.web.search.SearchBookDetailController" />
-	<bean name="/search.htm"
-		class="com.alibaba.intl.bcds.goldroom.web.search.SearchController" />
-
 	<bean class="com.alibaba.intl.bcds.goldroom.web.HomeController" />
 
 	<bean name="/user/bookDetail.htm"
@@ -160,16 +155,16 @@
 	<bean name="/user/applyUser.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.ApplyUserController">
 		<property name="successView" value="redirect:/home.htm" />
-
-	<bean name="/userInfoModify.htm"
-		class="com.alibaba.intl.bcds.goldroom.web.UserInfoModifyController">
-		<property name="formView" value="userInfoModify" />
-		<property name="successView" value="redirect:beforeShelve.htm" />
-		<property name="commandName" value="userInfo" />
-		<property name="commandClass"
-			value="com.alibaba.intl.bcds.goldroom.dataobject.User" />
-		<property name="validator" ref="validator"></property>
 	</bean>
+	<!--
+		<bean name="/userInfoModify.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.UserInfoModifyController">
+		<property name="formView" value="userInfoModify" /> <property
+		name="successView" value="redirect:beforeShelve.htm" /> <property
+		name="commandName" value="userInfo" /> <property name="commandClass"
+		value="com.alibaba.intl.bcds.goldroom.dataobject.User" /> <property
+		name="validator" ref="validator"></property> </bean>
+	-->
 	<bean name="/user/approveUser.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.ApproveUserController">
 		<property name="formView" value="user/approveUser" />
@@ -226,4 +221,7 @@
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"
 		/>
 	-->
+	<bean name="/user/offShelves.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.OffShelvesController">
+	</bean>
 </beans>

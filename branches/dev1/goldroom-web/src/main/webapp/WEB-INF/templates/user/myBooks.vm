@@ -6,8 +6,10 @@
 		<tr height="15px" valign="middle"><td>&nbsp;&nbsp;&nbsp;&nbsp;
 		<select id="stateFilter" onchange="javascript:changeFilter();">
 			<option value="">全部</option>
+			<option value="idle" #if($state &&$state.equals("idle"))selected="true"#end>闲置</option>
 			<option value="reservated" #if($state &&$state.equals("reservated"))selected="true"#end>被预约</option>
 			<option value="lended" #if($state &&$state.equals("lended"))selected="true"#end>被借阅</option>
+			<option value="unavailable" #if($state &&$state.equals("unavailable"))selected="true"#end>已下架</option>
 		</select>
 		</td></tr>
 		#foreach($bookItem in $bookItemList)
@@ -26,7 +28,7 @@
 								#end
 							</a>
 						</td>
-						<td width="600px" valign="top" style="font-size:16px; color:#89A945;">
+						<td width="300px" valign="top" style="font-size:16px; color:#89A945;">
 							<h2>
 							<a href="$SERVER_NAME/user/bookDetail.htm?id=$!{bookItem.bookInfo.id}" title="" target="_blank">
 								$!{bookItem.bookInfo.name}
@@ -35,20 +37,53 @@
 							ＩＳＢＮ：$bookItem.bookInfo.isbn  <br/>
 							版　　本：$bookItem.bookInfo.edition	 <br/>
 							出版时间：$dateTool.format("yyyy-MM-dd",$bookItem.bookInfo.publishTime)  <br/>
-							标　　签：$bookItem.tags <br/>
+							
 						</td>
-						<td valign="middle" align="right" width="220px" style="font-size:16px; color:#89A945;">
-							<br/>
-							#if($bookItem.state== "lended")
-								借阅者：$!{bookItem.lending.subscriber}
+						<td width="300px" valign="top" style="font-size:16px; color:#89A945;">
+							当前状态：
+							#if($bookItem.state== "idle")
+									闲置
+							#elseif($bookItem.state== "reservated")
+								被预约
+							#elseif($bookItem.state== "lended")
+								被借阅
+							#elseif($bookItem.state== "unavailable")
+								已下架
 							#end
-							#if($bookItem.state == "reservated")
+							#if($bookItem.state != "unavailable")
+							<table onClick="offShelves('$bookItem.id','$bookItem.bookInfo.name')" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
+                            	<tbody><tr>
+                            		<td><img src="$SERVER_NAME/images/button_warn_left.gif" border="0"></td>
+                            		<td class="button_dark">
+                            		书籍下架
+                            		</td>
+                            		<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
+                            	</tr>
+                            </tbody></table>
+							#else
+							<table onClick="offShelves('$bookItem.id','$bookItem.bookInfo.name')" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
+                            	<tbody><tr>
+                            		<td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
+                            		<td class="button_dark">
+                            		重新上架
+                            		</td>
+                            		<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
+                            	</tr>
+                            </tbody></table>
+							#end
+							
+                        </td>
+						<td valign="top" align="right" width="220px" style="font-size:16px; color:#89A945;">
+							
+							
+							#if($bookItem.state== "lended")
+								被借阅
+								借阅者：$!{bookItem.lending.subscriber}
+							#elseif($bookItem.state == "reservated")
 								预约者：$!{bookItem.reservation.subscriber}
 								<br/>
-								预约时间：${bookItem.reservation.lendTime}~${bookItem.reservation.returnTime}
-							#end
-							<br/>
-							#if($bookItem.state== "lended")
+								预约时间：$!{bookItem.reservation.lendTime}~$!{bookItem.reservation.returnTime}
+							#elseif($bookItem.state== "lended")
 								<table onClick="javascript:returnBook($!{bookItem.lending.id});" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
                             	<tbody><tr>
                             		<td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
@@ -59,8 +94,7 @@
                             	</tr>
                             	</tbody></table>
 						
-							#end
-							#if($bookItem.state == "reservated")
+							#elseif($bookItem.state == "reservated")
 								<input type="text" id="returnTime_$!{bookItem.reservation.id}" onfocus="setday(this)"/>
 								<table onClick="javascript:confirmLend($!{bookItem.reservation.id});" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
                             	<tbody><tr>
@@ -71,6 +105,8 @@
                             		<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
                             	</tr>
                             	</tbody></table>
+							#elseif($bookItem.state == "unavailable")
+								已下架
 							#end
 							
 						</td>
@@ -94,7 +130,9 @@
 <form action="/user/returnBook.htm" name="returnBookForm" method="POST">
 	<input type="hidden" name="lendingId" />
 </form>
-	
+<form action="/user/offShelves.htm" name="offShelvesForm" method="POST">
+	<input type="hidden" name="bookItemId">
+</form>
 <script>
 <!--
 function confirmLend(reservationId){
@@ -106,6 +144,15 @@ function confirmLend(reservationId){
 function returnBook(lendingId){
 	document.returnBookForm.lendingId.value=lendingId;
 	document.returnBookForm.submit();
+}
+
+function offShelves(bookItemId, bookName){
+	if(confirm("确定将\""+bookName +"\"下架?")){
+		document.offShelvesForm.bookItemId.value=bookItemId;
+		document.offShelvesForm.submit();
+	}else {
+		return false;
+	}
 }
 
 function changeFilter(){	
