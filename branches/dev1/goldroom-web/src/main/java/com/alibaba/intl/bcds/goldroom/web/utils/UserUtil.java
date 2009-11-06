@@ -15,6 +15,7 @@
  */
 package com.alibaba.intl.bcds.goldroom.web.utils;
 
+import org.springframework.security.Authentication;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.userdetails.UserDetails;
@@ -61,9 +62,12 @@ public class UserUtil {
 		}
 	}
 	public static UserDetails getUserDetails() {
-		Object result = SecurityContextHolder.getContext().getAuthentication()
-				.getPrincipal();
-		if (result instanceof UserDetails) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Object result=null;
+		if(authentication != null){
+			result= authentication.getPrincipal();
+		}
+		if (result != null && result instanceof UserDetails) {
 			return (UserDetails) result;
 		} else {
 			return null;
