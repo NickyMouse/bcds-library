@@ -1,5 +1,5 @@
-<form action="/user/applyUser.htm" method="POST">
-	<table>
+<form action="/user/applyUser.htm" method="POST" name="applyForm">
+	<table width="80%" cellspacing="0">
 		<tr>
 			#springBind("member.loginId")
 			<td>Login ID：</td>
@@ -17,10 +17,13 @@
 		<tr>
 			#springBind("member.password")
 			<td>Password：</td>
-			<td><input type = "text" name="password" /><font color="red">*</font></td>
+			<td><input type = "password" name="password" /><font color="red">*</font></td>
 			#validationError()
 		</tr>
-	
+		<tr >
+            <td>confirm:</td>
+			<td><input type="password" name="confirm"/><font color="red">*</font></td>
+        </tr>
 		<tr>
 			#springBind("member.email")
 			<td>Email：</td>
@@ -32,7 +35,33 @@
 			<td><input type = "text" name="aliTalkId" /></td>
 		</tr>
 		<tr>
-			<td><input type="submit" value="submit"/></td>
+			<td><input type="submit" value="submit" onclick="return check()"/></td>
 		</tr>
 	</table>
 </form>
+
+<script LANGUAGE="javascript">
+function check()
+{
+	if (document.applyForm.name.value == ""){
+		alert("请填写您的用户名！");
+		document.form1.name.focus();
+		return (false);
+	}
+	
+    if (document.applyForm.password.value!=document.applyForm.confirm.value ){
+        alert("两次填写的密码不一致，请重新填写！");
+        document.applyForm.password.focus();
+        document.applyForm.password.select();
+        return (false);
+	}
+
+	var filter=/^\s*([A-Za-z0-9_-]+(\.\w+)*@(\w+\.)+\w{2,3})\s*$/;
+	if (!filter.test(document.applyForm.email.value)) {
+		alert("邮件地址不正确,请重新填写！");
+		document.applyForm.email.focus();
+		document.applyForm.email.select();
+		return (false);
+	}
+}
+</script>
