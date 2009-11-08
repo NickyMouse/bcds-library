@@ -15,6 +15,13 @@
 		<result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
 		<result column="ENABLE" property="enable" jdbcType="INTEGER" />
 	</resultMap>
+	<resultMap id="MiniInfoResultMap" class="Member">
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="WORK_ID" property="workId" jdbcType="INTEGER" />
+		<result column="LOGIN_ID" property="loginId" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="ALI_TALK_ID" property="aliTalkId" jdbcType="VARCHAR" />
+	</resultMap>
 
 	<select id="selectByLoginId" resultMap="BaseResultMap"
 		parameterClass="String">
@@ -37,8 +44,8 @@
 		#workId:INTEGER#, #loginId:VARCHAR#,
 		#password:VARCHAR#,
 		#email:VARCHAR#, #aliTalkId:VARCHAR#,
-		#gmtCreate:TIMESTAMP#,
-		#gmtModified:TIMESTAMP#,
+		now(),
+		now(),
 		#enable:INTEGER#)
 		<selectKey resultClass="int" keyProperty="id">
 			select
@@ -91,4 +98,9 @@
 		where LOGIN_ID = #loginId:VARCHAR#
 	</update>
 	
+	<select id="listMemberInfo" resultMap="MiniInfoResultMap">
+		select LOGIN_ID, NAME, WORK_ID, EMAIL,
+		ALI_TALK_ID
+		from MEMBER where ENABLE=1
+	</select>
 </sqlMap>

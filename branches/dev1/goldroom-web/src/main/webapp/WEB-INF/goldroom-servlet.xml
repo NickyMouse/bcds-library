@@ -22,6 +22,7 @@
 				<entry key="SERVER_NAME" value-ref="serverName" />
 				<entry key="authz" value-ref="authzImpl" />
 				<entry key="categoryCache" value-ref="categoryCache" />
+				<entry key="memberInfoCache" value-ref="memberInfoCache" />
 				<entry key="UPLOAD_IMAGE_PATH" value-ref="uploadImagePath" />
 				<entry key="userUtil">
 					<bean class="com.alibaba.intl.bcds.goldroom.web.utils.UserUtil" />
@@ -121,8 +122,8 @@
 
 	<bean class="com.alibaba.intl.bcds.goldroom.web.HomeController" />
 
-	<bean name="/user/bookDetail.htm"
-		class="com.alibaba.intl.bcds.goldroom.web.BookDetailController" />
+	<bean name="/user/bookItemDetail.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.BookItemDetailController" />
 
 	<bean name="/user/findIsbn.htm" class="com.alibaba.intl.bcds.goldroom.web.FindIsbnController" />
 
@@ -145,7 +146,7 @@
 
 	<bean name="/user/fillBookInfo.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.FillBookInfoController">
-		<property name="formView" value="user/fillBookInfo" />
+		<property name="formView" value="/user/fillBookInfo" />
 		<property name="commandName" value="bookInfo" />
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo" />
@@ -154,7 +155,7 @@
 
 	<bean name="/user/applyUser.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.ApplyUserController">
-		<property name="successView" value="redirect:home.htm" />
+		<property name="successView" value="redirect:/home.htm" />
 		<property name="commandName" value="member" />
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.dataobject.Member" />

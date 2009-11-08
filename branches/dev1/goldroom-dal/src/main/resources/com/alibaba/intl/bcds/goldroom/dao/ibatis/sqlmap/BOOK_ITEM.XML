@@ -139,6 +139,7 @@
 		where LOGIN_ID=#loginId:VARCHAR#
 		<isNotEmpty property="state" open="and ">state=#state:VARCHAR#
 		</isNotEmpty>
+		ORDER BY ID DESC
 		LIMIT #skipRows:INTEGER#,#pageSize:INTEGER#
 	</select>
 

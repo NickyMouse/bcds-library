@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.orm.ibatis.SqlMapClientCallback;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
@@ -76,5 +77,9 @@ public class MemberDAOImpl extends SqlMapClientDaoSupport implements MemberDAO {
 		member.setPassword(password);
 		return getSqlMapClientTemplate().update("MEMBER.updatePasswordByLoginId",
 				member);
+	}
+	
+	public Map<String, Member> listMemberInfo(){
+		return getSqlMapClientTemplate().queryForMap("MEMBER.listMemberInfo",null,"loginId");
 	}
 }

@@ -303,15 +303,20 @@ form {
 .bookImage {
 	max-width:100px; /* FF IE7 */
     max-height:150px; /* FF IE7 */
-    width:expression(this.width > 100 && this.width > this.height ? 100 : true);
-    height:expression(this.height > 150 && this.height > this.width ? 150 : true);
+    width:expression(this.width > 100 && this.width >= this.height ? 100 : true);
+    height:expression(this.height > 150 && this.height >= this.width ? 150 : true);
     overflow:hidden;
+    border-width:0px;
 }
 
 .detailBookImage {
-	max-width:160px; /* FF IE7 */
-    max-height:240px; /* FF IE7 */
-    width:expression(this.width > 160 && this.width > this.height ? 160 : true);
-    height:expression(this.height > 240 && this.height > this.width ? 240 : true);
+	max-width:200px; /* FF IE7 */
+    max-height:300px; /* FF IE7 */
+    width:expression(this.width > 200 && this.width >= this.height ? 200 : true);
+    height:expression(this.height > 300 && this.height >= this.width ? 300 : true);
     overflow:hidden;
+    border-width:0px;
+}
+img{
+	border-width:0px;
 }

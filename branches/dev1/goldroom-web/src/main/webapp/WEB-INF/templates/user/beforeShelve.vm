@@ -1,7 +1,7 @@
 <table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0">
   <tbody>
     <tr>
-      <td align="center"><h1>图书上架</h1></td>
+      <td align="center"><h1>书籍上架</h1></td>
     </tr>
     <tr>
       <td align="center"><form action="/user/findIsbn.htm" method="POST">

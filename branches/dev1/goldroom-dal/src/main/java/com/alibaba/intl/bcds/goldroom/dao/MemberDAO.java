@@ -2,6 +2,7 @@ package com.alibaba.intl.bcds.goldroom.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 
@@ -20,5 +21,6 @@ public interface MemberDAO {
     Member selectByLoginId(String loginId);
     
     int updatePasswordByLoginId(String loginId, String password);
-
+    
+    Map<String, Member> listMemberInfo();
 }

@@ -1,4 +1,4 @@
-    <table id="mytable" width="100%" cellspacing="0">
+<table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
 			<tr>
     			<td scope="col">Name</td> 
     			<td scope="col">LoginID </td> 
@@ -20,7 +20,7 @@
 					</td>
                 </tr>
 			#end
-	</table>
+</table>
 <form action="/user/approveUser.htm" name="approveForm" method="POST">
     <input type="hidden" name="id" value="" />
 	<input type="hidden" name="status" value=""/>

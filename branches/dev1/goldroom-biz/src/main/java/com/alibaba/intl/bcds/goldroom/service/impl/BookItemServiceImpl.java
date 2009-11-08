@@ -165,21 +165,25 @@ public class BookItemServiceImpl implements BookItemService {
             return new Result(false);
         }
         if (item.getState().equals(BookItem.STATE_IDLE)) {
+			if (reservationDAO.updateStateByBookItemId(bookItemId, Reservation.STATE_TO_BE_COMFIRM) == 0) {
+				Reservation reservation = new Reservation();
+				reservation.setOwnerId(item.getLoginId());
+				reservation.setLendTime(lendTime);
+				reservation.setReturnTime(returnTime);
+				reservation.setBookItemId(bookItemId);
+				reservation.setSubscriber(subscriber);
+				reservation.setState(Reservation.STATE_TO_BE_COMFIRM);
+				reservationDAO.insert(reservation);
+			}
+			item.setState(BookItem.STATE_RESERVATED);
+			bookItemDao.updateById(item);
 
-            Reservation reservation = new Reservation();
-            reservation.setLendTime(lendTime);
-            reservation.setReturnTime(returnTime);
-            reservation.setBookItemId(bookItemId);
-            reservation.setSubscriber(subscriber);
-            reservation.setState(Reservation.STATE_TO_BE_COMFIRM);
-            reservationDAO.insert(reservation);
-            item.setState(BookItem.STATE_RESERVATED);
-            bookItemDao.updateById(item);
-            return Result.SUCCESS;
-        } else {
-            return new Result(false);
-        }
-    }
+			return Result.SUCCESS;
+		} else {
+			return new Result(false);
+		}
+	}
+
 
     /*
      * (non-Javadoc)
@@ -272,29 +276,32 @@ public class BookItemServiceImpl implements BookItemService {
         }
     }
 
-    @Override
-    public Result lend(int reservationId, String currentUser) {
-        Reservation reservation = reservationDAO.selectByPrimaryKey(reservationId);
-        BookItem bookItem = bookItemDao.getBookItemByReservationId(reservationId);
-        if (!bookItem.getLoginId().equals(currentUser)) {
-            // 如果书的主人跟登录用户不同
-            return new Result(false);
-        }
-        if (bookItem.getState().equals(BookItem.STATE_RESERVATED)) {
-            Lending lending = new Lending();
-            lending.setBookItemId(reservation.getBookItemId());
-            lending.setReturnTime(reservation.getReturnTime());
-            lending.setSubscriber(reservation.getSubscriber());
-            lending.setLendTime(reservation.getLendTime());
-            lendingDao.insert(lending);
-            bookItem.setState(BookItem.STATE_LENDED);
-            bookItemDao.changeItemState(bookItem);
-            reservationDAO.cutReservationToLog(reservation);
-            return Result.SUCCESS;
-        } else {
-            return new Result(false);
-        }
-    }
+	@Override
+	public Result lend(int reservationId, String currentUser) {
+		Reservation reservation = reservationDAO
+				.selectByPrimaryKey(reservationId);
+		BookItem bookItem = bookItemDao
+				.getBookItemByReservationId(reservationId);
+		if (!bookItem.getLoginId().equals(currentUser)) {
+			// 如果书的主人跟登录用户不同
+			return new Result(false);
+		}
+		if (bookItem.getState().equals(BookItem.STATE_RESERVATED)) {
+			
+			Lending lending = new Lending();
+			lending.setBookItemId(reservation.getBookItemId());
+			lending.setReturnTime(reservation.getReturnTime());
+			lending.setSubscriber(reservation.getSubscriber());
+			lending.setLendTime(reservation.getLendTime());
+			lendingDao.insert(lending);
+			bookItem.setState(BookItem.STATE_LENDED);
+			bookItemDao.changeItemState(bookItem);
+			reservationDAO.cutReservationToLog(reservation);
+			return Result.SUCCESS;
+		} else {
+			return new Result(false);
+		}
+	}
 
     public Result rejectLend(int reservationId, String currentUser) {
         BookItem bookItem = bookItemDao.getBookItemByReservationId(reservationId);
@@ -321,6 +328,6 @@ public class BookItemServiceImpl implements BookItemService {
         if (bookItem != null && bookItem.getLoginId().equals(owner)) {
             return bookItem;
         }
-        return null;
+        return bookItem;
     }
 }

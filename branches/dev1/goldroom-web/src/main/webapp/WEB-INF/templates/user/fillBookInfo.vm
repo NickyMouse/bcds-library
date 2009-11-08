@@ -1,4 +1,3 @@
-<script type="text/javascript" src="$SERVER_NAME/js/datePicker.js"></script> 
 <table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0">
   <tbody>
     <tr>
@@ -49,10 +48,13 @@
               #validationError()
               </td>
             </tr>
+			<link rel="stylesheet" type="text/css" href="$SERVER_NAME/css/calendar.css" media="screen" />
+			<script type="text/javascript" src="$SERVER_NAME/js/mootools.js"></script>
+			<script type="text/javascript" src="$SERVER_NAME/js/calendar.rc4.js"></script>
 			 <tr valign="top">
 			  #springBind("bookInfo.publishTime")
               <td align="right">出版时间：&nbsp;&nbsp; </td>
-              <td >#springFormInput("bookInfo.publishTime" 'size="45" maxlength="45" onfocus="setday(this)"')
+              <td >#springFormInput("bookInfo.publishTime" 'size="45" maxlength="45" readonly="true"')
               #validationError()
               </td>
             </tr>
@@ -79,9 +81,14 @@
             </tr>
 			
 			<input type="hidden" name="imgUrl" id="imgUrl" value="$!imgSrc"/>
+			
 			</form>
           </table>
         </td>
     </tr>
   </tbody>
 </table>
+<script>
+
+new Calendar({ publishTime: 'Y-m-d' }, { direction: 1, tweak: {x: 6, y: 0} });
+</script>

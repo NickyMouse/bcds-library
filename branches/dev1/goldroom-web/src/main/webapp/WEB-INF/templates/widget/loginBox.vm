@@ -12,7 +12,7 @@
 									<lable for="spring_security_remember_me"><font color="#999999" size="2">在这台电脑上记住我</font></lable>
 									<br/>
 									<input type="submit" value="登录" />&nbsp;&nbsp;&nbsp;
-									<a href="#"><font color="#75A413" size="2">申请帐号</font></a>&nbsp;&nbsp;&nbsp;
+									<a href="$SERVER_NAME/user/applyUser.htm"><font color="#75A413" size="2">申请帐号</font></a>&nbsp;&nbsp;&nbsp;
 									<a href="#"><font color="#75A413" size="2">忘记密码了</font></a>
 									<br/>
                                       

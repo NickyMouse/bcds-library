@@ -1,3 +1,8 @@
+<link rel="stylesheet" type="text/css" href="$SERVER_NAME/css/calendar.css" media="screen" />
+<script type="text/javascript" src="$SERVER_NAME/js/mootools.js"></script>
+<script type="text/javascript" src="$SERVER_NAME/js/calendar.rc4.js"></script>
+
+
 <table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
   <tbody>
     <tr>
@@ -88,17 +93,20 @@
               <td>
         		<A href=" http://web.im.alisoft.com/msg.aw?v=2&amp;uid=$owner.aliTalkId&amp;site=cnalichn&amp;s=1" target=_blank><IMG border=0 alt=点击这里给我发消息 src=" http://web.im.alisoft.com/online.aw?v=2&amp;uid=$owner.aliTalkId&amp;site=cnalichn&amp;s=1"></A>
         	  </td>
-              <td>
-	
+              <td align="center">
+				
 				#if($bookItem.getState().equals("idle"))
-                    <a onclick="javascript:reserveForm.style.display=''; this.style.display='none';" style="cursor:pointer;">预约</a>
+                    <a onclick="javascript:reserveForm.style.display=''; this.style.display='none';new Calendar({ lendTime$bookItem.id: 'Y-m-d' }, { direction: 1, tweak: {x: 6, y: -20} }); new Calendar({ returnTime$bookItem.id: 'Y-m-d' }, { direction: 1, tweak: {x: 6, y: -20} });" style="cursor:pointer;">预约</a>
 					<form action="/user/reserveBook.htm" name="reserveForm" method="POST" style="display:none;">
-						<input type="hidden" name="bookItemId" id="bookItemId" value="$bookItem.id"/>
-                        <label for="lendTime">借阅时间</label><input type="text" name="lendTime" id="lendTime" value=""/>
+                       
+                        <label for="lendTime$bookItem.id">借阅时间</label><input type="text" name="lendTime" id="lendTime$bookItem.id" value="" readonly="true"/>
 						<br/>
-                        <label for="returnTime">归还时间</label><input type="text" name="returnTime" id="returnTime" value=""/>
+                        <label for="returnTime$bookItem.id">归还时间</label><input type="text" name="returnTime" id="returnTime$bookItem.id" value="" readonly="true"/>
+						<br/>
 						<input type="submit" value="确定"/>
+						<input type="hidden" name="bookItemId" id="bookItemId" value="$bookItem.id"/>
 					</form>	
+					
 				#else
 						不能预约
 				#end

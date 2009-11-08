@@ -1,47 +1,61 @@
+<script src="$SERVER_NAME/js/md5-min.js"></script>
+<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0"><tr><td align="center">
 <form action="/user/applyUser.htm" method="POST" name="applyForm">
 	<table width="80%" cellspacing="0">
 		<tr>
 			#springBind("member.loginId")
-			<td>登录名：</td>
-			<td>#springFormInput("member.loginId" 'size="45" maxlength="45"')
+			<td align="right">登录名：</td>
+			<td>#springFormInput("member.loginId" 'size="30" maxlength="45"')
 				<font color="red">* 登录名用于登录系统的时候输入</font>
 			#validationError()
 			</td>
 		</tr>
 		<tr>
 			#springBind("member.name")
-			<td>真实姓名：</td>
-			<td>#springFormInput("member.name" 'size="45" maxlength="45"')
+			<td align="right">真实姓名：</td>
+			<td>#springFormInput("member.name" 'size="30" maxlength="45"')
 				<font color="red">* 请输入您的真实姓名</font>
 			#validationError()
 			</td>
 		</tr>
 		<tr>
 			#springBind("member.password")
-			<td>密码：</td>
-			<td><input type = "password" name="password" /><font color="red">*</font></td>
+			<td align="right">密码：</td>
+			<td><input type = "password" name="password" id="password" size="31"/><font color="red">*</font></td>
 			#validationError()
 		</tr>
 		<tr >
-            <td>重复输入密码:</td>
-			<td><input type="password" name="confirm"/><font color="red">*</font></td>
+            <td align="right">重复输入密码：</td>
+			<td><input type="password" name="confirm" id="confirm" size="31"/><font color="red">*</font></td>
         </tr>
 		<tr>
 			#springBind("member.email")
-			<td>邮箱地址：</td>
-			<td><input type = "text" name="email" /></td>
+			<td align="right">邮箱地址：</td>
+			<td><input type = "text" name="email" size="30"/></td>
 			#validationError()
 		</tr>
 		<tr>
-			<td>贸易通ID：</td>
-			<td><input type = "text" name="aliTalkId" /></td>
+			<td align="right">贸易通ID：</td>
+			<td><input type = "text" name="aliTalkId" size="30"/></td>
 		</tr>
 		<tr>
-			<td><input type="submit" value="submit" onclick="return check()"/></td>
+			<td align="right">工号：</td>
+			<td><input type = "text" name="workId" size="30"/></td>
+		</tr>
+		<tr><td></td><td  align="left">
+			<table onClick="javascript:check();" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
+				<tbody><tr>
+					<td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
+							<td class="button_dark">提交申请	</td>
+					<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
+				</tr>
+			</tbody></table>
+			</td>
 		</tr>
 	</table>
 </form>
-
+</td></tr>
+</table>
 <script LANGUAGE="javascript">
 function check()
 {
@@ -65,5 +79,8 @@ function check()
 		document.applyForm.email.select();
 		return (false);
 	}
+	document.applyForm.password.value = hex_md5(document.applyForm.password.value);
+	document.applyForm.confirm.value = hex_md5(document.applyForm.confirm.value);
+	document.applyForm.submit();
 }
 </script>

@@ -1,8 +1,7 @@
 <script src="$SERVER_NAME/js/md5-min.js"></script>
 <script>
 	function checkPassword(){
-		
-		
+
 		var oldPassword = document.getElementById("oldPassword").value.replace(/(^\s*)|(\s*$)/g, "");
 		var newPassword = document.getElementById("newPassword").value.replace(/(^\s*)|(\s*$)/g, "");
 		var confirmPassword = document.getElementById("confirmPassword").value.replace(/(^\s*)|(\s*$)/g, "");

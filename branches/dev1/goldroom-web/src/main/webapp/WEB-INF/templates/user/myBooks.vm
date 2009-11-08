@@ -1,8 +1,14 @@
+<h1>我的书籍</h1>
 <script type="text/javascript" src="$SERVER_NAME/js/datePicker.js"></script>
 
 #parse("widget/pageNav.vm")
 <table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
 	<tbody>
+		#if(!$state && $bookItemList && $bookItemList.size()==0)
+			<tr height="50" valign="middle"><td align="center">
+				暂无书籍，<a href="$SERVER_NAME/user/beforeShelve.htm">图书上架</a>。<a href="$SERVER_NAME/faq/index.htm#onShelves">如何上架书籍？</a>	
+			</td></tr>
+		#else
 		<tr height="15px" valign="middle"><td>&nbsp;&nbsp;&nbsp;&nbsp;
 		<select id="stateFilter" onchange="javascript:changeFilter();">
 			<option value="">全部</option>
@@ -12,10 +18,11 @@
 			<option value="unavailable" #if($state &&$state.equals("unavailable"))selected="true"#end>已下架</option>
 		</select>
 		</td></tr>
+		#end
+
 		#foreach($bookItem in $bookItemList)
 		<tr height="170" valign="middle">
 			<td class="lines" align="left" valign="middle">
-
 				<div onmouseover="javascript:this.style.background='#F7F7F7'" onmouseout="javascript:this.style.background=''" style="width=100%;">
 					<table>
 					<tr  valign="middle">
@@ -28,7 +35,7 @@
 								#end
 							</a>
 						</td>
-						<td width="300px" valign="top" style="font-size:16px; color:#89A945;">
+						<td width="250px" valign="top" style="font-size:16px; color:#89A945;">
 							<h2>
 							<a href="$SERVER_NAME/user/bookItemDetail.htm?id=$!{bookItem.id}" title="" target="_blank">
 								$!{bookItem.bookInfo.name}
@@ -42,7 +49,7 @@
 						<td width="300px" valign="top" style="font-size:16px; color:#89A945;">
 							当前状态：
 							#if($bookItem.state== "idle")
-									闲置
+								闲置
 							#elseif($bookItem.state== "reservated")
 								被预约
 							#elseif($bookItem.state== "lended")
@@ -73,13 +80,19 @@
 							#end
 							
                         </td>
-						<td valign="top" align="right" width="220px" style="font-size:16px; color:#89A945;">
+						<td valign="top" align="left" width="270px" style="font-size:16px; color:#89A945;">
 							
 							
 							#if($bookItem.state== "lended")
-								借阅者：$!{bookItem.lending.subscriber}
+								#set($memberInfo = $!memberInfoCache.getMemberInfo($!{bookItem.lending.subscriber}))
+								借阅者：$memberInfo.name
+								<A href=" http://web.im.alisoft.com/msg.aw?v=2&amp;uid=${memberInfo.aliTalkId}&amp;site=cnalichn&amp;s=1" target=_blank><IMG border=0 alt=点击这里给我发消息 src=" http://web.im.alisoft.com/online.aw?v=2&amp;uid=${memberInfo.aliTalkId}&amp;site=cnalichn&amp;s=1"></A>
+                                <a href="mailto:${memberInfo.email}"><img src="$SERVER_NAME/images/mail.gif"/></a>
 							#elseif($bookItem.state == "reservated")
-								预约者：$!{bookItem.reservation.subscriber}
+								#set($memberInfo = $!memberInfoCache.getMemberInfo($!{bookItem.reservation.subscriber}))
+								预约者：$!memberInfo.name
+								<A href=" http://web.im.alisoft.com/msg.aw?v=2&amp;uid=${memberInfo.aliTalkId}&amp;site=cnalichn&amp;s=1" target=_blank><IMG border=0 alt=点击这里给我发消息 src=" http://web.im.alisoft.com/online.aw?v=2&amp;uid=${memberInfo.aliTalkId}&amp;site=cnalichn&amp;s=1"></A>
+								<a href="mailto:${memberInfo.email}"><img src="$SERVER_NAME/images/mail.gif"/></a>
 								<br/>
 								预约时间：$!dateTool.format("yyyy-MM-dd",$!{bookItem.reservation.lendTime}) 至 $!dateTool.format("yyyy-MM-dd",$!{bookItem.reservation.returnTime})
 							#end
@@ -95,26 +108,28 @@
                             	</tr>
                             	</tbody></table>
 							#elseif($bookItem.state == "reservated")
-								##<input type="text" id="returnTime_$!{bookItem.reservation.id}" onfocus="setday(this)"/>
-								<table onClick="javascript:confirmLend($!{bookItem.reservation.id});" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
-                            	<tbody><tr>
-                            		<td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
-                            		<td class="button_dark">
-                            		确认借阅
-                            		</td>
-                            		<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
-                            	</tr>
-                            	</tbody></table>
-								<br/>
-								<table onClick="javascript:rejectLending($!{bookItem.reservation.id});" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
-                            	<tbody><tr>
-                            		<td><img src="$SERVER_NAME/images/button_warn_left.gif" border="0"></td>
-                            		<td class="button_dark">
-                            		拒绝借阅
-                            		</td>
-                            		<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
-                            	</tr>
-                            	</tbody></table>
+								<table><tr><td>
+    								<table onClick="javascript:confirmLend($!{bookItem.reservation.id});" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
+                                	<tbody><tr>
+                                		<td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
+                                		<td class="button_dark">
+                                		确认借阅
+                                		</td>
+                                		<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
+                                	</tr>
+                                	</tbody></table>
+								</td><td>
+    								<table onClick="javascript:rejectLending($!{bookItem.reservation.id});" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
+                                	<tbody><tr>
+                                		<td><img src="$SERVER_NAME/images/button_warn_left.gif" border="0"></td>
+                                		<td class="button_dark">
+                                		拒绝借阅
+                                		</td>
+                                		<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
+                                	</tr>
+                                	</tbody></table>
+								</td>
+								</tr></table>
 							#end
 							
 						</td>

@@ -41,7 +41,6 @@
             <td align="left"><p>$bookInfo.description
             </p></td>
           </tr>
-		 
         </table></td>
     </tr>
   </tbody>
