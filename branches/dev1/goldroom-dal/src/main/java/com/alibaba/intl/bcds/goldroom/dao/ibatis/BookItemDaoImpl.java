@@ -185,4 +185,16 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
         return (Integer) getSqlMapClientTemplate().queryForObject(
                 "BOOK_ITEM.countReservatedBooksBySubscriber", subscriber);
     }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.dao.BookItemDao#getBookItemWithAllInfo
+     * (int)
+     */
+    @Override
+    public BookItem getBookItemWithAllInfo(int bookItemId) {
+        return (BookItem) getSqlMapClientTemplate().queryForObject(
+                "BOOK_ITEM.getBookItemWithAllInfo", bookItemId);
+    }
 }

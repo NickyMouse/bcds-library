@@ -27,23 +27,16 @@ import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
+import com.alibaba.intl.bcds.goldroom.web.utils.UserUtil;
 
 /**
  * TODO Comment of BookDetailController
  * 
  * @author Zimmem
  */
-public class BookDetailController extends AbstractController {
+public class BookItemDetailController extends AbstractController {
 
     private BookItemService bookItemService;
-    private BookInfoService bookInfoService;
-
-    /**
-     * @param bookInfoService the bookInfoService to set
-     */
-    public void setBookInfoService(BookInfoService bookInfoService) {
-        this.bookInfoService = bookInfoService;
-    }
 
     /**
      * @param bookItemService the bookItemService to set
@@ -56,12 +49,11 @@ public class BookDetailController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
 
-        int bookInfoId = Integer.parseInt(request.getParameter("id"));
-        BookInfo bookInfo = bookInfoService.findBookInfoById(bookInfoId);
-        List<BookItem> items = bookItemService.listBookItemByBookInfoId(bookInfoId);
-        ModelAndView mv = new ModelAndView("/user/bookDetail");
-        mv.addObject("bookInfo", bookInfo);
-        mv.addObject("bookItemList", items);
+        int bookItemId = Integer.parseInt(request.getParameter("id"));
+        BookItem bookItem = bookItemService.getBookDetailByIdAndOwner(UserUtil.getLoginId(),
+                bookItemId);
+        ModelAndView mv = new ModelAndView("/user/bookItemDetail");
+        mv.addObject("bookItem", bookItem);
         return mv;
 
     }

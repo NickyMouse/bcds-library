@@ -161,6 +161,14 @@
 		WHERE id=#value#
 	</select>
 
+	<select id="getBookItemWithAllInfo" parameterClass="java.lang.Integer"
+		resultMap="BookItemWithBookInfoAndReservatioinAndLendResult">
+		SELECT
+		ID,STATE,LOGIN_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
+		FROM BOOK_ITEM
+		WHERE id=#value#
+	</select>
+
 	<select id="listBookItemByBookInfoId" parameterClass="java.lang.Integer"
 		resultMap="BookItemResult">
 		<include refid="selectBookItem" />
@@ -209,7 +217,7 @@
 		LIMIT
 		#skipRows:INTEGER#,#pageSize:INTEGER#
 	</select>
-	
+
 	<select id="countReservatedBooksBySubscriber" parameterClass="string"
 		resultClass="int">
 		SELECT

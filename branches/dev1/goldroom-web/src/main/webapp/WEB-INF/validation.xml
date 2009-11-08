@@ -44,7 +44,6 @@
 			<field property="confirmPassword" depends="required">
 			</field>
 		</form>
-
 		<form name="bookItem">
 			<field property="tags"></field>
 		</form>
@@ -74,12 +73,18 @@
 
 
 		<form name="confirmLending">
-			<field property="reservationId" depends="required">
+			<field property="reservationId" depends="required,integer">
+				<arg0 key="reservationId" resource="false" />
 			</field>
+			<field property="returnTime" depends="required,date">
+				<arg0 key="returnTime" resource="false" />
+			</field>
+
 		</form>
 
 		<form name="returnBookCommand">
 			<field property="lendingId" depends="required">
+				<arg0 key="lendingId" resource="false" />
 			</field>
 		</form>
 

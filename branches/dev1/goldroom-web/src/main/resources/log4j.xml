@@ -24,6 +24,18 @@
 		</layout>
 	</appender>
 
+	<appender name="ErrorAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="logs/error.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<param name="threshold" value="ERROR" />
+		<param name="datePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d  %-5p %c{2} - %m%n" />
+		</layout>
+	</appender>
+
 	<logger name="com.ibatis.common.jdbc.SimpleDataSource"
 		additivity="false">
 		<level value="DEBUG" />
@@ -72,8 +84,8 @@
 
 
 	<root>
-		<level value="" />
-		<appender-ref ref="ConsoleAppender" />
+		<level value="ERROR" />
+		<appender-ref ref="ErrorAppender" />
 	</root>
 
 

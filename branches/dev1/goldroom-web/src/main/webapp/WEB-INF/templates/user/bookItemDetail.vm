@@ -1,41 +1,21 @@
-<script type="text/javascript" src="$SERVER_NAME/js/datePicker.js"></script>
+#if($bookItem)
+#set($bookInfo=$bookItem.bookInfo)
+#parse("widget/bookInfoDetail.vm")
 
-#parse("widget/pageNav.vm")
 <table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
 	<tbody>
-		<tr height="15px" valign="middle"><td>&nbsp;&nbsp;&nbsp;&nbsp;
-		<select id="stateFilter" onchange="javascript:changeFilter();">
-			<option value="">全部</option>
-			<option value="idle" #if($state &&$state.equals("idle"))selected="true"#end>闲置</option>
-			<option value="reservated" #if($state &&$state.equals("reservated"))selected="true"#end>被预约</option>
-			<option value="lended" #if($state &&$state.equals("lended"))selected="true"#end>被借阅</option>
-			<option value="unavailable" #if($state &&$state.equals("unavailable"))selected="true"#end>已下架</option>
-		</select>
-		</td></tr>
-		#foreach($bookItem in $bookItemList)
-		<tr height="170" valign="middle">
+	<tr height="170" valign="middle">
 			<td class="lines" align="left" valign="middle">
 
 				<div onmouseover="javascript:this.style.background='#F7F7F7'" onmouseout="javascript:this.style.background=''" style="width=100%;">
 					<table>
 					<tr  valign="middle">
 						<td width="150px" align="center">
-							<a href="$SERVER_NAME/user/bookItemDetail.htm?id=$!{bookItem.id}" title="" target="_blank">
-								#if($bookItem.bookInfo.imgUrl && !$bookItem.bookInfo.getImgUrl().equals(""))
-									<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$bookItem.bookInfo.ImgUrl"/>
-								#else
-									<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
-								#end
+							<a href="$SERVER_NAME/user/bookDetail.htm?id=$!{bookItem.bookInfo.id}" title="" target="_blank">
+								书本编号：$!{bookItem.id}
 							</a>
 						</td>
 						<td width="300px" valign="top" style="font-size:16px; color:#89A945;">
-							<h2>
-							<a href="$SERVER_NAME/user/bookItemDetail.htm?id=$!{bookItem.id}" title="" target="_blank">
-								$!{bookItem.bookInfo.name}
-							</a></h2>
-							作　　者：$bookItem.bookInfo.author  <br/>
-							ＩＳＢＮ：$bookItem.bookInfo.isbn  <br/>
-							版　　本：$bookItem.bookInfo.edition	 <br/>
 							上架日期：$dateTool.format("yyyy-MM-dd",$bookItem.addTime)  <br/>
 							
 						</td>
@@ -125,11 +105,8 @@
 			</td>
 			
 		</tr>
-		#end
-</tbody>
+		</tbody>
 </table>
-
-#parse("widget/pageNav.vm")
 <form action="/user/confirmLend.htm" name="confirmLendForm" method="POST">
 	<input type="hidden" name="reservationId" />
 	##<input type="hidden" name="returnTime"/>
@@ -186,8 +163,6 @@ function reputOnShelves(bookItemId, bookName){
 	}
 }
 
-function changeFilter(){	
-	window.location.href="$SERVER_NAME/user/myBooks.htm?state=" + document.getElementById("stateFilter").value;;
-}
 -->
 </script>
+#end

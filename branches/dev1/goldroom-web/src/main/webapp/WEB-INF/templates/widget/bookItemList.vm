@@ -1,4 +1,6 @@
 <script type="text/javascript" src="$SERVER_NAME/js/datePicker.js"></script> 
+##springBind("confirmLending.*")
+##springBind("returnBookCommand.*")
 <table style="width: 80%;margin:auto;">
 	<tr>
 		<td></td>
@@ -53,8 +55,19 @@
 <script>
 <!--
 function confirmLend(reservationId){
+	var returnTimeStr=document.getElementById("returnTime_"+reservationId).value;
+	if(returnTime=="")
+		{
+		alert("输入时间");
+		return;
+	}
+	var returnTime=new Date(returnTimeStr.replace(/-/g,"/"));
+	if(returnTime<new Date()){
+		alert("归还时间需大于当前时间");
+		return;
+		}
 	document.confirmLendForm.reservationId.value=reservationId;
-	document.confirmLendForm.returnTime.value=document.getElementById("returnTime_"+reservationId).value;
+	document.confirmLendForm.returnTime.value=returnTimeStr;
 	document.confirmLendForm.submit();
 }
 

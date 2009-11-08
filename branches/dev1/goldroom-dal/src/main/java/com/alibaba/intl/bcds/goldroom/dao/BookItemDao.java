@@ -99,4 +99,6 @@ public interface BookItemDao {
      */
     int countBookItemsByLoginIdAndState(String owner, String state);
 
+    BookItem getBookItemWithAllInfo(int bookItemId);
+
 }
