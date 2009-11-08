@@ -95,25 +95,13 @@
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="messages" />
 	</bean>
-
-<!-- 
-	<bean id="exceptionResolver"
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="exceptionMappings">
-			<props>
-				<prop key="java.lang.Exception">friendlyError</prop>
-			</props>
-		</property>
-	</bean> -->
 	<!--
-		<bean id="sampleController"
-		class="com.alibaba.intl.bcds.goldroom.web.sample.SampleController">
-		<property name="validator" ref="validator" /> <property
-		name="formView" value="user" /> <property name="commandName"
-		value="user" /> <property name="commandClass"
-		value="com.alibaba.intl.bcds.goldroom.sample.User" /> </bean>
+		<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings"> <props> <prop
+		key="java.lang.Exception">friendlyError</prop> </props> </property>
+		</bean>
 	-->
-
 
 	<bean name="/searchBookDetail.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.search.SearchBookDetailController" />
@@ -160,14 +148,14 @@
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.dataobject.Member" />
 	</bean>
-	
+
 	<bean name="/user/userInfoModify.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.UserInfoModifyController">
 		<property name="commandName" value="userInfoCommand" />
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.web.command.UserInfoCommand" />
 		<property name="successView" value="redirect:/home.htm" />
-	</bean> 
+	</bean>
 	<bean name="/user/approveUser.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.ApproveUserController">
 		<property name="formView" value="user/approveUser" />

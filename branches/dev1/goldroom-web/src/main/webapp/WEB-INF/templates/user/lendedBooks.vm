@@ -1,10 +1,10 @@
-<h1>我要还书 <font size="2"><a href="http://127.0.0.1:8080/faq/index.htm#return">如何归还？</a></font></h1>
+<h1>我要还书 <font size="2"><a href="$SERVER_NAME/faq/index.htm#return">如何归还？</a></font></h1>
 #parse("widget/pageNav.vm")
 <table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
 	<tbody>
 		#if($bookItemList && $bookItemList.size()==0)
 			<tr height="50" valign="middle"><td align="center">
-			暂无借阅书籍，<a href="$SERVER_NAME/allBook.htm">寻找自己需要的书籍</a>。<a href="http://127.0.0.1:8080/faq/index.htm#lend">如何借阅？</a>			
+			暂无借阅书籍，<a href="$SERVER_NAME/allBook.htm">寻找自己需要的书籍</a>。<a href="$SERVER_NAME/faq/index.htm#lend">如何借阅？</a>			
 			</td></tr>
 		#end
 		#foreach($bookItem in $bookItemList)
@@ -48,8 +48,6 @@
 							借阅时间：$!dateTool.format("yyyy-MM-dd",$bookItem.lending.lendTime)
 							<br/>
 							归还时间：$!dateTool.format("yyyy-MM-dd",$bookItem.lending.returnTime)
-							<br/>
-							拥&nbsp;有&nbsp;者&nbsp;：$bookItem.loginId
 						</td>
     				</tr>
 					</table>		

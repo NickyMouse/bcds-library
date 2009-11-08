@@ -8,7 +8,7 @@
 	<tbody>
 		#if($bookItemList && $bookItemList.size()==0)
 			<tr height="50" valign="middle"><td align="center">
-			暂无预约书籍，<a href="$SERVER_NAME/allBook.htm">寻找自己需要的书籍</a>。<a href="http://127.0.0.1:8080/faq/index.htm#lend">如何预约书籍？</a>			
+			暂无预约书籍，<a href="$SERVER_NAME/allBook.htm">寻找自己需要的书籍</a>。<a href="$SERVER_NAME/faq/index.htm#lend">如何预约书籍？</a>			
 			</td></tr>
 		#end
 		#foreach($bookItem in $bookItemList)
