@@ -138,10 +138,29 @@ public class BookSearchServiceImpl implements BookSearchService {
 	}
 
 	public BookSearchQueryObject listAllBook(Integer skipResult, Integer number) {
-		SearchConditionBuilder builder = SearchConditionBuilder.getInstance().addDateRange(BookSearchConstrains.ITEM_FIRST_ADD_TIME, new Date(0), new Date());
-				
+		SearchConditionBuilder builder = SearchConditionBuilder.getInstance()
+				.addDateRange(BookSearchConstrains.ITEM_FIRST_ADD_TIME,
+						new Date(0), new Date());
+
 		BookSearchQueryObject query = BookSearchQueryObject
 				.getInstance(builder).setN(number).setSkipResult(skipResult)
+				.setPrimarySortFiled(BookSearchConstrains.ITEM_FIRST_ADD_TIME)
+				.setReverse(true);
+		bookSearchDao.searchByQuery(query);
+		return query;
+	}
+
+	public BookSearchQueryObject searchBookByInfoIds(List<Integer> infoIdlist) {
+		if(infoIdlist == null || infoIdlist.size() == 0){
+			return BookSearchQueryObject.EMPTY_RESULT;
+		}
+			
+		SearchConditionBuilder builder = SearchConditionBuilder.getInstance();
+		for (Integer id : infoIdlist) {
+			builder.addTerm(BookSearchConstrains.BOOK_INFO_ID, id.toString());
+		}
+		BookSearchQueryObject query = BookSearchQueryObject
+				.getInstance(builder).setN(infoIdlist.size()).setSkipResult(0)
 				.setPrimarySortFiled(BookSearchConstrains.ITEM_FIRST_ADD_TIME)
 				.setReverse(true);
 		bookSearchDao.searchByQuery(query);

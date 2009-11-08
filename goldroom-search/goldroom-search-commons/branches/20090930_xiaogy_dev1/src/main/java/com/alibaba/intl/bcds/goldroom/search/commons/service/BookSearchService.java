@@ -1,6 +1,7 @@
 package com.alibaba.intl.bcds.goldroom.search.commons.service;
 
 import java.util.Date;
+import java.util.List;
 
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearch;
 import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchOption;
@@ -22,4 +23,6 @@ public interface BookSearchService {
 			Integer skipResult, Integer number);
 
 	public BookSearchQueryObject listAllBook(Integer skipResult, Integer number);
+	
+	public BookSearchQueryObject searchBookByInfoIds(List<Integer> infoIdlist);
 }
