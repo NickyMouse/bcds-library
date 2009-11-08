@@ -14,12 +14,18 @@ import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearch;
 import com.alibaba.intl.bcds.goldroom.search.commons.service.BookSearchService;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 import com.alibaba.intl.bcds.goldroom.service.MemberService;
+import com.alibaba.intl.bcds.goldroom.web.utils.StatisticsCache;
 
 @SuppressWarnings("unchecked")
 public class SearchBookDetailController extends AbstractController {
 	private BookItemService bookItemService;
 	private BookSearchService bookSearchService;
 	private MemberService memberService;
+	private StatisticsCache statisticsCache;
+
+	public void setStatisticsCache(StatisticsCache statisticsCache) {
+		this.statisticsCache = statisticsCache;
+	}
 
 	public void setBookSearchService(BookSearchService bookSearchService) {
 		this.bookSearchService = bookSearchService;
@@ -42,7 +48,7 @@ public class SearchBookDetailController extends AbstractController {
 				.valueOf(request.getParameter("showOwners"));
 		BookSearch bookSearchInfo = bookSearchService
 				.searchBookByInfoId(new Integer(bookInfoId));
-		if(bookSearchInfo == null){
+		if (bookSearchInfo == null) {
 			return new ModelAndView("friendlyError");
 		}
 		ModelAndView mv = new ModelAndView("searchBookDetail");
@@ -58,6 +64,7 @@ public class SearchBookDetailController extends AbstractController {
 			if (memberIds.size() > 0) {
 				memberInfoList = memberService.listMemberByLoginIds(memberIds);
 			}
+			statisticsCache.addOne(bookInfoId);
 			mv.addObject("bookItemList", bookItemList);
 			mv.addObject("ownerInfoList", memberInfoList);
 		}
