@@ -143,7 +143,7 @@
 
 	<bean name="/user/applyUser.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.ApplyUserController">
-		<property name="successView" value="redirect:/home.htm" />
+		<property name="successView" value="redirect:/resources/applyUserSuccess.htm" />
 		<property name="commandName" value="member" />
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.dataobject.Member" />
