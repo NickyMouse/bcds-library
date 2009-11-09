@@ -9,7 +9,7 @@
       <td colspan="2" align="center"><h1>$bookSearchInfo.bookName</h1></td>
     </tr>
     <tr>
-      <td width="300" align="right">
+      <td width="300" align="right" valign="top">
 		#if($bookSearchInfo.bookImgUrl && !$bookSearchInfo.getBookImgUrl().equals(""))
 			<img id="bookCoverImage" class="detailBookImage" src="$UPLOAD_IMAGE_PATH/$bookSearchInfo.bookImgUrl"/>
 		#else
