@@ -99,7 +99,7 @@ function check()
 	}
 	document.applyForm.password.value = hex_md5(document.applyForm.password.value);
 	document.applyForm.confirm.value = hex_md5(document.applyForm.confirm.value);*/
-	alert("go");
+	
 	document.applyForm.submit();
 }
 </script>
