@@ -8,7 +8,10 @@
                                 <td class="boxlogin" valign="top" align="left"><font color="#75A413">用户名</font>
                                     <input type="text" name="j_username" id="username" class="logintxtbox"/>
                                     <font color="#75A413">密　码 </font><input   id="password" type="password" name="j_password" class="logintxtbox"/>
-                                    <input type="checkbox" name="_spring_security_remember_me" id="spring_security_remember_me"/>
+                                    #if($request.getParameter("error"))
+                                        <font color="red" size="2">登录失败，请输入正确的用户名和密码</font><br/>
+									#end
+									<input type="checkbox" name="_spring_security_remember_me" id="spring_security_remember_me"/>
 									<lable for="spring_security_remember_me"><font color="#999999" size="2">在这台电脑上记住我</font></lable>
 									<br/>
 									<input type="submit" value="登录" />&nbsp;&nbsp;&nbsp;
