@@ -11,7 +11,7 @@
 
 	<insert id="insert" parameterClass="MemberRole">
 		insert into MEMBER_ROLE (
-		member_id, role_id)
+		MEMBER_ID, ROLE_ID)
 		values
 		(#memberId:INTEGER#,
 		#roleId:INTEGER#)
