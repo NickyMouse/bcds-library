@@ -67,7 +67,7 @@
 <script LANGUAGE="javascript">
 function check()
 {
-	/**if (document.applyForm.name.value == ""){
+	if (document.applyForm.name.value == ""){
 		alert("请填写您的用户名！");
 		document.form1.name.focus();
 		return (false);
@@ -98,7 +98,7 @@ function check()
 		return (false);
 	}
 	document.applyForm.password.value = hex_md5(document.applyForm.password.value);
-	document.applyForm.confirm.value = hex_md5(document.applyForm.confirm.value);*/
+	document.applyForm.confirm.value = hex_md5(document.applyForm.confirm.value);
 	
 	document.applyForm.submit();
 }
