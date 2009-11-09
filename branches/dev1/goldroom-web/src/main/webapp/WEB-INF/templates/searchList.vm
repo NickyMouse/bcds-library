@@ -13,7 +13,7 @@
 					<table>
 					<tr  valign="middle">
 						<td width="150px" align="center">
-							<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId" title="" target="_blank">
+							<a href="$SERVER_NAME/searchBookDetail.htm?id=${book.bookInfoId}&showOwners=true" title="" target="_blank">
 								#if($book.bookImgUrl && !$book.getBookImgUrl().equals(""))
 									<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/>
 								#else
@@ -23,7 +23,7 @@
 						</td>
 						<td width="700px" valign="top" style="font-size:16px; color:#89A945;">
 							<h2>
-							<a href="$SERVER_NAME/searchBookDetail.htm?id=$book.bookInfoId" title="" target="_blank">
+							<a href="$SERVER_NAME/searchBookDetail.htm?id=${book.bookInfoId}&showOwners=true" title="" target="_blank">
 								$book.bookName
 							</a></h2>
 							作　　者：$book.bookAuthor  <br/>
