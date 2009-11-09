@@ -10,11 +10,10 @@
 	</resultMap>
 
 	<insert id="insert" parameterClass="MemberRole">
-		insert into member_role (ID,
+		insert into member_role (
 		member_id, role_id)
 		values
-		(#id:INTEGER#,
-		#memberId:INTEGER#,
+		(#memberId:INTEGER#,
 		#roleId:INTEGER#)
 	</insert>
 
