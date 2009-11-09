@@ -23,11 +23,9 @@ import com.alibaba.intl.bcds.goldroom.web.utils.MemberInfoCache;
 public class ApproveUserController extends SimpleFormController {
 
     MemberService memberService;
-    private MemberInfoCache mebmerInfoCache;
+    private MemberInfoCache memberInfoCache;
 
-	public void setMebmerInfoCache(MemberInfoCache mebmerInfoCache) {
-		this.mebmerInfoCache = mebmerInfoCache;
-	}
+	
 	
     public void setMemberService(MemberService memberService) {
         this.memberService = memberService;
@@ -48,7 +46,7 @@ public class ApproveUserController extends SimpleFormController {
             throw new RuntimeException("status is not in enum");
         }
         if (result.isSuccess()) {
-        	mebmerInfoCache.reBuild();
+        	memberInfoCache.reBuild();
         	return new ModelAndView(getSuccessView());
         }
         else return new ModelAndView("lendError");
@@ -62,6 +60,12 @@ public class ApproveUserController extends SimpleFormController {
         controlModel.put("members", members);
         return super.showForm(request, response, errors, controlModel);
     }
+
+	public void setMemberInfoCache(MemberInfoCache memberInfoCache) {
+		this.memberInfoCache = memberInfoCache;
+	}
+
+	
 
 
 }

@@ -1,6 +1,6 @@
 <script src="$SERVER_NAME/js/md5-min.js"></script>
 <table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0"><tr><td align="center">
-<form action="/user/applyUser.htm" method="POST" name="applyForm">
+<form action="/user/applyUser.htm" method="POST" name="applyForm" id="applyForm">
 	<table width="80%" cellspacing="0">
 		<tr>
 			#springBind("member.loginId")
