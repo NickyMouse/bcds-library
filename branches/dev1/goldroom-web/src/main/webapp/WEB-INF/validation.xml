@@ -76,10 +76,6 @@
 			<field property="reservationId" depends="required,integer">
 				<arg0 key="reservationId" resource="false" />
 			</field>
-			<field property="returnTime" depends="required,date">
-				<arg0 key="returnTime" resource="false" />
-			</field>
-
 		</form>
 
 		<form name="returnBookCommand">
