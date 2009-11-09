@@ -123,6 +123,13 @@ public class ApplyUser {
     }
 
     public Member toMember() {
-        return null;
+    	Member member = new Member();
+    	member.setLoginId(this.loginId);
+    	member.setAliTalkId(aliTalkId);
+    	member.setName(name);
+    	member.setPassword(password);
+    	member.setWorkId(workId);
+    	member.setEmail(email);
+        return member;
     }
 }

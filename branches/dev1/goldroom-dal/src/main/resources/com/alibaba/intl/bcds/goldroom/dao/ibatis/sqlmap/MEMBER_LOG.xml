@@ -14,10 +14,10 @@
 
 	<insert id="insert" parameterClass="MemberLog">
 		insert into MEMBER_LOG
-		(ID,GMT_CREATE,GMT_MODIFIED,
+		(GMT_CREATE,GMT_MODIFIED,
 		MEMBER_ID, LOG_TYPE,LOG_MSG)
 		values
-		(#id:INTEGER#, NOW(),
+		(NOW(),
 		NOW(),
 		#memberId:INTEGER#,
 		#logType:VARCHAR#,#logMsg:VARCHAR#)
