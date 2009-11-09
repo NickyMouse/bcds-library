@@ -4,7 +4,7 @@
       <td colspan="2" align="center"><h1>$bookInfo.name</h1></td>
     </tr>
     <tr>
-      <td width="300" align="right">
+      <td width="300" align="right" valign="top">
 		#if($bookInfo.imgUrl && !$bookInfo.getImgUrl().equals(""))
 			<img id="bookCoverImage" class="detailBookImage" src="$UPLOAD_IMAGE_PATH/$bookInfo.imgUrl"/>
 		#else
