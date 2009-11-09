@@ -68,7 +68,7 @@ public class MemberServiceImpl implements MemberService {
 			log.setLogType(MemberLogType.APPLY.getIntValue());
 			memberLogDAO.insert(log);
 			return Result.SUCCESS;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			return new Result(false);
 		}
 
