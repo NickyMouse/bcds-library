@@ -90,5 +90,5 @@
 </table>
 <script>
 
-new Calendar({ publishTime: 'Y-m-d' }, { direction: 1, tweak: {x: 6, y: 0} });
+new Calendar({ publishTime: 'Y-m-d' }, { direction: 0, tweak: {x: 6, y: 0} });
 </script>
