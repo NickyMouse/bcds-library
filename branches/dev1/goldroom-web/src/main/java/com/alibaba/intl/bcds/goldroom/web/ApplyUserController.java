@@ -3,9 +3,9 @@ package com.alibaba.intl.bcds.goldroom.web;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.service.MemberService;
 import com.alibaba.intl.bcds.goldroom.service.result.Result;
+import com.alibaba.intl.bcds.goldroom.web.command.ApplyUser;
 
 public class ApplyUserController extends SimpleFormController {
 
@@ -17,9 +17,8 @@ public class ApplyUserController extends SimpleFormController {
 
     @Override
     protected ModelAndView onSubmit(Object command) throws Exception {
-        Member member = (Member) command;
-        member.getPassword();
-        Result result = memberService.applyMember(member);
+        ApplyUser memberCommand = (ApplyUser) command;
+        Result result = memberService.applyMember(memberCommand.toMember());
         if (result.isSuccess()) {
             return new ModelAndView(getSuccessView());
         }

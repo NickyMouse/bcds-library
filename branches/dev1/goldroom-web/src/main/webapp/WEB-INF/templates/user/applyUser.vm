@@ -3,44 +3,52 @@
 <form action="/user/applyUser.htm" method="POST" name="applyForm" id="applyForm">
 	<table width="80%" cellspacing="0">
 		<tr>
-			#springBind("member.loginId")
+			#springBind("applyUser.loginId")
 			<td align="right">登录名：</td>
-			<td>#springFormInput("member.loginId" 'size="30" maxlength="45"')
+			<td>#springFormInput("applyUser.loginId" 'size="30" maxlength="45"')
 				<font color="red">* 登录名用于登录系统的时候输入</font>
 			#validationError()
 			</td>
 		</tr>
 		<tr>
-			#springBind("member.name")
+			#springBind("applyUser.name")
 			<td align="right">真实姓名：</td>
-			<td>#springFormInput("member.name" 'size="30" maxlength="45"')
+			<td>#springFormInput("applyUser.name" 'size="30" maxlength="45"')
 				<font color="red">* 请输入您的真实姓名</font>
 			#validationError()
 			</td>
 		</tr>
 		<tr>
-			#springBind("member.password")
+			#springBind("applyUser.password")
 			<td align="right">密码：</td>
-			<td><input type = "password" name="password" id="password" size="31"/><font color="red">*</font></td>
+			<td><input type = "password" name="password" id="password" size="31"/><font color="red">*</font>
 			#validationError()
+			</td>
 		</tr>
 		<tr >
+			#springBind("applyUser.confirmPassword")
             <td align="right">重复输入密码：</td>
-			<td><input type="password" name="confirm" id="confirm" size="31"/><font color="red">*</font></td>
+			<td><input type="password" name="confirmPassword" id="confirm" size="31"/><font color="red">*</font>
+			#validationError()</td>
         </tr>
 		<tr>
-			#springBind("member.email")
+			#springBind("applyUser.email")
 			<td align="right">邮箱地址：</td>
-			<td><input type = "text" name="email" size="30"/><font color="red">*</font></td>
+			<td>#springFormInput("applyUser.email" 'size="30" maxlength="45"')<font color="red">*</font>
 			#validationError()
+			</td>
 		</tr>
 		<tr>
+				#springBind("applyUser.aliTalkId")
 			<td align="right">贸易通ID：</td>
-			<td><input type = "text" name="aliTalkId" size="30"/><font color="red">*</font></td>
+			<td>#springFormInput("applyUser.aliTalkId" 'size="30" maxlength="45"')<font color="red">*</font>
+				#validationError()</td>
 		</tr>
 		<tr>
+			#springBind("applyUser.workId")
 			<td align="right">工号：</td>
-			<td><input type = "text" name="workId" size="30"/><font color="red">*</font></td>
+			<td>#springFormInput("applyUser.workId" 'size="30" maxlength="45"')<font color="red">*</font>
+			#validationError()</td>
 		</tr>
 		<tr><td></td><td  align="left">
 			<table onClick="javascript:check();" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
@@ -59,7 +67,7 @@
 <script LANGUAGE="javascript">
 function check()
 {
-	if (document.applyForm.name.value == ""){
+	/**if (document.applyForm.name.value == ""){
 		alert("请填写您的用户名！");
 		document.form1.name.focus();
 		return (false);
@@ -90,7 +98,7 @@ function check()
 		return (false);
 	}
 	document.applyForm.password.value = hex_md5(document.applyForm.password.value);
-	document.applyForm.confirm.value = hex_md5(document.applyForm.confirm.value);
+	document.applyForm.confirm.value = hex_md5(document.applyForm.confirm.value);*/
 	document.applyForm.submit();
 }
 </script>
