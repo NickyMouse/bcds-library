@@ -49,7 +49,7 @@ public class SearchBookDetailController extends AbstractController {
 		BookSearch bookSearchInfo = bookSearchService
 				.searchBookByInfoId(new Integer(bookInfoId));
 		if (bookSearchInfo == null) {
-			return new ModelAndView("friendlyError");
+			return new ModelAndView("/resources/bookNotFound");
 		}
 		ModelAndView mv = new ModelAndView("searchBookDetail");
 		mv.addObject("bookSearchInfo", bookSearchInfo);

@@ -34,9 +34,6 @@ public class HomeController extends AbstractController {
 				new Date(), 0, 5).getResultList();
 		List popularBookList = bookSearchService.searchBookByInfoIds(
 				statisticsCache.getPopularBookInfoIds()).getResultList();
-		if (popularBookList.size() < 5) {
-			popularBookList.addAll(popularBookList.size(), newBookList);
-		}
 		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("newBookList", newBookList);
 		modelAndView.addObject("popularBookList", popularBookList);

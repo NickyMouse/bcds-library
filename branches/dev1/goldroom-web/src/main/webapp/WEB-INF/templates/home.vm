@@ -23,6 +23,7 @@
                 </tr>
             </table>
         <br/><br/>
+		#if($popularBookList && $popularBookList.size()>0)
         <h2>最受欢迎的书籍</h2>
 			<table align="center">
             	<tr>
@@ -42,6 +43,7 @@
 				#end
                 </tr>
             </table>
+		#end
 	</td>
 	<td width="80" valign="top">
 	</td>
