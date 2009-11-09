@@ -95,13 +95,16 @@
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="messages" />
 	</bean>
-	<!--
-		<bean id="exceptionResolver"
+
+	<bean id="exceptionResolver"
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="exceptionMappings"> <props> <prop
-		key="java.lang.Exception">friendlyError</prop> </props> </property>
-		</bean>
-	-->
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">friendlyError</prop>
+			</props>
+		</property>
+	</bean>
+
 
 	<bean name="/searchBookDetail.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.search.SearchBookDetailController" />
@@ -223,5 +226,6 @@
 	<bean name="/allBook.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.search.AllBookController">
 	</bean>
-	<bean name="/user/deleteBookItem.htm" class="com.alibaba.intl.bcds.goldroom.web.DeleteBookItemController"/>
+	<bean name="/user/deleteBookItem.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.DeleteBookItemController" />
 </beans>
