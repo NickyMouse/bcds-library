@@ -23,6 +23,6 @@ public class ApplyUserController extends SimpleFormController {
         if (result.isSuccess()) {
             return new ModelAndView(getSuccessView());
         }
-        return new ModelAndView("returnError");
+        return new ModelAndView("/resources/applyUserFailed");
     }
 }
