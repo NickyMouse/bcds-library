@@ -154,4 +154,10 @@ public interface BookItemService {
     Result reputOnShelves(int bookItemId, String currentUser);
 
     BookItem getBookDetailByIdAndOwner(String owner, int bookItemId);
+
+    /**
+     * @param id
+     * @param string 
+     */
+    void deleteBookItem(int id, String string);
 }
