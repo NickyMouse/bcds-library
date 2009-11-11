@@ -54,7 +54,8 @@
 			 <tr valign="top">
 			  #springBind("bookInfo.publishTime")
               <td align="right">出版时间：&nbsp;&nbsp; </td>
-              <td >#springFormInput("bookInfo.publishTime" 'size="45" maxlength="45" readonly="true"')
+              <td >#parse("widget/yearMonthSelector.vm")
+				#springFormHiddenInput("bookInfo.publishTime" 'size="45" maxlength="45" readonly="true"')
               #validationError()
               </td>
             </tr>
@@ -76,19 +77,16 @@
             <tr valign="top">
               <td colspan="2" align="center"><input type="button" value="取　消" onclick="window.location.href='$SERVER_NAME/home.htm'"/>
                 &nbsp;&nbsp;
-                <input name="submit" type="submit" value="下一步"/>
+                <input name="submit" type="submit" value="下一步" onclick="javascript:getYearMonthDay('publishTime')"/>
               </td>
             </tr>
 			
 			<input type="hidden" name="imgUrl" id="imgUrl" value="$!imgSrc"/>
 			
 			</form>
+		
           </table>
         </td>
     </tr>
   </tbody>
 </table>
-<script>
-
-new Calendar({ publishTime: 'Y-m-d' }, { direction: 0, tweak: {x: 6, y: 0} });
-</script>

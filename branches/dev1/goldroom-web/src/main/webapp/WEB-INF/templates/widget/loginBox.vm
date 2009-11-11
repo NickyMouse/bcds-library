@@ -9,7 +9,7 @@
                                     <input type="text" name="j_username" id="username" class="logintxtbox"/>
                                     <font color="#75A413">密　码 </font><input   id="password" type="password" name="j_password" class="logintxtbox"/>
                                     #if($request.getParameter("error"))
-                                        <font color="red" size="2">登录失败，请输入正确的用户名和密码</font><br/>
+                                        <font color="red" size="2">登录失败，请输入正确的用户名和密码，用户名与密码都是区分大小写的</font><br/>
 									#end
 									<input type="checkbox" name="_spring_security_remember_me" id="spring_security_remember_me"/>
 									<lable for="spring_security_remember_me"><font color="#999999" size="2">在这台电脑上记住我</font></lable>
