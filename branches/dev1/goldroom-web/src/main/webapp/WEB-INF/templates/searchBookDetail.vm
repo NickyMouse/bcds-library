@@ -35,7 +35,7 @@
           </tr>
           <tr>
             <td align="right">出版时间:&nbsp;&nbsp;</td>
-            <td align="left">$dateTool.format("yyyy-MM-dd",$bookSearchInfo.bookPublishTime)</td>
+            <td align="left">$dateTool.format("yyyy-MM",$bookSearchInfo.bookPublishTime)</td>
           </tr>
           <tr>
             <td align="right">版次:&nbsp;&nbsp;</td>

@@ -1,5 +1,4 @@
 <h1>我的书籍</h1>
-<script type="text/javascript" src="$SERVER_NAME/js/datePicker.js"></script>
 
 #parse("widget/pageNav.vm")
 <table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
