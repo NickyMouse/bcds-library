@@ -1,8 +1,11 @@
 <script src="$SERVER_NAME/js/md5-min.js"></script>
 <script>
-	function isCorrectInput(str) {
+	function isCorrectInput(str) {		
 		for(var i = 0; i < str.length; i++) {
-			if(!((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_')) {
+			if((str.charAt(i) >= '0' && str.charAt(i) <= '9') || (str.charAt(i) >= 'a' && str.charAt(i) <= 'z') || (str.charAt(i) >= 'A' && str.charAt(i) <= 'Z') || str.charAt(i) == '_') {
+				continue;
+			}
+			else {
 				return false;
 			}
 		}
