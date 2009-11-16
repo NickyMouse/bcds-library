@@ -56,6 +56,6 @@
 
 	<insert id="copyLendingToLog" parameterClass="java.lang.Integer">
 		insert into
-		LENDING_LOG (select * from lending where id = #value:DECIMAL#)
+		LENDING_LOG (select * from LENDING where id = #value:DECIMAL#)
 	</insert>
 </sqlMap>
