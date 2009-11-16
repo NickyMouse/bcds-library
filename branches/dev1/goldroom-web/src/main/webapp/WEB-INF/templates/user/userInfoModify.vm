@@ -1,6 +1,6 @@
 <script src="$SERVER_NAME/js/md5-min.js"></script>
 <script>
-	function isCorrectInput(var str) {
+	function isCorrectInput(str) {
 		for(var i = 0; i < str.length; i++) {
 			if(!((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_')) {
 				return false;
@@ -28,17 +28,17 @@
 			document.getElementById("confirmPassword").focus();
 			return false;
 		}
-		if(isCorrectInput(oldPassword)) {
+		if(!isCorrectInput(oldPassword)) {
 			alert("密码只能由英文字母、数字或下划线组成");
 			document.getElementById("oldPassword").focus();
 			return false;
 		}
-		if(isCorrectInput(newPassword)) {
+		if(!isCorrectInput(newPassword)) {
 			alert("密码只能由英文字母、数字或下划线组成");
 			document.getElementById("newPassword").focus();
 			return false;
 		}
-		if(isCorrectInput(confirmPassword)) {
+		if(!isCorrectInput(confirmPassword)) {
 			alert("密码只能由英文字母、数字或下划线组成");
 			document.getElementById("confirmPassword").focus();
 			return false;
