@@ -1,0 +1,84 @@
+= 1.安装需要的工具 =
+||jdk1.6||http://java.sun.com||
+||maven2||http://maven.apache.org||
+||tomcat6||http://tomcat.apache.org||
+||mysql||http://dev.mysql.com||
+
+= 2.配置环境变量 =
+ * java
+  ** 配置JAVA_HOME到JDK安装目录，配置CLASSPATH，PATH等变量
+ * Maven
+  ** 配置M2_HOME到MAVEN安装目录
+  ** 添加PATH到M2_HOME/bin
+ * Tomca
+  ** 配置CATELINA_HOME到tomcat安装目录
+
+= 3.从SVN上签出项目 =
+
+目前项目共有三个模块，
+goldroom(网站主模块) goldroom-search-builder(建立搜索引挚索引)，goldroom-search-commons(搜索引挚调用依赖)
+goldroom-search-builder在开发过程不是必须的，除非你需要修改搜索引挚索引的建立规则
+各个模块如下co 代码（示例是主干的，开发请改成开发分支）
+{{{
+ svn co https://bcds-library.googlecode.com/svn/trunk/ goldroom
+ mkdir goldroom-search
+ cd goldroom-search
+ svn co https://bcds-library.googlecode.com/svn/goldroom-search/goldroom-search-builder/trunk  goldroom-search-builder
+ svn co https://bcds-library.googlecode.com/svn/goldroom-search/goldroom-search-commons/trunk  goldroom-search-commons
+}}}
+
+
+也可以签出http路径下的代码，但不能提交，需要提交代码权限请先向zimmem申请权限并co https的代码。
+  
+= 4. 编译程序 =
+
+ * 请ganyi.xiaogy补充goldroom-search-builder搭建过程
+
+ * 编译并把 goldroom-search-commons 发布到本地maven仓库
+{{{
+cd goldroom-search/goldroom-search-commons
+mvn install -Dmaven.test.skip=true
+}}}
+
+ * 编译goldroom
+{{{
+cd goldroom
+mvn clean package -Dmaven.test.skip=true
+}}}
+
+
+编译过程可能会提示找不到依赖包，这里由于maven官方仓库里没有收录我们需要的这些包引起的，把需要的这个jar包已经放在对应模块的den目录下，按照maven给出的提示把jar包安装到本地仓库并重新编译就可以了，有时间会把这个问题解决掉。
+
+加上-Dmaven.test.skip=true主要是为了防止单元测试失败导致编译失败
+
+= 5.运行程序 =
+
+ * 初始化数据库
+  建表sql及部分初始化sql已放在goldroom/sql里
+
+在用户目录下添加goldroom.properties文件并添加如下文件内容
+{{{
+jdbc.driver=org.gjt.mm.mysql.Driver                     #数据库驱动，目前是mysql
+jdbc.url=jdbc:mysql://<数据库所在服务器>/[数据库目称]   #数据库连接地址
+jdbc.username=<数据库用户名>
+jdbc.password=<数据库密码>
+
+goldroom.server.name=<运行tomcat机器的ip及端口，如127.0.0.1:8080>
+
+goldroom.fileupload.path=<上传文件的目录>
+}}}
+
+
+windiow下进入goldroom根目录执行startup.bat
+linux下进入goldroom根目录下执行startup.sh
+
+然后就可以在 http://127.0.0.1:8080/login.htm 登录系统，如果有build数据的话可以在 http://127.0.0.1:8080/home.htm 看到首页
+
+= 6. 如何导入eclipse开发 =
+以goldroom模块为例 
+最简单的方法是安装m2eclipse插件，在eclipse中file->import->maven project选择goldroom根目录下的pom.xml文件
+或者在goldroom根目录下执行
+{{{
+mvn eclipse:clean eclipse:eclipse -Dwtpversion=2.0
+}}}
+再按普通eclipse工程导入eclipse中，并修改eclipse build path中的M2_PRO变量指向maven的本地仓库目录
