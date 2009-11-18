@@ -27,3 +27,41 @@ goldroom-search-builder在开发过程不是必须的，除非你需要修改搜
 }}}
 
   
+= 4. 编译程序 =
+
+ # 请ganyi.xiaogy补充goldroom-search-builder搭建过程
+
+ # 编译并把 goldroom-search-commons 发布到本地maven仓库
+{{{
+cd goldroom-search/goldroom-search-commons
+mvn install -Dmaven.test.skip=true
+}}}
+
+ # 编译goldroom
+{{{
+cd goldroom
+mvn clean package -Dmaven.test.skip=true
+}}}
+
+
+加上-Dmaven.test.skip=true主要是为了防止单元测试失败导致编译失败
+
+= 5.运行程序 =
+
+在用户目录下添加goldroom.properties文件并添加如下文件内容
+{{{
+jdbc.driver=org.gjt.mm.mysql.Driver                     #数据库驱动，目前是mysql
+jdbc.url=jdbc:mysql://<数据库所在服务器>/[数据库目称]   #数据库连接地址
+jdbc.username=<数据库用户名>
+jdbc.password=<数据库密码>
+
+goldroom.server.name=<运行tomcat机器的ip及端口，如127.0.0.1:8080>
+
+goldroom.fileupload.path=<上传文件的目录>
+}}}
+
+
+windiow下进入goldroom根目录执行startup.bat
+linux下进入goldroom根目录下执行startup.sh
+
+然后就可以在http://127.0.0.1:8080/login.htm登录系统，如果有build数据的话可以在http://127.0.0.1:8080/home.htm看到首页
