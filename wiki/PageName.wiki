@@ -12,3 +12,18 @@
  * Tomca
   ** 配置CATELINA_HOME到tomcat安装目录
 
+= 3.从SVN上签出项目 =
+
+目前项目共有三个模块，
+goldroom(网站主模块) goldroom-search-builder(建立搜索引挚索引)，goldroom-search-commons(搜索引挚调用依赖)
+goldroom-search-builder在开发过程不是必须的，除非你需要修改搜索引挚索引的建立规则
+各个模块如下co 代码（示例是主干的，开发请改成开发分支）
+{{{
+ svn co https://bcds-library.googlecode.com/svn/trunk/ goldroom
+ mkdir goldroom-search
+ cd goldroom-search
+ svn co https://bcds-library.googlecode.com/svn/goldroom-search/goldroom-search-builder/trunk  goldroom-search-builder
+ svn co https://bcds-library.googlecode.com/svn/goldroom-search/goldroom-search-commons/trunk  goldroom-search-commons
+}}}
+
+  
