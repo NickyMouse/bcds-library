@@ -2,6 +2,7 @@
 ||jdk1.6||http://java.sun.com||
 ||maven2||http://maven.apache.org||
 ||tomcat6||http://tomcat.apache.org||
+||mysql||http://dev.mysql.com||
 
 = 2.配置环境变量 =
  * java
@@ -26,27 +27,34 @@ goldroom-search-builder在开发过程不是必须的，除非你需要修改搜
  svn co https://bcds-library.googlecode.com/svn/goldroom-search/goldroom-search-commons/trunk  goldroom-search-commons
 }}}
 
+
+也可以签出http路径下的代码，但不能提交，需要提交代码权限请先向zimmem申请权限并co https的代码。
   
 = 4. 编译程序 =
 
- # 请ganyi.xiaogy补充goldroom-search-builder搭建过程
+ * 请ganyi.xiaogy补充goldroom-search-builder搭建过程
 
- # 编译并把 goldroom-search-commons 发布到本地maven仓库
+ * 编译并把 goldroom-search-commons 发布到本地maven仓库
 {{{
 cd goldroom-search/goldroom-search-commons
 mvn install -Dmaven.test.skip=true
 }}}
 
- # 编译goldroom
+ * 编译goldroom
 {{{
 cd goldroom
 mvn clean package -Dmaven.test.skip=true
 }}}
 
 
+编译过程可能会提示找不到依赖包，这里由于maven官方仓库里没有收录我们需要的这些包引起的，把需要的这个jar包已经放在对应模块的den目录下，按照maven给出的提示把jar包安装到本地仓库并重新编译就可以了，有时间会把这个问题解决掉。
+
 加上-Dmaven.test.skip=true主要是为了防止单元测试失败导致编译失败
 
 = 5.运行程序 =
+
+ * 初始化数据库
+  建表sql及部分初始化sql已放在goldroom/sql里
 
 在用户目录下添加goldroom.properties文件并添加如下文件内容
 {{{
