@@ -1,1 +1,2 @@
-上架成功
+<h1>书籍上架</h1>
+上架成功 <a href="$SERVER_NAME/user/myBooks.htm">查看我的书籍</a>

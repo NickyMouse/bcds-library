@@ -18,6 +18,9 @@ package com.alibaba.intl.bcds.goldroom.service;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.service.result.Result;
 
@@ -26,9 +29,10 @@ import com.alibaba.intl.bcds.goldroom.service.result.Result;
  * 
  * @author Zimmem
  */
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public interface BookItemService {
     /**
-     * ����鱾
+     *添加图书
      * 
      * @param bookInfo
      */
@@ -37,7 +41,7 @@ public interface BookItemService {
     /**
      * 新书上架
      * 
-     * @param loginId �û���¼ id
+     * @param loginId
      * @param isbn
      */
     void newShelves(String loginId, String isbn);
@@ -56,7 +60,7 @@ public interface BookItemService {
      * @param loginId
      * @return
      */
-    List<BookItem> listBookItemsByLoginIdAndState(String loginId, String state);
+    Result listBookItemsByLoginIdAndState(String loginId, String state, int page, int pagesize);
 
     /**
      * @param bookInfoId
@@ -68,13 +72,13 @@ public interface BookItemService {
      * @param ownerLoginID
      * @return
      */
-    List<BookItem> listLendedBookItemBySubscriber(String ownerLoginID);
+    Result listLendedBookItemBySubscriber(String ownerLoginID, int page, int pagesize);
 
     /**
      * @param loginId
      * @return
      */
-    List<BookItem> listReservatedBooksBySubscriber(String loginId);
+    Result listReservatedBooksBySubscriber(String loginId, int page, int pagesize);
 
     /**
      * 预约
@@ -82,7 +86,16 @@ public interface BookItemService {
      * @param subscriber
      * @param bookItemId
      */
-    Result reserve(String subscriber, int bookItemId);
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    Result reserve(String subscriber, int bookItemId, Date lendTime, Date returnTime);
+
+    /**
+     * 还书
+     * 
+     * @param lendId
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    Result returnBook(int lendId, String currentUser);
 
     /**
      * 确定借书
@@ -90,14 +103,61 @@ public interface BookItemService {
      * @param reservationId
      * @param lendTime
      * @param returnTime
+     * @param owner
+     * @return
      */
-    Result lend(int reservationId, Date lendTime, Date returnTime);
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    Result lend(int reservationId, Date lendTime, Date returnTime, String currentUser);
 
     /**
-     * 还书
+     * 确定借书
      * 
-     * @param lendId
+     * @param reservationId
+     * @param lendTime
+     * @param returnTime
+     * @param owner
+     * @return
      */
-    Result returnBook(int lendId);
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    Result lend(int reservationId, String currentUser);
 
+    /**
+     * 不起准借阅
+     * 
+     * @param reservationId
+     * @param lendTime
+     * @param returnTime
+     * @param owner
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    Result rejectLend(int reservationId, String currentUser);
+
+    /**
+     * 书籍下架
+     * 
+     * @param bookItemId
+     * @param currentUser
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    Result offShelves(int bookItemId, String currentUser);
+
+    /**
+     * 书籍重新上架
+     * 
+     * @param bookItemId
+     * @param currentUser
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    Result reputOnShelves(int bookItemId, String currentUser);
+
+    BookItem getBookDetailByIdAndOwner(String owner, int bookItemId);
+
+    /**
+     * @param id
+     * @param string 
+     */
+    void deleteBookItem(int id, String string);
 }

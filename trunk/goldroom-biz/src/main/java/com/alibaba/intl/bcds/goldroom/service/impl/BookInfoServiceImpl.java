@@ -18,6 +18,7 @@ package com.alibaba.intl.bcds.goldroom.service.impl;
 import com.alibaba.intl.bcds.goldroom.dao.BookInfoDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
+import com.alibaba.intl.bcds.goldroom.service.result.Result;
 
 /**
  * TODO Comment of BookInfoServiceImpl
@@ -55,9 +56,12 @@ public class BookInfoServiceImpl implements BookInfoService {
      * .alibaba.intl.bcds.goldroom.dataobject.BookInfo)
      */
     @Override
-    public void addBookInfo(BookInfo bookInfo) {
+    public Result addBookInfo(BookInfo bookInfo) {
+        if (bookInfoDao.findBookInfoByIsbn(bookInfo.getIsbn()) != null) {
+            return new Result(false);
+        }
         bookInfoDao.insert(bookInfo);
-
+        return Result.SUCCESS;
     }
 
     /*

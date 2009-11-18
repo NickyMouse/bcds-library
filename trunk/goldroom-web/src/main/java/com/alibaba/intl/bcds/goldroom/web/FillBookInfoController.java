@@ -33,12 +33,14 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
+import com.alibaba.intl.bcds.goldroom.service.result.Result;
 
 /**
  * TODO Comment of FillBookInfoController
  * 
  * @author Zimmem
  */
+@SuppressWarnings("unchecked")
 public class FillBookInfoController extends SimpleFormController {
 
     private BookInfoService bookInfoService;
@@ -51,26 +53,28 @@ public class FillBookInfoController extends SimpleFormController {
     }
 
     @Override
-    protected ModelAndView onSubmit(Object command) throws Exception {
+    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
+                                    Object command, BindException errors) throws Exception {
         BookInfo bookInfo = (BookInfo) command;
-        bookInfoService.addBookInfo(bookInfo);
-        return new ModelAndView("redirect:confirmedShelves.htm", "isbn", bookInfo.getIsbn());
+        Result result = bookInfoService.addBookInfo(bookInfo);
+        if (result.isSuccess()) {
+            return new ModelAndView("redirect:confirmedShelves.htm", "isbn", bookInfo.getIsbn());
+        } else {
+            return showForm(request, response, errors);
+        }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.springframework.web.servlet.mvc.SimpleFormController#showForm(javax
-     * .servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
-     * org.springframework.validation.BindException, java.util.Map)
-     */
     @Override
     protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response,
                                     BindException errors, Map controlModel) throws Exception {
         controlModel = new HashMap();
         String isbn = request.getParameter("isbn");
+        String imgSrc = request.getParameter("imgSrc");
         if (StringUtils.isNotEmpty(isbn)) {
             controlModel.put("isbn", isbn);
+            if (!StringUtils.isEmpty(imgSrc)) {
+                controlModel.put("imgSrc", imgSrc);
+            }
         }
         return super.showForm(request, response, errors, controlModel);
     }

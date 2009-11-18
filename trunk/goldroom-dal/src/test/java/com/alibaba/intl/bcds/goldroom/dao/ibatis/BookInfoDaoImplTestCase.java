@@ -80,7 +80,7 @@ public class BookInfoDaoImplTestCase extends BaseTest {
 
     @Test
     public void testListBookItemsByLoginIdAndState() {
-        List<BookItem> list = bookItemDao.listBookItemsByLoginIdAndState("zhaowen.zhuangzw", null);
+        List<BookItem> list = bookItemDao.listBookItemsByLoginIdAndState("zhaowen.zhuangzw", null, 0, 0);
         assertNotNull(list.get(3).getBookInfo());
         System.out.println(list.get(3).getBookInfo().getName());
     }

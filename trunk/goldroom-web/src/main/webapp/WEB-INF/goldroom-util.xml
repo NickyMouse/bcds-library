@@ -4,7 +4,39 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
 	default-autowire="byName">
 
-	<bean class="com.alibaba.intl.bcds.goldroom.web.utils.CategoryCache"
+	<bean id="categoryCache" class="com.alibaba.intl.bcds.goldroom.web.utils.CategoryCache"
 		init-method="init" lazy-init="false" />
 
+	<bean id="memberInfoCache"
+		class="com.alibaba.intl.bcds.goldroom.web.utils.MemberInfoCache"
+		init-method="init" lazy-init="false" />
+		
+	<bean id="statisticsCache"
+		class="com.alibaba.intl.bcds.goldroom.web.utils.StatisticsCache"
+		init-method="init" lazy-init="false" />
+		
+	<bean id="propertyConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>file:${user.home}/goldroom.properties</value>
+		</property>
+	</bean>
+	<bean id="fileUploadPath" class="java.lang.String">
+		<constructor-arg>
+			<value>${goldroom.fileupload.path}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="serverName" class="java.lang.String">
+		<constructor-arg>
+			<value>http://${goldroom.server.name}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="uploadImagePath" class="java.lang.String">
+		<constructor-arg>
+			<value>http://${goldroom.server.name}/upload</value>
+		</constructor-arg>
+	</bean>
 </beans>
+ 

@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Zimmem
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:goldroom-dal.xml")
+@ContextConfiguration(locations = { "classpath:goldroom-dao-test.xml","classpath:goldroom-dal.xml" })
 public class BaseTest {
 
 }

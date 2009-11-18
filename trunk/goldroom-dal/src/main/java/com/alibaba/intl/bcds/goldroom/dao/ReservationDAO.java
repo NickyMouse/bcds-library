@@ -51,4 +51,25 @@ public interface ReservationDAO {
      * @ibatorgenerated Tue Sep 29 19:05:09 CST 2009
      */
     int updateByPrimaryKey(Reservation record);
+
+    /**
+     * @param reservation
+     */
+    void cutReservationToLog(Reservation reservation);
+    
+    /**
+     * 根据bookItemId 更新借阅的状态
+     * @param bookItemId
+     * @param state
+     */
+    int updateStateByBookItemId(int bookItemId, String state);
+    
+    /**
+     * 根据id 更新借阅的状态
+     * @param bookItemId
+     * @param state
+     */
+    int updateStateById(int reservationId, String state);
+    
+    
 }

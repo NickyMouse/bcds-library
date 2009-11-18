@@ -1,12 +1,9 @@
 package com.alibaba.intl.bcds.goldroom.dao.ibatis;
 
-import java.sql.SQLException;
-
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import com.alibaba.intl.bcds.goldroom.dao.ReservationDAO;
 import com.alibaba.intl.bcds.goldroom.dataobject.Reservation;
-import com.ibatis.sqlmap.client.SqlMapClient;
 
 public class ReservationDAOImpl extends SqlMapClientDaoSupport implements ReservationDAO {
 
@@ -90,4 +87,29 @@ public class ReservationDAOImpl extends SqlMapClientDaoSupport implements Reserv
         return rows;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.dao.ReservationDAO#cutReservationToLog
+     * (com.alibaba.intl.bcds.goldroom.dataobject.Reservation)
+     */
+    @Override
+    public void cutReservationToLog(Reservation reservation) {
+        this.deleteByPrimaryKey(reservation.getId());
+
+    }
+
+    public int updateStateByBookItemId(int bookItemId, String state){
+    	Reservation reservation = new Reservation();
+    	reservation.setBookItemId(bookItemId);
+    	reservation.setState(state);
+    	return getSqlMapClientTemplate().update("RESERVATION.updateStateByBookItemId",reservation);
+    }
+    
+    public int updateStateById(int reservationId, String state){
+    	Reservation reservation = new Reservation();
+    	reservation.setId(reservationId);
+    	reservation.setState(state);
+    	return getSqlMapClientTemplate().update("RESERVATION.updateStateById",reservation);
+    }
 }

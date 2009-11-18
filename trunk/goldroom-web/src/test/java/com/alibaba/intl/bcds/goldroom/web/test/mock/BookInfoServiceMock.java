@@ -17,6 +17,7 @@ package com.alibaba.intl.bcds.goldroom.web.test.mock;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
+import com.alibaba.intl.bcds.goldroom.service.result.Result;
 
 /**
  * TODO Comment of BookInfoServiceMock
@@ -48,9 +49,9 @@ public class BookInfoServiceMock implements BookInfoService {
      * .alibaba.intl.bcds.goldroom.dataobject.BookInfo)
      */
     @Override
-    public void addBookInfo(BookInfo bookInfo) {
+    public Result addBookInfo(BookInfo bookInfo) {
         // TODO Auto-generated method stub
-
+    	return null;
     }
 
     /*

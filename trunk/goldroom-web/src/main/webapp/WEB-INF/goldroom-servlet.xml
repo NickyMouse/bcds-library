@@ -10,14 +10,27 @@
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
-		<property name="toolboxConfigLocation" value="WEB-INF/toolbox.xml" />
 		<property name="suffix" value=".vm" />
 		<property name="exposeSpringMacroHelpers" value="true" />
 		<property name="layoutUrl" value="/layout/default.vm" />
+		<property name="dateToolAttribute" value="dateTool" />
 		<property name="contentType">
 			<value>text/html;charset=UTF-8</value>
 		</property>
+		<property name="attributesMap">
+			<map>
+				<entry key="SERVER_NAME" value-ref="serverName" />
+				<entry key="authz" value-ref="authzImpl" />
+				<entry key="categoryCache" value-ref="categoryCache" />
+				<entry key="memberInfoCache" value-ref="memberInfoCache" />
+				<entry key="UPLOAD_IMAGE_PATH" value-ref="uploadImagePath" />
+				<entry key="userUtil">
+					<bean class="com.alibaba.intl.bcds.goldroom.web.utils.UserUtil" />
+				</entry>
+			</map>
+		</property>
 	</bean>
+	<bean id="authzImpl" class="org.springframework.security.taglibs.velocity.AuthzImpl" />
 
 	<bean id="velocityConfigurer"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
@@ -83,21 +96,25 @@
 		<property name="basename" value="messages" />
 	</bean>
 
-
-	<bean id="sampleController"
-		class="com.alibaba.intl.bcds.goldroom.web.sample.SampleController">
-		<property name="validator" ref="validator" />
-		<property name="formView" value="user" />
-		<property name="commandName" value="user" />
-		<property name="commandClass" value="com.alibaba.intl.bcds.goldroom.sample.User" />
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">friendlyError</prop>
+			</props>
+		</property>
 	</bean>
 
-	<bean class="com.alibaba.intl.bcds.goldroom.web.search.SearchController" />
+
+	<bean name="/searchBookDetail.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.search.SearchBookDetailController" />
+	<bean name="/search.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.search.SearchController" />
 
 	<bean class="com.alibaba.intl.bcds.goldroom.web.HomeController" />
 
-	<bean name="/bookDetail.htm"
-		class="com.alibaba.intl.bcds.goldroom.web.BookDetailController" />
+	<bean name="/user/bookItemDetail.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.BookItemDetailController" />
 
 	<bean name="/user/findIsbn.htm" class="com.alibaba.intl.bcds.goldroom.web.FindIsbnController" />
 
@@ -105,8 +122,10 @@
 
 	<bean name="/user/lendedBooks.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.LendedBooksController" />
+
 	<bean name="/user/reservatedBooks.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.ReservatedBooksController" />
+
 	<bean name="/user/confirmedShelves.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.ConfirmedShelvesController">
 		<property name="formView" value="user/confirmedShelves" />
@@ -118,24 +137,95 @@
 
 	<bean name="/user/fillBookInfo.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.FillBookInfoController">
-		<property name="formView" value="user/fillBookInfo" />
+		<property name="formView" value="/user/fillBookInfo" />
 		<property name="commandName" value="bookInfo" />
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo" />
 	</bean>
 
-	<bean name="/user/userInfoModify.htm"
-		class="com.alibaba.intl.bcds.goldroom.web.UserInfoModifyController">
-		<property name="commandName" value="member" />
+
+	<bean name="/user/applyUser.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ApplyUserController">
+		<property name="successView" value="redirect:/resources/applyUserSuccess.htm" />
+		<property name="commandName" value="applyUser" />
 		<property name="commandClass"
-			value="com.alibaba.intl.bcds.goldroom.dataobject.Member" />
+			value="com.alibaba.intl.bcds.goldroom.web.command.ApplyUser" />
 	</bean>
 
+	<bean name="/user/userInfoModify.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.UserInfoModifyController">
+		<property name="commandName" value="userInfoCommand" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.web.command.UserInfoCommand" />
+		<property name="successView" value="redirect:/home.htm" />
+	</bean>
+	<bean name="/user/approveUser.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ApproveUserController">
+		<property name="formView" value="user/approveUser" />
+		<property name="successView" value="redirect:approveUser.htm" />
+		<property name="commandName" value="memberCommand" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.web.command.MemberCommand" />
+	</bean>
+
+
+	<bean name="/user/fileUpload.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.FileUploadController">
+		<property name="uploadRoot" ref="fileUploadPath" />
+		<property name="commandName" value="uploadFileCommand" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.web.command.UploadFileCommand" />
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes -->
+		<property name="maxUploadSize" value="10000000" />
+	</bean>
+
+	<bean name="/user/reserveBook.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ReserveBookController">
+		<property name="successView" value="redirect:/user/reservatedBooks.htm" />
+		<property name="commandName" value="reserveCommand" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.web.command.ReserveCommand" />
+
+	</bean>
+
+	<bean name="/user/returnBook.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ReturnBookController">
+		<property name="successView" value="redirect:/user/myBooks.htm" />
+		<property name="commandName" value="returnBookCommand" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.web.command.ReturnBookCommand" />
+
+	</bean>
+
+	<bean name="/user/confirmLend.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ConfirmLendController">
+		<property name="successView" value="redirect:/user/myBooks.htm" />
+		<property name="commandName" value="confirmLending" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.web.command.ConfirmLending" />
+	</bean>
 	<!--
 		<context:component-scan
 		base-package="com.intl.alibaba.bcds.goldroom.web" /> <bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"
 		/>
 	-->
-
+	<bean name="/user/offShelves.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.OffShelvesController">
+	</bean>
+	<bean name="/user/reputOnShelves.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ReputOnShelvesController">
+	</bean>
+	<bean name="/user/rejectLending.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.RejectLendingController">
+	</bean>
+	<bean name="/allBook.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.search.AllBookController">
+	</bean>
+	<bean name="/user/deleteBookItem.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.DeleteBookItemController" />
 </beans>

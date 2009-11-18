@@ -23,6 +23,7 @@
 
 # resolve links - $0 may be a softlink
 PRG="$0"
+export CATALINA_HOME=~/program/apache-tomcat-6.0.20
 
 while [ -h "$PRG" ] ; do
   ls=`ls -ld "$PRG"`

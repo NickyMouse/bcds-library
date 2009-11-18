@@ -33,6 +33,7 @@ import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
+import com.alibaba.intl.bcds.goldroom.web.utils.UserUtil;
 
 /**
  * 确认上架
@@ -84,12 +85,9 @@ public class ConfirmedShelvesController extends SimpleFormController {
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
                                     Object command, BindException errors) throws Exception {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal();
 
-        String loginId = userDetails.getUsername();
         BookItem item = (BookItem) command;
-        item.setLoginId(loginId);
+        item.setLoginId(UserUtil.getLoginId());
         bookItemService.addBookItem(item);
         return new ModelAndView(getSuccessView());
     }

@@ -18,7 +18,7 @@ package com.alibaba.intl.bcds.goldroom.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.providers.x509.cache.NullX509UserCache;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -41,18 +41,20 @@ public class FindIsbnController extends AbstractController {
         this.bookInfoService = bookInfoService;
     }
 
-   /**
+    /**
     * 
     */
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
         String isbn = (String) request.getParameter("isbn");
+        if (StringUtils.isEmpty(isbn)) {
+            return new ModelAndView("redirect:/user/beforeShelve.htm");
+        }
         BookInfo bookInfo = bookInfoService.findBookInfoByIsbn(isbn);
         if (bookInfo == null) {
             return new ModelAndView("redirect:fillBookInfo.htm", "isbn", isbn);
-        }
-        else {
+        } else {
             return new ModelAndView("redirect:confirmedShelves.htm", "isbn", isbn);
         }
     }

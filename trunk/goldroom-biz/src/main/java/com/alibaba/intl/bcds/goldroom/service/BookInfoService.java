@@ -15,13 +15,18 @@
  */
 package com.alibaba.intl.bcds.goldroom.service;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
+import com.alibaba.intl.bcds.goldroom.service.result.Result;
 
 /**
  * TODO Comment of BookInfoService
  * 
  * @author Zimmem
  */
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public interface BookInfoService {
 
     /**
@@ -37,7 +42,8 @@ public interface BookInfoService {
      * 
      * @param bookInfo
      */
-    void addBookInfo(BookInfo bookInfo);
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    Result addBookInfo(BookInfo bookInfo);
 
     /**
      * 根据ISBN查找书籍信息

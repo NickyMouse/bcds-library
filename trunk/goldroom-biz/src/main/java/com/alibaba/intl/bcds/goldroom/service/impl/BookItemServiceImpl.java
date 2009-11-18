@@ -16,11 +16,15 @@
 package com.alibaba.intl.bcds.goldroom.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
+import com.alibaba.intl.bcds.goldroom.dao.LendingDao;
 import com.alibaba.intl.bcds.goldroom.dao.ReservationDAO;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
+import com.alibaba.intl.bcds.goldroom.dataobject.Lending;
 import com.alibaba.intl.bcds.goldroom.dataobject.Reservation;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 import com.alibaba.intl.bcds.goldroom.service.result.Result;
@@ -34,6 +38,14 @@ public class BookItemServiceImpl implements BookItemService {
 
     BookItemDao    bookItemDao;
     ReservationDAO reservationDAO;
+    LendingDao     lendingDao;
+
+    /**
+     * @param lendingDao the lendingDao to set
+     */
+    public void setLendingDao(LendingDao lendingDao) {
+        this.lendingDao = lendingDao;
+    }
 
     /**
      * @param reservationDAO the reservationDAO to set
@@ -90,8 +102,14 @@ public class BookItemServiceImpl implements BookItemService {
      * listBookItemsByLoginIdAndState(java.lang.String, java.lang.String)
      */
     @Override
-    public List<BookItem> listBookItemsByLoginIdAndState(String loginId, String state) {
-        return bookItemDao.listBookItemsByLoginIdAndState(loginId, state);
+    public Result listBookItemsByLoginIdAndState(String loginId, String state, int page,
+                                                 int pagesize) {
+
+        Map<String, Object> returnMap = new HashMap<String, Object>(2);
+        returnMap.put("totalCount", bookItemDao.countBookItemsByLoginIdAndState(loginId, state));
+        returnMap.put("bookItemList", bookItemDao.listBookItemsByLoginIdAndState(loginId, state,
+                page, pagesize));
+        return new Result(true, null, returnMap);
     }
 
     /*
@@ -110,8 +128,12 @@ public class BookItemServiceImpl implements BookItemService {
      * listBookItemBySubscriber(java.lang.String)
      */
     @Override
-    public List<BookItem> listLendedBookItemBySubscriber(String ownerLoginID) {
-        return bookItemDao.listLendedBookItemBySubscriber(ownerLoginID);
+    public Result listLendedBookItemBySubscriber(String ownerLoginID, int page, int pagesize) {
+        Map<String, Object> returnMap = new HashMap<String, Object>(2);
+        returnMap.put("totalCount", bookItemDao.countLendedBookItemBySubscriber(ownerLoginID));
+        returnMap.put("bookItemList", bookItemDao.listLendedBookItemBySubscriber(ownerLoginID,
+                page, pagesize));
+        return new Result(true, null, returnMap);
     }
 
     /*
@@ -120,8 +142,13 @@ public class BookItemServiceImpl implements BookItemService {
      * listReservatedBooksBySubscriber(java.lang.String)
      */
     @Override
-    public List<BookItem> listReservatedBooksBySubscriber(String loginId) {
-        return bookItemDao.listReservatedBooksBySubscriber(loginId);
+    public Result listReservatedBooksBySubscriber(String loginId, int page, int pagesize) {
+
+        Map<String, Object> returnMap = new HashMap<String, Object>(2);
+        returnMap.put("totalCount", bookItemDao.countReservatedBooksBySubscriber(loginId));
+        returnMap.put("bookItemList", bookItemDao.listReservatedBooksBySubscriber(loginId, page,
+                pagesize));
+        return new Result(true, null, returnMap);
     }
 
     /*
@@ -131,16 +158,26 @@ public class BookItemServiceImpl implements BookItemService {
      * .String, int)
      */
     @Override
-    public Result reserve(String subscriber, int bookItemId) {
+    public Result reserve(String subscriber, int bookItemId, Date lendTime, Date returnTime) {
         BookItem item = bookItemDao.findById(bookItemId);
+        if (item.getLoginId().equals(subscriber)) {
+            // 不能预约自已的书
+            return new Result(false);
+        }
         if (item.getState().equals(BookItem.STATE_IDLE)) {
+            if (reservationDAO.updateStateByBookItemId(bookItemId, Reservation.STATE_TO_BE_COMFIRM) == 0) {
+                Reservation reservation = new Reservation();
+                reservation.setOwnerId(item.getLoginId());
+                reservation.setLendTime(lendTime);
+                reservation.setReturnTime(returnTime);
+                reservation.setBookItemId(bookItemId);
+                reservation.setSubscriber(subscriber);
+                reservation.setState(Reservation.STATE_TO_BE_COMFIRM);
+                reservationDAO.insert(reservation);
+            }
+            item.setState(BookItem.STATE_RESERVATED);
+            bookItemDao.updateById(item);
 
-            Reservation reservation = new Reservation();
-            reservation.setBookItemId(bookItemId);
-            reservation.setSubscriberId(subscriber);
-            reservationDAO.insert(reservation);
-            //TODO 往reservation里添加预约信息
-            //TODO 改不改书的状态？
             return Result.SUCCESS;
         } else {
             return new Result(false);
@@ -153,15 +190,23 @@ public class BookItemServiceImpl implements BookItemService {
      * java.util.Date, java.util.Date)
      */
     @Override
-    public Result lend(int reservationId, Date lendTime, Date returnTime) {
+    public Result lend(int reservationId, Date lendTime, Date returnTime, String currentUser) {
         Reservation reservation = reservationDAO.selectByPrimaryKey(reservationId);
         BookItem bookItem = bookItemDao.getBookItemByReservationId(reservationId);
-        if (bookItem.getState().equals(BookItem.STATE_IDLE)) {
-            //TODO 
-            //TODO 把预约信息迁至log表?
-            //TODO 添加借阅信息
+        if (!bookItem.getLoginId().equals(currentUser)) {
+            // 如果书的主人跟登录用户不同
+            return new Result(false);
+        }
+        if (bookItem.getState().equals(BookItem.STATE_RESERVATED)) {
+
+            Lending lending = new Lending();
+            lending.setBookItemId(reservation.getBookItemId());
+            lending.setReturnTime(returnTime);
+            lending.setSubscriber(reservation.getSubscriber());
+            lendingDao.insert(lending);
             bookItem.setState(BookItem.STATE_LENDED);
-            bookItemDao.updateById(bookItem);
+            bookItemDao.changeItemState(bookItem);
+            reservationDAO.cutReservationToLog(reservation);
             return Result.SUCCESS;
         } else {
             return new Result(false);
@@ -175,10 +220,127 @@ public class BookItemServiceImpl implements BookItemService {
      * com.alibaba.intl.bcds.goldroom.service.BookItemService#returnBook(int)
      */
     @Override
-    public Result returnBook(int lendId) {
-        //TODO 把借阅信息迁到log表
-        //TODO 更改书本状态 
-        //
-        return new Result(false);
+    public Result returnBook(int lendId, String currentUser) {
+
+        Lending lending = lendingDao.findById(lendId);
+        BookItem bookItem = bookItemDao.findById(lending.getBookItemId());
+        if (!bookItem.getLoginId().equals(currentUser)) {
+            return new Result(false);
+        }
+        lendingDao.cutLendingToLog(lending);
+        lendingDao.updateRealReturnTime(lendId);
+        bookItem.setState(BookItem.STATE_IDLE);
+        bookItemDao.changeItemState(bookItem);
+        return Result.SUCCESS;
+    }
+
+    @Override
+    public Result offShelves(int bookItemId, String currentUser) {
+        BookItem bookItem = bookItemDao.findById(bookItemId);
+        if (bookItem == null || currentUser == null) {
+            return new Result(false);
+        } else {
+            // 确定该书是属于currentUser的，并且这本书不处于借出（lended）这个状态
+            if (currentUser.equals(bookItem.getLoginId())
+                    && !BookItem.STATE_LENDED.equals(bookItem.getState())) {
+                // 改变书籍状态
+                bookItem.setState(BookItem.STATE_UNAVAILABLE);
+                bookItemDao.changeItemState(bookItem);
+
+                // 拒绝所有预约
+                reservationDAO.updateStateByBookItemId(bookItem.getId(), Reservation.STATE_REJECT);
+
+                return Result.SUCCESS;
+            } else {
+                return new Result(false);
+            }
+        }
+    }
+
+    @Override
+    public Result reputOnShelves(int bookItemId, String currentUser) {
+        BookItem bookItem = bookItemDao.findById(bookItemId);
+        if (bookItem == null || currentUser == null) {
+            return new Result(false);
+        } else {
+            // 确保该书是属于currentUser的，并且书的状态是UNAVAILABLE
+            if (currentUser.equals(bookItem.getLoginId())
+                    && BookItem.STATE_UNAVAILABLE.equals(bookItem.getState())) {
+                bookItem.setState(BookItem.STATE_IDLE);
+                bookItemDao.changeItemState(bookItem);
+                return Result.SUCCESS;
+            } else {
+                return new Result(false);
+            }
+        }
+    }
+
+    @Override
+    public Result lend(int reservationId, String currentUser) {
+        Reservation reservation = reservationDAO.selectByPrimaryKey(reservationId);
+        BookItem bookItem = bookItemDao.getBookItemByReservationId(reservationId);
+        if (!bookItem.getLoginId().equals(currentUser)) {
+            // 如果书的主人跟登录用户不同
+            return new Result(false);
+        }
+        if (bookItem.getState().equals(BookItem.STATE_RESERVATED)) {
+
+            Lending lending = new Lending();
+            lending.setBookItemId(reservation.getBookItemId());
+            lending.setReturnTime(reservation.getReturnTime());
+            lending.setSubscriber(reservation.getSubscriber());
+            lending.setLendTime(reservation.getLendTime());
+            lendingDao.insert(lending);
+            bookItem.setState(BookItem.STATE_LENDED);
+            bookItemDao.changeItemState(bookItem);
+            reservationDAO.cutReservationToLog(reservation);
+            return Result.SUCCESS;
+        } else {
+            return new Result(false);
+        }
+    }
+
+    public Result rejectLend(int reservationId, String currentUser) {
+        BookItem bookItem = bookItemDao.getBookItemByReservationId(reservationId);
+
+        // 如果书的主人跟登录用户不同 或者该书不在预约状态
+        if (bookItem == null || !bookItem.getLoginId().equals(currentUser)
+                || !BookItem.STATE_RESERVATED.equals(bookItem.getState())) {
+            return new Result(false);
+        }
+        reservationDAO.updateStateByBookItemId(bookItem.getId(), Reservation.STATE_REJECT);
+        bookItem.setState(BookItem.STATE_IDLE);
+        bookItemDao.updateById(bookItem);
+        return Result.SUCCESS;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @seecom.alibaba.intl.bcds.goldroom.service.BookItemService#
+     * getBookDetailByIdAndOwner(java.lang.String, int)
+     */
+    @Override
+    public BookItem getBookDetailByIdAndOwner(String owner, int bookItemId) {
+        BookItem bookItem = bookItemDao.getBookItemWithAllInfo(bookItemId);
+        if (bookItem != null && bookItem.getLoginId().equals(owner)) {
+            return bookItem;
+        }
+        return bookItem;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.service.BookItemService#deleteBookItem
+     * (int)
+     */
+    @Override
+    public void deleteBookItem(int id, String loginId) {
+        BookItem bookItem = bookItemDao.findById(id);
+        if (bookItem.getState().equals(BookItem.STATE_UNAVAILABLE)
+                && loginId.equals(bookItem.getLoginId())) {
+            bookItemDao.deleteById(id);
+        }
+
     }
 }
