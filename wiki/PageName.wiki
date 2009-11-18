@@ -64,4 +64,13 @@ goldroom.fileupload.path=<上传文件的目录>
 windiow下进入goldroom根目录执行startup.bat
 linux下进入goldroom根目录下执行startup.sh
 
-然后就可以在http://127.0.0.1:8080/login.htm登录系统，如果有build数据的话可以在http://127.0.0.1:8080/home.htm看到首页
+然后就可以在 http://127.0.0.1:8080/login.htm 登录系统，如果有build数据的话可以在 http://127.0.0.1:8080/home.htm 看到首页
+
+= 6. 如何导入eclipse开发 =
+以goldroom模块为例 
+最简单的方法是安装m2eclipse插件，在eclipse中file->import->maven project选择goldroom根目录下的pom.xml文件
+或者在goldroom根目录下执行
+{{{
+mvn eclipse:clean eclipse:eclipse -Dwtpversion=2.0
+}}}
+再按普通eclipse工程导入eclipse中，并修改eclipse build path中的M2_PRO变量指向maven的本地仓库目录
