@@ -785,3 +785,4 @@ insert into CATEGORY values (881,48,'综合',null,null,null,sysdate(),sysdate())
 
 update CATEGORY set level=1, is_leaf=0 where id<100;
 update CATEGORY set level=2, is_leaf=1 where id>=100;
+update category set parent_id = parent_id -1 where id >= 100;
