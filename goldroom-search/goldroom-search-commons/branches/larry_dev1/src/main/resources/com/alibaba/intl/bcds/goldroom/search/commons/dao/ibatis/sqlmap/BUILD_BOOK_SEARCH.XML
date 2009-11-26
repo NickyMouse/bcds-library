@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BUILD_BOOK_SEARCH">
+	<typeAlias alias="BuildBookSearch"
+		type="com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearch" />
+	<resultMap class="BuildBookSearch" id="bookSearchResult">
+		<result property="itemAddTime" column="ITEM_ADD_TIME" jdbcType="DATETIME" />
+		<result property="itemFirstAddTime" column="ITEM_FIRST_ADD_TIME"
+			jdbcType="DATETIME" />
+		<result property="bookTags" column="BOOK_TAGS" jdbcType="VARCHAR" />
+		<result property="bookInfoId" column="BOOK_INFO_ID" jdbcType="DECIMAL" />
+		<result property="bookAuthor" column="BOOK_AUTHOR" jdbcType="VARCHAR" />
+		<result property="bookName" column="BOOK_NAME" jdbcType="VARCHAR" />
+		<result property="bookPublisher" column="BOOK_PUBLISHER"
+			jdbcType="VARCHAR" />
+		<result property="bookPublishTime" column="BOOK_PUBLISH_TIME"
+			jdbcType="DATE" />
+		<result property="bookIsbn" column="BOOK_ISBN" jdbcType="VARCHAR" />
+		<result property="bookCategoryId" column="BOOK_CATEGORY_ID"
+			jdbcType="DECIMAL" />
+		<result property="bookImgUrl" column="BOOK_IMG_URL" jdbcType="VARCHAR" />
+		<result property="bookDescription" column="BOOK_DESCRIPTION"
+			jdbcType="VARCHAR" />
+		<result property="bookEdition" column="BOOK_EDITION" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="listAllBook" resultMap="bookSearchResult">
+		SELECT
+		item.ADD_TIME ITEM_ADD_TIME,
+		item.FIRST_ADD_TIME ITEM_FIRST_ADD_TIME,
+		GROUP_CONCAT(item.TAGS) BOOK_TAGS,
+		info.ID BOOK_INFO_ID,
+		info.AUTHOR BOOK_AUTHOR,
+		info.NAME BOOK_NAME,
+		info.PUBLISHER BOOK_PUBLISHER,
+		info.PUBLISH_TIME BOOK_PUBLISH_TIME,
+		info.ISBN BOOK_ISBN,
+		info.CATEGORY_ID BOOK_CATEGORY_ID,
+		info.IMG_URL BOOK_IMG_URL,
+		info.DESCRIPTION BOOK_DESCRIPTION,
+		info.EDITION BOOK_EDITION
+		FROM BOOK_ITEM item
+		JOIN BOOK_INFO info ON item.BOOK_INFO_ID = info.ID
+		JOIN MEMBER m ON item.LOGIN_ID = m.LOGIN_ID
+		WHERE
+		<![CDATA[
+			m.ENABLE=1 AND item.STATE<>'unavailable'
+		]]>
+		GROUP BY info.ID
+		ORDER BY item.FIRST_ADD_TIME DESC
+		LIMIT
+		#skipRow#,#pageSize#
+	</select>
+	
+	<select id="listBookByTime" resultMap="bookSearchResult">
+		SELECT
+		item.ADD_TIME ITEM_ADD_TIME,
+		item.FIRST_ADD_TIME ITEM_FIRST_ADD_TIME,
+		GROUP_CONCAT(item.TAGS) BOOK_TAGS,
+		info.ID BOOK_INFO_ID,
+		info.AUTHOR BOOK_AUTHOR,
+		info.NAME BOOK_NAME,
+		info.PUBLISHER BOOK_PUBLISHER,
+		info.PUBLISH_TIME BOOK_PUBLISH_TIME,
+		info.ISBN BOOK_ISBN,
+		info.CATEGORY_ID BOOK_CATEGORY_ID,
+		info.IMG_URL BOOK_IMG_URL,
+		info.DESCRIPTION BOOK_DESCRIPTION,
+		info.EDITION BOOK_EDITION
+		FROM BOOK_ITEM item
+		JOIN BOOK_INFO info ON item.BOOK_INFO_ID = info.ID
+		JOIN MEMBER m ON item.LOGIN_ID = m.LOGIN_ID
+		WHERE
+		<![CDATA[
+			m.ENABLE=1 AND item.STATE<>'unavailable' AND
+			(
+				(item.GMT_MODIFIED >= #startTime:DATETIME# AND item.GMT_MODIFIED < #endTime:DATETIME#)
+				OR
+				(info.GMT_MODIFIED >= #startTime:DATETIME# AND info.GMT_MODIFIED < #endTime:DATETIME#)
+			)
+		]]>
+		GROUP BY info.ID
+		ORDER BY item.FIRST_ADD_TIME DESC
+	</select>
+</sqlMap>
