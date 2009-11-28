@@ -44,7 +44,7 @@
 		JOIN MEMBER m ON item.LOGIN_ID = m.LOGIN_ID
 		WHERE
 		<![CDATA[
-			m.ENABLE=1 AND item.STATE<>0
+			m.ENABLE=1 AND item.STATE<>'unavailable'
 		]]>
 		GROUP BY info.ID
 		ORDER BY item.FIRST_ADD_TIME DESC
@@ -72,7 +72,7 @@
 		JOIN MEMBER m ON item.LOGIN_ID = m.LOGIN_ID
 		WHERE
 		<![CDATA[
-			m.ENABLE=1 AND item.STATE<>0 AND
+			m.ENABLE=1 AND item.STATE<>'unavailable' AND
 			(
 				(item.GMT_MODIFIED >= #startTime:DATETIME# AND item.GMT_MODIFIED < #endTime:DATETIME#)
 				OR
@@ -81,21 +81,5 @@
 		]]>
 		GROUP BY info.ID
 		ORDER BY item.FIRST_ADD_TIME DESC
-	</select>
-
-	<typeAlias alias="BuildCategorySearch"
-		type="com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildCategorySearch" />
-
-	<resultMap class="BuildCategorySearch" id="categoryResult">
-		<result property="id" column="ID" />
-		<result property="parentId" column="PARENT_ID" />
-		<result property="name" column="NAME" />
-		<result property="description" column="DESCRIPTION" />
-	</resultMap>
-
-	<select id="listAllCategory" resultMap="categoryResult">
-		SELECT ID, PARENT_ID,
-		NAME, DESCRIPTION, GMT_CREATE,GMT_MODIFIED
-		FROM CATEGORY
 	</select>
 </sqlMap>

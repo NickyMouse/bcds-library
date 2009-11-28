@@ -22,6 +22,9 @@ import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQuery
 
 public class BookSearchDaoImpl implements BookSearchDao {
 	private static Logger logger = Logger.getLogger(BookSearchDaoImpl.class);
+	/**
+	 * 搜索的数据源
+	 */
 	private SearchDatasource searchDatasource;
 
 	public SearchDatasource getSearchDatasource() {
@@ -44,8 +47,9 @@ public class BookSearchDaoImpl implements BookSearchDao {
 		long start = new Date().getTime();
 		TopDocs docs = null;
 		try {
-			docs = searcher.search(query, null, number, new Sort(new SortField(
-					primarySortKey, SortField.AUTO, bsQueryObj.isReverse())));
+			Sort sort = new Sort(new SortField(primarySortKey, SortField.AUTO,
+					bsQueryObj.isReverse()));
+			docs = searcher.search(query, null, number, sort);
 
 		} catch (IOException e) {
 			logger.error(e);
@@ -58,15 +62,28 @@ public class BookSearchDaoImpl implements BookSearchDao {
 		logger.info("[Search Result]" + numTotalHits
 				+ " total matching documents. Time is " + (end - start) + "ms");
 
+		// 初始化 Document到DO（data object）的转换器
 		DocumentToDoConvertor convertor = DocumentToDoConvertor.getConvertor(
 				bsQueryObj.isHighlight(), query);
 
+		// 利用转换器将结果转换成DO
 		List result = getResult(searcher, convertor, docs, bsQueryObj
 				.getSkipResult(), bsQueryObj.getN());
 		bsQueryObj.setResultList(result);
 		bsQueryObj.setTotalCount(docs.totalHits);
 	}
 
+	/**
+	 * 将搜索结果从Document转换成 DO
+	 * 
+	 * @param searcher
+	 * @param convertor
+	 *            转换器
+	 * @param topDocs
+	 * @param skipResult
+	 * @param n
+	 * @return
+	 */
 	protected List<BookSearch> getResult(Searcher searcher,
 			DocumentToDoConvertor convertor, TopDocs topDocs, int skipResult,
 			int n) {
@@ -78,7 +95,7 @@ public class BookSearchDaoImpl implements BookSearchDao {
 		int count = 0;
 		for (ScoreDoc scoreDoc : scoreDocList) {
 			count++;
-			if (count < skipResult) {
+			if (count <= skipResult) {
 				continue;
 			}
 			Document doc = null;

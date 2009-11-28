@@ -16,14 +16,14 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.gjt.mm.mysql.Driver" />
-		<property name="url" value="jdbc:mysql://10.16.106.117/goldroom" />
+		<property name="url" value="jdbc:mysql://localhost/goldroom" />
 		<property name="username" value="goldroom" />
-		<property name="password" value="hello123321" />
+		<property name="password" value="goldroom" />
 	</bean>
 
 	<bean id="searchDatasource"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.BookSearchDatasource">
-		<property name="indexLocation" value="/home/admin/index" />
+		<property name="indexLocation" value="/home/intlbcds/work/index" />
 	</bean>
 
 	<bean id="buildBookSearchDao"

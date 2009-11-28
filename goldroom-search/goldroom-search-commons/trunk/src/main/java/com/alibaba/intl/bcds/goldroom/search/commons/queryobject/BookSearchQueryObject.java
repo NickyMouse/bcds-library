@@ -1,5 +1,6 @@
 package com.alibaba.intl.bcds.goldroom.search.commons.queryobject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jeasy.analysis.MMAnalyzer;
@@ -13,17 +14,24 @@ import com.alibaba.intl.bcds.goldroom.search.commons.utils.SearchConditionBuilde
 
 @SuppressWarnings("unchecked")
 public class BookSearchQueryObject extends BaseQueryObject {
+	public static BookSearchQueryObject EMPTY_RESULT = new BookSearchQueryObject();
+
 	private static Logger logger = Logger
 			.getLogger(BookSearchQueryObject.class);
 
 	private SearchConditionBuilder searchConditionBuilder;
 	private int n;
-	private String primarySortFiled;
+	private String primarySortFiled = "";
 	private int skipResult = 0;
 	private boolean reverse = false;
 	private List bookSearchDoList;
 	private int totalCount;
 	private boolean isHighlight = false;
+
+	protected BookSearchQueryObject() {
+		bookSearchDoList = new ArrayList();
+		totalCount = 0;
+	}
 
 	public boolean isHighlight() {
 		return isHighlight;

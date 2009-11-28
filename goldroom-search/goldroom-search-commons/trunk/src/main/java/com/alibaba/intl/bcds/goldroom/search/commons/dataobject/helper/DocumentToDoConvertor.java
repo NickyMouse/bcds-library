@@ -17,11 +17,16 @@ import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearch;
 
+/**
+ * Document 到DO的转换类
+ * @author Giraffe
+ *
+ */
 public class DocumentToDoConvertor {
 	private static Logger logger = Logger
 			.getLogger(DocumentToDoConvertor.class);
-	private Highlighter highlighter;
-	private Analyzer analyzer;
+	private Highlighter highlighter;	//高亮器
+	private Analyzer analyzer;			//词法分析器
 
 	protected DocumentToDoConvertor(Query query) {
 		this.analyzer = new MMAnalyzer();
@@ -49,7 +54,7 @@ public class DocumentToDoConvertor {
 			aDO.setItemAddTime(new Date(Long.valueOf(doc
 					.get(BookSearchConstrains.ITEM_ADD_TIME))));
 			aDO.setItemFirstAddTime(new Date(Long.valueOf(doc
-					.get(BookSearchConstrains.ITEM_ADD_TIME))));
+					.get(BookSearchConstrains.ITEM_FIRST_ADD_TIME))));
 			aDO.setBookTags(doc.get(BookSearchConstrains.BOOK_TAGS));
 			aDO.setBookInfoId(Integer.valueOf(doc
 					.get(BookSearchConstrains.BOOK_INFO_ID)));

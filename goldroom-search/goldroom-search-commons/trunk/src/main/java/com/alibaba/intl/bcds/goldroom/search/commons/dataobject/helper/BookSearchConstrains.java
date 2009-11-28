@@ -1,5 +1,10 @@
 package com.alibaba.intl.bcds.goldroom.search.commons.dataobject.helper;
 
+/**
+ * 书的属性名称
+ * @author Giraffe
+ *
+ */
 public class BookSearchConstrains {
 	public static String ITEM_ADD_TIME = "itemAddTime";
 	public static String ITEM_FIRST_ADD_TIME = "itemFirstAddTime";
