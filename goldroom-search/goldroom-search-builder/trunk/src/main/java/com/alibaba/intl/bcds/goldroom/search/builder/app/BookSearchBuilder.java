@@ -41,7 +41,7 @@ public class BookSearchBuilder {
 		// 目标路径
 		String targeIndexFolder = args[1];
 		// 时间间隔为分钟
-		long interval = Integer.valueOf(args[2]) * 60000;
+		long interval = Long.valueOf(args[2]) * 60000;
 		startHour = Integer.valueOf(args[3]);
 		endHour = Integer.valueOf(args[4]);
 
