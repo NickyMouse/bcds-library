@@ -1,0 +1,4 @@
+##有人预约的时候，邮件提醒
+
+尊敬的$!{owner.name}:
+     您的《$!{bookInfo.name}》已经被$!{borrower.name}预约了。
