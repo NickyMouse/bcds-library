@@ -22,10 +22,8 @@ import com.alibaba.intl.bcds.goldroom.web.command.MemberCommand;
 @SuppressWarnings("unchecked")
 public class ApproveUserController extends SimpleFormController {
 
-    MemberService memberService;
+    private MemberService memberService;
     private MemberInfoCache memberInfoCache;
-
-	
 	
     public void setMemberService(MemberService memberService) {
         this.memberService = memberService;
