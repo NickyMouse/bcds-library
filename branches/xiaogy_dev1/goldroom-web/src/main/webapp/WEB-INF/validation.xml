@@ -54,14 +54,11 @@
 			<field property="password" depends="required">
 			</field>
 		</form>
+		
 		<form name="memberCommand">
 			<field property="id"></field>
 		</form>
-
-		<form name="bookItem">
-			<field property="tags"></field>
-		</form>
-
+		
 		<form name="reserveCommand">
 			<field property="bookItemId" depends="required">
 			</field>

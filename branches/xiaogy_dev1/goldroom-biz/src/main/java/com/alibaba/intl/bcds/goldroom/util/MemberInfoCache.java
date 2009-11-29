@@ -1,4 +1,4 @@
-package com.alibaba.intl.bcds.goldroom.web.utils;
+package com.alibaba.intl.bcds.goldroom.util;
 
 import java.util.Map;
 
