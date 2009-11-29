@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BOOK_ITEM_LOG" >
+	<typeAlias alias="BookItemLog" type="com.alibaba.intl.bcds.goldroom.dataobject.BookItemLog"/>
+	<resultMap class="BookItemLog" id="BookItemLogResult">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="gmtCreate" column="GMT_CREATE" jdbcType="DATETIME" />
+		<result property="gmtModified" column="GMT_MODIFIED" jdbcType="DATETIME" />
+		<result property="logType" column="LOG_TYPE" jdbcType="DECIMAL" />
+		<result property="logMsg" column="LOG_MSG" jdbcType="VARCHAR" />
+		<result property="bookItemId" column="BOOK_ITEM_ID" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<select id="listAll" resultMap="BookItemLogResult">
+		SELECT ID,GMT_CREATE,GMT_MODIFIED,LOG_TYPE,LOG_MSG,BOOK_ITEM_ID
+		FROM BOOK_ITEM_LOG
+	</select>
+	
+	<insert id="insert" parameterClass="BookItemLog">
+		INSERT INTO BOOK_ITEM_LOG (GMT_CREATE,GMT_MODIFIED,LOG_TYPE,LOG_MSG,BOOK_ITEM_ID)
+		VALUES(NOW(),NOW(),#logType:DECIMAL#, #logMsg:VARCHAR#,#bookItemId:DECIMAL#)
+	</insert>
+	
+	<update id="updateById" parameterClass="BookItemLog">
+		UPDATE BOOK_ITEM_LOG SET
+			GMT_MODIFIED=NOW(),
+			LOG_TYPE=#logType:DECIMAL#,
+			LOG_MSG=#logMsg:VARCHAR#,
+			BOOK_ITEM_ID=#bookItemId:DECIMAL#
+		WHERE ID=#id:DECIMAL#
+	</update>
+	
+	<delete id="deleteById" parameterClass="java.lang.Integer">
+		DELETE FROM BOOK_ITEM_LOG
+		WHERE ID=#id:DECIMAL#
+	</delete>
+	
+	<select id="findById" parameterClass="java.lang.Integer" resultMap="BookItemLogResult">
+		SELECT ID,GMT_CREATE,GMT_MODIFIED,LOG_TYPE,LOG_MSG,BOOK_ITEM_ID
+		FROM BOOK_ITEM_LOG
+		WHERE ID=#id:DECIMAL#
+	</select>
+</sqlMap>
