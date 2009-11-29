@@ -47,6 +47,7 @@ public class BookItemServiceImpl implements BookItemService {
     LendingDao     lendingDao;
     MemberInfoCache memberInfoCache;
     BookInfoDao    bookInfoDao;
+    
 	public void setMemberInfoCache(MemberInfoCache memberInfoCache) {
 		this.memberInfoCache = memberInfoCache;
 	}
@@ -316,7 +317,7 @@ public class BookItemServiceImpl implements BookItemService {
             Member owner = memberInfoCache.getMemberInfo(bookItem.getLoginId());
             Member subcriber = memberInfoCache.getMemberInfo(lending.getSubscriber());
             BookInfo bookInfo = bookInfoDao.findById(bookItem.getBookInfoId());
-            GetBookEmailInfo emailInfo = new GetBookEmailInfo(owner,subcriber,bookInfo,lending);
+            GetBookEmailInfo emailInfo = new GetBookEmailInfo(owner, subcriber, bookInfo, lending);
             sendMailService.sendMail(emailInfo);
             
             return Result.SUCCESS;
