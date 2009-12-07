@@ -1,3 +1,3 @@
 ##用户申请帐号,审核通过邮件
-尊敬的$!{member.name}:
-     您的账号$!{member.loginId}已申请成功,感谢您对图书管理平台的支持!现在就去逛逛.
+尊敬的$!{info.member.name}:
+     您的账号$!{info.member.loginId}已申请成功,感谢您对图书管理平台的支持!现在就去逛逛.
