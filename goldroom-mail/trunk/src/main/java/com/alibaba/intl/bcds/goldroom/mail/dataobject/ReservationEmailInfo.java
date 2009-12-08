@@ -55,5 +55,6 @@ public class ReservationEmailInfo extends BaseEmailInfo {
 		if (owner != null && StringUtils.isNotEmpty(owner.getEmail())) {
 			this.addReceiverEmail(owner.getEmail());
 		}
+		this.setSubject("黄金屋 [Gold Room] 系统邮件：您的书籍已被预约。");
 	}
 }

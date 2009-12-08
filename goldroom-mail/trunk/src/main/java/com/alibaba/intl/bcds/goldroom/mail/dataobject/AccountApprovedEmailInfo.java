@@ -10,6 +10,7 @@ public class AccountApprovedEmailInfo extends BaseEmailInfo {
 		this.setServiceType(ServiceType.NOTIFY_ACCOUNT_APPROVED);
 		this.member = member;
 		this.addReceiverEmail(member.getEmail());
+		this.setSubject("黄金屋 [Gold Room] 系统邮件：您的帐号审批通过了。");
 	}
 
 	public void setMember(Member member) {

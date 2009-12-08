@@ -55,5 +55,6 @@ public class GetBookEmailInfo extends BaseEmailInfo {
 		if (borrower == null || StringUtils.isEmpty(borrower.getEmail())) {
 			this.addReceiverEmail( borrower.getEmail());
 		}
+		this.setSubject("黄金屋 [Gold Room] 系统邮件：你的书籍预约已被批准。");
 	}
 }

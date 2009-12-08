@@ -3,6 +3,7 @@ package com.alibaba.intl.bcds.goldroom.mail.service.impl;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.log4j.Logger;
@@ -20,6 +21,11 @@ public class SendMailServiceImpl implements SendMailService {
 	public void sendMail(BaseEmailInfo emailInfo) {
 		EmailBuilder builder = EmailBuilderFactory.getEmailBuilder(emailInfo);
 		HtmlEmail email = builder.build();
+		if (StringUtils.isNotEmpty(emailInfo.getSubject())) {
+			email.setSubject(emailInfo.getSubject());
+		} else {
+			email.setSubject("黄金屋 [Gold Room] 系统邮件");
+		}
 		MailSender mailSend = new MailSender(email);
 		executor.execute(mailSend);
 	}

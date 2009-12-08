@@ -45,5 +45,6 @@ public class ReturnBookEmailInfo extends BaseEmailInfo {
 
 	public ReturnBookEmailInfo() {
 		this.setServiceType(ServiceType.NOTIFY_RETURN_BOOK);
+		this.setSubject("黄金屋 [Gold Room] 系统邮件：您的书籍需要按期归还。");
 	}
 }
