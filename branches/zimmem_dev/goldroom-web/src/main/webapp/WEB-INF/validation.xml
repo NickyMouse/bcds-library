@@ -98,7 +98,7 @@
 				<arg0 key="password" resource="false" />
 			</field>
 			<field property="confirmPassword" depends="required,validwhen">
-				<msg name="validwhen" key="errors.equal" bundle="errors.equal"/>
+				<msg name="validwhen" key="errors.equal" bundle="errors.equal" />
 				<arg0 key="confirmPassword" resource="false" />
 				<arg1 name="validwhen" key="password" resource="false" />
 				<var>
@@ -106,19 +106,21 @@
 					<var-value>(password==*this*)</var-value>
 				</var>
 			</field>
-		
+
 			<field property="email" depends="required,email">
 				<arg0 key="email" resource="false" />
 			</field>
 			<field property="aliTalkId" depends="required">
 				<arg0 key="aliTalkId" resource="false" />
 			</field>
-			
+
 			<field property="workId" depends="required">
 				<arg0 key="workId" resource="false" />
 			</field>
 		</form>
-
+		<form name="shelve">
+			<field property="addCategoryFirstTime" depends="required" />
+		</form>
 	</formset>
 
 </form-validation>

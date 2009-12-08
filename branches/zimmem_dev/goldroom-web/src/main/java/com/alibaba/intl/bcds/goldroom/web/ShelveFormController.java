@@ -15,12 +15,18 @@
  */
 package com.alibaba.intl.bcds.goldroom.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
@@ -30,7 +36,7 @@ import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
  * 
  * @author Zimmem
  */
-public class FindIsbnController extends AbstractController {
+public class ShelveFormController extends SimpleFormController {
 
     private BookInfoService bookInfoService;
 
@@ -41,22 +47,25 @@ public class FindIsbnController extends AbstractController {
         this.bookInfoService = bookInfoService;
     }
 
-    /**
-    * 
-    */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
-                                                 HttpServletResponse response) throws Exception {
+    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
+                                    Object command, BindException errors) throws Exception {
         String isbn = (String) request.getParameter("isbn");
         if (StringUtils.isEmpty(isbn)) {
-            return new ModelAndView("redirect:/user/beforeShelve.htm");
+            response.setStatus(404);
+            return new ModelAndView();
         }
+        return super.onSubmit(request, response, command, errors);
+    }
+
+    @Override
+    protected Map referenceData(HttpServletRequest request, Object command, Errors errors)
+            throws Exception {
+        Map<String, Object> map = new HashMap<String, Object>();
+        String isbn = (String) request.getParameter("isbn");
         BookInfo bookInfo = bookInfoService.findBookInfoByIsbn(isbn);
-        if (bookInfo == null) {
-            return new ModelAndView("redirect:fillBookInfo.htm", "isbn", isbn);
-        } else {
-            return new ModelAndView("redirect:confirmedShelves.htm", "isbn", isbn);
-        }
+        map.put("bookInfo", bookInfo);
+        return map;
     }
 
 }

@@ -7,9 +7,8 @@ body {
 	text-align: center;
 	margin-bottom: 0px;
 	font-family: "Trebuchet MS", Arial;
-	margin:auto;
+	margin: auto;
 }
-
 
 td {
 	font-size: 16px;
@@ -168,7 +167,6 @@ pre {
 }
 
 .nav_internal {
-	background: url(/images/nav_bg.gif) repeat-x #F2F9E8;
 	height: 35px;
 	padding-left: 20px;
 	font-size: 16px;
@@ -301,22 +299,27 @@ form {
 }
 
 .bookImage {
-	max-width:100px; /* FF IE7 */
-    max-height:150px; /* FF IE7 */
-    width:expression(this.width > 100 && this.width >= this.height ? 100 : true);
-    height:expression(this.height > 150 && this.height >= this.width ? 150 : true);
-    overflow:hidden;
-    border-width:0px;
+	max-width: 100px; /* FF IE7 */
+	max-height: 150px; /* FF IE7 */
+	width: expression(this.width >   100 &&   this.width >=   this.height ?   100 :
+		  true);
+	height: expression(this.height >   150 &&   this.height >=   this.width ?   150
+		:   true);
+	overflow: hidden;
+	border-width: 0px;
 }
 
 .detailBookImage {
-	max-width:200px; /* FF IE7 */
-    max-height:300px; /* FF IE7 */
-    width:expression(this.width > 200 && this.width >= this.height ? 200 : true);
-    height:expression(this.height > 300 && this.height >= this.width ? 300 : true);
-    overflow:hidden;
-    border-width:0px;
+	max-width: 200px; /* FF IE7 */
+	max-height: 300px; /* FF IE7 */
+	width: expression(this.width >   200 &&   this.width >=   this.height ?   200 :
+		  true);
+	height: expression(this.height >   300 &&   this.height >=   this.width ?   300
+		:   true);
+	overflow: hidden;
+	border-width: 0px;
 }
-img{
-	border-width:0px;
+
+img {
+	border-width: 0px;
 }

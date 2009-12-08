@@ -116,7 +116,14 @@
 	<bean name="/user/bookItemDetail.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.BookItemDetailController" />
 
-	<bean name="/user/findIsbn.htm" class="com.alibaba.intl.bcds.goldroom.web.FindIsbnController" />
+	<bean name="/user/shelveForm.htm"
+		class="com.alibaba.intl.bcds.goldroom.web.ShelveFormController">
+		<property name="formView" value="user/shelveForm" />
+		<property name="successView" value="redirect:shelveSuccess.htm" />
+		<property name="commandName" value="shelve" />
+		<property name="commandClass"
+			value="com.alibaba.intl.bcds.goldroom.web.command.Shelve" />
+	</bean>
 
 	<bean name="/user/myBooks.htm" class="com.alibaba.intl.bcds.goldroom.web.MyBooksController" />
 

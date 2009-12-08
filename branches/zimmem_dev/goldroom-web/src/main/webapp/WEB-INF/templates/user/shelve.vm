@@ -1,0 +1,104 @@
+<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0">
+  <tbody>
+    <tr>
+      <td align="center"><h1>书籍上架</h1></td>
+    </tr>
+    <tr>
+      <td align="center">
+          <table>
+            <tr>
+              <td>请填写要上架书籍的ISBN:</td>
+              <td><input  type="text" name="_isbn" id="_isbn"/>
+              </td>
+            </tr>
+            <tr>
+              <td align="right"><br/>
+                <input type="button" value="取　消" onclick="window.location.href='$SERVER_NAME/home.htm'"/>
+              </td>
+              <td align="left"><br/>
+                <input type="button" value="確　定" onclick="javascript: getShelveForm();"/>
+              </td>
+            </tr>
+          </table>
+        </td>
+    </tr>
+  </tbody>
+</table>
+<div id="shelveFormDiv">
+</div>
+
+
+	<script type="text/javascript">
+	<!--
+	function getHttpRequest(){
+        var httpRequest;
+        if (window.XMLHttpRequest){ 
+            httpRequest = new XMLHttpRequest();
+            if (httpRequest.overrideMimeType){
+                httpRequest.overrideMimeType('text/xml');
+            }
+        }else if (window.ActiveXObject){
+            try{
+                httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+            }catch(e){
+                try {
+                    httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                }catch(e){}
+            }
+        }
+        return httpRequest;
+    }
+ 
+ 
+ 
+ function getOs()  
+{  
+   var OsObject = "";  
+   if(navigator.userAgent.indexOf("MSIE")>0) {  
+        return "MSIE";       //IE浏览器
+   }
+   if(isFirefox=navigator.userAgent.indexOf("Firefox")>0){  
+        return "Firefox";     //Firefox浏览器
+   }
+   if(isSafari=navigator.userAgent.indexOf("Safari")>0) {  
+        return "Safari";      //Safan浏览器
+   }
+   if(isCamino=navigator.userAgent.indexOf("Camino")>0){  
+        return "Camino";   //Camino浏览器
+   }
+   if(isMozilla=navigator.userAgent.indexOf("Gecko/")>0){  
+        return "Gecko";    //Gecko浏览器
+   }  
+}
+
+var objHttp;
+function getShelveForm()
+{
+   var isbn=document.getElementById("_isbn").value;
+   objHttp = getHttpRequest();      
+   var tt=new Date();     
+   var url="$SERVER_NAME/user/shelveForm.htm?isbn="+isbn+"&time="+ new Date().getTime(); 
+   var btype=getOs();
+ 
+   objHttp.onreadystatechange=(btype=="Firefox")?requestHandle():requestHandle;
+   objHttp.open("GET",url,false);  
+   objHttp.send(null);  
+   objHttp.onreadystatechange=(btype=="Firefox")?requestHandle():requestHandle;    
+}
+function requestHandle(){
+     
+     if(objHttp.readyState==4)
+     {
+         if(objHttp.status==200)
+          {
+          document.getElementById("shelveFormDiv").innerHTML=objHttp.responseText;       
+          }
+		  else
+		  {
+		  	alert("查询出错，请检查isbn是否输入正确")
+		  }
+      }
+   }
+	-->
+    
+    </script>
