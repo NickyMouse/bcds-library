@@ -1,5 +1,5 @@
 <table style="width:80%;margin:auto;" cellspacing="0" cellpadding="3" border="0">
-<form action="$SERVER_NAME/search.htm" method="get" name="search" id="search">
+<form action="$SERVER_NAME/search.htm" method="get" name="advancedSearch" id="advancedSearch">
 	<input type="hidden" name="isAdvancedSearch" value="true"/>
 	<tbody>
     <tr>

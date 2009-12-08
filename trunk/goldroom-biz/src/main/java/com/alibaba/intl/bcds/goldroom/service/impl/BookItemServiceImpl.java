@@ -20,14 +20,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.intl.bcds.goldroom.dao.BookInfoDao;
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
 import com.alibaba.intl.bcds.goldroom.dao.LendingDao;
 import com.alibaba.intl.bcds.goldroom.dao.ReservationDAO;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.dataobject.Lending;
+import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.dataobject.Reservation;
+import com.alibaba.intl.bcds.goldroom.mail.dataobject.GetBookEmailInfo;
+import com.alibaba.intl.bcds.goldroom.mail.dataobject.ReservationEmailInfo;
+import com.alibaba.intl.bcds.goldroom.mail.service.SendMailService;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 import com.alibaba.intl.bcds.goldroom.service.result.Result;
+import com.alibaba.intl.bcds.goldroom.util.MemberInfoCache;
 
 /**
  * TODO Comment of BookItemServiceImpl
@@ -39,7 +46,18 @@ public class BookItemServiceImpl implements BookItemService {
     BookItemDao    bookItemDao;
     ReservationDAO reservationDAO;
     LendingDao     lendingDao;
+    MemberInfoCache memberInfoCache;
+    BookInfoDao    bookInfoDao;
+    
+	public void setMemberInfoCache(MemberInfoCache memberInfoCache) {
+		this.memberInfoCache = memberInfoCache;
+	}
 
+	SendMailService sendMailService;
+
+	public void setSendMailService(SendMailService sendMailService) {
+		this.sendMailService = sendMailService;
+	}
     /**
      * @param lendingDao the lendingDao to set
      */
@@ -174,10 +192,15 @@ public class BookItemServiceImpl implements BookItemService {
                 reservation.setSubscriber(subscriber);
                 reservation.setState(Reservation.STATE_TO_BE_COMFIRM);
                 reservationDAO.insert(reservation);
+                //发送邮件
+                Member owner = memberInfoCache.getMemberInfo(item.getLoginId());
+                Member subcriber = memberInfoCache.getMemberInfo(reservation.getSubscriber());
+                BookInfo bookInfo = bookInfoDao.findById(item.getBookInfoId());
+                ReservationEmailInfo emailInfo = new ReservationEmailInfo(owner, subcriber, bookInfo, reservation);
+                sendMailService.sendMail(emailInfo);
             }
             item.setState(BookItem.STATE_RESERVATED);
             bookItemDao.updateById(item);
-
             return Result.SUCCESS;
         } else {
             return new Result(false);
@@ -290,10 +313,19 @@ public class BookItemServiceImpl implements BookItemService {
             lending.setReturnTime(reservation.getReturnTime());
             lending.setSubscriber(reservation.getSubscriber());
             lending.setLendTime(reservation.getLendTime());
+            
             lendingDao.insert(lending);
             bookItem.setState(BookItem.STATE_LENDED);
             bookItemDao.changeItemState(bookItem);
             reservationDAO.cutReservationToLog(reservation);
+            
+            //发送邮件
+            Member owner = memberInfoCache.getMemberInfo(bookItem.getLoginId());
+            Member subcriber = memberInfoCache.getMemberInfo(lending.getSubscriber());
+            BookInfo bookInfo = bookInfoDao.findById(bookItem.getBookInfoId());
+            GetBookEmailInfo emailInfo = new GetBookEmailInfo(owner, subcriber, bookInfo, lending);
+            sendMailService.sendMail(emailInfo);
+            
             return Result.SUCCESS;
         } else {
             return new Result(false);

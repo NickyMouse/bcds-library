@@ -8,7 +8,7 @@
 		init-method="init" lazy-init="false" />
 
 	<bean id="memberInfoCache"
-		class="com.alibaba.intl.bcds.goldroom.web.utils.MemberInfoCache"
+		class="com.alibaba.intl.bcds.goldroom.util.MemberInfoCache"
 		init-method="init" lazy-init="false" />
 		
 	<bean id="statisticsCache"

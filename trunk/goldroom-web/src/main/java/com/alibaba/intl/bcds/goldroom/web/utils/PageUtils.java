@@ -3,6 +3,7 @@ package com.alibaba.intl.bcds.goldroom.web.utils;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 
 public class PageUtils {
 
@@ -13,12 +14,7 @@ public class PageUtils {
     public final static int DEFAULT_PAGE_SIZE = 10;
 
     protected static int getInt(String pageStr) {
-        if (StringUtils.isNumeric(pageStr)) {
-            return Integer.valueOf(pageStr);
-        } else {
-            return 0;
-        }
-
+    	return NumberUtils.toInt(pageStr);
     }
 
     public static int getSkipResult(String pageStr, String pageSizStr) {
