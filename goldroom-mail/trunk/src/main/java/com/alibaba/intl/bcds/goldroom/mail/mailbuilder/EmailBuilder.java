@@ -1,7 +1,7 @@
 package com.alibaba.intl.bcds.goldroom.mail.mailbuilder;
 
-import javax.mail.internet.MimeMessage;
+import org.apache.commons.mail.HtmlEmail;
 
 public interface EmailBuilder {
-	public MimeMessage build();
+	public HtmlEmail build();
 }

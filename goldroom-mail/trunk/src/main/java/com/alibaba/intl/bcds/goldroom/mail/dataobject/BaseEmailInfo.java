@@ -1,32 +1,28 @@
 package com.alibaba.intl.bcds.goldroom.mail.dataobject;
 
-import com.alibaba.intl.bcds.goldroom.mail.enumeration.EmailType;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.alibaba.intl.bcds.goldroom.mail.enumeration.ServiceType;
 
 public abstract class BaseEmailInfo {
-	protected String receiverEmail;
+	protected List<String> receiverEmails = new ArrayList<String>();
+	private ServiceType serviceType;
 
-	protected EmailType emailType = EmailType.TEXT;
-	protected ServiceType serviceType;
-
-	public String getReceiverEmail() {
-		return receiverEmail;
+	public List<String> getReceiverEmails() {
+		return receiverEmails;
 	}
 
-	public void setReceiverEmail(String receiverEmail) {
-		this.receiverEmail = receiverEmail;
-	}
-
-	public void setEmailType(EmailType emailType) {
-		this.emailType = emailType;
-	}
-
-	public EmailType getEmailType() {
-		return emailType;
+	public void addReceiverEmail(String receiverEmail) {
+		this.receiverEmails.add(receiverEmail);
 	}
 
 	public ServiceType getServiceType() {
 		return serviceType;
+	}
+
+	public void setServiceType(ServiceType serviceType) {
+		this.serviceType = serviceType;
 	}
 
 }

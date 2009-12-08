@@ -44,6 +44,6 @@ public class ReturnBookEmailInfo extends BaseEmailInfo {
 	}
 
 	public ReturnBookEmailInfo() {
-		this.serviceType = ServiceType.NOTIFY_RETURN_BOOK;
+		this.setServiceType(ServiceType.NOTIFY_RETURN_BOOK);
 	}
 }

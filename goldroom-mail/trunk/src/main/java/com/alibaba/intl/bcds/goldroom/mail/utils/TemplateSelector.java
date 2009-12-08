@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import com.alibaba.intl.bcds.goldroom.mail.enumeration.ServiceType;
 
 public class TemplateSelector {
+
 	private static String TEMPLATES_PATH = "templates/";
 
 	public static TemplateSelector getInstance() {

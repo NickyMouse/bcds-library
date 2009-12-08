@@ -47,13 +47,13 @@ public class GetBookEmailInfo extends BaseEmailInfo {
 
 	public GetBookEmailInfo(Member owner, Member borrower, BookInfo bookInfo,
 			Lending lending) {
-		this.serviceType = ServiceType.NOTIFY_GET_BOOK;
+		this.setServiceType(ServiceType.NOTIFY_GET_BOOK);
 		this.owner = owner;
 		this.borrower = borrower;
 		this.bookInfo = bookInfo;
 		this.lending = lending;
 		if (borrower == null || StringUtils.isEmpty(borrower.getEmail())) {
-			this.receiverEmail = borrower.getEmail();
+			this.addReceiverEmail( borrower.getEmail());
 		}
 	}
 }

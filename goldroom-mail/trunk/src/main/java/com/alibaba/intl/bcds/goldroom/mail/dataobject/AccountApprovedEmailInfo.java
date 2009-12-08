@@ -3,12 +3,13 @@ package com.alibaba.intl.bcds.goldroom.mail.dataobject;
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.mail.enumeration.ServiceType;
 
-public class AccountApprovedEmailInfo extends BaseEmailInfo{
+public class AccountApprovedEmailInfo extends BaseEmailInfo {
 	private Member member;
-	public AccountApprovedEmailInfo(Member member){
-		this.serviceType = ServiceType.NOTIFY_ACCOUNT_APPROVED;
+
+	public AccountApprovedEmailInfo(Member member) {
+		this.setServiceType(ServiceType.NOTIFY_ACCOUNT_APPROVED);
 		this.member = member;
-		this.receiverEmail = member.getEmail();
+		this.addReceiverEmail(member.getEmail());
 	}
 
 	public void setMember(Member member) {
@@ -18,5 +19,5 @@ public class AccountApprovedEmailInfo extends BaseEmailInfo{
 	public Member getMember() {
 		return member;
 	}
-	
+
 }

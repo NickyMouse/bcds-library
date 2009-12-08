@@ -1,5 +1,8 @@
 package com.alibaba.intl.bcds.goldroom.mail.utils;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -14,10 +17,14 @@ public class MailProperties {
 		if (props == null) {
 			props = new Properties();
 			try {
-				props.load(ClassLoader.getSystemClassLoader()
-						.getResourceAsStream(MAIL_PROPERTIES_FILE));
+				String basePath = Thread.currentThread()
+						.getContextClassLoader().getResource("").getPath();
+				FileInputStream fis = new FileInputStream(new File(basePath
+						+ MAIL_PROPERTIES_FILE));
+				props.load(new BufferedInputStream(fis));
 			} catch (IOException e) {
-				logger.error(e);
+				logger.error(Thread.currentThread().getContextClassLoader()
+						.getResource("").getPath());
 			}
 		}
 		return props;

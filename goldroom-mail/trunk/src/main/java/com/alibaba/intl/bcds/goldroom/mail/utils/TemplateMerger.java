@@ -1,5 +1,8 @@
 package com.alibaba.intl.bcds.goldroom.mail.utils;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.StringWriter;
 import java.util.Properties;
 
@@ -9,7 +12,6 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
-import com.alibaba.intl.bcds.goldroom.mail.dataobject.AccountApprovedEmailInfo;
 import com.alibaba.intl.bcds.goldroom.mail.dataobject.BaseEmailInfo;
 
 public class TemplateMerger {
@@ -22,8 +24,11 @@ public class TemplateMerger {
 		if (merger == null) {
 			merger = new TemplateMerger();
 			try {
-				props.load(ClassLoader
-						.getSystemResourceAsStream("velocity.properties"));
+				String basePath = Thread.currentThread()
+						.getContextClassLoader().getResource("").getPath();
+				FileInputStream fis = new FileInputStream(new File(basePath
+						+ "velocity.properties"));
+				props.load(new BufferedInputStream(fis));
 				velocity.init(props);
 			} catch (Exception e) {
 				logger.error(e);

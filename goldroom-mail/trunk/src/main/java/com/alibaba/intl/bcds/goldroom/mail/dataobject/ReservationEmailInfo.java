@@ -47,13 +47,13 @@ public class ReservationEmailInfo extends BaseEmailInfo {
 
 	public ReservationEmailInfo(Member owner, Member borrower,
 			BookInfo bookInfo, Reservation reservation) {
-		this.serviceType = ServiceType.NOTIFY_RESERVATION;
+		this.setServiceType(ServiceType.NOTIFY_RESERVATION);
 		this.owner = owner;
 		this.borrower = borrower;
 		this.bookInfo = bookInfo;
 		this.reservation = reservation;
 		if (owner != null && StringUtils.isNotEmpty(owner.getEmail())) {
-			this.receiverEmail = owner.getEmail();
+			this.addReceiverEmail(owner.getEmail());
 		}
 	}
 }
