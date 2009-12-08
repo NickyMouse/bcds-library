@@ -12,9 +12,9 @@
 					<table><tr><td style="height:160; text-align:center; vertical-align:middle">
 					<a href="$SERVER_NAME/searchBookDetail.htm?id=${book.bookInfoId}&showOwners=true" target="_blank">
 						#if($book.bookImgUrl && !$book.getBookImgUrl().equals(""))
-							<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/>
+							<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl" title="$book.bookName"/>
 						#else
-							<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
+							<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png" title="$book.bookName"/>
 						#end
 					</a>
                     </td></tr></table>
@@ -35,9 +35,9 @@
     						<tr><td style="height:150; text-align:center; vertical-align:middle;">
     					
     						#if($book.bookImgUrl && !$book.getBookImgUrl().equals(""))
-    							<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/>
+    							<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl" title="$book.bookName"/>
     						#else
-    							<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
+    							<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png" title="$book.bookName"/>
     						#end
     					</td></tr></table>
     					<a href="$SERVER_NAME/searchBookDetail.htm?id=${book.bookInfoId}&showOwners=true" target="_blank" title="$book.bookName">$stringFormatUtil.homeBookNameFormat($book.bookName)</a>
