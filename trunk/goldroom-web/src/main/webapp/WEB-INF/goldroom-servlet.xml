@@ -27,6 +27,9 @@
 				<entry key="userUtil">
 					<bean class="com.alibaba.intl.bcds.goldroom.web.utils.UserUtil" />
 				</entry>
+				<entry key="stringFormatUtil">
+					<bean class="com.alibaba.intl.bcds.goldroom.web.utils.StringFormatUtil"/>
+				</entry>
 			</map>
 		</property>
 	</bean>
