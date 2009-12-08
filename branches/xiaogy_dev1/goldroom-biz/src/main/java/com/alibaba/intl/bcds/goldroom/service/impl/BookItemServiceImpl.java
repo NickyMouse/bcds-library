@@ -43,11 +43,11 @@ import com.alibaba.intl.bcds.goldroom.util.MemberInfoCache;
  */
 public class BookItemServiceImpl implements BookItemService {
 
-    BookItemDao    bookItemDao;
-    ReservationDAO reservationDAO;
-    LendingDao     lendingDao;
-    MemberInfoCache memberInfoCache;
-    BookInfoDao    bookInfoDao;
+	private BookItemDao    bookItemDao;
+	private ReservationDAO reservationDAO;
+	private LendingDao     lendingDao;
+	private MemberInfoCache memberInfoCache;
+    private BookInfoDao    bookInfoDao;
     
 	public void setMemberInfoCache(MemberInfoCache memberInfoCache) {
 		this.memberInfoCache = memberInfoCache;
@@ -375,4 +375,7 @@ public class BookItemServiceImpl implements BookItemService {
         }
 
     }
+	public void setBookInfoDao(BookInfoDao bookInfoDao) {
+		this.bookInfoDao = bookInfoDao;
+	}
 }
