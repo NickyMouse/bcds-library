@@ -1,20 +1,35 @@
+<style type="text/css">
+	input,textarea{
+	border-top: 1px solid #555;
+	border-left: 1px solid #555;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	padding: 1px;
+	color: #333;
+
+}
+td{
+	font-size: 14px;	
+	color: #71BF08;
+}
+</style>
 <script src="$SERVER_NAME/js/md5-min.js"></script>
-<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0"><tr><td align="center">
+<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0" align="center"><tr><td align="center">
 <form action="/user/applyUser.htm" method="POST" name="applyForm">
-	<table width="80%" cellspacing="0">
+	<table width="80%" cellspacing="0" >
 		<tr>
 			#springBind("applyUser.loginId")
 			<td align="right" valign="top">用户名：</td>
-			<td>#springFormInput("applyUser.loginId" 'size="30" maxlength="45"')
-				<font color="red" size="2">*<br/>&nbsp;用户名用于登录系统的时候输入<br/>&nbsp;只能为英文字母,数字或者下划线</font>
+			<td>#springFormInput("applyUser.loginId" 'size="30" maxlength="45" title="用于登录系统时"')
+				<font color="red" size="2">*&nbsp;&nbsp;只能为英文字母,数字或者下划线</font>
 			#validationError()
 			</td>
 		</tr>
 		<tr>
 			#springBind("applyUser.name")
 			<td align="right" valign="top">真实姓名：</td>
-			<td>#springFormInput("applyUser.name" 'size="30" maxlength="45"')
-				<font color="red" size="2">*<br/> &nbsp;请输入您的真实姓名</font>
+			<td>#springFormInput("applyUser.name" 'size="30" maxlength="45" title="请输入您的真实姓"')
+            <font color="red" size="2">*</font>
 			#validationError()
 			</td>
 		</tr>

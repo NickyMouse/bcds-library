@@ -1,81 +1,101 @@
+<script type="text/javascript" src="$SERVER_NAME/js/selectCategory.js"></script>
 #set($layout="/layout/emptyLayout.vm") 
-<form action="/user/shelve.html" method="POST">
-#if($bookInfo)
-	<table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
+<table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
   <tbody>
-    <tr>
-      <td colspan="2" align="center"><h1>$bookInfo.name</h1></td>
-    </tr>
-    <tr>
-      <td width="300" align="right" valign="top">
+#if($bookInfo)
+     <tr>
+      <td align="right" valign="top">
 		#if($bookInfo.imgUrl && !$bookInfo.getImgUrl().equals(""))
 			<img id="bookCoverImage" class="detailBookImage" src="$UPLOAD_IMAGE_PATH/$bookInfo.imgUrl"/>
 		#else
 			<img id="bookCoverImage" class="detailBookImage" src="$SERVER_NAME/images/noPhoto.png"/>
 		#end
 	  </td>
-      <td width="600"><table width="80%"">
+      <td>
+<form action="/user/shelve.html" method="POST">
+		<table width="80%"">
+			<tr >
+				<td align="right">书名:&nbsp;&nbsp;</td>
+				<td >
+					$bookInfo.name
+                </td>
+            </tr>
           <tr>
-            <td align="right" width="25%"><strong>作者</strong>:&nbsp;&nbsp;</td>
+            <td align="right" width="25%">作者:&nbsp;&nbsp;</td>
             <td align="left">$bookInfo.author</td>
           </tr>
           <tr>
-            <td align="right"><strong>ISBN</strong>:&nbsp;&nbsp;</td>
+            <td align="right">ISBN:&nbsp;&nbsp;</td>
             <td align="left">$bookInfo.isbn</td>
+          </tr>
+		
+          <tr>
+            <td align="right">出版社:&nbsp;&nbsp;</td>
+            <td align="left">$bookInfo.publisher</td>
+          </tr>
+          <tr>
+            <td align="right">出版日期:&nbsp;&nbsp;</td>
+            <td align="left">$!dateTool.format("yyyy-MM",$bookInfo.publishTime)</td>
+          </tr>
+          <tr>
+            <td align="right">版次:&nbsp;&nbsp;</td>
+            <td align="left">$bookInfo.edition</td>
+          </tr>
+          <tr>
+            <td align="right" valign="top">描述:&nbsp;&nbsp;</td>
+            <td align="left"><p>$bookInfo.description
+            </p></td>
           </tr>
 		  #if($bookInfo.categoryId > 0)
 			<tr>
-            <td align="right"><strong>类目</strong>:&nbsp;&nbsp;</td>
+            <td align="right">类目:&nbsp;&nbsp;</td>
             <td align="left">$!categoryCache.getFullName($!{bookInfo.categoryId},">>")</td>
           </tr>
 		  #else
 			<tr valign="top">
               #springBind("bookInfo.categoryId")
-				<td align="right">选择类目：&nbsp;&nbsp;</td>
+				<td align="right">选择类目:&nbsp;&nbsp;</td>
                 <td >#parse("widget/selectCategory.vm")
                 #validationError()
                 </td>
             </tr>
 		  
-		  #end
-          <tr>
-            <td align="right"><strong>出版社</strong>:&nbsp;&nbsp;</td>
-            <td align="left">$bookInfo.publisher</td>
-          </tr>
-          <tr>
-            <td align="right"><strong>出版日期</strong>:&nbsp;&nbsp;</td>
-            <td align="left">$!dateTool.format("yyyy-MM",$bookInfo.publishTime)</td>
-          </tr>
-          <tr>
-            <td align="right"><strong>版次</strong>:&nbsp;&nbsp;</td>
-            <td align="left">$bookInfo.edition</td>
-          </tr>
-          <tr>
-            <td align="right" valign="top"><strong>描述</strong>:&nbsp;&nbsp;</td>
-            <td align="left"><p>$bookInfo.description
-            </p></td>
-          </tr>
-        </table></td>
-    </tr>
-  </tbody>
-</table>
+		  #end  
+		<tr >
+		    <td align="right">
+           ##springBind("shelve.bookItem.*")				
+		        标签:&nbsp;&nbsp;
+		</td>
+		<td>
+			#springFormInput("shelve.bookItem.tags" 'size="45" maxlength="45" title="输入一些关键字方便其它人查找"')			
+		</td>
+	</tr>
+	<tr>
+      <td><input type="hidden" name="isbn" value="$!{bookInfo.isbn}"/>
+	  </td><td colspan="2"><input  type="submit" value ="确定上架"/></td>
+    </tr>		  
+    </table>
+</form>
+ </td>
+</tr>
 #else
-<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0">
-  <tbody>
     <tr>
       <td align="center">
-       
-          <table >
-            <tr  valign="top">
-              <td align="right">ISBN：&nbsp;&nbsp; </td>
-              <td align="left">$!{isbn}
-                
-              </td>
-            </tr>
-			<tr valign="top">
-				<td align="right">书本封面：&nbsp;&nbsp; </td>
+        <table width="20%" align="left">
+            <tr><td width="20%">&nbsp;</td><td colspan="1" align="left">书本封面：&nbsp;&nbsp;</td></tr>
+			<tr valign="top" align="left">	<td width="20%">&nbsp;</td>			
 				<td>#parse("user/fileUploadForm.vm")
   				</td>
+            </tr>
+        </table>
+		
+	      <form action="/user/shelve.html" method="POST">
+			<table >        
+			<tbody >
+            <tr  valign="top">
+              <td align="right">ISBN：&nbsp;&nbsp; </td>
+              <td align="left">$!{isbn}                
+              </td>
             </tr>
 			<input type="hidden" name="isbn" value="$!{isbn}"/>
             <tr  valign="top">
@@ -92,13 +112,7 @@
               #validationError()
 			  </td>
             </tr>
-            <tr valign="top">
-              ##springBind("bookInfo.categoryId")
-				<td align="right">选择类目：&nbsp;&nbsp;</td>
-                <td >#parse("widget/selectCategory.vm")
-                #validationError()
-                </td>
-            </tr>
+            
             <tr valign="top">
              ##springBind("bookInfo.publisher")
               <td align="right">出版社：&nbsp;&nbsp; </td>
@@ -124,38 +138,47 @@
               #validationError()
               </td>
             </tr>
-            <tr valign="top">
+             <tr valign="top">
+              ##springBind("bookInfo.categoryId")
+				<td align="right">选择类目：&nbsp;&nbsp;</td>
+                <td >#parse("widget/selectCategory.vm")
+                #validationError()
+                </td>
+            </tr>
+			<tr valign="top">
 	          ##springBind("bookInfo.description")
               <td align="right">书本描述：&nbsp;&nbsp; </td>
-              <td >#springFormTextarea("shelve.bookInfo.description" 'rows="10" cols="55"')
+              <td >#springFormTextarea("shelve.bookInfo.description" 'rows="5" cols="51"')
               #validationError()
               </td>
             </tr>
 			
-           
-		
-          </table>
-        </td>
-    </tr>
-  </tbody>
-</table>
-
-#end
-<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0">
-	<tbody>
-    <tr >
-		<td colspan="2" align="center">
-           ##springBind("shelve.bookItem.*")
-				<input type="hidden" name="isbn" value="$!{bookInfo.isbn}"/>
-				<br/>
-				<h2>为这本书添加一些标签以方便他人查找#springFormInput("shelve.bookItem.tags")</h2>
-				<br/>
-				<input  type="submit" value ="确定上架"/>
+        <tr valign="top">
+		    <td align="right">
+           ##springBind("shelve.bookItem.*")				
+				标签:&nbsp;&nbsp;
+		</td>
+		<td>
+			#springFormInput("shelve.bookItem.tags" 'size="45" maxlength="45" title="输入一些关键字方便其它人查找"')			
 		</td>
 	</tr>
-	</tbody>
+	<tr>
+      <td>
+		<input type="hidden" name="isbn" value="$!{bookInfo.isbn}"/>
+	     <input type="hidden" name="imgUrl" value=""/>
+	  </td><td colspan="1"><input  type="submit" value ="确定上架"/></td>
+    </tr>
+    </tbody>
+</form>	
+		 </table>
+        </td>
+    </tr>
+
+#end
+</tbody>
 </table>
-</form>
+
+
 
 
 

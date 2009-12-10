@@ -33,8 +33,10 @@
 		}
 	}
 </script>
+<div id="uploadImageRadio">
 <input type="radio" name="haveImage" value="0" onclick="javascript:photoChange(0)" #if(!$imgSrc)checked#end>无图&nbsp;
 <input type="radio" name="haveImage" value="1" onclick="javascript:photoChange(1)" #if($imgSrc)checked#end>有图&nbsp;
+</div>
 <br/>
 <div style="height:150;width:100;vertical-align:middle">
 #if($imgSrc && !$imgSrc.equals(""))
