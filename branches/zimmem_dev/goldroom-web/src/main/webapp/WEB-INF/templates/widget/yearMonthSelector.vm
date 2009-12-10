@@ -5,6 +5,7 @@
 		var month = document.getElementById("month").value;
 		document.getElementById(id).value = year+"-"+month+"-01";
 	}
+	
 </script>
 
 <select id="year" name="year">

@@ -414,13 +414,13 @@ function getInputObj()
                                                     }
                                                     } 
 </script>
-<table width="150">
+<table width="150" style="margin:0">
     <tr>
         <td>
             <input type="hidden" id="categoryId" name="categoryId" readonly="true"  />
             <input type="text" id="categoryPath" name="categoryPath" title="点击选择类目" onClick="initAndShowOrHiddenDiv();" style="width:423px;"  readonly/>
 			</td> <td>
-            <input type="button" id="cate" value="选择" onClick="initAndShowOrHiddenDiv();" />
+           
         </td>
     </tr>
     <tr>
