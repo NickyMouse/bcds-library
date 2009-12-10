@@ -39,7 +39,7 @@
 		<a href="$SERVER_NAME/user/myBooks.htm">我的书籍</a>&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="$SERVER_NAME/user/reservatedBooks.htm">我的预约</a>&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="$SERVER_NAME/user/lendedBooks.htm">我要还书</a>&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="$SERVER_NAME/user/beforeShelve.htm">书籍上架</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="$SERVER_NAME/user/shelve.htm">书籍上架</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	#end
 	#if($!authz.anyGranted("ROLE_ADMIN"))
 		|&nbsp;&nbsp;&nbsp;&nbsp;
