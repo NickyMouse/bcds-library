@@ -151,10 +151,10 @@ public class BookSearchServiceImpl implements BookSearchService {
 	}
 
 	public BookSearchQueryObject searchBookByInfoIds(List<Integer> infoIdlist) {
-		if(infoIdlist == null || infoIdlist.size() == 0){
+		if (infoIdlist == null || infoIdlist.size() == 0) {
 			return BookSearchQueryObject.EMPTY_RESULT;
 		}
-			
+
 		SearchConditionBuilder builder = SearchConditionBuilder.getInstance();
 		for (Integer id : infoIdlist) {
 			builder.addTerm(BookSearchConstrains.BOOK_INFO_ID, id.toString());
@@ -163,6 +163,20 @@ public class BookSearchServiceImpl implements BookSearchService {
 				.getInstance(builder).setN(infoIdlist.size()).setSkipResult(0)
 				.setPrimarySortFiled(BookSearchConstrains.ITEM_FIRST_ADD_TIME)
 				.setReverse(true);
+		bookSearchDao.searchByQuery(query);
+		return query;
+	}
+
+	@Override
+	public BookSearchQueryObject searchBookByOwnersAndKeyword(String loginId,
+			String keyword, Integer skipResult, Integer number) {
+		SearchConditionBuilder builder = SearchConditionBuilder.getInstance()
+				.addTerm(BookSearchConstrains.BOOK_NAME, keyword)
+				.addTerm(BookSearchConstrains.BOOK_OWNERS, loginId, true);
+		BookSearchQueryObject query = BookSearchQueryObject
+				.getInstance(builder).setN(number).setSkipResult(skipResult)
+				.setPrimarySortFiled(BookSearchConstrains.BOOK_INFO_ID)
+				.setHighlight(true).setReverse(true);
 		bookSearchDao.searchByQuery(query);
 		return query;
 	}

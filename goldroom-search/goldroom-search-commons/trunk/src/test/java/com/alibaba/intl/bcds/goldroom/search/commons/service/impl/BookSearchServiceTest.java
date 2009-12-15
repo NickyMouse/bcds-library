@@ -55,4 +55,12 @@ public class BookSearchServiceTest extends TestCase {
 		assertNotNull(list);
 	}
 
+	public void testSearchBookByOwnersAndKeyword() {
+		System.out.println("testSearchBookByTime");
+		List<BookSearch> list = bookSearchService.searchBookByOwnersAndKeyword("zzz", "test", 0, 10).getResultList();
+		for (BookSearch aDO : list) {
+			System.out.println(aDO.getBookName()+ ":"+aDO.getBookOwners());
+		}
+		assertNotNull(list);
+	}
 }

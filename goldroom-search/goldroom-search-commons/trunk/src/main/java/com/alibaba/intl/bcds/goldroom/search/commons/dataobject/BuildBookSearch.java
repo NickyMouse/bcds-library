@@ -17,7 +17,8 @@ public class BuildBookSearch {
 	private String bookImgUrl;
 	private String bookDescription;
 	private String bookEdition;
-
+	private String bookOwners;
+	
 	public Date getItemAddTime() {
 		return itemAddTime;
 	}
@@ -120,5 +121,13 @@ public class BuildBookSearch {
 
 	public String getBookTags() {
 		return bookTags;
+	}
+
+	public void setBookOwners(String bookOwners) {
+		this.bookOwners = bookOwners;
+	}
+
+	public String getBookOwners() {
+		return bookOwners;
 	}
 }

@@ -19,14 +19,15 @@ import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearch;
 
 /**
  * Document 到DO的转换类
+ * 
  * @author Giraffe
- *
+ * 
  */
 public class DocumentToDoConvertor {
 	private static Logger logger = Logger
 			.getLogger(DocumentToDoConvertor.class);
-	private Highlighter highlighter;	//高亮器
-	private Analyzer analyzer;			//词法分析器
+	private Highlighter highlighter; // 高亮器
+	private Analyzer analyzer; // 词法分析器
 
 	protected DocumentToDoConvertor(Query query) {
 		this.analyzer = new MMAnalyzer();
@@ -70,6 +71,7 @@ public class DocumentToDoConvertor {
 			aDO.setBookDescription(doc
 					.get(BookSearchConstrains.BOOK_DESCRIPTION));
 			aDO.setBookEdition(doc.get(BookSearchConstrains.BOOK_EDITION));
+			aDO.setBookOwners(doc.get(BookSearchConstrains.BOOK_OWNERS));
 			highlight(aDO, doc);
 		} catch (Exception e) {
 			logger.error(e);
@@ -97,7 +99,8 @@ public class DocumentToDoConvertor {
 						4, "");
 				bookDesc = highlighter.getBestFragments(bookDescTS, bookDesc,
 						4, "");
-				if(bookTags.length()!=0 ) aDO.setBookTags(bookTags);
+				if (bookTags.length() != 0)
+					aDO.setBookTags(bookTags);
 				if (bookName.length() != 0)
 					aDO.setBookName(bookName);
 				if (bookDesc.length() != 0)

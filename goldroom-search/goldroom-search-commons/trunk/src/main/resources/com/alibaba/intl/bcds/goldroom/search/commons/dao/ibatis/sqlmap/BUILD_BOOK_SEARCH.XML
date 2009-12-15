@@ -22,6 +22,7 @@
 		<result property="bookDescription" column="BOOK_DESCRIPTION"
 			jdbcType="VARCHAR" />
 		<result property="bookEdition" column="BOOK_EDITION" jdbcType="VARCHAR" />
+		<result property="bookOwners" column="BOOK_OWNERS" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="listAllBook" resultMap="bookSearchResult">
@@ -38,13 +39,14 @@
 		info.CATEGORY_ID BOOK_CATEGORY_ID,
 		info.IMG_URL BOOK_IMG_URL,
 		info.DESCRIPTION BOOK_DESCRIPTION,
-		info.EDITION BOOK_EDITION
+		info.EDITION BOOK_EDITION,
+		GROUP_CONCAT(m.LOGIN_ID) BOOK_OWNERS
 		FROM BOOK_ITEM item
 		JOIN BOOK_INFO info ON item.BOOK_INFO_ID = info.ID
 		JOIN MEMBER m ON item.LOGIN_ID = m.LOGIN_ID
 		WHERE
 		<![CDATA[
-			m.ENABLE=1 AND item.STATE<>'unavailable'
+			item.STATE<>'deleted'
 		]]>
 		GROUP BY info.ID
 		ORDER BY item.FIRST_ADD_TIME DESC
@@ -66,13 +68,14 @@
 		info.CATEGORY_ID BOOK_CATEGORY_ID,
 		info.IMG_URL BOOK_IMG_URL,
 		info.DESCRIPTION BOOK_DESCRIPTION,
-		info.EDITION BOOK_EDITION
+		info.EDITION BOOK_EDITION,
+		GROUP_CONCAT(m.LOGIN_ID) BOOK_OWNERS
 		FROM BOOK_ITEM item
 		JOIN BOOK_INFO info ON item.BOOK_INFO_ID = info.ID
 		JOIN MEMBER m ON item.LOGIN_ID = m.LOGIN_ID
 		WHERE
 		<![CDATA[
-			m.ENABLE=1 AND item.STATE<>'unavailable' AND
+			item.STATE<>'deleted' AND
 			(
 				(item.GMT_MODIFIED >= #startTime:DATETIME# AND item.GMT_MODIFIED < #endTime:DATETIME#)
 				OR
