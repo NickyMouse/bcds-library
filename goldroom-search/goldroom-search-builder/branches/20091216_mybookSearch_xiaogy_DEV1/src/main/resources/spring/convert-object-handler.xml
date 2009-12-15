@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName">
+
+	<bean id="bookInfoConvertObjectHandler" class="com.alibaba.intl.bcds.goldroom.search.builder.utils.SimpleConvertObjectHandler">
+		<property name="rules">
+			<map>
+			
+				<entry key="itemId" value-ref="itemId"/>
+				<entry key="itemState" value-ref="itemState"/>
+				<entry key="itemAddTime" value-ref="itemAddTime"/>
+				<entry key="itemFirstAddTime" value-ref="itemFirstAddTime"/>
+				<entry key="itemGmtCreate" value-ref="itemGmtCreate"/>
+				<entry key="itemGmtModified" value-ref="itemGmtModified"/>
+				<entry key="itemTags" value-ref="itemTags"/>
+				<entry key="bookTags" value-ref="bookTags"/>
+				<entry key="bookInfoId" value-ref="bookInfoId"/>
+				<entry key="bookAuthor" value-ref="bookAuthor"/>
+				<entry key="bookName" value-ref="bookName"/>
+				<entry key="bookPublisher" value-ref="bookPublisher"/>
+				<entry key="bookPublishTime" value-ref="bookPublishTime"/>
+				<entry key="bookIsbn" value-ref="bookIsbn"/>
+				<entry key="bookCategoryId" value-ref="bookCategoryId"/>
+				<entry key="bookImgUrl" value-ref="bookImgUrl"/>
+				<entry key="bookDescription" value-ref="bookDescription"/>
+				<entry key="bookEdition" value-ref="bookEdition"/>
+				<entry key="memberId" value-ref="memberId"/>
+				<entry key="memberName" value-ref="memberName"/>
+				<entry key="memberWorkId" value-ref="memberWorkId"/>
+				<entry key="memberLoginId" value-ref="memberLoginId"/>
+				<entry key="memberEmail" value-ref="memberEmail"/>
+				<entry key="memberAlitalkId" value-ref="memberAlitalkId"/>				
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="itemId"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="itemId" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="itemState"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="itemState" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="itemAddTime"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="itemAddTime" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="itemFirstAddTime"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="itemFirstAddTime" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="itemGmtCreate"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="itemGmtCreate" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="itemGmtModified"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="itemGmtModified" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="itemTags"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="itemTags" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="ANALYZED" />
+	</bean>
+	
+	<bean id="bookTags"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookTags" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="ANALYZED" />
+	</bean>
+	<bean id="bookInfoId"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookInfoId" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="bookAuthor"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookAuthor" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="ANALYZED" />
+	</bean>
+
+	<bean id="bookName"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookName" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="ANALYZED" />
+	</bean>
+
+	<bean id="bookPublisher"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookPublisher" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="ANALYZED" />
+	</bean>
+
+	<bean id="bookPublishTime"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookPublishTime" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="bookIsbn"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookIsbn" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="bookCategoryId"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookCategoryId" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="bookImgUrl"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookImgUrl" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="bookDescription"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookDescription" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="ANALYZED" />
+	</bean>
+
+	<bean id="bookEdition"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookEdition" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="ANALYZED" />
+	</bean>
+
+	<bean id="memberId"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="memberId" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="memberName"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="memberName" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="memberWorkId"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="memberWorkId" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="memberLoginId"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="memberLoginId" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="memberEmail"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="memberEmail" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+
+	<bean id="memberAlitalkId"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="memberAlitalkId" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+</beans>
