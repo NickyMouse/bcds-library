@@ -17,8 +17,8 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.gjt.mm.mysql.Driver" />
 		<property name="url" value="jdbc:mysql://localhost/goldroom" />
-		<property name="username" value="goldroom" />
-		<property name="password" value="goldroom" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
 	</bean>
 
 	<bean id="searchDatasource"

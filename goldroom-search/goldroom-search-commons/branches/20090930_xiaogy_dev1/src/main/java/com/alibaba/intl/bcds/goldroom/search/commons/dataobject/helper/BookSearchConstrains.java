@@ -19,4 +19,5 @@ public class BookSearchConstrains {
 	public static String BOOK_IMG_URL = "bookImgUrl";
 	public static String BOOK_DESCRIPTION = "bookDescription";
 	public static String BOOK_EDITION = "bookEdition";
+	public static String BOOK_OWNERS = "bookOwners";
 }

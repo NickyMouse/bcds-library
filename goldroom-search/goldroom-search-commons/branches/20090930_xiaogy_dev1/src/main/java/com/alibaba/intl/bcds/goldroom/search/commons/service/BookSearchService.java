@@ -23,6 +23,9 @@ public interface BookSearchService {
 			Integer skipResult, Integer number);
 
 	public BookSearchQueryObject listAllBook(Integer skipResult, Integer number);
-	
+
 	public BookSearchQueryObject searchBookByInfoIds(List<Integer> infoIdlist);
+
+	public BookSearchQueryObject searchBookByOwnersAndKeyword(String loginId,
+			String keyword, Integer skipResult, Integer number);
 }
