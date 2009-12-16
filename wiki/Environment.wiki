@@ -75,13 +75,13 @@ mvn clean package -Dmaven.test.skip=true
 cd goldroom-search/goldroom-search-builder/target
 java -jar goldroom-search-builder-0.0.1-SNAPSHOT-jar-with-dependencies.jar full /home/intlbcds/work/index/ 60 0 23
 #full : 全量build
-#/home/intlbcds/work/index/ : 索引路径
+#/home/intlbcds/work/index/ : 索引路径，由于这个路径还没有一个统一的配置方式，更改这个参数会导致goldroom中搜索不可用
 #60 : build的时间间隔（分钟）
 #0  : 开始时间（0:00）
 #23 : 结束时间(23:00)
 #完成一次build之后可以直接关掉这个进程
 }}}
-在用户目录下添加goldroom.properties文件并添加如下文件内容
+ * 在用户目录下添加goldroom.properties文件并添加如下文件内容
 {{{
 jdbc.driver=org.gjt.mm.mysql.Driver                     #数据库驱动，目前是mysql
 jdbc.url=jdbc:mysql://<数据库所在服务器>/[数据库目称]   #数据库连接地址
