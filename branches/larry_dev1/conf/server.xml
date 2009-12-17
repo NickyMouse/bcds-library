@@ -164,7 +164,7 @@
 
 				<Context docBase="goldroom-web/target/goldroom-web" path="/"
 					reloadable="true" />
-				<Context docBase="d:/upload/" path="/upload"
+				<Context docBase="/home/larry/work-goldroom/goldroom/upload/" path="/upload"
 					reloadable="true" />
 			</Host>
 		</Engine>

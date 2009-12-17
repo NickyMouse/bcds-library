@@ -27,15 +27,17 @@ import com.alibaba.intl.bcds.goldroom.dataobject.Category;
  * 
  * @author Zimmem
  */
-public class CategoryDaoImpl extends SqlMapClientDaoSupport implements CategoryDao {
+public class CategoryDaoImpl extends SqlMapClientDaoSupport implements
+		CategoryDao {
 
-    /*
-     * (non-Javadoc)
-     * @see com.alibaba.intl.bcds.goldroom.dao.CategoryDao#listAll()
-     */
-    @Override
-    public List<Category> listAll() {
-        return getSqlMapClientTemplate().queryForList("CATEGORY.listAll");
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.alibaba.intl.bcds.goldroom.dao.CategoryDao#listAll()
+	 */
+	@Override
+	public List<Category> listAll() {
+		return getSqlMapClientTemplate().queryForList("CATEGORY.listAll");
+	}
 
 }

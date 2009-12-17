@@ -20,8 +20,8 @@ public class BookItemLogDaoImpl extends SqlMapClientDaoSupport implements
 	}
 
 	public Integer insert(BookItemLog bookItemLogDO) {
-		return (Integer) getSqlMapClientTemplate().insert("BOOK_ITEM_LOG.insert",
-				bookItemLogDO);
+		return (Integer) getSqlMapClientTemplate().insert(
+				"BOOK_ITEM_LOG.insert", bookItemLogDO);
 	}
 
 	public List<BookItemLog> listAll() {
@@ -29,7 +29,8 @@ public class BookItemLogDaoImpl extends SqlMapClientDaoSupport implements
 	}
 
 	public int updateById(BookItemLog bookItemLogDO) {
-		return getSqlMapClientTemplate().update("BOOK_ITEM_LOG.updateById", bookItemLogDO);
+		return getSqlMapClientTemplate().update("BOOK_ITEM_LOG.updateById",
+				bookItemLogDO);
 	}
 
 }

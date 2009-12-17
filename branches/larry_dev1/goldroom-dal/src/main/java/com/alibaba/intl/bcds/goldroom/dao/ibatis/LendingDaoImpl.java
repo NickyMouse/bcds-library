@@ -29,59 +29,67 @@ import com.ibatis.sqlmap.client.SqlMapExecutor;
  * 
  * @author Zimmem
  */
-public class LendingDaoImpl extends SqlMapClientDaoSupport implements LendingDao {
+public class LendingDaoImpl extends SqlMapClientDaoSupport implements
+		LendingDao {
 
-    /*
-     * (non-Javadoc)
-     * @see com.alibaba.intl.bcds.goldroom.dao.LendingDao#cutLendingToLog(int)
-     */
-    @Override
-    public void cutLendingToLog(int lendId) {
-        //getSqlMapClientTemplate().insert("LENDING.cutLendingToLog", lending);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.alibaba.intl.bcds.goldroom.dao.LendingDao#cutLendingToLog(int)
+	 */
+	@Override
+	public void cutLendingToLog(int lendId) {
+		// getSqlMapClientTemplate().insert("LENDING.cutLendingToLog", lending);
 
-    }
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.alibaba.intl.bcds.goldroom.dao.LendingDao#cutLendingToLog(com.alibaba
-     * .intl.bcds.goldroom.dataobject.Lending)
-     */
-    @Override
-    public void cutLendingToLog(final Lending lending) {
-        getSqlMapClientTemplate().execute(new SqlMapClientCallback() {
-            @Override
-            public Object doInSqlMapClient(SqlMapExecutor executor) throws SQLException {
-                executor.insert("LENDING.copyLendingToLog", lending.getId());
-                executor.delete("LENDING.deleteById", lending.getId());
-                return null;
-            }
-        });
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.alibaba.intl.bcds.goldroom.dao.LendingDao#cutLendingToLog(com.alibaba
+	 * .intl.bcds.goldroom.dataobject.Lending)
+	 */
+	@Override
+	public void cutLendingToLog(final Lending lending) {
+		getSqlMapClientTemplate().execute(new SqlMapClientCallback() {
+			@Override
+			public Object doInSqlMapClient(SqlMapExecutor executor)
+					throws SQLException {
+				executor.insert("LENDING.copyLendingToLog", lending.getId());
+				executor.delete("LENDING.deleteById", lending.getId());
+				return null;
+			}
+		});
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see com.alibaba.intl.bcds.goldroom.dao.LendingDao#findById(int)
-     */
-    @Override
-    public Lending findById(int lendId) {
-        return (Lending) getSqlMapClientTemplate().queryForObject("LENDING.findById", lendId);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.alibaba.intl.bcds.goldroom.dao.LendingDao#findById(int)
+	 */
+	@Override
+	public Lending findById(int lendId) {
+		return (Lending) getSqlMapClientTemplate().queryForObject(
+				"LENDING.findById", lendId);
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * com.alibaba.intl.bcds.goldroom.dao.LendingDao#insert(com.alibaba.intl
-     * .bcds.goldroom.dataobject.Lending)
-     */
-    @Override
-    public void insert(Lending lending) {
-        getSqlMapClientTemplate().insert("LENDING.insert", lending);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.alibaba.intl.bcds.goldroom.dao.LendingDao#insert(com.alibaba.intl
+	 * .bcds.goldroom.dataobject.Lending)
+	 */
+	@Override
+	public void insert(Lending lending) {
+		getSqlMapClientTemplate().insert("LENDING.insert", lending);
+	}
 
-    @Override
-    public void updateRealReturnTime(int lendingId) {
-        getSqlMapClientTemplate().update("LENDING.updateRealReturnTime", lendingId);
-    }
+	@Override
+	public void updateRealReturnTime(int lendingId) {
+		getSqlMapClientTemplate().update("LENDING.updateRealReturnTime",
+				lendingId);
+	}
 
 }

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
+import com.alibaba.intl.bcds.goldroom.dao.IntegralDao;
 import com.alibaba.intl.bcds.goldroom.dao.LendingDao;
 import com.alibaba.intl.bcds.goldroom.dao.ReservationDAO;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
@@ -39,6 +40,7 @@ public class BookItemServiceImpl implements BookItemService {
     BookItemDao    bookItemDao;
     ReservationDAO reservationDAO;
     LendingDao     lendingDao;
+    IntegralDao    integralDao;
 
     /**
      * @param lendingDao the lendingDao to set
