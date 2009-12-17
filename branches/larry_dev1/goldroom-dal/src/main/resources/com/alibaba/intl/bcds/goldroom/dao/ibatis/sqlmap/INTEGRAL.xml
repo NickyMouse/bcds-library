@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="INTEGRAL">
+	<typeAlias alias="IntegralQuery"
+		type="com.alibaba.intl.bcds.goldroom.dataobject.IntegralQuery" />
+
+	<resultMap class="Integral" id="IntegralResult">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="gmtCreate" column="GMT_CREATE" jdbcType="DATETIME" />
+		<result property="gmtModified" column="GMT_MODIFIED" jdbcType="DATETIME" />
+		<result property="loginId" column="LOGIN_ID" jdbcType="VARCHAR" />
+		<result property="value" column="VALUE" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<select id="listAll" resultMap="IntegralResult">
+		SELECT
+		ID,GMT_CREATE,GMT_MODIFIED,LOGIN_ID,VALUE
+		FROM INTEGRAL
+	</select>
+	
+	<select id="findById" parameterClass="java.lang.Integer"
+		resultMap="IntegralResult">
+		SELECT
+		ID,GMT_CREATE,GMT_MODIFIED,LOGIN_ID,VALUE
+		FROM INTEGRAL
+		WHERE ID=#id:DECIMAL#
+	</select>
+	
+	<select id="findByLoginId" parameterClass="java.lang.Integer"
+		resultMap="IntegralResult">
+		SELECT
+		ID,GMT_CREATE,GMT_MODIFIED,LOGIN_ID,VALUE
+		FROM INTEGRAL
+		WHERE LOGIN_ID=#loginId:VARCHAR#
+	</select>
+
+	<insert id="insert" parameterClass="IntegralQuery">
+		INSERT INTO INTEGRAL
+		(GMT_CREATE,GMT_MODIFIED,LOGIN_ID,VALUE
+		)
+		VALUES
+		(NOW(),NOW(),#loginId:VARCHAR#,#value:DECIMAL#)
+	</insert>
+
+	<update id="updateById" parameterClass="IntegralQuery">
+		UPDATE INTEGRAL
+		<dynamic prepend="set">
+		  <isNotNull prepend="," property="loginId">
+            TYPE = #type:VARCHAR#
+		  </isNotNull>
+		  <isNotNull prepend="," property="value">
+            VALUE=#value:DECIMAL#
+		  </isNotNull>
+		</dynamic>
+		GMT_MODIFIED=NOW()
+		WHERE ID=#id:DECIMAL#
+	</update>
+
+	<delete id="deleteById" parameterClass="java.lang.Integer">
+		DELETE FROM INTEGRAL
+		WHERE ID=#id:DECIMAL#
+	</delete>
+	
+	<update id="increase" parameterClass="IntegralQuery">
+		UPDATE INTEGRAL SET
+		GMT_MODIFIED=NOW(),
+		VALUE=VALUE-#alterValue:DECIMAL#
+		WHERE LOGIN_ID=#loginId:VARCHAR#
+	</update>
+	
+	<update id="decrease" parameterClass="IntegralQuery">
+		UPDATE INTEGRAL SET
+		GMT_MODIFIED=NOW(),
+		VALUE=VALUE+#alterValue:DECIMAL#
+		WHERE LOGIN_ID=#loginId:VARCHAR#
+	</update>
+
+</sqlMap>
