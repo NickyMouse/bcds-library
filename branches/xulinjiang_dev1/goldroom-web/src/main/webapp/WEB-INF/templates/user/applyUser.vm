@@ -50,6 +50,18 @@
 			<td>#springFormInput("applyUser.workId" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
 			#validationError()</td>
 		</tr>
+		<tr>
+			#springBind("applyUser.location")
+			<td align="right">座位号：</td>
+			<td>#springFormInput("applyUser.location" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()</td>
+		</tr>
+		<tr>
+			#springBind("applyUser.ext")
+			<td align="right">分机：</td>
+			<td>#springFormInput("applyUser.ext" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()</td>
+		</tr>
 		<tr><td></td><td  align="left">
 			<table onClick="javascript:check();" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
 				<tbody><tr>
@@ -65,9 +77,15 @@
 </td></tr>
 </table>
 <script LANGUAGE="javascript">
+
+// 去空
+String.prototype.trim = function() {
+	return this.replace(/(^\s*)|(\s*$)/g, "");
+}
+
 function check()
 {
-	if (document.applyForm.loginId.value == ""){
+	if (document.applyForm.loginId.value.trim() == ""){
 		alert("请填写您的登录名！");
 		document.form1.loginId.focus();
 		return (false);
@@ -77,18 +95,18 @@ function check()
 		alert("登录名只能为英文字母、数字、下划线组成");
 		return (false);
 	}
-	if (document.applyForm.name.value == ""){
+	if (document.applyForm.name.value.trim() == ""){
 		alert("请填写您的用户名！");
 		document.form1.name.focus();
 		return (false);
 	}
-	if(document.applyForm.password.value.length ==0 || document.applyForm.confirm.value.length ==0 ){
+	if(document.applyForm.password.value.trim().length ==0 || document.applyForm.confirm.value.trim().length ==0 ){
 		alert("请正确填写密码");
 		document.form1.password.focus();
 		return (false);
 	}
 	
-    if (document.applyForm.password.value!=document.applyForm.confirm.value ){
+    if (document.applyForm.password.value.trim()!=document.applyForm.confirm.value.trim() ){
         alert("两次填写的密码不一致，请重新填写！");
         document.applyForm.password.focus();
         document.applyForm.password.select();
@@ -102,19 +120,29 @@ function check()
 		document.applyForm.email.select();
 		return (false);
 	}
-	if (document.applyForm.aliTalkId.value == ""){
+	if (document.applyForm.aliTalkId.value.trim() == ""){
 		alert("请填写您的贸易通ID！");
 		document.form1.aliTalkId.focus();
 		return (false);
 	}
-	if (document.applyForm.workId.value == ""){
+	if (document.applyForm.workId.value.trim() == ""){
 		alert("请填写您的工号！");
 		document.form1.workId.focus();
 		return (false);
 	}
+	if (document.applyForm.location.value.trim() == "") {
+		alert("请填写您的座位号！");
+		document.applyForm.location.focus();
+		return (false);
+	}	
+	if (document.applyForm.ext.value.trim() == "") {
+		alert("请填写您的分机！");
+		document.applyForm.ext.focus();
+		return (false);
+	}
 	document.applyForm.password.value = hex_md5(document.applyForm.password.value);
 	document.applyForm.confirm.value = hex_md5(document.applyForm.confirm.value);
-	
+
 	document.applyForm.submit();
 }
 </script>

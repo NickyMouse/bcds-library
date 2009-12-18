@@ -38,7 +38,7 @@
 		insert into MEMBER (NAME,
 		WORK_ID, LOGIN_ID, PASSWORD, EMAIL,
 		ALI_TALK_ID, GMT_CREATE,
-		GMT_MODIFIED, ENABLE)
+		GMT_MODIFIED, ENABLE, LOCATION, EXT)
 		values (
 		#name:VARCHAR#,
 		#workId:INTEGER#, #loginId:VARCHAR#,
@@ -46,7 +46,8 @@
 		#email:VARCHAR#, #aliTalkId:VARCHAR#,
 		now(),
 		now(),
-		#enable:INTEGER#)
+		#enable:INTEGER#,
+		#location:VARCHAR#, #ext:VARCHAR#)
 		<selectKey resultClass="int" keyProperty="id">
 			select
 			last_insert_id() as ID from MEMBER limit 1
