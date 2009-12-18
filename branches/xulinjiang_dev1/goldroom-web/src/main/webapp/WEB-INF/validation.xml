@@ -114,6 +114,14 @@
 			<field property="workId" depends="required">
 				<arg0 key="workId" resource="false" />
 			</field>
+			
+			<field property="location" depends="required">
+				<arg0 key="location" resource="false" />
+			</field>
+			
+			<field property="ext" depends="required">
+				<arg0 key="ext" resource="false" />
+			</field>
 		</form>
 
 	</formset>
