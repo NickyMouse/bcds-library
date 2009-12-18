@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+	<!--
+		application scoped tools will be instantiated only once and then
+		reused for each request. Due to this, it is strongly encouraged that
+		your application scoped tools be completely threadsafe. The MathTool
+		in the GenericTools section is a good example of tool meant to be
+		application scoped. If an application scoped tool implements ViewTool,
+		then the javax.servlet.ServletContext for the webapp will be passed to
+		its init(Object) method after it is instantiated. session scoped tools
+		are instantiated once per unique session and are then reused for every
+		request associated with that particular session. If a session scoped
+		tool implements ViewTool, then its init(Object) method will be passed
+		the ViewContext of the request during which the session was created.
+		request is the default scope. If no scope is specified for a <tool> in
+		your toolbox.xml, then it will be automatically set as request scope.
+		Tools with this scope are instantiated for every servlet request fed
+		to the VelocityViewServlet. If a request scoped tool implements
+		ViewTool, then its init(Object) method will be passed the current
+		ViewContext.
+	-->
+<toolbox>
+	<!-- <tool>
+		<key>categoryCache</key>
+		<scope>application</scope>
+		<class>com.alibaba.intl.bcds.goldroom.web.utils.CategoryCache</class>
+	</tool>
+	 -->
+</toolbox>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="LENDING">
+	<typeAlias alias="Lending"
+		type="com.alibaba.intl.bcds.goldroom.dataobject.Lending" />
+	<resultMap class="Lending" id="LendingResult">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="subscriber" column="SUBSCRIBER" jdbcType="VARCHAR" />
+		<result property="lendTime" column="LENDING_TIME" jdbcType="DATETIME" />
+		<result property="returnTime" column="RETURN_TIME" jdbcType="DATETIME" />
+		<result property="state" column="STATE" jdbcType="VARCHAR" />
+		<result property="bookItemId" column="BOOK_ITEM_ID" jdbcType="DECIMAL" />
+		<result property="realReturnTime" column="REAL_RETURN_TIME"
+			jdbcType="DATETIME" />
+		<result property="gmtCreate" column="GMT_CREATE" jdbcType="DATETIME" />
+		<result property="gmtModified" column="GMT_MODIFIED" jdbcType="DATETIME" />
+	</resultMap>
+
+	<sql id="selectLending">
+		SELECT
+		ID,SUBSCRIBER,LENDING_TIME,RETURN_TIME,STATE,BOOK_ITEM_ID,REAL_RETURN_TIME,GMT_CREATE,GMT_MODIFIED
+		FROM LENDING
+	</sql>
+
+
+	<insert id="insert" parameterClass="Lending">
+		INSERT INTO LENDING
+		(SUBSCRIBER,LENDING_TIME,RETURN_TIME,STATE,BOOK_ITEM_ID,REAL_RETURN_TIME,GMT_CREATE,GMT_MODIFIED
+		)
+		VALUES
+		(#subscriber:VARCHAR#,now(),#returnTime:DATETIME#,#state:VARCHAR#,
+		#bookItemId:DECIMAL#,#realReturnTime:DATETIME#,now(),now())
+	</insert>
+
+	<select id="findById" parameterClass="java.lang.Integer"
+		resultMap="LendingResult">
+		<include refid="selectLending" />
+		WHERE ID=#value:DECIMAL#
+	</select>
+
+	<select id="findByBookItemId" parameterClass="java.lang.Integer"
+		resultMap="LendingResult">
+		<include refid="selectLending" />
+		WHERE BOOK_ITEM_ID=#value:DECIMAL#
+	</select>
+
+	<delete id="deleteById" parameterClass="java.lang.Integer">
+		DELETE FROM LENDING WHERE
+		ID=#value:DECIMAL#
+	</delete>
+
+	<update id="updateRealReturnTime" parameterClass="java.lang.Integer">
+		UPDATE
+		LENDING_LOG SET REAL_RETURN_TIME = NOW() WHERE ID=#value:DECIMAL#
+	</update>
+
+	<insert id="copyLendingToLog" parameterClass="java.lang.Integer">
+		insert into
+		LENDING_LOG (select * from LENDING where id = #value:DECIMAL#)
+	</insert>
+</sqlMap>
