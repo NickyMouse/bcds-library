@@ -95,25 +95,29 @@
 
 	<update id="updateUserInfoByLoginId" parameterClass="Member">
 		update MEMBER
-		set PASSWORD = #password:VARCHAR#
-		<isNotEmpty property="name" prepend=",">
-			NAME = #name:VARCHAR#
-		</isNotEmpty>
-		<isNotEmpty property="email" prepend=",">
-			EMAIL = #email:VARCHAR#
-		</isNotEmpty>
-		<isNotEmpty property="aliTalkId" prepend=",">
-			ALI_TALK_ID = #aliTalkId:VARCHAR#
-		</isNotEmpty>
-		<isNotEmpty property="workId" prepend=",">
-			WORK_ID = #workId:INTEGER#
-		</isNotEmpty>
-		<isNotEmpty property="location" prepend=",">
-			LOCATION = #location:VARCHAR#
-		</isNotEmpty>
-		<isNotEmpty property="ext" prepend=",">
-			EXT = #ext:VARCHAR#
-		</isNotEmpty>
+		<dynamic prepend="set">
+			<isNotEmpty prepend="," property="password">
+				PASSWORD = #password:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="name">
+				NAME = #name:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="email">
+				EMAIL = #email:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="aliTalkId">
+				ALI_TALK_ID = #aliTalkId:VARCHAR#
+			</isNotEmpty>
+			<isNotNull prepend="," property="workId">
+				WORK_ID = #workId:INTEGER#
+			</isNotNull>
+			<isNotEmpty prepend="," property="location">
+				LOCATION = #location:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ext">
+				EXT = #ext:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
 		where LOGIN_ID = #loginId:VARCHAR#
 	</update>
 	
