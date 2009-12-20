@@ -66,19 +66,19 @@ public class UserInfoModifyController extends SimpleFormController {
         UserInfoCommand userInfo = (UserInfoCommand) command;
         // 判断原密码是否正确
         if (!userInfo.getOldPassword().equals(UserUtil.getPassword())) {
-            return new ModelAndView("/resources/changePasswordFailed");
+            return new ModelAndView("/resources/changeUserInfoFailed");
         }
         // 判断用户有没修改
         if (isNotModified(userInfo)) {
-            return new ModelAndView("/resources/changePasswordFailed");
+            return new ModelAndView("/resources/changeUserInfoFailed");
         }
         Result result = new Result(false);
         Member member = setToMember(userInfo);
         result = memberService.updateUserInfoByLoginId(member);
         if (result.isSuccess()) {
-            return new ModelAndView("/resources/changePasswordSuccess");
+            return new ModelAndView("/resources/changeUserInfoSuccess");
         } else {
-            return new ModelAndView("/resources/changePasswordFailed");
+            return new ModelAndView("/resources/changeUserInfoFailed");
         }
     }
 }
