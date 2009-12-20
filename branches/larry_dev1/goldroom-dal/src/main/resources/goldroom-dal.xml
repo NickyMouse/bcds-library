@@ -62,7 +62,7 @@
 	<bean id="memberRoleDAO"
 		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.MemberRoleDAOImpl" />
 		
-	<bean id="integralDAO"
+	<bean id="integralDao"
 		class="com.alibaba.intl.bcds.goldroom.dao.ibatis.IntegralDaoImpl" />
 
 	<bean id="searchDatasource"

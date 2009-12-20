@@ -15,18 +15,10 @@ import com.alibaba.intl.bcds.goldroom.dataobject.IntegralQuery;
 public class IntegralDaoImpl extends SqlMapClientDaoSupport implements
 		IntegralDao {
 
-	public static final String INCREASE = "increase";
-
-	public static final String DECREASE = "decrease";
-
-	public Integral findById(Integer id) {
-		return (Integral) getSqlMapClientTemplate().queryForObject(
-				"INTEGRAL.findById", id);
-	}
-
-	public Integral findByLoginId(String loginId) {
-		return (Integral) getSqlMapClientTemplate().queryForObject(
-				"INTEGRAL.findByLoginId", loginId);
+	@SuppressWarnings("unchecked")
+	public List<Integral> listByQuery(IntegralQuery integralQuery) {
+		return getSqlMapClientTemplate().queryForList("INTEGRAL.listByQuery",
+				integralQuery);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -48,38 +40,14 @@ public class IntegralDaoImpl extends SqlMapClientDaoSupport implements
 		return getSqlMapClientTemplate().delete("INTEGRAL.deleteById", id);
 	}
 
-	public boolean increaseIntegral(String loginId, long integralValue) {
-		return this.creaseIntegral(loginId, integralValue, this.INCREASE);
+	public int increaseIntegral(IntegralQuery integralQuery) {
+		return getSqlMapClientTemplate().update("INTEGRAL.increase",
+				integralQuery);
 	}
 
-	public boolean decreaseIntegral(String loginId, long integralValue) {
-		return this.creaseIntegral(loginId, integralValue, this.DECREASE);
+	public int decreaseIntegral(IntegralQuery integralQuery) {
+		return getSqlMapClientTemplate().update("INTEGRAL.decrease",
+				integralQuery);
 	}
 
-	private boolean creaseIntegral(String loginId, long integralValue,
-			String type) {
-		Integral integral = this.findByLoginId(loginId);
-		if (integral == null) {
-			return false;
-		}
-		IntegralQuery integralQuery = new IntegralQuery();
-		integralQuery.setLoginId(loginId);
-		integralQuery.setAlterValue(integralValue);
-
-		int rel = 0;
-		if (type != null && type.equalsIgnoreCase(this.INCREASE)) {
-			rel = getSqlMapClientTemplate().update("INTEGRAL.increase",
-					integralQuery);
-		} else if (type != null && type.equalsIgnoreCase(this.DECREASE)) {
-			rel = getSqlMapClientTemplate().update("INTEGRAL.decrease",
-					integralQuery);
-		} else {
-			return false;
-		}
-		if (rel > 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 }

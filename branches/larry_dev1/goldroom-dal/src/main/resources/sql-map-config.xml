@@ -19,4 +19,5 @@
 	<sqlMap
 		resource="com/alibaba/intl/bcds/goldroom/dao/ibatis/sqlmap/MEMBER_LOG.xml" />
 	<sqlMap resource="com/alibaba/intl/bcds/goldroom/dao/ibatis/sqlmap/ROLE.xml" />
+	<sqlMap resource="com/alibaba/intl/bcds/goldroom/dao/ibatis/sqlmap/INTEGRAL.xml" />
 </sqlMapConfig>

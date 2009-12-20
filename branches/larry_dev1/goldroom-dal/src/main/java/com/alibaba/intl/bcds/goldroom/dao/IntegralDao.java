@@ -10,9 +10,8 @@ import com.alibaba.intl.bcds.goldroom.dataobject.IntegralQuery;
  * @author Larry Su
  */
 public interface IntegralDao {
-	Integral findById(Integer id);
 	
-	Integral findByLoginId(String loginId);
+	List<Integral> listByQuery(IntegralQuery integralQuery);
 
 	List<Integral> listAll();
 
@@ -22,7 +21,7 @@ public interface IntegralDao {
 
 	int deleteById(Integer id);
 
-	boolean increaseIntegral(String loginId, long integralValue);
+	int increaseIntegral(IntegralQuery integralQuery);
 
-	boolean decreaseIntegral(String loginId, long integralValue);
+	int decreaseIntegral(IntegralQuery integralQuery);
 }

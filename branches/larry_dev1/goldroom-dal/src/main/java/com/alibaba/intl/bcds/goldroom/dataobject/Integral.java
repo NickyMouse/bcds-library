@@ -21,7 +21,7 @@ public class Integral {
 	private String loginId;
 	
 	// 积分
-	private long value = 0;
+	private long value;
 	
     public Integer getId() {
         return this.id;
@@ -35,8 +35,16 @@ public class Integral {
         return this.gmtCreate;
     }
     
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+    
     public Date getGmtModified() {
         return this.gmtModified;
+    }
+    
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
     
     public String getLoginId() {
