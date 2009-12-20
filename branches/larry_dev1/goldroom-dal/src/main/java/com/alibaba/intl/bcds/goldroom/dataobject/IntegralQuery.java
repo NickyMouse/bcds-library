@@ -6,7 +6,7 @@ public class IntegralQuery extends Integral {
 
 	private Integer offset = 0;
 
-	private Integer psize = 10;
+	private Integer psize = 100;
 
 	private String orderBy;
 
