@@ -1,0 +1,11 @@
+
+<p align="center"> 
+test......<br/>
+#foreach($integral in $test)
+	$integral.getId(),$integral.getLoginId(),$integral.getValue()<br/>
+#end
+<br/><br/><br/>
+#foreach($integral2 in $test2)
+	$integral2.getId(),$integral2.getLoginId(),$integral2.getValue()<br/>
+#end
+</p>
