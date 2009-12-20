@@ -14,7 +14,7 @@ public class UserInfoCommand {
 
     private String aliTalkId;
 
-    private String workId;
+    private Integer workId;
 
     private String location;
 
@@ -68,11 +68,11 @@ public class UserInfoCommand {
         this.aliTalkId = aliTalkId;
     }
 
-    public String getWorkId() {
+    public Integer getWorkId() {
         return workId;
     }
 
-    public void setWorkId(String workId) {
+    public void setWorkId(Integer workId) {
         this.workId = workId;
     }
 

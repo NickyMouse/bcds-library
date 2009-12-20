@@ -132,8 +132,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Result changePasswordByLoginId(String loginId, String newPassword) {
-		if (memberDAO.updatePasswordByLoginId(loginId, newPassword) > 0) {
+	public Result updateUserInfoByLoginId(Member member) {
+		if (memberDAO.updateUserInfoByLoginId(member) > 0) {
 			return Result.SUCCESS;
 		} else {
 			return new Result(false);

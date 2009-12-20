@@ -1,10 +1,10 @@
 package com.alibaba.intl.bcds.goldroom.web;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.service.MemberService;
 import com.alibaba.intl.bcds.goldroom.service.result.Result;
 import com.alibaba.intl.bcds.goldroom.web.command.UserInfoCommand;
@@ -40,6 +40,26 @@ public class UserInfoModifyController extends SimpleFormController {
         return false;
     }
 
+    /**
+     * @param userInfo
+     * @return
+     */
+    public Member setToMember(UserInfoCommand userInfo) {
+        Member member = new Member();
+        if (EMPTY.equals(userInfo.getNewPassword())) {
+            member.setPassword(userInfo.getOldPassword());
+        } else {
+            member.setPassword(userInfo.getNewPassword());
+        }
+        member.setName(userInfo.getName());
+        member.setEmail(userInfo.getEmail());
+        member.setAliTalkId(userInfo.getAliTalkId());
+        member.setWorkId(userInfo.getWorkId());
+        member.setLocation(userInfo.getLocation());
+        member.setExt(userInfo.getExt());
+        return member;
+    }
+
     @Override
     protected ModelAndView onSubmit(Object command) throws Exception {
         UserInfoCommand userInfo = (UserInfoCommand) command;
@@ -54,7 +74,8 @@ public class UserInfoModifyController extends SimpleFormController {
         Result result = new Result(false);
         if (UserUtil.getPassword().equals(userInfo.getOldPassword())
             && StringUtils.isNotEmpty(userInfo.getNewPassword())) {
-            result = memberService.changePasswordByLoginId(UserUtil.getLoginId(), userInfo.getNewPassword());
+            Member member = setToMember(userInfo);
+            result = memberService.updateUserInfoByLoginId(member);
         }
         if (result.isSuccess()) {
             return new ModelAndView("/resources/changePasswordSuccess");
