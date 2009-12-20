@@ -106,7 +106,7 @@ function check()
 		alert("请填写您的用户名！");
 		document.applyForm.name.focus();
 		return (false);
-	}	
+	}
 	if (document.applyForm.password.value.length ==0){
 		alert("密码不能为空");
 		document.applyForm.password.focus();
@@ -122,7 +122,7 @@ function check()
 		alert("密码不能为空");		
 		document.applyForm.confirm.focus();
 		return (false);
-	}	
+	}
 	if (!document.applyForm.confirm.value.isLegalPassword()) {
 		alert("密码不能含有汉字或空格");
 		document.applyForm.confirm.value = "";

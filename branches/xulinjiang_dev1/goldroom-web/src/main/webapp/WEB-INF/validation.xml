@@ -38,11 +38,7 @@
 		</form>
 		<form name="userInfoCommand">
 			<field property="oldPassword" depends="required">
-			</field>
-			<field property="newPassword" depends="required">
-			</field>
-			<field property="confirmPassword" depends="required">
-			</field>
+			</field>			
 		</form>
 		<form name="bookItem">
 			<field property="tags"></field>
