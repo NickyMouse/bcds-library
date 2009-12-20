@@ -14,3 +14,12 @@ String.prototype.isLegalPassword = function() {
 		return true;
 	}
 }
+// 校验工号
+String.prototype.isLegalWorkId = function() {
+	if (this.match(/[^0-9]/g) != null) { // 工号只能为数值型
+		return false;
+	}
+	else {
+		return true;
+	}
+}

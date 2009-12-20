@@ -153,6 +153,12 @@ function check()
 		document.applyForm.workId.focus();
 		return (false);
 	}
+	// 工号只能为数值型
+	if (!document.applyForm.workId.value.isLegalWorkId() || document.applyForm.workId.value.length >= 8) {
+		alert("请您输入合法的工号！");
+		document.applyForm.workId.focus();
+		return (false);
+	}
 	if (document.applyForm.location.value == "") {
 		alert("请填写您的座位号！");
 		document.applyForm.location.focus();
