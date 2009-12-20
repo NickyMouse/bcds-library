@@ -11,7 +11,7 @@ function init() {
 	document.userInfoModifyForm.ext.value = document.userInfoModifyForm.ext.value.trim();
 }
 
-function check(){
+function check() {
 	init();
 	if (document.userInfoModifyForm.oldPassword.value.length ==0) {
 		alert("密码不能为空");
