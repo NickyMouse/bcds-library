@@ -56,6 +56,12 @@ function check() {
         document.userInfoModifyForm.newPassword.select();
         return (false);
 	}
+	// 工号只能为数值型
+	if (!document.userInfoModifyForm.workId.value.isLegalWorkId() || document.userInfoModifyForm.workId.value.length >= 8) {
+		alert("请您输入合法的工号！");
+		document.userInfoModifyForm.workId.focus();
+		return (false);
+	}
 	document.userInfoModifyForm.oldPassword.value = hex_md5(document.userInfoModifyForm.oldPassword.value);
 	document.userInfoModifyForm.newPassword.value = hex_md5(document.userInfoModifyForm.newPassword.value);
 	document.userInfoModifyForm.submit();
