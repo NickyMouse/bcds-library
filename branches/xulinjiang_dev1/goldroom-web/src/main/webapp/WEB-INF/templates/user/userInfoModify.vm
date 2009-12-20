@@ -56,6 +56,8 @@ function check() {
         document.userInfoModifyForm.newPassword.select();
         return (false);
 	}
+	document.userInfoModifyForm.oldPassword.value = hex_md5(document.userInfoModifyForm.oldPassword.value);
+	document.userInfoModifyForm.newPassword.value = hex_md5(document.userInfoModifyForm.newPassword.value);
 	document.userInfoModifyForm.submit();
 }
 </script>

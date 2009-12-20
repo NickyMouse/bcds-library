@@ -99,19 +99,19 @@
 		<isNotEmpty property="name" prepend=",">
 			NAME = #name:VARCHAR#
 		</isNotEmpty>
-		<isNotEmpty property="EMAIL" prepend=",">
+		<isNotEmpty property="email" prepend=",">
 			EMAIL = #email:VARCHAR#
 		</isNotEmpty>
-		<isNotEmpty property="ALI_TALK_ID" prepend=",">
+		<isNotEmpty property="aliTalkId" prepend=",">
 			ALI_TALK_ID = #aliTalkId:VARCHAR#
 		</isNotEmpty>
-		<isNotEmpty property="WORK_ID" prepend=",">
+		<isNotEmpty property="workId" prepend=",">
 			WORK_ID = #workId:INTEGER#
 		</isNotEmpty>
-		<isNotEmpty property="LOCATION" prepend=",">
+		<isNotEmpty property="location" prepend=",">
 			LOCATION = #location:VARCHAR#
 		</isNotEmpty>
-		<isNotEmpty property="EXT" prepend=",">
+		<isNotEmpty property="ext" prepend=",">
 			EXT = #ext:VARCHAR#
 		</isNotEmpty>
 		where LOGIN_ID = #loginId:VARCHAR#

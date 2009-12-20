@@ -31,10 +31,10 @@ public class UserInfoModifyController extends SimpleFormController {
      * @return
      */
     public boolean isNotModified(UserInfoCommand userInfo) {
-        if (EMPTY.equals(userInfo.getNewPassword()) || EMPTY.equals(userInfo.getName())
-            || EMPTY.equals(userInfo.getEmail()) || EMPTY.equals(userInfo.getAliTalkId())
-            || EMPTY.equals(userInfo.getWorkId()) || EMPTY.equals(userInfo.getLocation())
-            || EMPTY.equals(userInfo.getExt())) {
+        if (EMPTY.equals(userInfo.getNewPassword()) && EMPTY.equals(userInfo.getName())
+            && EMPTY.equals(userInfo.getEmail()) && EMPTY.equals(userInfo.getAliTalkId())
+            && EMPTY.equals(userInfo.getWorkId()) && EMPTY.equals(userInfo.getLocation())
+            && EMPTY.equals(userInfo.getExt())) {
             return true;
         }
         return false;
@@ -51,6 +51,7 @@ public class UserInfoModifyController extends SimpleFormController {
         } else {
             member.setPassword(userInfo.getNewPassword());
         }
+        member.setLoginId(UserUtil.getLoginId());
         member.setName(userInfo.getName());
         member.setEmail(userInfo.getEmail());
         member.setAliTalkId(userInfo.getAliTalkId());
@@ -64,7 +65,7 @@ public class UserInfoModifyController extends SimpleFormController {
     protected ModelAndView onSubmit(Object command) throws Exception {
         UserInfoCommand userInfo = (UserInfoCommand) command;
         // 判断原密码是否正确
-        if (userInfo.getOldPassword() != UserUtil.getPassword()) {
+        if (!userInfo.getOldPassword().equals(UserUtil.getPassword())) {
             return new ModelAndView("/resources/changePasswordFailed");
         }
         // 判断用户有没修改
@@ -72,11 +73,8 @@ public class UserInfoModifyController extends SimpleFormController {
             return new ModelAndView("/resources/changePasswordFailed");
         }
         Result result = new Result(false);
-        if (UserUtil.getPassword().equals(userInfo.getOldPassword())
-            && StringUtils.isNotEmpty(userInfo.getNewPassword())) {
-            Member member = setToMember(userInfo);
-            result = memberService.updateUserInfoByLoginId(member);
-        }
+        Member member = setToMember(userInfo);
+        result = memberService.updateUserInfoByLoginId(member);
         if (result.isSuccess()) {
             return new ModelAndView("/resources/changePasswordSuccess");
         } else {
