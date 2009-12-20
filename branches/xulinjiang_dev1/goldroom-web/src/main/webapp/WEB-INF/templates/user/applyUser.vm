@@ -78,6 +78,7 @@
 </td></tr>
 </table>
 <script LANGUAGE="javascript">
+// 字符串两边去空
 function init() {
 	document.applyForm.loginId.value = document.applyForm.loginId.value.trim();
 	document.applyForm.name.value = document.applyForm.name.value.trim();
