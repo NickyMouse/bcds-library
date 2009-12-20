@@ -15,6 +15,19 @@ public class IntegralQuery extends Integral {
 	public IntegralQuery() {
 	}
 
+	public IntegralQuery(String loginId) {
+		if (null != loginId) {
+			super.setLoginId(loginId);
+		}
+	}
+
+	public IntegralQuery(String loginId, long value) {
+		if (null != loginId) {
+			super.setLoginId(loginId);
+			super.setValue(value);
+		}
+	}
+
 	public IntegralQuery(Integral integral) {
 		if (null != integral) {
 			super.setId(integral.getId());
