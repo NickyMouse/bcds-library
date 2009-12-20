@@ -59,28 +59,78 @@
 
 
 <table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0"><tr><td align="center">
-#springBind("userInfoCommand.*")
-#validationError()
 
 <form action="/user/userInfoModify.htm" method="POST" name="changePasswordForm">
 	<table>
-		<tr><td></td><td><font color="red">密码只能由英文字母、数字或下划线组成</font></td></tr>
 		<tr>
-			<td align="right">原密码：</td>			
-			
-			<td>#springFormPasswordInput("userInfoCommand.oldPassword" 'size="45" maxlength="45"')<font color="red">*</font></td>
+			<td align="right" valign="top">用户名：</td>
+			<td>
+				abc
+			</td>
 		</tr>
 		<tr>
-			<td align="right">新密码：</td>			
-			
-			<td>#springFormPasswordInput("userInfoCommand.newPassword" 'size="45" maxlength="45"')<font color="red">*</font></td>
+			#springBind("userInfoCommand.oldPassword")
+			<td align="right">原密码：</td>
+			<td>
+				#springFormPasswordInput("userInfoCommand.oldPassword" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+				#validationError()
+			</td>
 		</tr>
 		<tr>
-			<td align="right">重复输入新密码：</td>			
-			
-			<td>#springFormPasswordInput("userInfoCommand.confirmPassword" 'size="45" maxlength="45"')<font color="red">*</font></td>
+			#springBind("userInfoCommand.newPassword")
+			<td align="right">新密码：</td>
+			<td>
+				#springFormPasswordInput("userInfoCommand.newPassword" 'size="30" maxlength="45"')
+				#validationError()
+			</td>
 		</tr>
-		
+		<tr>
+			#springBind("userInfoCommand.confirmPassword")
+			<td align="right">重复输入新密码：</td>
+			<td>
+				#springFormPasswordInput("userInfoCommand.confirmPassword" 'size="30" maxlength="45"')
+				#validationError()
+			</td>
+		</tr>
+		<tr>
+			#springBind("userInfoCommand.name")
+			<td align="right" valign="top">真实姓名：</td>
+			<td>
+				#springFormInput("userInfoCommand.name" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+				#validationError()
+			</td>
+		</tr>
+		<tr>
+			#springBind("userInfoCommand.email")
+			<td align="right">邮箱地址：</td>
+			<td>#springFormInput("userInfoCommand.email" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()
+			</td>
+		</tr>
+		<tr>
+				#springBind("userInfoCommand.aliTalkId")
+			<td align="right">贸易通ID：</td>
+			<td>#springFormInput("userInfoCommand.aliTalkId" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+				#validationError()</td>
+		</tr>
+		<tr>
+			#springBind("userInfoCommand.workId")
+			<td align="right">工号：</td>
+			<td>#springFormInput("userInfoCommand.workId" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()</td>
+		</tr>
+		<tr>
+			#springBind("userInfoCommand.location")
+			<td align="right">座位号：</td>
+			<td>#springFormInput("userInfoCommand.location" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()</td>
+		</tr>
+		<tr>
+			#springBind("userInfoCommand.ext")
+			<td align="right">分机：</td>
+			<td>#springFormInput("userInfoCommand.ext" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()</td>
+		</tr>
 		<tr>
 			<td align="center" colspan="2">
 				<table onclick="checkPassword();"  border="0" cellpadding="0" cellspacing="0" style="cursor:pointer">	
