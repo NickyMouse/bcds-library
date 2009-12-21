@@ -16,7 +16,7 @@ import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
  * @author Zimmem
  */
 public interface BookItemDao {
-    List<BookItemDao> listAll();
+    List<BookItem> listAll();
 
     Integer insert(BookItem bookItemDO);
 

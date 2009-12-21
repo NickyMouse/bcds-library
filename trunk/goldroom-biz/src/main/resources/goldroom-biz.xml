@@ -24,4 +24,7 @@ http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
 		
 	<bean id="sendMailService"
 		class="com.alibaba.intl.bcds.goldroom.mail.service.impl.SendMailServiceImpl" />
+		
+	<bean id="integralService"
+		class="com.alibaba.intl.bcds.goldroom.service.impl.IntegralServiceImpl" />
 </beans>
