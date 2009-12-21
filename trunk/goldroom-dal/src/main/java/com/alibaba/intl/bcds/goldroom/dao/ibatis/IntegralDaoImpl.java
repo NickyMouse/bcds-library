@@ -39,7 +39,7 @@ public class IntegralDaoImpl extends SqlMapClientDaoSupport implements
 	 * 插入新的积分记录
 	 * 
 	 */
-	public Integer insert(IntegralQuery integralQuery) {
+	public int insert(IntegralQuery integralQuery) {
 		return (Integer) getSqlMapClientTemplate().insert("INTEGRAL.insert",
 				integralQuery);
 	}
@@ -65,8 +65,8 @@ public class IntegralDaoImpl extends SqlMapClientDaoSupport implements
 	 * 增加积分
 	 * 
 	 */
-	public int decreaseIntegral(IntegralQuery integralQuery) {
-		return getSqlMapClientTemplate().update("INTEGRAL.decrease",
+	public int increaseIntegral(IntegralQuery integralQuery) {
+		return getSqlMapClientTemplate().update("INTEGRAL.increase",
 				integralQuery);
 	}
 
@@ -74,8 +74,8 @@ public class IntegralDaoImpl extends SqlMapClientDaoSupport implements
 	 * 减少积分
 	 * 
 	 */
-	public int increaseIntegral(IntegralQuery integralQuery) {
-		return getSqlMapClientTemplate().update("INTEGRAL.increase",
+	public int decreaseIntegral(IntegralQuery integralQuery) {
+		return getSqlMapClientTemplate().update("INTEGRAL.decrease",
 				integralQuery);
 	}
 

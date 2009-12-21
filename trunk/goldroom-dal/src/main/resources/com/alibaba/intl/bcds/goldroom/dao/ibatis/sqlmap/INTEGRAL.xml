@@ -52,6 +52,9 @@
       (GMT_CREATE,GMT_MODIFIED,LOGIN_ID,VALUE)
       VALUES
       (NOW(),NOW(),#loginId:VARCHAR#,#value:DECIMAL#)
+      <selectKey resultClass="int" keyProperty="id">
+        select last_insert_id() as ID from INTEGRAL limit 1
+      </selectKey>
   </insert>
 
   <update id="updateById" parameterClass="IntegralQuery">
@@ -80,12 +83,12 @@
   </delete>
 
   <update id="increase" parameterClass="IntegralQuery">
-    UPDATE INTEGRAL SET GMT_MODIFIED=NOW(), VALUE=VALUE-#alterValue:DECIMAL#
+    UPDATE INTEGRAL SET GMT_MODIFIED=NOW(), VALUE=VALUE+#alterValue:DECIMAL#
       WHERE LOGIN_ID=#loginId:VARCHAR#
   </update>
 
   <update id="decrease" parameterClass="IntegralQuery">
-    UPDATE INTEGRAL SET GMT_MODIFIED=NOW(), VALUE=VALUE+#alterValue:DECIMAL#
+    UPDATE INTEGRAL SET GMT_MODIFIED=NOW(), VALUE=VALUE-#alterValue:DECIMAL#
       WHERE LOGIN_ID=#loginId:VARCHAR#
   </update>
 

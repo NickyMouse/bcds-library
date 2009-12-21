@@ -33,7 +33,7 @@ public interface IntegralDao {
      * @param integralQuery 条件对象
      * @return 查询的结果对象
      */
-	Integer insert(IntegralQuery integralQuery);
+	int insert(IntegralQuery integralQuery);
 
     /**
      * 修改积分记录
@@ -57,7 +57,7 @@ public interface IntegralDao {
      * @param integralQuery 条件对象
      * @return 是否更新成功
      */
-	int decreaseIntegral(IntegralQuery integralQuery);
+	int increaseIntegral(IntegralQuery integralQuery);
 	
     /**
      * 减少积分
@@ -65,5 +65,5 @@ public interface IntegralDao {
      * @param integralQuery 条件对象
      * @return 是否更新成功
      */
-	int increaseIntegral(IntegralQuery integralQuery);
+	int decreaseIntegral(IntegralQuery integralQuery);
 }

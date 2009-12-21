@@ -49,7 +49,7 @@ public interface IntegralService {
      * @param integralQuery 条件对象
      * @return 查询的结果对象
      */
-	Integer insert(IntegralQuery integralQuery);
+	int insert(IntegralQuery integralQuery);
 
     /**
      * 修改积分记录
@@ -74,7 +74,7 @@ public interface IntegralService {
      * @param integralValue 增加积分值
      * @return 是否更新成功
      */
-	boolean decreaseIntegral(String loginId, long integralValue);
+	boolean increaseIntegral(String loginId, long integralValue);
 
     /**
      * 减少积分
@@ -83,6 +83,6 @@ public interface IntegralService {
      * @param integralValue 减少积分值
      * @return 是否更新成功
      */
-	boolean increaseIntegral(String loginId, long integralValue);
+	boolean decreaseIntegral(String loginId, long integralValue);
 	
 }

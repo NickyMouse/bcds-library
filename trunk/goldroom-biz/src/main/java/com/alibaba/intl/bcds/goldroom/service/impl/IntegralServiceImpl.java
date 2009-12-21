@@ -90,13 +90,9 @@ public class IntegralServiceImpl implements IntegralService {
 	 * 插入新的积分记录
 	 * 
 	 */
-	public Integer insert(IntegralQuery integralQuery) {
+	public int insert(IntegralQuery integralQuery) {
 		logger.debug("insert integral.");
-		Integer ret = this.getIntegralDao().insert(integralQuery);
-		if (ret == 0) {
-			logger.warn("integral data insert defeated!");
-		}
-		return ret;
+		return this.getIntegralDao().insert(integralQuery);
 	}
 
 	/**
@@ -176,17 +172,8 @@ public class IntegralServiceImpl implements IntegralService {
 		}
 		Integral integral = this.findByLoginId(loginId);
 		// 如果不存在该用户的积分记录，则新建一条记录再取一次。
-		if (integral == null) {
-			if (this.getIntegralDao().insert(new IntegralQuery(loginId)) > 0) {
-				integral = this.findByLoginId(loginId);
-				if (integral == null) {
-					logger.warn("integral is null!");
-					return false;
-				}
-			} else {
-				logger.warn("integral is null!");
-				return false;
-			}
+		if (integral.getLoginId() == null) {
+			this.getIntegralDao().insert(new IntegralQuery(loginId));
 		}
 
 		long value = integral.getValue();

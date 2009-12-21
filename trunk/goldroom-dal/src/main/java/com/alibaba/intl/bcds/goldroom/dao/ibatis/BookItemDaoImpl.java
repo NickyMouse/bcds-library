@@ -24,7 +24,7 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
         return (Integer) getSqlMapClientTemplate().insert("BOOK_ITEM.insert", bookItemDO);
     }
 
-    public List<BookItemDao> listAll() {
+    public List<BookItem> listAll() {
         return getSqlMapClientTemplate().queryForList("BOOK_ITEM.listAll");
     }
 
