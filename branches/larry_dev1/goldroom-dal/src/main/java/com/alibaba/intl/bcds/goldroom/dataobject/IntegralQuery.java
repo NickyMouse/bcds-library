@@ -1,16 +1,30 @@
 package com.alibaba.intl.bcds.goldroom.dataobject;
 
+/**
+ * IntegralQuery 积分参数对象
+ * 
+ * @author Larry Su
+ */
 public class IntegralQuery extends Integral {
 
+	public final String ASC = "asc";
+
+	public final String DESC = "desc";
+
+	// 需要修改的积分值
 	private long alterValue = 0;
 
+	// 查询起始记录数，分页查询时使用
 	private Integer offset = 0;
 
+	// 查询记录数，分页查询时使用
 	private Integer psize = 100;
 
+	// 排序字段，如果不需要排序请保持为空
 	private String orderBy;
 
-	private String ascOrDesc = "desc";
+	// 正序还是倒序排列，默认为倒序排列
+	private String ascOrDesc = this.DESC;
 
 	public IntegralQuery() {
 	}
@@ -18,6 +32,12 @@ public class IntegralQuery extends Integral {
 	public IntegralQuery(String loginId) {
 		if (null != loginId) {
 			super.setLoginId(loginId);
+		}
+	}
+
+	public IntegralQuery(Integer id) {
+		if (null != id) {
+			super.setId(id);
 		}
 	}
 
@@ -69,7 +89,7 @@ public class IntegralQuery extends Integral {
 	}
 
 	public boolean getIsDesc() {
-		if (this.ascOrDesc.equalsIgnoreCase("desc")) {
+		if (this.ascOrDesc.equalsIgnoreCase(this.DESC)) {
 			return true;
 		} else {
 			return false;
@@ -78,9 +98,9 @@ public class IntegralQuery extends Integral {
 
 	public void setIsDesc(boolean isDesc) {
 		if (isDesc) {
-			this.ascOrDesc = "desc";
+			this.ascOrDesc = this.DESC;
 		} else {
-			this.ascOrDesc = "asc";
+			this.ascOrDesc = this.ASC;
 		}
 	}
 

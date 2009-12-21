@@ -20,7 +20,7 @@ public class Integral {
 	// 用户登录ID
 	private String loginId;
 	
-	// 积分
+	// 积分值
 	private long value;
 	
     public Integer getId() {
