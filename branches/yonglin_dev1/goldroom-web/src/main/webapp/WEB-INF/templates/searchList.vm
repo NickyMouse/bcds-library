@@ -1,0 +1,58 @@
+#if($noResult)
+	没有符合的书籍
+#else
+#parse("widget/pageNav.vm")
+<table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
+	<tbody>
+		
+		#foreach($book in $list)
+		<tr height="170" valign="middle">
+			<td class="lines" align="left" valign="middle">
+
+				<div onmouseover="javascript:this.style.background='#F7F7F7'" onmouseout="javascript:this.style.background=''" style="width=100%;">
+					<table>
+					<tr  valign="middle">
+						<td width="150px" align="center">
+							<a href="$SERVER_NAME/searchBookDetail.htm?id=${book.bookInfoId}&showOwners=true" title="" target="_blank">
+								#if($book.bookImgUrl && !$book.getBookImgUrl().equals(""))
+									<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl"/>
+								#else
+									<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
+								#end
+							</a>
+						</td>
+						<td width="700px" valign="top" style="font-size:16px; color:#89A945;">
+							<h2>
+							<a href="$SERVER_NAME/searchBookDetail.htm?id=${book.bookInfoId}&showOwners=true" title="" target="_blank">
+								$book.bookName
+							</a></h2>
+							作　　者：$book.bookAuthor  <br/>
+							ＩＳＢＮ：$book.bookIsbn  <br/>
+							版　　本：$book.bookEdition	 <br/>
+							出版时间：$dateTool.format("yyyy-MM-dd",$book.bookPublishTime)  <br/>
+							标　　签：$book.bookTags <br/>
+						</td>
+						<td valign="top" width="120px">
+							<br/>
+							<table onClick="window.open('$SERVER_NAME/searchBookDetail.htm?id=${book.bookInfoId}&showOwners=true','_blank')" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
+                            	<tbody><tr>
+                            		<td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
+                            		<td class="button_dark">
+                            		查看详细信息
+                            		</td>
+                            		<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
+                            	</tr>
+                            </tbody></table>
+						</td>
+    				</tr>
+					</table>		
+				</div>
+				
+			</td>
+			
+		</tr>
+		#end
+</tbody>
+</table>
+#parse("widget/pageNav.vm")
+#end
