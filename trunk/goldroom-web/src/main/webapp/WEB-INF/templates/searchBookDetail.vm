@@ -90,35 +90,37 @@
       <td class="lines" width="15%" valign="top" bgcolor="#ACD36B">&nbsp;</td>
     </tr>
 	#foreach($bookItem in $bookItemList)
-		#foreach($owner in $ownerInfoList)
-			#if($owner.getLoginId().equals($bookItem.getLoginId()))
-            <tr align="center">
-        		<td>$owner.name
-        		</td>
-              <td>$dateTool.format("yyyy-MM-dd",$bookItem.addTime)</td>
-              <td>
-        		<A href=" http://web.im.alisoft.com/msg.aw?v=2&amp;uid=$owner.aliTalkId&amp;site=cnalichn&amp;s=1" target=_blank><IMG border=0 alt=点击这里给我发消息 src=" http://web.im.alisoft.com/online.aw?v=2&amp;uid=$owner.aliTalkId&amp;site=cnalichn&amp;s=1"></A>
-        	  </td>
-              <td align="center">
-				
-				#if($bookItem.getState().equals("idle"))
-                    <a id="reserveLink${bookItem.id}" onclick="document.getElementById('reserveForm${bookItem.id}').style.display=''; this.style.display='none';new Calendar({ lendTime$bookItem.id: 'Y-m-d' }, { direction: 1, tweak: {x: 6, y: -20} }); new Calendar({ returnTime$bookItem.id: 'Y-m-d' }, { direction: 1, tweak: {x: 6, y: -20} });" style="cursor:pointer;">预约</a>
-					<form action="/user/reserveBook.htm" name="reserveForm" method="POST" style="display:none;" id="reserveForm$bookItem.id">
-                       
-                        <label for="lendTime$bookItem.id">借阅时间</label><input type="text" name="lendTime" id="lendTime$bookItem.id" value="" readonly="true"/>
-						<br/>
-                        <label for="returnTime$bookItem.id">归还时间</label><input type="text" name="returnTime" id="returnTime$bookItem.id" value="" readonly="true"/>
-						<br/>
-						<input type="submit" value="确定"/>
-						
-						<input type="hidden" name="bookItemId" id="bookItemId" value="$bookItem.id"/>
-					</form>	
+		#if(!$bookItem.getState().equals("unavailable"))
+			#foreach($owner in $ownerInfoList)
+				#if($owner.getLoginId().equals($bookItem.getLoginId()))
+	            <tr align="center">
+	        		<td>$owner.name
+	        		</td>
+	              <td>$dateTool.format("yyyy-MM-dd",$bookItem.addTime)</td>
+	              <td>
+	        		<A href=" http://web.im.alisoft.com/msg.aw?v=2&amp;uid=$owner.aliTalkId&amp;site=cnalichn&amp;s=1" target=_blank><IMG border=0 alt=点击这里给我发消息 src=" http://web.im.alisoft.com/online.aw?v=2&amp;uid=$owner.aliTalkId&amp;site=cnalichn&amp;s=1"></A>
+	        	  </td>
+	              <td align="center">
 					
-				#else
-						不能预约
+					#if($bookItem.getState().equals("idle"))
+	                    <a id="reserveLink${bookItem.id}" onclick="document.getElementById('reserveForm${bookItem.id}').style.display=''; this.style.display='none';new Calendar({ lendTime$bookItem.id: 'Y-m-d' }, { direction: 1, tweak: {x: 6, y: -20} }); new Calendar({ returnTime$bookItem.id: 'Y-m-d' }, { direction: 1, tweak: {x: 6, y: -20} });" style="cursor:pointer;">预约</a>
+						<form action="/user/reserveBook.htm" name="reserveForm" method="POST" style="display:none;" id="reserveForm$bookItem.id">
+	                       
+	                        <label for="lendTime$bookItem.id">借阅时间</label><input type="text" name="lendTime" id="lendTime$bookItem.id" value="" readonly="true"/>
+							<br/>
+	                        <label for="returnTime$bookItem.id">归还时间</label><input type="text" name="returnTime" id="returnTime$bookItem.id" value="" readonly="true"/>
+							<br/>
+							<input type="submit" value="确定"/>
+							
+							<input type="hidden" name="bookItemId" id="bookItemId" value="$bookItem.id"/>
+						</form>	
+						
+					#else
+							不能预约
+					#end
+	              </td>
+	            </tr>
 				#end
-              </td>
-            </tr>
 			#end
 		#end
 	#end
