@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" lazyLoadingEnabled="false" />
+
+	<sqlMap
+		resource="com/alibaba/intl/bcds/goldroom/dao/ibatis/sqlmap/BOOK_INFO.XML" />
+	<sqlMap
+		resource="com/alibaba/intl/bcds/goldroom/dao/ibatis/sqlmap/BOOK_ITEM_LOG.XML" />
+	<sqlMap
+		resource="com/alibaba/intl/bcds/goldroom/dao/ibatis/sqlmap/BOOK_ITEM.XML" />
+	<sqlMap resource="com/alibaba/intl/bcds/goldroom/dao/ibatis/sqlmap/CATEGORY.xml" />
+	<sqlMap resource="com/alibaba/intl/bcds/goldroom/dao/ibatis/sqlmap/LENDING.xml" />
+	<sqlMap
+		resource="com/alibaba/intl/bcds/goldroom/dao/ibatis/sqlmap/RESERVATION.xml" />
+	<sqlMap resource="com/alibaba/intl/bcds/goldroom/dao/ibatis/sqlmap/MEMBER.xml" />
+	<sqlMap
+		resource="com/alibaba/intl/bcds/goldroom/dao/ibatis/sqlmap/MEMBER_ROLE.xml" />
+	<sqlMap
+		resource="com/alibaba/intl/bcds/goldroom/dao/ibatis/sqlmap/MEMBER_LOG.xml" />
+	<sqlMap resource="com/alibaba/intl/bcds/goldroom/dao/ibatis/sqlmap/ROLE.xml" />
+</sqlMapConfig>
