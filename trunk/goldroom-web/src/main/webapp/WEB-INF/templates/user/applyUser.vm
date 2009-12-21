@@ -1,4 +1,5 @@
 <script src="$SERVER_NAME/js/md5-min.js"></script>
+<script src="$SERVER_NAME/js/validation.js"></script>
 <table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0"><tr><td align="center">
 <form action="/user/applyUser.htm" method="POST" name="applyForm">
 	<table width="80%" cellspacing="0">
@@ -50,6 +51,18 @@
 			<td>#springFormInput("applyUser.workId" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
 			#validationError()</td>
 		</tr>
+		<tr>
+			#springBind("applyUser.location")
+			<td align="right">座位号：</td>
+			<td>#springFormInput("applyUser.location" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()</td>
+		</tr>
+		<tr>
+			#springBind("applyUser.ext")
+			<td align="right">分机：</td>
+			<td>#springFormInput("applyUser.ext" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()</td>
+		</tr>
 		<tr><td></td><td  align="left">
 			<table onClick="javascript:check();" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
 				<tbody><tr>
@@ -65,11 +78,23 @@
 </td></tr>
 </table>
 <script LANGUAGE="javascript">
+// 字符串两边去空
+function init() {
+	document.applyForm.loginId.value = document.applyForm.loginId.value.trim();
+	document.applyForm.name.value = document.applyForm.name.value.trim();
+	document.applyForm.email.value = document.applyForm.email.value.trim();
+	document.applyForm.aliTalkId.value = document.applyForm.aliTalkId.value.trim();
+	document.applyForm.workId.value = document.applyForm.workId.value.trim();
+	document.applyForm.location.value = document.applyForm.location.value.trim();
+	document.applyForm.ext.value = document.applyForm.ext.value.trim();
+}
 function check()
 {
+	// 去除字符串两边空格
+	init();
 	if (document.applyForm.loginId.value == ""){
 		alert("请填写您的登录名！");
-		document.form1.loginId.focus();
+		document.applyForm.loginId.focus();
 		return (false);
 	}
 	var loginFilter=/^\s*([A-Za-z0-9_]+)/;
@@ -79,16 +104,32 @@ function check()
 	}
 	if (document.applyForm.name.value == ""){
 		alert("请填写您的用户名！");
-		document.form1.name.focus();
+		document.applyForm.name.focus();
 		return (false);
 	}
-	if(document.applyForm.password.value.length ==0 || document.applyForm.confirm.value.length ==0 ){
-		alert("请正确填写密码");
-		document.form1.password.focus();
+	if (document.applyForm.password.value.length ==0){
+		alert("密码不能为空");
+		document.applyForm.password.focus();
 		return (false);
 	}
-	
-    if (document.applyForm.password.value!=document.applyForm.confirm.value ){
+	if (!document.applyForm.password.value.isLegalPassword()) {
+		alert("密码不能含有汉字或空格");
+		document.applyForm.password.value = "";
+		document.applyForm.password.focus();
+		return (false);
+	}
+	if (document.applyForm.confirm.value.length ==0) {
+		alert("密码不能为空");		
+		document.applyForm.confirm.focus();
+		return (false);
+	}
+	if (!document.applyForm.confirm.value.isLegalPassword()) {
+		alert("密码不能含有汉字或空格");
+		document.applyForm.confirm.value = "";
+		document.applyForm.confirm.focus();
+		return (false);
+	}
+    if (document.applyForm.password.value != document.applyForm.confirm.value){
         alert("两次填写的密码不一致，请重新填写！");
         document.applyForm.password.focus();
         document.applyForm.password.select();
@@ -104,17 +145,33 @@ function check()
 	}
 	if (document.applyForm.aliTalkId.value == ""){
 		alert("请填写您的贸易通ID！");
-		document.form1.aliTalkId.focus();
+		document.applyForm.aliTalkId.focus();
 		return (false);
 	}
 	if (document.applyForm.workId.value == ""){
 		alert("请填写您的工号！");
-		document.form1.workId.focus();
+		document.applyForm.workId.focus();
+		return (false);
+	}
+	// 工号只能为数值型
+	if (!document.applyForm.workId.value.isLegalWorkId() || document.applyForm.workId.value.length >= 8) {
+		alert("请您输入合法的工号！");
+		document.applyForm.workId.focus();
+		return (false);
+	}
+	if (document.applyForm.location.value == "") {
+		alert("请填写您的座位号！");
+		document.applyForm.location.focus();
+		return (false);
+	}	
+	if (document.applyForm.ext.value == "") {
+		alert("请填写您的分机！");
+		document.applyForm.ext.focus();
 		return (false);
 	}
 	document.applyForm.password.value = hex_md5(document.applyForm.password.value);
 	document.applyForm.confirm.value = hex_md5(document.applyForm.confirm.value);
-	
+
 	document.applyForm.submit();
 }
 </script>

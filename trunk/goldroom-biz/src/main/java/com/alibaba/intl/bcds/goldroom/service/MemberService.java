@@ -43,11 +43,11 @@ public interface MemberService {
     List<MemberDTO> listMemberByStatus(MemberEnableEnum memberEnable);
     
     /**
-     * 根据loginId修改用户密码
+     * 根据loginId修改用户信息
      * @param loginId
      * @param oldPassword
      * @param newPassword
      * @return
      */
-    Result changePasswordByLoginId(String loginId, String newPassword);
+    Result updateUserInfoByLoginId(Member member);
 }

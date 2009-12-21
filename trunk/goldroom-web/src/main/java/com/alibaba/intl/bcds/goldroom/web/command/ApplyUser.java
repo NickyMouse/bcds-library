@@ -28,6 +28,10 @@ public class ApplyUser {
 
     private Integer enable;
 
+    private String  location;
+
+    private String  ext;
+
     public Integer getId() {
         return id;
     }
@@ -122,14 +126,32 @@ public class ApplyUser {
         this.enable = enable;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getExt() {
+        return ext;
+    }
+
+    public void setExt(String ext) {
+        this.ext = ext;
+    }
+
     public Member toMember() {
-    	Member member = new Member();
-    	member.setLoginId(this.loginId);
-    	member.setAliTalkId(aliTalkId);
-    	member.setName(name);
-    	member.setPassword(password);
-    	member.setWorkId(workId);
-    	member.setEmail(email);
+        Member member = new Member();
+        member.setLoginId(this.loginId);
+        member.setAliTalkId(aliTalkId);
+        member.setName(name);
+        member.setPassword(password);
+        member.setWorkId(workId);
+        member.setEmail(email);
+        member.setLocation(location);
+        member.setExt(ext);
         return member;
     }
 }

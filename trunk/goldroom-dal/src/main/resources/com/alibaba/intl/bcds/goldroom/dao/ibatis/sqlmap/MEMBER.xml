@@ -38,7 +38,7 @@
 		insert into MEMBER (NAME,
 		WORK_ID, LOGIN_ID, PASSWORD, EMAIL,
 		ALI_TALK_ID, GMT_CREATE,
-		GMT_MODIFIED, ENABLE)
+		GMT_MODIFIED, ENABLE, LOCATION, EXT)
 		values (
 		#name:VARCHAR#,
 		#workId:INTEGER#, #loginId:VARCHAR#,
@@ -46,7 +46,8 @@
 		#email:VARCHAR#, #aliTalkId:VARCHAR#,
 		now(),
 		now(),
-		#enable:INTEGER#)
+		#enable:INTEGER#,
+		#location:VARCHAR#, #ext:VARCHAR#)
 		<selectKey resultClass="int" keyProperty="id">
 			select
 			last_insert_id() as ID from MEMBER limit 1
@@ -92,9 +93,31 @@
 		ENABLE=#status:INTEGER#
 	</select>
 
-	<update id="updatePasswordByLoginId" parameterClass="Member">
+	<update id="updateUserInfoByLoginId" parameterClass="Member">
 		update MEMBER
-		set PASSWORD = #password:VARCHAR#		
+		<dynamic prepend="set">
+			<isNotEmpty prepend="," property="password">
+				PASSWORD = #password:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="name">
+				NAME = #name:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="email">
+				EMAIL = #email:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="aliTalkId">
+				ALI_TALK_ID = #aliTalkId:VARCHAR#
+			</isNotEmpty>
+			<isNotNull prepend="," property="workId">
+				WORK_ID = #workId:INTEGER#
+			</isNotNull>
+			<isNotEmpty prepend="," property="location">
+				LOCATION = #location:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ext">
+				EXT = #ext:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
 		where LOGIN_ID = #loginId:VARCHAR#
 	</update>
 	
