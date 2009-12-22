@@ -170,6 +170,8 @@ public class BookSearchServiceImpl implements BookSearchService {
 	@Override
 	public BookSearchQueryObject searchBookByOwnersAndKeyword(String loginId,
 			String keyword, Integer skipResult, Integer number) {
+		//防止分词器把用户的loginid切开了
+		loginId = loginId.replace('.', '@');
 		SearchConditionBuilder builder = SearchConditionBuilder.getInstance()
 				.addTerm(BookSearchConstrains.BOOK_NAME, keyword)
 				.addTerm(BookSearchConstrains.BOOK_OWNERS, loginId, true);
