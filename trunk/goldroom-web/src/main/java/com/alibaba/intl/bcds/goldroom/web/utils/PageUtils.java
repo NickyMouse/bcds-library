@@ -24,6 +24,14 @@ public class PageUtils {
         }
         return (page - 1) * getPageSize(pageSizStr);
     }
+    
+    public static int getSkipResult(int currentPage, int pageSize) {
+        int page = currentPage;
+        if (page <= 0) {
+            page = PageUtils.DEFAULT_PAGE;
+        }
+        return (page - 1) * getPageSize(pageSize);
+    }
 
     public static int getPage(String pageStr) {
         int page = getInt(pageStr);
@@ -35,6 +43,14 @@ public class PageUtils {
 
     public static int getPageSize(String pageSizeStr) {
         int pageSize = getInt(pageSizeStr);
+        if (pageSize <= 0) {
+            pageSize = PageUtils.DEFAULT_PAGE_SIZE;
+        }
+        return pageSize;
+    }
+    
+    public static int getPageSize(int currentPageSize) {
+        int pageSize = currentPageSize;
         if (pageSize <= 0) {
             pageSize = PageUtils.DEFAULT_PAGE_SIZE;
         }

@@ -54,8 +54,10 @@
 		#if(!$userName)
 			#parse("widget/loginBox.vm")
 		#end
-		</br>
-		#include("resources/systemInfo.htm")
+		<br/>
+		#parse("widget/integralList.vm")
+		<br/>
+		#include("resources/systemInfo.htm")		
 	</td>
   </tr>  
 </table>

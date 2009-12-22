@@ -241,7 +241,7 @@ public class BookItemServiceImpl implements BookItemService {
 						owner, subcriber, bookInfo, reservation);
 				sendMailService.sendMail(emailInfo);
 			}
-			// TODO 书籍被预约
+			// 书籍被预约
 			IntegralQuery integralQuery = new IntegralQuery(item.getLoginId());
 			integralQuery.setAlterValue(10);
 			int modifiedRows = this.integralDao.increaseIntegral(integralQuery);
@@ -252,7 +252,7 @@ public class BookItemServiceImpl implements BookItemService {
 				logger.warn("Failed to reserve integral 10, "
 						+ item.getLoginId());
 			}
-			
+
 			item.setState(BookItem.STATE_RESERVATED);
 			bookItemDao.updateById(item);
 			return Result.SUCCESS;
@@ -289,11 +289,12 @@ public class BookItemServiceImpl implements BookItemService {
 			bookItemDao.changeItemState(bookItem);
 			reservationDAO.cutReservationToLog(reservation);
 
-			// TODO 书籍被借约
-			IntegralQuery integralQuery = new IntegralQuery(bookItem.getLoginId());
+			// 书籍被借约
+			IntegralQuery integralQuery = new IntegralQuery(bookItem
+					.getLoginId());
 			integralQuery.setAlterValue(50);
 			int modifiedRows = this.integralDao.increaseIntegral(integralQuery);
-			
+
 			if (modifiedRows > 0) {
 				logger.info("Successfully lend integral 50, "
 						+ bookItem.getLoginId());
@@ -301,7 +302,7 @@ public class BookItemServiceImpl implements BookItemService {
 				logger.warn("Failed to lend integral 50, "
 						+ bookItem.getLoginId());
 			}
-			
+
 			return Result.SUCCESS;
 		} else {
 			return new Result(false);
@@ -460,5 +461,13 @@ public class BookItemServiceImpl implements BookItemService {
 
 	public void setBookInfoDao(BookInfoDao bookInfoDao) {
 		this.bookInfoDao = bookInfoDao;
+	}
+
+	@Override
+	public List<BookItem> listBookItemsByLoginIdAndStateAndBookInfoIds(
+			String loginId, String state, List<Integer> bookInfoIds) {
+		return bookItemDao.listBookItemsByLoginIdAndStateAndBookInfoIds(
+				loginId, state, bookInfoIds);
+
 	}
 }

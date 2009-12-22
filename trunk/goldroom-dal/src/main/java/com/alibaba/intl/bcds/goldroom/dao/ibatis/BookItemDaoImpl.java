@@ -197,4 +197,14 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
         return (BookItem) getSqlMapClientTemplate().queryForObject(
                 "BOOK_ITEM.getBookItemWithAllInfo", bookItemId);
     }
+
+	@Override
+	public List<BookItem> listBookItemsByLoginIdAndStateAndBookInfoIds(
+			String loginId, String state, List<Integer> bookInfoIds) {
+		return getSqlMapClientTemplate().queryForList(
+                "BOOK_ITEM.listBookItemsByLoginIdAndStateAndBookInfoIds",
+                new ParameterMap<String, Object>().addParameter("loginId", loginId)
+                        .addParameter("state", state).addParameter("bookInfoIds",
+                        		bookInfoIds));
+	}
 }

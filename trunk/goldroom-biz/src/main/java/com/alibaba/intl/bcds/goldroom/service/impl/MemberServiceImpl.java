@@ -152,5 +152,14 @@ public class MemberServiceImpl implements MemberService {
 			return new Result(false);
 		}
 	}
+	
+	@Override
+	public Result changePasswordByLoginId(String loginId, String newPassword) {
+		if (memberDAO.updatePasswordByLoginId(loginId, newPassword) > 0) {
+			return Result.SUCCESS;
+		} else {
+			return new Result(false);
+		}
+	}
 
 }

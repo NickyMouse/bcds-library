@@ -1,0 +1,29 @@
+#if($integralViewList && $integralViewList.size() > 0)
+	<table width="330" cellspacing="0" cellpadding="0" border="0">
+		<tr>
+			<td style="text-align: left">
+			<div
+				style="font-size: 14px; color: #75A413; width: 95%; left: 5%; position: relative;">
+				<font style="font-size: 16px;font-weight:bold">黄金屋积分榜</font><br/>
+				
+	<table style="left: 10%; position: relative; width:80%; top:10px">
+		<tr><td style="font-size: 14px; color: #75A413;" width="15%" align="center">名次</td>
+			<td style="font-size: 14px; color: #75A413;" width="55%" align="center">姓名</td>
+			<td style="font-size: 14px; color: #75A413;" width="30%" align="center">积分</td>
+		</tr>
+	#set($count = 1)
+	#foreach($integralView in $integralViewList)
+		<tr><td style="font-size: 14px; color: #755FFF;" align="center">${count}</td>
+			<td style="font-size: 14px; color: #FFA413;" align="center">$integralView.getMemberName()</td>
+			<td style="font-size: 14px; color: #75A413;" align="center">$integralView.getIntegralValue()</td>
+		</tr>
+		#set($count = $count + 1)
+	#end
+	</table>
+	
+			</div>
+			
+			</td>
+		</tr>
+	</table>
+#end

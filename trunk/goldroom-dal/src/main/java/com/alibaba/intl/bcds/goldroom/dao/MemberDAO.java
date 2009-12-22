@@ -22,5 +22,7 @@ public interface MemberDAO {
     
     int updateUserInfoByLoginId(Member member);
     
+    int updatePasswordByLoginId(String loginId, String password);
+    
     Map<String, Member> listMemberInfo();
 }

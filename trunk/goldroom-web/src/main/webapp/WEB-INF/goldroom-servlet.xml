@@ -230,5 +230,5 @@
 		class="com.alibaba.intl.bcds.goldroom.web.search.AllBookController">
 	</bean>
 	<bean name="/user/deleteBookItem.htm"
-		class="com.alibaba.intl.bcds.goldroom.web.DeleteBookItemController" />
+		class="com.alibaba.intl.bcds.goldroom.web.DeleteBookItemController" />		
 </beans>
