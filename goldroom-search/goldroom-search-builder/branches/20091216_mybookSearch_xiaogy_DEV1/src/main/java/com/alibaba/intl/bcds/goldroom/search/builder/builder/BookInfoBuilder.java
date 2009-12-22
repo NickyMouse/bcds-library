@@ -6,6 +6,7 @@ import java.util.List;
 
 import jeasy.analysis.MMAnalyzer;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
@@ -78,6 +79,13 @@ public class BookInfoBuilder extends BaseBuilder {
 			int page = 1;
 			List<BuildBookSearch> bookList = BookSearchServiceLocator
 					.getBuildBookSearchService().listAllBook(page);
+			for (BuildBookSearch book : bookList) {
+				if (StringUtils.isNotEmpty(book.getBookOwners())) {
+					String temp = "," + book.getBookOwners().replace('.', '@')
+							+ ",";
+					book.setBookOwners(temp);
+				}
+			}
 			while (bookList != null && bookList.size() > 0) {
 				List<Document> docList = factory.convertList(bookList);
 				System.out.println("page:" + page + " list:" + bookList.size());
@@ -120,6 +128,14 @@ public class BookInfoBuilder extends BaseBuilder {
 			List<BuildBookSearch> bookList = BookSearchServiceLocator
 					.getBuildBookSearchService().listBookByTime(
 							modifiedStartTime, modifiedEndTime);
+
+			for (BuildBookSearch book : bookList) {
+				if (StringUtils.isNotEmpty(book.getBookOwners())) {
+					String temp = "," + book.getBookOwners().replace('.', '@')
+							+ ",";
+					book.setBookOwners(temp);
+				}
+			}
 
 			logger.info("[Search Builder]Incrememnt build " + bookList.size()
 					+ " records modified between " + modifiedStartTime
