@@ -1,0 +1,92 @@
+<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0">
+  <tbody>
+    <tr>
+      <td align="center"><h1>书籍上架</h1></td>
+    </tr>
+    <tr>
+      <td align="center"><h2>该书籍信息不存在，请填写书籍信息</h2>
+       
+          <table >
+            <tr  valign="top">
+              <td align="right">ISBN：&nbsp;&nbsp; </td>
+              <td align="left">$!{isbn}
+                
+              </td>
+            </tr>
+			<tr valign="top">
+				<td align="right">书本封面：&nbsp;&nbsp; </td>
+				<td>#parse("user/fileUploadForm.vm")
+  				</td>
+            </tr>
+			<form action="/user/fillBookInfo.htm" method="POST" onSubmit="category2Cookie();">
+			<input type="hidden" name="isbn" value="$!{isbn}"/>
+            <tr  valign="top">
+              #springBind("bookInfo.name")
+              <td align="right">书本名称：&nbsp;&nbsp; </td>
+              <td >#springFormInput("bookInfo.name" 'size="45" maxlength="45"')
+               #validationError()
+              </td>
+            </tr>
+            <tr valign="top">
+              #springBind("bookInfo.author")
+              <td align="right">作者：&nbsp;&nbsp;</td>
+              <td >#springFormInput("bookInfo.author" 'size="45" maxlength="45"')
+              #validationError()
+			  </td>
+            </tr>
+            <tr valign="top">
+              #springBind("bookInfo.categoryId")
+				<td align="right">选择类目：&nbsp;&nbsp;</td>
+                <td >#parse("widget/selectCategory.vm")
+                #validationError()
+                </td>
+            </tr>
+            <tr valign="top">
+             #springBind("bookInfo.publisher")
+              <td align="right">出版社：&nbsp;&nbsp; </td>
+              <td >#springFormInput("bookInfo.publisher" 'size="45" maxlength="45"')
+              #validationError()
+              </td>
+            </tr>
+			<link rel="stylesheet" type="text/css" href="$SERVER_NAME/css/calendar.css" media="screen" />
+			<script type="text/javascript" src="$SERVER_NAME/js/mootools.js"></script>
+			<script type="text/javascript" src="$SERVER_NAME/js/calendar.rc4.js"></script>
+			 <tr valign="top">
+			  #springBind("bookInfo.publishTime")
+              <td align="right">出版时间：&nbsp;&nbsp; </td>
+              <td >#parse("widget/yearMonthSelector.vm")
+				#springFormHiddenInput("bookInfo.publishTime" 'size="45" maxlength="45" readonly="true"')
+              #validationError()
+              </td>
+            </tr>
+			<tr valign="top">
+			  #springBind("bookInfo.edition")
+              <td align="right">版本：&nbsp;&nbsp; </td>
+              <td >#springFormInput("bookInfo.edition" 'size="45" maxlength="45"')
+              #validationError()
+              </td>
+            </tr>
+            <tr valign="top">
+	          #springBind("bookInfo.description")
+              <td align="right">书本描述：&nbsp;&nbsp; </td>
+              <td >#springFormTextarea("bookInfo.description" 'rows="10" cols="55"')
+              #validationError()
+              </td>
+            </tr>
+			
+            <tr valign="top">
+              <td colspan="2" align="center"><input type="button" value="取　消" onclick="window.location.href='$SERVER_NAME/home.htm'"/>
+                &nbsp;&nbsp;
+                <input name="submit" type="submit" value="下一步" onclick="javascript:getYearMonthDay('publishTime')"/>
+              </td>
+            </tr>
+			
+			<input type="hidden" name="imgUrl" id="imgUrl" value="$!imgSrc"/>
+			
+			</form>
+		
+          </table>
+        </td>
+    </tr>
+  </tbody>
+</table>

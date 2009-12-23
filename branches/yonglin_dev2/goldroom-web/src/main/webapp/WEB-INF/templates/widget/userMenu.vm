@@ -1,0 +1,21 @@
+<table width="330" cellspacing="0" cellpadding="0" border="0">
+	<tbody>
+		<tr>
+			<td align="left" valign="top"><img src="$SERVER_NAME/images/boxlogin_top.gif" height="7" width="330"></td>
+        </tr>
+        <tr>
+			<td class="boxlogin" valign="top" align="left">
+				<h1>欢迎，$userName &nbsp;&nbsp;&nbsp;<a href="$SERVER_NAME/logout.htm" style="font-size:14px">[注销]</a> </h1>
+            <ul><ul>
+				<li><a href="$SERVER_NAME/user/myBooks.htm">我的书籍</a></li>
+				<li><a href="$SERVER_NAME/user/reservatedBooks.htm">我要预约</a></li>
+				<li><a href="$SERVER_NAME/user/lendedBooks.htm">我要还书</a></li>
+				<li><a href="$SERVER_NAME/user/beforeShelve.htm">书籍上架</a></li>
+			</ul></ul>
+			</td>
+		</tr>
+        <tr>
+			<td align="left" valign="top"><img src="$SERVER_NAME/images/boxlogin_bottom.gif" height="7" width="330"></td>
+        </tr>
+	</tbody>
+</table>
