@@ -12,7 +12,7 @@ function init() {
 }
 
 function check() {
-	init();
+	init();	
 	if (document.userInfoModifyForm.oldPassword.value.length ==0) {
 		alert("密码不能为空");
 		document.userInfoModifyForm.oldPassword.focus();
@@ -73,12 +73,6 @@ function check() {
 
 <form action="/user/userInfoModify.htm" method="POST" name="userInfoModifyForm">
 	<table>
-		<tr>
-			<td></td>
-			<td>
-				<font color="red" size="2">若填写了一字段则会修改该字段</font>								
-			</td>
-		</tr>
 		<tr>
 			#springBind("userInfoCommand.oldPassword")
 			<td align="right">原密码：</td>

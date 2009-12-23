@@ -26,9 +26,10 @@ public interface MemberService {
      * @return
      */
     Result approveMembers(List<Integer> ids);
-    
+
     /**
      * TBD 用户
+     * 
      * @param ids
      * @return
      */
@@ -41,13 +42,22 @@ public interface MemberService {
      * @return
      */
     List<MemberDTO> listMemberByStatus(MemberEnableEnum memberEnable);
-    
+
     /**
      * 根据loginId修改用户信息
+     * 
      * @param loginId
      * @param oldPassword
      * @param newPassword
      * @return
      */
     Result updateUserInfoByLoginId(Member member);
+
+    /**
+     * 根据loginId查询用户信息
+     * 
+     * @param loginId
+     * @return
+     */
+    Member selectByLoginId(String loginId);
 }

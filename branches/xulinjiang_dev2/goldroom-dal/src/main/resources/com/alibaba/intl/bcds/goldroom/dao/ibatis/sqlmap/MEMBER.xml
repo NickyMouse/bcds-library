@@ -14,6 +14,8 @@
 		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
 		<result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
 		<result column="ENABLE" property="enable" jdbcType="INTEGER" />
+		<result column="LOCATION" property="location" jdbcType="VARCHAR"/>
+		<result column="EXT" property="ext" jdbcType="VARCHAR"/>
 	</resultMap>
 	<resultMap id="MiniInfoResultMap" class="Member">
 		<result column="NAME" property="name" jdbcType="VARCHAR" />
@@ -28,7 +30,7 @@
 		select ID, NAME, WORK_ID, LOGIN_ID, PASSWORD, EMAIL,
 		ALI_TALK_ID,
 		GMT_CREATE, GMT_MODIFIED,
-		ENABLE
+		ENABLE, LOCATION, EXT
 		from MEMBER
 		where LOGIN_ID =
 		#loginId:VARCHAR#
@@ -62,7 +64,7 @@
 	<select id="listMemberByLoginIds" resultMap="BaseResultMap" parameterClass="java.util.HashMap">
 		select ID, NAME, WORK_ID, LOGIN_ID, PASSWORD, EMAIL, ALI_TALK_ID,
 		GMT_CREATE, GMT_MODIFIED,
-		ENABLE
+		ENABLE, LOCATION, EXT
 		from MEMBER
 		WHERE LOGIN_ID IN (
 		<iterate conjunction="," property="loginIdsList">
@@ -74,7 +76,7 @@
 	<select id="listMemberByIds" resultMap="BaseResultMap" parameterClass="java.util.HashMap">
 		select ID, NAME, WORK_ID, LOGIN_ID, PASSWORD, EMAIL, ALI_TALK_ID,
 		GMT_CREATE, GMT_MODIFIED,
-		ENABLE
+		ENABLE, LOCATION, EXT
 		from MEMBER
 		WHERE ID IN (
 		<iterate conjunction="," property="idList">
@@ -88,7 +90,7 @@
 		select ID, NAME, WORK_ID, LOGIN_ID, PASSWORD, EMAIL,
 		ALI_TALK_ID,
 		GMT_CREATE, GMT_MODIFIED,
-		ENABLE
+		ENABLE, LOCATION, EXT
 		from MEMBER where
 		ENABLE=#status:INTEGER#
 	</select>

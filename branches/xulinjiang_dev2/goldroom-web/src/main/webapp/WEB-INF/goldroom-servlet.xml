@@ -115,6 +115,8 @@
 		class="com.alibaba.intl.bcds.goldroom.web.search.SearchController" />
 
 	<bean class="com.alibaba.intl.bcds.goldroom.web.HomeController" />
+	
+	<bean name="/user/findUserInfo.htm" class="com.alibaba.intl.bcds.goldroom.web.FindUserInfoController" />
 
 	<bean name="/user/bookItemDetail.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.BookItemDetailController" />
