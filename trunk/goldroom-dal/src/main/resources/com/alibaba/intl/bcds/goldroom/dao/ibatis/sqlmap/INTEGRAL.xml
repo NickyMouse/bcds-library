@@ -39,10 +39,8 @@
       </isNotNull>
     </dynamic>
     <dynamic prepend="limit">
-      <isNotEqual property="offset" compareValue="0">
-        <isNotEqual property="psize" compareValue="0">
-          #offset:DECIMAL#, #psize:DECIMAL#
-        </isNotEqual>
+      <isNotEqual property="psize" compareValue="0">
+         #offset:DECIMAL#, #psize:DECIMAL#
       </isNotEqual>
     </dynamic>
   </select>

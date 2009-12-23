@@ -58,7 +58,7 @@ public class HomeController extends AbstractController {
         IntegralQuery integralQuery = new IntegralQuery();
         integralQuery.setOrderBy("value");
         integralQuery.setPsize(10);
-        integralQuery.setOffset(1);
+        integralQuery.setOffset(0);
         integralList = this.integralService.listByQuery(integralQuery);
         List<IntegralView> integralViewList = new ArrayList<IntegralView>();
         for (Integral i : integralList) {
