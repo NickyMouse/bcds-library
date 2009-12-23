@@ -67,7 +67,7 @@
 
 	<bean id="searchDatasource"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.BookSearchDatasource">
-		<property name="indexLocation" value="/home/intlbcds/work/index" />
+		<property name="indexLocation" value="${goldroom.index.path}" />
 	</bean>
 	
 </beans>

@@ -15,6 +15,22 @@
 		<result property="gmtCreate" column="GMT_CREATE" jdbcType="DATETIME" />
 		<result property="gmtModified" column="GMT_MODIFIED" jdbcType="DATETIME" />
 	</resultMap>
+	
+	<typeAlias alias="LendingWithExpireDays"
+		type="com.alibaba.intl.bcds.goldroom.dataobject.LendingWithExpireDays" />
+	<resultMap class="LendingWithExpireDays" id="LendingWithExpireDaysResult">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="subscriber" column="SUBSCRIBER" jdbcType="VARCHAR" />
+		<result property="lendTime" column="LENDING_TIME" jdbcType="DATETIME" />
+		<result property="returnTime" column="RETURN_TIME" jdbcType="DATETIME" />
+		<result property="state" column="STATE" jdbcType="VARCHAR" />
+		<result property="bookItemId" column="BOOK_ITEM_ID" jdbcType="DECIMAL" />
+		<result property="realReturnTime" column="REAL_RETURN_TIME"
+			jdbcType="DATETIME" />
+		<result property="gmtCreate" column="GMT_CREATE" jdbcType="DATETIME" />
+		<result property="gmtModified" column="GMT_MODIFIED" jdbcType="DATETIME" />
+		<result property="expireDays" column="EXPIRE_DAYS" jdbcType="DECIMAL" />
+	</resultMap>
 
 	<sql id="selectLending">
 		SELECT
@@ -58,4 +74,20 @@
 		insert into
 		LENDING_LOG (select * from LENDING where id = #value:DECIMAL#)
 	</insert>
+	
+	<select id="listLendingWithExpireDays" resultMap="LendingWithExpireDaysResult">
+		SELECT
+		ID,SUBSCRIBER,LENDING_TIME,RETURN_TIME,STATE,BOOK_ITEM_ID,REAL_RETURN_TIME,GMT_CREATE,GMT_MODIFIED,
+		TO_DAYS(RETURN_TIME)-TO_DAYS(NOW()) as EXPIRE_DAYS
+		FROM LENDING
+		WHERE
+		<isNotEmpty property="littleThan0">
+			TO_DAYS(RETURN_TIME)-TO_DAYS(NOW()) &lt; 0
+		</isNotEmpty>
+		<isEmpty property="littleThan0">
+			TO_DAYS(RETURN_TIME)-TO_DAYS(NOW()) &gt;= 0
+		</isEmpty>
+		ORDER BY ID DESC
+		LIMIT #skipRows:INTEGER#,#pageSize:INTEGER#
+	</select>
 </sqlMap>
