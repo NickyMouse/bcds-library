@@ -173,7 +173,7 @@ public class BookSearchServiceImpl implements BookSearchService {
 		//防止分词器把用户的loginid切开了
 		loginId = loginId.replace('.', '@');
 		SearchConditionBuilder builder = SearchConditionBuilder.getInstance()
-				.addTerm(BookSearchConstrains.BOOK_NAME, keyword)
+				.addTerm(BookSearchConstrains.BOOK_NAME, keyword, true)
 				.addTerm(BookSearchConstrains.BOOK_OWNERS, loginId, true);
 		BookSearchQueryObject query = BookSearchQueryObject
 				.getInstance(builder).setN(number).setSkipResult(skipResult)
