@@ -1,0 +1,61 @@
+
+<br>
+<table style="width:80%;margin:auto;" height="550px" cellspacing="3" cellpadding="0" border="0">
+  <tr>
+    <td  valign="top">
+		<h2>最近上架的书籍......<a href="$SERVER_NAME/allBook.htm"><font size="2">[更多]</font></a></h2>
+        	<table align="center">
+            	<tr>
+				#foreach($book in $newBookList)
+					
+                <td align="center" width="150px">
+					<table><tr><td style="height:160; text-align:center; vertical-align:middle">
+					<a href="$SERVER_NAME/searchBookDetail.htm?id=${book.bookInfoId}&showOwners=true" target="_blank">
+						#if($book.bookImgUrl && !$book.getBookImgUrl().equals(""))
+							<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl" title="$book.bookName"/>
+						#else
+							<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png" title="$book.bookName"/>
+						#end
+					</a>
+                    </td></tr></table>
+					<a href="$SERVER_NAME/searchBookDetail.htm?id=${book.bookInfoId}&showOwners=true" target="_blank" title="$book.bookName">$stringFormatUtil.homeBookNameFormat($book.bookName)</a>
+                </td>
+				#end
+                </tr>
+            </table>
+        <br/><br/>
+		#if($popularBookList && $popularBookList.size()>0)
+        <h2>最受欢迎的书籍</h2>
+			<table align="center">
+            	<tr>
+				#foreach($book in $popularBookList)
+    				#if($loopCounter <5)
+                    <td align="center" width="150px">
+    					<table style="cursor: pointer;" onClick="window.open('$SERVER_NAME/searchBookDetail.htm?id=${book.bookInfoId}&showOwners=true','_blank')">
+    						<tr><td style="height:150; text-align:center; vertical-align:middle;">
+    					
+    						#if($book.bookImgUrl && !$book.getBookImgUrl().equals(""))
+    							<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$book.bookImgUrl" title="$book.bookName"/>
+    						#else
+    							<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png" title="$book.bookName"/>
+    						#end
+    					</td></tr></table>
+    					<a href="$SERVER_NAME/searchBookDetail.htm?id=${book.bookInfoId}&showOwners=true" target="_blank" title="$book.bookName">$stringFormatUtil.homeBookNameFormat($book.bookName)</a>
+                    </td>
+    				#end
+				#end
+                </tr>
+            </table>
+		#end
+	</td>
+	<td width="80" valign="top">
+	</td>
+    <td width="330px" valign="top">
+		#if(!$userName)
+			#parse("widget/loginBox.vm")
+		#end
+		</br>
+		#include("resources/systemInfo.htm")
+	</td>
+  </tr>  
+</table>

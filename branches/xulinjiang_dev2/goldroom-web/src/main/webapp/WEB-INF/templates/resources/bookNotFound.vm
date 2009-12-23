@@ -1,0 +1,8 @@
+<table style="width:80%;margin:auto;" cellspacing="0" cellpadding="3" border="0">
+    <tr>
+		<td align="center">
+			该书籍已经被下架或者删除<br/>
+			<a href="$SERVER_NAME/allBook.htm">浏览其他书籍</a>
+		</td>
+	</tr>
+</table>

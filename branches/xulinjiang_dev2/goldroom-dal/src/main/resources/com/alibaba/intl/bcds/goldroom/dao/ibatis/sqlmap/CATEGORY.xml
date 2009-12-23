@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="CATEGORY">
+	<typeAlias alias="Category"
+		type="com.alibaba.intl.bcds.goldroom.dataobject.Category" />
+	<resultMap class="Category" id="BookInfoResult">
+		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="parentId" column="PARENT_ID" jdbcType="DECIMAL" />
+		<result property="name" column="NAME" jdbcType="VARCHAR" />
+		<result property="leaf" column="IS_LEAF" jdbcType="BOOLEAN" />
+		<result property="level" column="LEVEL" jdbcType="DECIMAL" />
+		<result property="description" column="DESCRIPTION" jdbcType="VARCHAR" />
+		<result property="gmtCreate" column="GMT_CREATE" jdbcType="DATETIME" />
+		<result property="gmtModified" column="GMT_MODIFIED" jdbcType="DATETIME" />
+	</resultMap>
+	<!--
+		ID | PARENT_ID | NAME | IS_LEAF | LEVEL | DESCRIPTION | GMT_CREATE |
+		GMT_MODIFIED
+	-->
+	<select id="listAll" resultMap="BookInfoResult">
+		SELECT
+		ID , PARENT_ID , NAME ,
+		IS_LEAF , LEVEL , DESCRIPTION , GMT_CREATE ,
+		GMT_MODIFIED
+		FROM CATEGORY
+	</select>
+</sqlMap>

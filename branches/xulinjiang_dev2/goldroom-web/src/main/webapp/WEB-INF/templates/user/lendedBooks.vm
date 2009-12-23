@@ -1,0 +1,61 @@
+<h1>我要还书 <font size="2"><a href="$SERVER_NAME/faq/index.htm#return">如何归还？</a></font></h1>
+#parse("widget/pageNav.vm")
+<table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
+	<tbody>
+		#if($bookItemList && $bookItemList.size()==0)
+			<tr height="50" valign="middle"><td align="center">
+			暂无借阅书籍，<a href="$SERVER_NAME/allBook.htm">寻找自己需要的书籍</a>。<a href="$SERVER_NAME/faq/index.htm#lend">如何借阅？</a>			
+			</td></tr>
+		#end
+		#foreach($bookItem in $bookItemList)
+		<tr height="170" valign="middle">
+			<td class="lines" align="left" valign="middle">
+
+				<div onmouseover="javascript:this.style.background='#F7F7F7'" onmouseout="javascript:this.style.background=''" style="width=100%;">
+					<table>
+					<tr  valign="middle">
+						<td width="150px" align="center">
+							<a href="$SERVER_NAME/user/bookItemDetail.htm?id=$!{bookItem.id}" title="" target="_blank">
+								#if($bookItem.bookInfo.imgUrl && !$bookItem.bookInfo.getImgUrl().equals(""))
+									<img id="bookCoverImage" class="bookImage" src="$UPLOAD_IMAGE_PATH/$bookItem.bookInfo.ImgUrl"/>
+								#else
+									<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
+								#end
+							</a>
+						</td>
+						<td width="300px" valign="top" style="font-size:16px; color:#89A945;">
+							<h2>
+							<a href="$SERVER_NAME/user/bookItemDetail.htm?id=$!{bookItem.id}" title="" target="_blank">
+								$!{bookItem.bookInfo.name}
+							</a></h2>
+							作　　者：$bookItem.bookInfo.author  <br/>
+							ＩＳＢＮ：$bookItem.bookInfo.isbn  <br/>
+							版　　本：$bookItem.bookInfo.edition	 <br/>
+							出版时间：$dateTool.format("yyyy-MM-dd",$bookItem.bookInfo.publishTime)  <br/>
+							
+						</td>
+						<td width="200px" valign="top" style="font-size:16px; color:#89A945;">
+
+                        </td>
+						<td valign="top" align="left" width="320px" style="font-size:16px; color:#89A945;">
+							#set($memberInfo = $!memberInfoCache.getMemberInfo($!{bookItem.loginId}))
+							#if($memberInfo)
+							拥&nbsp;有&nbsp;者&nbsp;：&nbsp;$memberInfo.name
+							<A href=" http://web.im.alisoft.com/msg.aw?v=2&amp;uid=${memberInfo.aliTalkId}&amp;site=cnalichn&amp;s=1" target=_blank><IMG border=0 alt=点击这里给我发消息 src=" http://web.im.alisoft.com/online.aw?v=2&amp;uid=${memberInfo.aliTalkId}&amp;site=cnalichn&amp;s=1"></A>
+							<a href="mailto:${memberInfo.email}"><img src="$SERVER_NAME/images/mail.gif"/></a>
+							<br/>
+							#end
+							借阅时间：$!dateTool.format("yyyy-MM-dd",$bookItem.lending.lendTime)
+							<br/>
+							归还时间：$!dateTool.format("yyyy-MM-dd",$bookItem.lending.returnTime)
+						</td>
+    				</tr>
+					</table>		
+				</div>
+			</td>
+		</tr>
+		#end
+</tbody>
+</table>
+
+#parse("widget/pageNav.vm")
