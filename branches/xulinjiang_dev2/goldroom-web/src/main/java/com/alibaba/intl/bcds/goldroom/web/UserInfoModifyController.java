@@ -24,22 +24,6 @@ public class UserInfoModifyController extends SimpleFormController {
     }
 
     /**
-     * 判断用户有没修改
-     * 
-     * @param userInfo
-     * @return
-     */
-    public boolean isNotModified(UserInfoCommand userInfo) {
-        if (EMPTY.equals(userInfo.getNewPassword()) && EMPTY.equals(userInfo.getName())
-            && EMPTY.equals(userInfo.getEmail()) && EMPTY.equals(userInfo.getAliTalkId())
-            && EMPTY.equals(userInfo.getWorkId()) && EMPTY.equals(userInfo.getLocation())
-            && EMPTY.equals(userInfo.getExt())) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * @param userInfo
      * @return
      */
@@ -65,12 +49,8 @@ public class UserInfoModifyController extends SimpleFormController {
         UserInfoCommand userInfo = (UserInfoCommand) command;
         // 判断原密码是否正确
         if (!userInfo.getOldPassword().equals(UserUtil.getPassword())) {
-            return new ModelAndView("/resources/changeUserInfoFailed");
-        }
-        // 判断用户有没修改
-        if (isNotModified(userInfo)) {
-            return new ModelAndView("/resources/changeUserInfoFailed");
-        }
+            return new ModelAndView("/resources/passwordIncorrect");
+        }        
         Result result = new Result(false);
         Member member = setToMember(userInfo);
         result = memberService.updateUserInfoByLoginId(member);
