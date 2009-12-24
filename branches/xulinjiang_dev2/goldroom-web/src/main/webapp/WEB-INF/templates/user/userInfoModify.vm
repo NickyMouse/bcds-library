@@ -93,7 +93,9 @@ function check() {
 		return (false);
 	}
 	document.userInfoModifyForm.oldPassword.value = hex_md5(document.userInfoModifyForm.oldPassword.value);
-	document.userInfoModifyForm.newPassword.value = hex_md5(document.userInfoModifyForm.newPassword.value);
+	if (document.userInfoModifyForm.newPassword.value != "") { // 判空来防止空字符串md5加密
+		document.userInfoModifyForm.newPassword.value = hex_md5(document.userInfoModifyForm.newPassword.value);
+	}
 	document.userInfoModifyForm.submit();
 }
 // 是否修改密码
