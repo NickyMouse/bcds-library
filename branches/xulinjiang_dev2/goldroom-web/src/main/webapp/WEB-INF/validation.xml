@@ -38,6 +38,18 @@
 		</form>
 		<form name="userInfoCommand">
 			<field property="oldPassword" depends="required">
+			</field>
+			<field property="name" depends="required">
+			</field>
+			<field property="email" depends="required">
+			</field>
+			<field property="aliTalkId" depends="required">
+			</field>
+			<field property="workId" depends="required">
+			</field>
+			<field property="location" depends="required">
+			</field>
+			<field property="ext" depends="required">
 			</field>			
 		</form>
 		<form name="bookItem">

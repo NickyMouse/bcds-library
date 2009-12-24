@@ -119,7 +119,7 @@ function check()
 		return (false);
 	}
 	if (document.applyForm.confirm.value.length ==0) {
-		alert("密码不能为空");		
+		alert("密码不能为空");
 		document.applyForm.confirm.focus();
 		return (false);
 	}
