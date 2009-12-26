@@ -112,6 +112,8 @@
 								借阅者：$memberInfo.name
 								<A href=" http://web.im.alisoft.com/msg.aw?v=2&amp;uid=${memberInfo.aliTalkId}&amp;site=cnalichn&amp;s=1" target=_blank><IMG border=0 alt=点击这里给我发消息 src=" http://web.im.alisoft.com/online.aw?v=2&amp;uid=${memberInfo.aliTalkId}&amp;site=cnalichn&amp;s=1"></A>
                                 <a href="mailto:${memberInfo.email}"><img src="$SERVER_NAME/images/mail.gif"/></a>
+                                <br/>
+								借阅时间：$!dateTool.format("yyyy-MM-dd",$!{bookItem.lending.lendTime}) 至 $!dateTool.format("yyyy-MM-dd",$!{bookItem.lending.returnTime})
 							#elseif($bookItem.state == "reservated")
 								#set($memberInfo = $!memberInfoCache.getMemberInfo($!{bookItem.reservation.subscriber}))
 								预约者：$!memberInfo.name
