@@ -79,9 +79,17 @@ mvn clean package -Dmaven.test.skip=true
 = 5.运行程序 =
 
  * 初始化数据库
+    详见 http://code.google.com/p/bcds-library/wiki/CreateDatabase
 
-create database goldroom default charset utf8 COLLATE utf8_general_ci;
-  建表sql及部分初始化sql已放在goldroom/sql里
+ * 创建必要的目录(linux)
+  ** 创建 “上传文件的目录”
+  ** 创建 “搜索引擎索引存放路径”
+  ** 创建 日志存放目录
+{{{
+cd goldroom
+mkdir logs
+}}}
+
  * search
 {{{
 cd goldroom-search/goldroom-search-builder/target
@@ -102,15 +110,14 @@ jdbc.password=<数据库密码>
 goldroom.server.name=<运行tomcat机器的ip及端口，如127.0.0.1:8080>
 
 goldroom.fileupload.path=<上传文件的目录>
-goldroom.index.path=<index path>
+goldroom.index.path=<搜索引擎索引存放路径>
 }}}
 
-{{{
+ * 修改运行脚本权限（linux）
+ {{{
 cd goldroom
-mkdir logs
-mkdir <上传文件的目录>
-mkdir <index path>
-}}}
+chmod a+x *.sh
+ }}}
 windiow下进入goldroom根目录执行startup.bat
 linux下进入goldroom根目录下执行startup.sh
 
