@@ -105,7 +105,8 @@ goldroom.fileupload.path=<上传文件的目录>
 goldroom.index.path=<index path>
 }}}
 
-{{{cd goldroom
+{{{
+cd goldroom
 mkdir logs
 mkdir <上传文件的目录>
 mkdir <index path>
