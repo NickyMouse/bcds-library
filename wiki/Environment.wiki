@@ -12,7 +12,19 @@
   ** 添加PATH到M2_HOME/bin
  * Tomca
   ** 配置CATELINA_HOME到tomcat安装目录
+如（linux）
+ {{{
+cd
+gedit .profile
 
+}}}
+{{{
+export JAVA_HOME=jdk安装目录
+export M2_HOME=maven安装目录
+export CATALINA_HOME=tomcat安装目录
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export PATH=.:$JAVA_HOME/bin:$M2_HOME/bin:$PATH
+}}}
 = 3.从SVN上签出项目 =
 
 目前项目共有三个模块，
