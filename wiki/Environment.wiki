@@ -12,11 +12,11 @@
   ** 添加PATH到M2_HOME/bin
  * Tomca
   ** 配置CATELINA_HOME到tomcat安装目录
-如（linux）
+修改home目录下的.profile文件（linux）
  {{{
 cd
 gedit .profile
-
+在最后添加
 }}}
 {{{
 export JAVA_HOME=jdk安装目录
