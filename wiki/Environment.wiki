@@ -38,6 +38,7 @@ goldroom-search-builder在开发过程不是必须的，除非你需要修改搜
  * 编译并把 goldroom-search-commons 发布到本地maven仓库
 {{{
 cd goldroom-search/goldroom-search-commons
+mvn install:install-file -DgroupId=jeasy.analysis -DartifactId=je-analysis -Dversion=1.5.1 -Dpackaging=jar -Dfile=./den/je-analysis-1.5.1.jar
 mvn install -Dmaven.test.skip=true
 }}}
  * 编译 goldroom-search-builder
@@ -50,16 +51,25 @@ mvn package -Dmaven.test.skip=true
 cd goldroom/goldroom-dal
 mvn install -Dmaven.test.skip=true
 }}}
+
  * 编译并把 goldroom-mail 发布到本地maven仓库
 {{{
+cd goldroom
+mvn install -Dmaven.test.skip=true
 cd goldroom-mail
+mvn install:install-file -DgroupId=javax.mail -DartifactId=mail -Dversion=1.4 -Dpackaging=jar -Dfile=./den/mail-1.4.jar
 mvn install -Dmaven.test.skip=true
 }}}
+
  * 编译 goldroom
 {{{
 cd goldroom
+mvn install:install-file -DgroupId=javax.jms -DartifactId=jms -Dversion=1.1 -Dpackaging=jar -Dfile=./den/javax.jms.jar
+mvn install:install-file -DgroupId=com.sun.jmx -DartifactId=jmxri -Dversion=1.2.1 -Dpackaging=jar -Dfile=./den/jmxri.jar
+mvn install:install-file -DgroupId=com.sun.jdmk -DartifactId=jmxtools -Dversion=1.2.1 -Dpackaging=jar -Dfile=./den/jmxri.jar
 mvn clean package -Dmaven.test.skip=true
 }}}
+
 
 
 编译过程可能会提示找不到依赖包，这里由于maven官方仓库里没有收录我们需要的这些包引起的，把需要的这个jar包已经放在对应模块的den目录下，按照maven给出的提示把jar包安装到本地仓库并重新编译就可以了，有时间会把这个问题解决掉。
@@ -69,13 +79,14 @@ mvn clean package -Dmaven.test.skip=true
 = 5.运行程序 =
 
  * 初始化数据库
+
+create database goldroom default charset utf8 COLLATE utf8_general_ci;
   建表sql及部分初始化sql已放在goldroom/sql里
  * search
 {{{
 cd goldroom-search/goldroom-search-builder/target
-java -jar goldroom-search-builder-0.0.1-SNAPSHOT-jar-with-dependencies.jar full /home/intlbcds/work/index/ 60 0 23
+java -jar goldroom-search-builder-0.0.1-SNAPSHOT-jar-with-dependencies.jar full 60 0 23
 #full : 全量build
-#/home/intlbcds/work/index/ : 索引路径，由于这个路径还没有一个统一的配置方式，更改这个参数会导致goldroom中搜索不可用
 #60 : build的时间间隔（分钟）
 #0  : 开始时间（0:00）
 #23 : 结束时间(23:00)
@@ -91,9 +102,14 @@ jdbc.password=<数据库密码>
 goldroom.server.name=<运行tomcat机器的ip及端口，如127.0.0.1:8080>
 
 goldroom.fileupload.path=<上传文件的目录>
+goldroom.index.path=<index path>
 }}}
 
-
+{{{cd goldroom
+mkdir logs
+mkdir <上传文件的目录>
+mkdir <index path>
+}}}
 windiow下进入goldroom根目录执行startup.bat
 linux下进入goldroom根目录下执行startup.sh
 
