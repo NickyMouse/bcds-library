@@ -82,10 +82,6 @@ mvn install:install-file -DgroupId=com.sun.jdmk -DartifactId=jmxtools -Dversion=
 mvn clean package -Dmaven.test.skip=true
 }}}
 
-
-
-编译过程可能会提示找不到依赖包，这里由于maven官方仓库里没有收录我们需要的这些包引起的，把需要的这个jar包已经放在对应模块的den目录下，按照maven给出的提示把jar包安装到本地仓库并重新编译就可以了，有时间会把这个问题解决掉。
-
 加上-Dmaven.test.skip=true主要是为了防止单元测试失败导致编译失败
 
 = 5.运行程序 =
@@ -133,8 +129,21 @@ java -jar goldroom-search-builder-0.0.1-SNAPSHOT-jar-with-dependencies.jar full 
 cd goldroom
 chmod a+x *.sh
  }}}
-windiow下进入goldroom根目录执行startup.bat
-linux下进入goldroom根目录下执行startup.sh
+ * 启动与关闭服务
+ ** windows
+ 进入goldroom根目录执行startup.bat（启动），通过直接关闭弹出的运行窗口可以关闭服务
+ ** linux
+  linux下进入goldroom根目录下执行（启动）/ shutdown.sh 关闭
+{{{
+cd goldroom
+./startup.sh
+}}}
+
+{{{
+cd goldroom
+./shutdown.sh
+}}}
+关闭服务
 
 然后就可以在 http://127.0.0.1:8080/login.htm 登录系统，如果有build数据的话可以在 http://127.0.0.1:8080/home.htm 看到首页
 
