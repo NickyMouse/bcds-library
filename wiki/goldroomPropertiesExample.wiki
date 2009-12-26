@@ -14,9 +14,9 @@ goldroom.index.path=/home/intlbcds/work/index
 }}}
 *jdbc.driver*：数据库驱动
 *jdbc.url*：数据库的链接url
-          127.0.0.1 —— 数据库所在IP地址
-          3306      —— 数据库端口
-          goldroom  —— 数据库名称
+127.0.0.1——数据库所在IP地址
+3306——数据库端口
+goldroom——数据库名称
 *jdbc.username*：数据库用户名
 *jdbc.password*：数据库密码
 *goldroom.server.name*：goldroom服务器地址，包括端口
