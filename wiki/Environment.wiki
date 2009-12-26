@@ -81,6 +81,20 @@ mvn clean package -Dmaven.test.skip=true
  * 初始化数据库
     详见 http://code.google.com/p/bcds-library/wiki/CreateDatabase
 
+ * 在用户目录下添加goldroom.properties文件并添加如下文件内容
+{{{
+jdbc.driver=org.gjt.mm.mysql.Driver                     #数据库驱动，目前是mysql
+jdbc.url=jdbc:mysql://<数据库所在服务器>/[数据库目称]   #数据库连接地址
+jdbc.username=<数据库用户名>
+jdbc.password=<数据库密码>
+
+goldroom.server.name=<运行tomcat机器的ip及端口，如127.0.0.1:8080>
+
+goldroom.fileupload.path=<上传文件的目录>
+goldroom.index.path=<搜索引擎索引存放路径>
+}}}
+详细见:http://code.google.com/p/bcds-library/wiki/goldroomPropertiesExample
+
  * 创建必要的目录(linux)
   ** 创建 “上传文件的目录”
   ** 创建 “搜索引擎索引存放路径”
@@ -100,18 +114,7 @@ java -jar goldroom-search-builder-0.0.1-SNAPSHOT-jar-with-dependencies.jar full 
 #23 : 结束时间(23:00)
 #完成一次build之后可以直接关掉这个进程
 }}}
- * 在用户目录下添加goldroom.properties文件并添加如下文件内容
-{{{
-jdbc.driver=org.gjt.mm.mysql.Driver                     #数据库驱动，目前是mysql
-jdbc.url=jdbc:mysql://<数据库所在服务器>/[数据库目称]   #数据库连接地址
-jdbc.username=<数据库用户名>
-jdbc.password=<数据库密码>
 
-goldroom.server.name=<运行tomcat机器的ip及端口，如127.0.0.1:8080>
-
-goldroom.fileupload.path=<上传文件的目录>
-goldroom.index.path=<搜索引擎索引存放路径>
-}}}
 
  * 修改运行脚本权限（linux）
  {{{
