@@ -130,20 +130,18 @@ cd goldroom
 chmod a+x *.sh
  }}}
  * 启动与关闭服务
- ** windows
- 进入goldroom根目录执行startup.bat（启动），通过直接关闭弹出的运行窗口可以关闭服务
- ** linux
-  linux下进入goldroom根目录下执行（启动）/ shutdown.sh 关闭
+  ** windows
+     进入goldroom根目录执行startup.bat（启动），通过直接关闭弹出的运行窗口可以关闭服务
+  ** linux
+     进入goldroom根目录下执行（启动）/ shutdown.sh 关闭
 {{{
 cd goldroom
+#启动
 ./startup.sh
-}}}
 
-{{{
-cd goldroom
+#关闭
 ./shutdown.sh
 }}}
-关闭服务
 
 然后就可以在 http://127.0.0.1:8080/login.htm 登录系统，如果有build数据的话可以在 http://127.0.0.1:8080/home.htm 看到首页
 
