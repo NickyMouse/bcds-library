@@ -11,6 +11,7 @@ import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearch;
 import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQueryObject;
 import com.alibaba.intl.bcds.goldroom.search.commons.service.BookSearchService;
 
+@SuppressWarnings("unchecked")
 public class BookSearchServiceTest extends TestCase {
 	BookSearchService bookSearchService;
 
@@ -32,7 +33,8 @@ public class BookSearchServiceTest extends TestCase {
 //		assertNotNull(list);
 	}
 
-	public void testSearchBookByKeyword() {
+	
+    public void testSearchBookByKeyword() {
 		System.out.println("testSearchBookByKeyword");
 		BookSearchQueryObject obj = bookSearchService.searchBookByKeyword(
 				"bababa", 0, 30);
