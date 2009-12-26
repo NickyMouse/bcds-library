@@ -1,0 +1,30 @@
+#labels Database
+==安装mysql==
+{{{
+ sudo apt-get install mysql-server-5.0
+}}}
+安装过程会需要创建数据库root用户的密码。
+
+==创建数据库==
+这里以root用户为例
+{{{
+mysql -u root -p
+输入root用户密码
+create database goldroom default charset utf8 COLLATE utf8_general_ci; 
+exit
+}}}
+
+==创建数据库表==
+{{{
+cd goldroom
+mysql -u root -p goldroom < ./sql/goldroom_create_table.sql
+}}}
+
+==初始化数据==
+{{{
+mysql -u root -p goldroom < ./sql/category_data.sql
+mysql -u root -p goldroom < ./sql/account.sql
+}}}
+category_data.sql 初始化类目信息
+account.sql 初始化帐号信息，其中初始化了一个管理员帐号admin / hello1234
+普通用户帐号，可以通过申请帐号的方式获得。
