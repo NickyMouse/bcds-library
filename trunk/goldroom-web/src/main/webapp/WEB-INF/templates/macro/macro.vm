@@ -3,3 +3,12 @@
 		<br/><font color="red">$err</font>
 	#end
 #end
+
+##翻页组件使用的显示
+#macro( showPage $index $curPage $currentUrl)
+	#if($index == $curPage)
+		[${index}]
+	#else
+	<a href="${currentUrl}&page=$index">[${index}]</a>
+	#end
+#end
