@@ -47,7 +47,12 @@
     	   <div style=" float:left; font-size:14px">
     	  &nbsp;&nbsp;&nbsp;&nbsp;
     	  #if($pageNavView.prePage > 0)<a href="${pageNavView.currentUrl}&page=${pageNavView.prePage}">&lt;&lt; 上一页&nbsp;</a> #end
-    	  #set($beginShowNum = 5)
+    	  
+    	  
+    	  #set($beginShowNum = $pageNavView.totalPage*2/5)
+    	  #if($beginShowNum > 10)
+    	  	#set($beginShowNum = 10)
+  	      #end
     	  #set($endShowNum = $pageNavView.totalPage - $beginShowNum)
     	  #set($minCurPageNum = $pageNavView.currentPage - $beginShowNum / 2)
     	  #set($maxCurPageNum = $pageNavView.currentPage + $beginShowNum / 2)
@@ -58,7 +63,7 @@
 	  	    #end
   	      #else
   	      	#showPage(1 $pageNavView.currentPage $pageNavView.currentUrl)
-  	      	#if($minCurPageNum != 2)
+  	      	#if($minCurPageNum != 2 && $endShowNum != 2)
   	      		...
 	      	#end
   	      #end
