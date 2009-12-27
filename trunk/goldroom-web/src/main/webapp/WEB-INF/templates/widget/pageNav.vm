@@ -49,39 +49,37 @@
     	  #if($pageNavView.prePage > 0)<a href="${pageNavView.currentUrl}&page=${pageNavView.prePage}">&lt;&lt; 上一页&nbsp;</a> #end
     	  
     	  
-    	  #set($beginShowNum = $pageNavView.totalPage*2/5)
-    	  #if($beginShowNum > 10)
-    	  	#set($beginShowNum = 10)
+    	  #set($span = $pageNavView.totalPage*1/2)
+    	  #if($span > 10)
+    	  	#set($span = 10)
   	      #end
-    	  #set($endShowNum = $pageNavView.totalPage - $beginShowNum)
-    	  #set($minCurPageNum = $pageNavView.currentPage - $beginShowNum / 2)
-    	  #set($maxCurPageNum = $pageNavView.currentPage + $beginShowNum / 2)
-    	  
-    	  #if($pageNavView.currentPage < $beginShowNum)
-    	  	#foreach($item in [1..$beginShowNum])
-    	  		#showPage($item $pageNavView.currentPage $pageNavView.currentUrl)
-	  	    #end
-  	      #else
+    	  #set($minCurPageNum = $pageNavView.currentPage - $span / 2)
+    	  #set($maxCurPageNum = $pageNavView.currentPage + $span / 2)
+    	  #if($minCurPageNum < 1)
+    	  	#set($minCurPageNum = 1)
+  	      #end
+  	      #if($maxCurPageNum > $pageNavView.totalPage)
+    	  	#set($maxCurPageNum = $pageNavView.totalPage)
+  	      #end
+  	     
+  	      
+    	  #if($minCurPageNum > 1)
   	      	#showPage(1 $pageNavView.currentPage $pageNavView.currentUrl)
-  	      	#if($minCurPageNum != 2 && $endShowNum != 2)
+  	      	#if($minCurPageNum != 2)
   	      		...
 	      	#end
   	      #end
-  	      
-  	      #if($pageNavView.currentPage >= $beginShowNum && $pageNavView.currentPage <= $endShowNum)
-  	      	#foreach($item in [$minCurPageNum..$maxCurPageNum])
-  	      		#showPage($item $pageNavView.currentPage $pageNavView.currentUrl)
-	      	#end
-      	  #end
-      	  
-      	  #if($pageNavView.currentPage > $endShowNum)
-      	  	#foreach($item in [$endShowNum..$pageNavView.totalPage])
-  	      		#showPage($item $pageNavView.currentPage $pageNavView.currentUrl)
-	      	#end
-  	      #else
-  	      	...
-  	      	#showPage($pageNavView.totalPage $pageNavView.currentPage $pageNavView.currentUrl)
+  	      #foreach($item in [$minCurPageNum..$maxCurPageNum])
+  	      	#showPage($item $pageNavView.currentPage $pageNavView.currentUrl)
+	      #end
+	     
+	      #if($maxCurPageNum != $pageNavView.totalPage)
+  	      	#if($maxCurPageNum != $pageNavView.totalPage - 1)
+  	      		...
+  	     	#end
+  	      	#showPage($pageNavView.totalPage $pageNavView.currentPage $pageNavView.currentUrl)	
   	      #end
+  	     
     	  #if($pageNavView.nextPage > 0)<a href="${pageNavView.currentUrl}&page=${pageNavView.nextPage}">&nbsp;下一页&gt;&gt;</a> #end
     
     	  </div>
