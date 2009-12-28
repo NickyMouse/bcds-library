@@ -1,0 +1,8 @@
+<html>
+<body>
+##有人预约的时候，邮件提醒
+
+尊敬的$!{info.owner.name}:<br/>
+     您的《$!{info.bookInfo.name}》已经被<strong>$!{info.borrower.name}</strong>预约了。
+</body>
+</html>
