@@ -15,21 +15,24 @@
  */
 package com.alibaba.intl.bcds.goldroom.web;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
+import com.alibaba.intl.bcds.goldroom.service.BookItemService;
+import com.alibaba.intl.bcds.goldroom.web.command.Shelve;
+import com.alibaba.intl.bcds.goldroom.web.utils.UserUtil;
 
 /**
  * TODO Comment of FindIsbnController
@@ -39,6 +42,7 @@ import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
 public class ShelveFormController extends SimpleFormController {
 
     private BookInfoService bookInfoService;
+    private BookItemService bookItemService;
 
     /**
      * @param bookInfoService the bookInfoService to set
@@ -50,22 +54,52 @@ public class ShelveFormController extends SimpleFormController {
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
                                     Object command, BindException errors) throws Exception {
-        String isbn = (String) request.getParameter("isbn");
-        if (StringUtils.isEmpty(isbn)) {
-            response.setStatus(404);
-            return new ModelAndView();
+        Shelve shelve = (Shelve) command;
+        if (shelve.isNewBookInfo()) {
+            bookInfoService.addBookInfo(shelve.getBookInfo());
+
+        } else if (shelve.isUpdateCategory()) {
+            bookInfoService.updateCategory(shelve.getBookInfo());
         }
-        return super.onSubmit(request, response, command, errors);
+        BookItem item = shelve.getBookItem();
+        item.setGmtCreate(new Date());
+        item.setBookInfoId(shelve.getBookInfo().getId());
+        item.setLoginId(UserUtil.getLoginId());
+        bookItemService.addBookItem(shelve.getBookItem());
+        return new ModelAndView("redirect:/user/shelveSuccess.htm");
     }
 
     @Override
-    protected Map referenceData(HttpServletRequest request, Object command, Errors errors)
-            throws Exception {
+    protected Map<String, Object> referenceData(HttpServletRequest request, Object command,
+                                                Errors errors) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
         String isbn = (String) request.getParameter("isbn");
-        BookInfo bookInfo = bookInfoService.findBookInfoByIsbn(isbn);
+        BookInfo bookInfo = bookInfoService.getBookInfoFromDbAndNetWork(isbn);
         map.put("bookInfo", bookInfo);
+        Shelve shelve = (Shelve) command;
+        if (bookInfo == null) {
+            shelve.setNewBookInfo(true);
+            map.put("isbn", isbn);
+        } else if (bookInfo != null) {
+            shelve.setBookInfo(bookInfo);
+            if (bookInfo.getCategoryId() == null)
+                shelve.setUpdateCategory(true);
+        }
         return map;
+    }
+
+    /**
+     * @param bookItemService the bookItemService to set
+     */
+    public void setBookItemService(BookItemService bookItemService) {
+        this.bookItemService = bookItemService;
+    }
+
+    /**
+     * @return the bookItemService
+     */
+    public BookItemService getBookItemService() {
+        return bookItemService;
     }
 
 }

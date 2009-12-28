@@ -417,7 +417,7 @@ function getInputObj()
 <table width="150" style="margin:0">
     <tr>
         <td>
-            <input type="hidden" id="categoryId" name="categoryId" readonly="true"  />
+            <input type="hidden" id="categoryId" name="bookInfo.categoryId" readonly="true"  />
             <input type="text" id="categoryPath" name="categoryPath" title="点击选择类目" onClick="initAndShowOrHiddenDiv();" style="width:423px;"  readonly/>
 			</td> <td>
            

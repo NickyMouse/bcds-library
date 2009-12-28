@@ -61,13 +61,7 @@
 	<bean id="validator"
 		class="org.springmodules.validation.commons.DefaultBeanValidator" />
 
-	<!--
-		<bean id="userValidator"
-		class="org.springmodules.validation.valang.ValangValidator"> <property
-		name="valang"> <value> <![CDATA[ { username : length(?) < 10 :
-		'username too long' : 'username_length' : 30} { age : length(?) < 50 :
-		'age too long' : 'age_length' : 50 } ]]> </value> </property> </bean>
-	-->
+
 	<bean id="handlerMapping"
 		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
 		<property name="order">
@@ -78,11 +72,6 @@
 
 	<bean id="urlMapping"
 		class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
-		<!--
-			<property name="interceptors"> <list> <bean
-			class="org.springmodules.validation.valang.javascript.taglib.ValangRulesExportInterceptor"
-			/> </list> </property>
-		-->
 		<property name="order">
 			<value>1</value>
 		</property>
@@ -215,12 +204,7 @@
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.web.command.ConfirmLending" />
 	</bean>
-	<!--
-		<context:component-scan
-		base-package="com.intl.alibaba.bcds.goldroom.web" /> <bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"
-		/>
-	-->
+
 	<bean name="/user/offShelves.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.OffShelvesController">
 	</bean>

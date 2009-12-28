@@ -34,9 +34,9 @@ public class Shelve {
 
     private BookItem bookItem;
 
-    private String   createType;
+    private boolean  newBookInfo;
 
-    private boolean  addCategoryFirstTime;
+    private boolean  updateCategory;
 
     /**
      * @return the bookInfo
@@ -67,31 +67,31 @@ public class Shelve {
     }
 
     /**
-     * @return the createType
-     */
-    public String getCreateType() {
-        return createType;
-    }
-
-    /**
-     * @param createType the createType to set
-     */
-    public void setCreateType(String createType) {
-        this.createType = createType;
-    }
-
-    /**
      * @return the addCategoryFirstTime
      */
-    public boolean isAddCategoryFirstTime() {
-        return addCategoryFirstTime;
+    public boolean isUpdateCategory() {
+        return updateCategory;
     }
 
     /**
      * @param addCategoryFirstTime the addCategoryFirstTime to set
      */
-    public void setAddCategoryFirstTime(boolean addCategoryFirstTime) {
-        this.addCategoryFirstTime = addCategoryFirstTime;
+    public void setUpdateCategory(boolean addCategoryFirstTime) {
+        this.updateCategory = addCategoryFirstTime;
+    }
+
+    /**
+     * @param newBookInfo the newBookInfo to set
+     */
+    public void setNewBookInfo(boolean newBookInfo) {
+        this.newBookInfo = newBookInfo;
+    }
+
+    /**
+     * @return the newBookInfo
+     */
+    public boolean isNewBookInfo() {
+        return newBookInfo;
     }
 
 }

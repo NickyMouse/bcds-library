@@ -39,10 +39,10 @@
 							<a href="$SERVER_NAME/user/bookItemDetail.htm?id=$!{bookItem.id}" title="" target="_blank">
 								$!{bookItem.bookInfo.name}
 							</a></h2>
-							作　　者：$bookItem.bookInfo.author  <br/>
-							ＩＳＢＮ：$bookItem.bookInfo.isbn  <br/>
-							版　　本：$bookItem.bookInfo.edition	 <br/>
-							上架日期：$dateTool.format("yyyy-MM-dd",$bookItem.addTime)  <br/>
+							作　　者：$!{bookItem.bookInfo.author}  <br/>
+							ＩＳＢＮ：$!{bookItem.bookInfo.isbn}  <br/>
+							版　　本：$!{bookItem.bookInfo.edition}	 <br/>
+							上架日期：$!dateTool.format("yyyy-MM-dd",$bookItem.addTime)  <br/>
 							
 						</td>
 						<td width="300px" valign="top" style="font-size:16px; color:#89A945;">

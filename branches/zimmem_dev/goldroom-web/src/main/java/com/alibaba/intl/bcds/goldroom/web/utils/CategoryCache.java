@@ -101,4 +101,8 @@ public class CategoryCache {
         }
         return sb.toString();
     }
+
+    public boolean isValid(Integer id) {
+        return cacheMap.get(id) != null ? true : false;
+    }
 }

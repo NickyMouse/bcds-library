@@ -14,11 +14,11 @@
       <td width="600"><table width="80%"">
           <tr>
             <td align="right" width="25%"><strong>作者</strong>:&nbsp;&nbsp;</td>
-            <td align="left">$bookInfo.author</td>
+            <td align="left">$!bookInfo.author</td>
           </tr>
           <tr>
             <td align="right"><strong>ISBN</strong>:&nbsp;&nbsp;</td>
-            <td align="left">$bookInfo.isbn</td>
+            <td align="left">$!bookInfo.isbn</td>
           </tr>
 		  <tr>
             <td align="right"><strong>类目</strong>:&nbsp;&nbsp;</td>
@@ -26,19 +26,19 @@
           </tr>
           <tr>
             <td align="right"><strong>出版社</strong>:&nbsp;&nbsp;</td>
-            <td align="left">$bookInfo.publisher</td>
+            <td align="left">$!bookInfo.publisher</td>
           </tr>
           <tr>
             <td align="right"><strong>出版日期</strong>:&nbsp;&nbsp;</td>
-            <td align="left">$dateTool.format("yyyy-MM",$bookInfo.publishTime)</td>
+            <td align="left">$!dateTool.format("yyyy-MM",$bookInfo.publishTime)</td>
           </tr>
           <tr>
             <td align="right"><strong>版次</strong>:&nbsp;&nbsp;</td>
-            <td align="left">$bookInfo.edition</td>
+            <td align="left">$!bookInfo.edition</td>
           </tr>
           <tr>
             <td align="right" valign="top"><strong>描述</strong>:&nbsp;&nbsp;</td>
-            <td align="left"><p>$bookInfo.description
+            <td align="left"><p>$!bookInfo.description
             </p></td>
           </tr>
         </table></td>
