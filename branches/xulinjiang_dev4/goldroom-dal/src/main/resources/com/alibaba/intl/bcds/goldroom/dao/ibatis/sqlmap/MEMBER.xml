@@ -63,19 +63,22 @@
 		ENABLE=#enable:INTEGER# where ID=#id:INTEGER#
 	</update>
 
-	<select id="listMemberByLoginIds" resultMap="BaseResultMap" parameterClass="java.util.HashMap">
+	<select id="listMemberByLoginIds" resultMap="BaseResultMap"
+		parameterClass="java.util.HashMap">
 		select ID, NAME, WORK_ID, LOGIN_ID, PASSWORD, EMAIL, ALI_TALK_ID,
 		GMT_CREATE, GMT_MODIFIED,
 		ENABLE, LOCATION, EXT
 		from MEMBER
-		WHERE LOGIN_ID IN (
+		WHERE
+		LOGIN_ID IN (
 		<iterate conjunction="," property="loginIdsList">
 			#loginIdsList[]#
 		</iterate>
 		)
 	</select>
-	
-	<select id="listMemberByIds" resultMap="BaseResultMap" parameterClass="java.util.HashMap">
+
+	<select id="listMemberByIds" resultMap="BaseResultMap"
+		parameterClass="java.util.HashMap">
 		select ID, NAME, WORK_ID, LOGIN_ID, PASSWORD, EMAIL, ALI_TALK_ID,
 		GMT_CREATE, GMT_MODIFIED,
 		ENABLE, LOCATION, EXT
@@ -93,7 +96,8 @@
 		ALI_TALK_ID,
 		GMT_CREATE, GMT_MODIFIED,
 		ENABLE, LOCATION, EXT
-		from MEMBER where
+		from MEMBER
+		where
 		ENABLE=#status:INTEGER#
 	</select>
 
@@ -101,7 +105,8 @@
 		update MEMBER
 		<dynamic prepend="set">
 			<isNotEmpty prepend="," property="password">
-				PASSWORD = #password:VARCHAR#
+				PASSWORD =
+				#password:VARCHAR#
 			</isNotEmpty>
 			<isNotEmpty prepend="," property="name">
 				NAME = #name:VARCHAR#
@@ -110,13 +115,15 @@
 				EMAIL = #email:VARCHAR#
 			</isNotEmpty>
 			<isNotEmpty prepend="," property="aliTalkId">
-				ALI_TALK_ID = #aliTalkId:VARCHAR#
+				ALI_TALK_ID =
+				#aliTalkId:VARCHAR#
 			</isNotEmpty>
 			<isNotNull prepend="," property="workId">
 				WORK_ID = #workId:INTEGER#
 			</isNotNull>
 			<isNotEmpty prepend="," property="location">
-				LOCATION = #location:VARCHAR#
+				LOCATION =
+				#location:VARCHAR#
 			</isNotEmpty>
 			<isNotEmpty prepend="," property="ext">
 				EXT = #ext:VARCHAR#
@@ -124,15 +131,10 @@
 		</dynamic>
 		where LOGIN_ID = #loginId:VARCHAR#
 	</update>
-	
-	<update id="updatePasswordByLoginId" parameterClass="Member">
-		update MEMBER
-		set PASSWORD = #password:VARCHAR#		
-		where LOGIN_ID = #loginId:VARCHAR#
-	</update>
-	
+
 	<select id="listMemberInfo" resultMap="MiniInfoResultMap">
-		select LOGIN_ID, NAME, WORK_ID, EMAIL,
+		select LOGIN_ID, NAME,
+		WORK_ID, EMAIL,
 		ALI_TALK_ID, LOCATION, EXT
 		from MEMBER where ENABLE=1
 	</select>
