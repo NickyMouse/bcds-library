@@ -20,8 +20,8 @@ public class BookItemDaoImpl extends SqlMapClientDaoSupport implements BookItemD
         return (BookItem) getSqlMapClientTemplate().queryForObject("BOOK_ITEM.findById", id);
     }
 
-    public Integer insert(BookItem bookItemDO) {
-        return (Integer) getSqlMapClientTemplate().insert("BOOK_ITEM.insert", bookItemDO);
+    public Integer insert(BookItem bookItem) {
+        return (Integer) getSqlMapClientTemplate().insert("BOOK_ITEM.insert", bookItem);
     }
 
     public List<BookItemDao> listAll() {

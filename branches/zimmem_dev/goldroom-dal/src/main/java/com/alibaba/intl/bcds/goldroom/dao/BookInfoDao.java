@@ -22,4 +22,10 @@ public interface BookInfoDao {
      */
     BookInfo findBookInfoByIsbn(String isbn);
 
+
+    /**
+     * @param bookInfo
+     */
+    void updateCategory(BookInfo bookInfo);
+
 }

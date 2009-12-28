@@ -2,6 +2,8 @@ package com.alibaba.intl.bcds.goldroom.dataobject;
 
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public class BookItem {
 
     /** 空闲 */
@@ -26,6 +28,7 @@ public class BookItem {
     private String             tags;
     private Lending            lending;
     private Reservation        reservation;
+    private String             remark;
 
     /**
      * @return the lending
@@ -147,5 +150,28 @@ public class BookItem {
 
     public String getLoginId() {
         return loginId;
+    }
+
+    /**
+     * @param remark the remark to set
+     */
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    /**
+     * @return the remark
+     */
+    public String getRemark() {
+        return remark;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

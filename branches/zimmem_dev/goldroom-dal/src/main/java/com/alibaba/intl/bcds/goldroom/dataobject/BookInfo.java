@@ -2,8 +2,10 @@ package com.alibaba.intl.bcds.goldroom.dataobject;
 
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public class BookInfo {
-    private Integer id;
+    private int     id;
     private String  author;
     private String  name;
     private String  publisher;
@@ -13,9 +15,14 @@ public class BookInfo {
     private Integer categoryId;
     private String  imgUrl;
     private String  description;
+    private String  edition;
+    private int     pages;
+    private String  translator;
+    private String  source;
+    private String  isbn10;
+    private String  isbn13;
     private Date    gmtCreate;
     private Date    gmtModified;
-    private String  edition;
 
     public Integer getId() {
         return id;
@@ -73,14 +80,6 @@ public class BookInfo {
         this.categoryName = categoryName;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public String getImgUrl() {
         return imgUrl;
     }
@@ -119,6 +118,99 @@ public class BookInfo {
 
     public void setEdition(String edition) {
         this.edition = edition;
+    }
+
+    /**
+     * @return the page
+     */
+    public int getPages() {
+        return pages;
+    }
+
+    /**
+     * @param page the page to set
+     */
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    /**
+     * @return the translator
+     */
+    public String getTranslator() {
+        return translator;
+    }
+
+    /**
+     * @param translator the translator to set
+     */
+    public void setTranslator(String translator) {
+        this.translator = translator;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
+    /**
+     * @param source the source to set
+     */
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    /**
+     * @return the source
+     */
+    public String getSource() {
+        return source;
+    }
+
+    /**
+     * @param isbn10 the isbn10 to set
+     */
+    public void setIsbn10(String isbn10) {
+        this.isbn10 = isbn10;
+    }
+
+    /**
+     * @return the isbn10
+     */
+    public String getIsbn10() {
+        return isbn10;
+    }
+
+    /**
+     * @param isbn13 the isbn13 to set
+     */
+    public void setIsbn13(String isbn13) {
+        this.isbn13 = isbn13;
+    }
+
+    /**
+     * @return the isbn13
+     */
+    public String getIsbn13() {
+        return isbn13;
+    }
+
+    /**
+     * @param categoryId the categoryId to set
+     */
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    /**
+     * @return the categoryId
+     */
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
 }

@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import com.alibaba.intl.bcds.goldroom.dao.BookInfoDao;
+import com.alibaba.intl.bcds.goldroom.dao.util.ParameterMap;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 
 public class BookInfoDaoImpl extends SqlMapClientDaoSupport implements BookInfoDao {
@@ -18,6 +19,7 @@ public class BookInfoDaoImpl extends SqlMapClientDaoSupport implements BookInfoD
         return (Integer) getSqlMapClientTemplate().insert("BOOK_INFO.insert", BookInfo);
     }
 
+    @SuppressWarnings("unchecked")
     public List<BookInfo> listAll() {
         return getSqlMapClientTemplate().queryForList("BOOK_INFO.listAll");
     }
@@ -44,5 +46,17 @@ public class BookInfoDaoImpl extends SqlMapClientDaoSupport implements BookInfoD
         }
         return (BookInfo) getSqlMapClientTemplate().queryForObject("BOOK_INFO.findBookInfoByIsbn",
                 isbn);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.dao.BookInfoDao#updateCategory(com.alibaba
+     * .intl.bcds.goldroom.dataobject.BookInfo)
+     */
+    @Override
+    public void updateCategory(BookInfo bookInfo) {
+        getSqlMapClientTemplate().update("BOOK_INFO.updateCategory", bookInfo);
+
     }
 }

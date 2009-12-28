@@ -4,46 +4,54 @@
 	<typeAlias alias="BookInfo"
 		type="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo" />
 	<resultMap class="BookInfo" id="BookInfoResult">
-		<result property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="id" column="ID" jdbcType="INTEGER" />
 		<result property="author" column="AUTHOR" jdbcType="VARCHAR" />
 		<result property="name" column="NAME" jdbcType="VARCHAR" />
 		<result property="publisher" column="PUBLISHER" jdbcType="VARCHAR" />
 		<result property="publishTime" column="PUBLISH_TIME" jdbcType="DATE" />
 		<result property="isbn" column="ISBN" jdbcType="VARCHAR" />
-		<result property="categoryId" column="CATEGORY_ID" jdbcType="DECIMAL" />
+		<result property="categoryId" column="CATEGORY_ID" javaType="int" />
 		<result property="imgUrl" column="IMG_URL" jdbcType="VARCHAR" />
 		<result property="description" column="DESCRIPTION" jdbcType="VARCHAR" />
 		<result property="gmtCreate" column="GMT_CREATE" jdbcType="DATETIME" />
 		<result property="gmtModified" column="GMT_MODIFIED" jdbcType="DATETIME" />
 		<result property="edition" column="EDITION" jdbcType="VARCHAR" />
+		<result property="pages" column="PAGES" jdbcType="DECIMAL" />
+		<result property="translator" column="TRANSLATOR" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="listAll" resultMap="BookInfoResult">
 		SELECT
-		ID,AUTHOR,NAME,PUBLISHER,PUBLISH_TIME,ISBN,CATEGORY_ID,IMG_URL,DESCRIPTION,GMT_CREATE,GMT_MODIFIED,EDITION
+		ID,AUTHOR,NAME,PUBLISHER,PUBLISH_TIME,ISBN,CATEGORY_ID,IMG_URL,DESCRIPTION,GMT_CREATE,GMT_MODIFIED,EDITION,PAGES,TRANSLATOR
 		FROM BOOK_INFO
 	</select>
 
 	<insert id="insert" parameterClass="BookInfo">
+		<selectKey resultClass="int" keyProperty="id">
+			SELECT @@IDENTITY
+			as id
+		</selectKey>
 		INSERT INTO BOOK_INFO
-		(AUTHOR,NAME,PUBLISHER,PUBLISH_TIME,ISBN,CATEGORY_ID,IMG_URL,DESCRIPTION,GMT_CREATE,GMT_MODIFIED,EDITION)
-		VALUES(#author:VARCHAR#,#name:VARCHAR#,#publisher:VARCHAR#,#publishTime:DATE#,#isbn:VARCHAR#,
+		(ID,AUTHOR,NAME,PUBLISHER,PUBLISH_TIME,ISBN,CATEGORY_ID,IMG_URL,DESCRIPTION,GMT_CREATE,GMT_MODIFIED,EDITION,PAGES,TRANSLATOR)
+		VALUES(#id#,#author:VARCHAR#,#name:VARCHAR#,#publisher:VARCHAR#,#publishTime:DATE#,#isbn:VARCHAR#,
 		#categoryId:DECIMAL#, #imgUrl:VARCHAR#, #description:VARCHAR#, NOW(),
-		NOW(),#edition:VARCHAR#)
+		NOW(),#edition:VARCHAR#,#pages:DECIMAL#,#translator:VARCHAR#)
 	</insert>
 
 	<update id="updateById" parameterClass="BookInfo">
 		UPDATE BOOK_INFO SET
-			AUTHOR=#author:VARCHAR#
-			NAME=#name:VARCHAR#,
-			PUBLISHER=#publisher:VARCHAR#,
-			PUBLISH_TIME=#publishTime:DATE#,
-			ISBN=#isbn:VARCHAR#,
-			CATEGORY_ID=#categoryId:DECIMAL#,
-			IMG_URL=#imgUrl:VARCHAR#,
-			DESCRIPTION=#description:VARCHAR#,
-			GMT_MODIFIED=NOW(),
-			EDITION=#edition:VARCHAR#
+		AUTHOR=#author:VARCHAR#
+		NAME=#name:VARCHAR#,
+		PUBLISHER=#publisher:VARCHAR#,
+		PUBLISH_TIME=#publishTime:DATE#,
+		ISBN=#isbn:VARCHAR#,
+		CATEGORY_ID=#categoryId:DECIMAL#,
+		IMG_URL=#imgUrl:VARCHAR#,
+		DESCRIPTION=#description:VARCHAR#,
+		GMT_MODIFIED=NOW(),
+		EDITION=#edition:VARCHAR#,
+		PAGES=#pages:DECIMAL#,
+		TRANSLATOR=#translator:VARCHAR#
 		WHERE ID=#id:DECIMAL#
 	</update>
 
@@ -55,7 +63,7 @@
 	<select id="findById" parameterClass="java.lang.Integer"
 		resultMap="BookInfoResult">
 		SELECT
-		ID,AUTHOR,NAME,PUBLISHER,PUBLISH_TIME,ISBN,CATEGORY_ID,IMG_URL,DESCRIPTION,GMT_CREATE,GMT_MODIFIED,EDITION
+		ID,AUTHOR,NAME,PUBLISHER,PUBLISH_TIME,ISBN,CATEGORY_ID,IMG_URL,DESCRIPTION,GMT_CREATE,GMT_MODIFIED,EDITION,PAGES,TRANSLATOR
 		FROM BOOK_INFO
 		WHERE ID=#value#
 	</select>
@@ -64,9 +72,14 @@
 	<select id="findBookInfoByIsbn" parameterClass="java.lang.String"
 		resultMap="BookInfoResult">
 		SELECT
-		ID,AUTHOR,NAME,PUBLISHER,PUBLISH_TIME,ISBN,CATEGORY_ID,IMG_URL,DESCRIPTION,GMT_CREATE,GMT_MODIFIED,EDITION
+		ID,AUTHOR,NAME,PUBLISHER,PUBLISH_TIME,ISBN,CATEGORY_ID,IMG_URL,DESCRIPTION,GMT_CREATE,GMT_MODIFIED,EDITION,PAGES,TRANSLATOR
 		FROM BOOK_INFO
 		WHERE ISBN=#value#
 	</select>
+
+	<update id="updateCategory" parameterClass="BookInfo">
+		UPDATE BOOK_INFO set
+		CATEGORY_ID=#categoryId:DECIMAL# WHERE ID = #id:DECIMAL#
+	</update>
 
 </sqlMap>
