@@ -123,13 +123,7 @@
 			</isNotEmpty>
 		</dynamic>
 		where LOGIN_ID = #loginId:VARCHAR#
-	</update>
-	
-	<update id="updatePasswordByLoginId" parameterClass="Member">
-		update MEMBER
-		set PASSWORD = #password:VARCHAR#		
-		where LOGIN_ID = #loginId:VARCHAR#
-	</update>
+	</update>	
 	
 	<select id="listMemberInfo" resultMap="MiniInfoResultMap">
 		select LOGIN_ID, NAME, WORK_ID, EMAIL,
