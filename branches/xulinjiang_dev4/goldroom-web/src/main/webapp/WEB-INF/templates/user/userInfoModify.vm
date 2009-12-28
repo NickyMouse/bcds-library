@@ -1,98 +1,205 @@
 <script src="$SERVER_NAME/js/md5-min.js"></script>
+<script src="$SERVER_NAME/js/validation.js"></script>
 <script>
-	function isCorrectInput(str) {		
-		for(var i = 0; i < str.length; i++) {
-			if((str.charAt(i) >= '0' && str.charAt(i) <= '9') || (str.charAt(i) >= 'a' && str.charAt(i) <= 'z') || (str.charAt(i) >= 'A' && str.charAt(i) <= 'Z') || str.charAt(i) == '_') {
-				continue;
-			}
-			else {
-				return false;
-			}
-		}
-		return true;
-	}
-	function checkPassword(){
+// 字符串两边去空
+function init() {
+	document.userInfoModifyForm.name.value = document.userInfoModifyForm.name.value.trim();
+	document.userInfoModifyForm.email.value = document.userInfoModifyForm.email.value.trim();
+	document.userInfoModifyForm.aliTalkId.value = document.userInfoModifyForm.aliTalkId.value.trim();
+	document.userInfoModifyForm.workId.value = document.userInfoModifyForm.workId.value.trim();
+	document.userInfoModifyForm.location.value = document.userInfoModifyForm.location.value.trim();
+	document.userInfoModifyForm.ext.value = document.userInfoModifyForm.ext.value.trim();
+}
 
-		var oldPassword = document.getElementById("oldPassword").value.replace(/(^\s*)|(\s*$)/g, "");
-		var newPassword = document.getElementById("newPassword").value.replace(/(^\s*)|(\s*$)/g, "");
-		var confirmPassword = document.getElementById("confirmPassword").value.replace(/(^\s*)|(\s*$)/g, "");
-		if(oldPassword.length == 0 ){
-			alert("请输入原密码");
-			document.getElementById("oldPassword").focus();
-			return false;
-		}
-		if(newPassword.length == 0 ){
-			alert("请输入新密码");
-			document.getElementById("newPassword").focus();
-			return false;
-		}
-		if(confirmPassword.length == 0 ){
-			alert("请输入重复输入新密码");
-			document.getElementById("confirmPassword").focus();
-			return false;
-		}
-		if(!isCorrectInput(oldPassword)) {
-			alert("密码只能由英文字母、数字或下划线组成");
-			document.getElementById("oldPassword").focus();
-			return false;
-		}
-		if(!isCorrectInput(newPassword)) {
-			alert("密码只能由英文字母、数字或下划线组成");
-			document.getElementById("newPassword").focus();
-			return false;
-		}
-		if(!isCorrectInput(confirmPassword)) {
-			alert("密码只能由英文字母、数字或下划线组成");
-			document.getElementById("confirmPassword").focus();
-			return false;
-		}
-		if(newPassword != confirmPassword){
-			alert("两次输入的密码不一致")
-			return false;
-		}
-		document.getElementById("oldPassword").value = hex_md5(document.getElementById("oldPassword").value);
-		document.getElementById("newPassword").value = hex_md5(document.getElementById("newPassword").value);
-		document.getElementById("confirmPassword").value = hex_md5(document.getElementById("confirmPassword").value);
-		changePasswordForm.submit();		
+function check() {
+	init();	
+	if (document.userInfoModifyForm.oldPassword.value.length ==0) {
+		alert("密码不能为空");
+		document.userInfoModifyForm.oldPassword.focus();
+		return (false);
 	}
+	if (!document.userInfoModifyForm.oldPassword.value.isLegalPassword()) {
+		alert("密码不能含有汉字或空格");
+		document.userInfoModifyForm.oldPassword.value = "";
+		document.userInfoModifyForm.oldPassword.focus();
+		return (false);
+	}
+	if (document.userInfoModifyForm.modifyPassword[0].checked) { // 修改密码
+		if (document.userInfoModifyForm.newPassword.value.length ==0){
+			alert("密码不能为空");
+			document.userInfoModifyForm.newPassword.focus();
+			return (false);
+		}
+		if (!document.userInfoModifyForm.newPassword.value.isLegalPassword()) {
+			alert("密码不能含有汉字或空格");
+			document.userInfoModifyForm.newPassword.value = "";
+			document.userInfoModifyForm.newPassword.focus();
+			return (false);
+		}
+		if (document.userInfoModifyForm.confirmPassword.value.length ==0){
+			alert("密码不能为空");
+			document.userInfoModifyForm.confirmPassword.focus();
+			return (false);
+		}
+		if (!document.userInfoModifyForm.confirmPassword.value.isLegalPassword()) {
+			alert("密码不能含有汉字或空格");
+			document.userInfoModifyForm.confirmPassword.value = "";
+			document.userInfoModifyForm.confirmPassword.focus();
+			return (false);
+		}
+		if (document.userInfoModifyForm.newPassword.value != document.userInfoModifyForm.confirmPassword.value){
+	        alert("两次填写的密码不一致，请重新填写！");
+	        document.userInfoModifyForm.newPassword.focus();
+	        document.userInfoModifyForm.newPassword.select();
+	        return (false);
+		}
+	}
+	if (document.userInfoModifyForm.name.value == ""){
+		alert("请填写您的用户名！");
+		document.userInfoModifyForm.name.focus();
+		return (false);
+	}
+	var filter=/^\s*([A-Za-z0-9_-]+(\.\w+)*@[.A-Za-z0-9_-]+(\w+\.)+\w{2,3})\s*$/;
+	if (!filter.test(document.userInfoModifyForm.email.value)) {
+		alert("邮件地址不正确,请重新填写！");
+		document.userInfoModifyForm.email.focus();
+		document.userInfoModifyForm.email.select();
+		return (false);
+	}
+	if (document.userInfoModifyForm.aliTalkId.value == ""){
+		alert("请填写您的贸易通ID！");
+		document.userInfoModifyForm.aliTalkId.focus();
+		return (false);
+	}
+	if (document.userInfoModifyForm.workId.value == ""){
+		alert("请填写您的工号！");
+		document.userInfoModifyForm.workId.focus();
+		return (false);
+	}
+	// 工号只能为数值型
+	if (!document.userInfoModifyForm.workId.value.isLegalWorkId() || document.userInfoModifyForm.workId.value.length >= 8) {
+		alert("请您输入合法的工号！");
+		document.userInfoModifyForm.workId.focus();
+		return (false);
+	}
+	if (document.userInfoModifyForm.location.value == "") {
+		alert("请填写您的座位号！");
+		document.userInfoModifyForm.location.focus();
+		return (false);
+	}	
+	if (document.userInfoModifyForm.ext.value == "") {
+		alert("请填写您的分机！");
+		document.userInfoModifyForm.ext.focus();
+		return (false);
+	}
+	document.userInfoModifyForm.oldPassword.value = hex_md5(document.userInfoModifyForm.oldPassword.value);
+	if (document.userInfoModifyForm.newPassword.value != "") { // 判空来防止空字符串md5加密
+		document.userInfoModifyForm.newPassword.value = hex_md5(document.userInfoModifyForm.newPassword.value);
+	}
+	document.userInfoModifyForm.submit();
+}
+// 是否修改密码
+function showOrHide() {	
+	if (document.userInfoModifyForm.modifyPassword[0].checked) { // 修改密码
+		document.getElementById("new").style.display="block";
+		document.getElementById("confirm").style.display="block";
+	}
+	else {
+		document.getElementById("new").style.display="none";
+		document.getElementById("confirm").style.display="none";
+		document.userInfoModifyForm.newPassword.value = "";
+		document.userInfoModifyForm.confirmPassword.value = "";
+	}	
+}
 </script>
 
 
 <table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0"><tr><td align="center">
-#springBind("userInfoCommand.*")
-#validationError()
 
-<form action="/user/userInfoModify.htm" method="POST" name="changePasswordForm">
+<form action="/user/userInfoModify.htm" method="POST" name="userInfoModifyForm">
 	<table>
-		<tr><td></td><td><font color="red">密码只能由英文字母、数字或下划线组成</font></td></tr>
 		<tr>
-			<td align="right">原密码：</td>			
-			
-			<td>#springFormPasswordInput("userInfoCommand.oldPassword" 'size="45" maxlength="45"')<font color="red">*</font></td>
+			#springBind("userInfoCommand.oldPassword")
+			<td align="right">原密码：</td>
+			<td>
+				#springFormPasswordInput("userInfoCommand.oldPassword" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+				#validationError()
+			</td>
+		</tr>
+		<tr style="display:none" id="new">
+			#springBind("userInfoCommand.newPassword")
+			<td align="right">新密码：</td>
+			<td>
+				#springFormPasswordInput("userInfoCommand.newPassword" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+				#validationError()
+			</td>
+		</tr>
+		<tr style="display:none" id="confirm">
+			#springBind("userInfoCommand.confirmPassword")
+			<td align="right">重复输入新密码：</td>
+			<td>
+				#springFormPasswordInput("userInfoCommand.confirmPassword" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+				#validationError()
+			</td>
 		</tr>
 		<tr>
-			<td align="right">新密码：</td>			
-			
-			<td>#springFormPasswordInput("userInfoCommand.newPassword" 'size="45" maxlength="45"')<font color="red">*</font></td>
+			#springBind("userInfoCommand.name")
+			<td align="right" valign="top">真实姓名：</td>
+			<td>
+				#springFormInput("userInfoCommand.name" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+				#validationError()
+			</td>
 		</tr>
 		<tr>
-			<td align="right">重复输入新密码：</td>			
-			
-			<td>#springFormPasswordInput("userInfoCommand.confirmPassword" 'size="45" maxlength="45"')<font color="red">*</font></td>
+			#springBind("userInfoCommand.email")
+			<td align="right">邮箱地址：</td>
+			<td>#springFormInput("userInfoCommand.email" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()
+			</td>
 		</tr>
-		
+		<tr>
+				#springBind("userInfoCommand.aliTalkId")
+			<td align="right">贸易通ID：</td>
+			<td>#springFormInput("userInfoCommand.aliTalkId" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+				#validationError()</td>
+		</tr>
+		<tr>
+			#springBind("userInfoCommand.workId")
+			<td align="right">工号：</td>
+			<td>#springFormInput("userInfoCommand.workId" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()</td>
+		</tr>
+		<tr>
+			#springBind("userInfoCommand.location")
+			<td align="right">座位号：</td>
+			<td>#springFormInput("userInfoCommand.location" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()</td>
+		</tr>
+		<tr>
+			#springBind("userInfoCommand.ext")
+			<td align="right">分机：</td>
+			<td>#springFormInput("userInfoCommand.ext" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()</td>
+		</tr>
+		<tr>
+			<td>是否修改密码：</td>
+			<td>
+				<input type="radio" name="modifyPassword" id="modifyPassword1" onClick="showOrHide();" /><label for="modifyPassword1">是</label>
+				<input type="radio" name="modifyPassword" id="modifyPassword2" onClick="showOrHide();" checked="true" /><label for="modifyPassword2">否</label>
+			</td>
+		</tr>
 		<tr>
 			<td align="center" colspan="2">
-				<table onclick="checkPassword();"  border="0" cellpadding="0" cellspacing="0" style="cursor:pointer">	
+				<table onclick="check();"  border="0" cellpadding="0" cellspacing="0" style="cursor:pointer">
 					<tbody><tr>
                     <td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
                     <td class="button_dark">
-						确　定
+						修改信息
                     </td>
                     <td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
                     </tr>
-				</tbody></table>
-			</td>
+				</tbody></table>					
+			</td>			
 		</tr>
 	</table>
 </form>
