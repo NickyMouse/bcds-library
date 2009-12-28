@@ -1,9 +1,9 @@
 package com.alibaba.intl.bcds.goldroom.web;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.service.MemberService;
 import com.alibaba.intl.bcds.goldroom.service.result.Result;
 import com.alibaba.intl.bcds.goldroom.web.command.UserInfoCommand;
@@ -11,29 +11,53 @@ import com.alibaba.intl.bcds.goldroom.web.utils.UserUtil;
 
 public class UserInfoModifyController extends SimpleFormController {
 
-	private MemberService memberService;
+    private static final String EMPTY = "";
 
-	public void setMemberService(MemberService memberService) {
-		this.memberService = memberService;
-	}
+    private MemberService       memberService;
 
-	public MemberService getMemberService() {
-		return memberService;
-	}
+    public void setMemberService(MemberService memberService) {
+        this.memberService = memberService;
+    }
 
-	@Override
-	protected ModelAndView onSubmit(Object command) throws Exception {
-		UserInfoCommand userInfo = (UserInfoCommand) command;
-		Result result = new Result(false);
-		if (UserUtil.getPassword().equals(userInfo.getOldPassword())
-				&& StringUtils.isNotEmpty(userInfo.getNewPassword())) {
-			result = memberService.changePasswordByLoginId(UserUtil
-					.getLoginId(), userInfo.getNewPassword());
-		}
-		if(result.isSuccess()){
-			return new ModelAndView("/resources/changePasswordSuccess");
-		}else{
-			return new ModelAndView("/resources/changePasswordFailed");
-		}
-	}
+    public MemberService getMemberService() {
+        return memberService;
+    }
+
+    /**
+     * @param userInfo
+     * @return
+     */
+    public Member setToMember(UserInfoCommand userInfo) {
+        Member member = new Member();
+        if (EMPTY.equals(userInfo.getNewPassword())) {
+            member.setPassword(userInfo.getOldPassword());
+        } else {
+            member.setPassword(userInfo.getNewPassword());
+        }
+        member.setLoginId(UserUtil.getLoginId());
+        member.setName(userInfo.getName());
+        member.setEmail(userInfo.getEmail());
+        member.setAliTalkId(userInfo.getAliTalkId());
+        member.setWorkId(userInfo.getWorkId());
+        member.setLocation(userInfo.getLocation());
+        member.setExt(userInfo.getExt());
+        return member;
+    }
+
+    @Override
+    protected ModelAndView onSubmit(Object command) throws Exception {
+        UserInfoCommand userInfo = (UserInfoCommand) command;
+        // 判断原密码是否正确
+        if (!userInfo.getOldPassword().equals(UserUtil.getPassword())) {
+            return new ModelAndView("/resources/passwordIncorrect");
+        }
+        Result result = new Result(false);
+        Member member = setToMember(userInfo);
+        result = memberService.updateUserInfoByLoginId(member);
+        if (result.isSuccess()) {
+            return new ModelAndView("/resources/changeUserInfoSuccess");
+        } else {
+            return new ModelAndView("/resources/changeUserInfoFailed");
+        }
+    }
 }
