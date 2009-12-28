@@ -53,4 +53,17 @@ public interface BookInfoService {
      */
     BookInfo findBookInfoById(int id);
 
+    /**
+     * 先从数据库查找bookInfo，如果查到，直接返回，如果查不到，先从其它图书网站拉一份 bookInfo下来，存入数据库，并返回
+     * 
+     * @param isbn
+     * @return
+     */
+    BookInfo getBookInfoFromDbAndNetWork(String isbn);
+
+    /**
+     * @param bookInfo
+     */
+    void updateCategory(BookInfo bookInfo);
+
 }

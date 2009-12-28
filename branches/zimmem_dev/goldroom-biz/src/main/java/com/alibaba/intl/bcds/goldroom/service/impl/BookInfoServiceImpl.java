@@ -17,6 +17,7 @@ package com.alibaba.intl.bcds.goldroom.service.impl;
 
 import com.alibaba.intl.bcds.goldroom.dao.BookInfoDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
+import com.alibaba.intl.bcds.goldroom.remote.BookInfoFetcher;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
 import com.alibaba.intl.bcds.goldroom.service.result.Result;
 
@@ -27,7 +28,9 @@ import com.alibaba.intl.bcds.goldroom.service.result.Result;
  */
 public class BookInfoServiceImpl implements BookInfoService {
 
-    private BookInfoDao bookInfoDao;
+    private BookInfoDao     bookInfoDao;
+
+    private BookInfoFetcher bookInfoFetcher;
 
     /**
      * @param bookInfoDao the bookInfoDao to set
@@ -60,7 +63,8 @@ public class BookInfoServiceImpl implements BookInfoService {
         if (bookInfoDao.findBookInfoByIsbn(bookInfo.getIsbn()) != null) {
             return new Result(false);
         }
-        bookInfoDao.insert(bookInfo);
+        int id = bookInfoDao.insert(bookInfo);
+        bookInfo.setId(id);
         return Result.SUCCESS;
     }
 
@@ -73,6 +77,49 @@ public class BookInfoServiceImpl implements BookInfoService {
     @Override
     public BookInfo findBookInfoById(int id) {
         return bookInfoDao.findById(id);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @seecom.alibaba.intl.bcds.goldroom.service.BookInfoService#
+     * getBookInfoFromDbAndNetWork(java.lang.String)
+     */
+    @Override
+    public BookInfo getBookInfoFromDbAndNetWork(String isbn) {
+        BookInfo bookInfo = bookInfoDao.findBookInfoByIsbn(isbn);
+        if (bookInfo == null) {
+            bookInfo = bookInfoFetcher.fetch(isbn);
+            if (bookInfo != null) {
+                bookInfoDao.insert(bookInfo);
+            }
+        }
+        return bookInfo;
+    }
+
+    /**
+     * @param bookInfoFetcher the bookInfoFetcher to set
+     */
+    public void setBookInfoFetcher(BookInfoFetcher bookInfoFetcher) {
+        this.bookInfoFetcher = bookInfoFetcher;
+    }
+
+    /**
+     * @return the bookInfoFetcher
+     */
+    public BookInfoFetcher getBookInfoFetcher() {
+        return bookInfoFetcher;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see
+     * com.alibaba.intl.bcds.goldroom.service.BookInfoService#updateCategory
+     * (com.alibaba.intl.bcds.goldroom.dataobject.BookInfo)
+     */
+    @Override
+    public void updateCategory(BookInfo bookInfo) {
+        bookInfoDao.updateCategory(bookInfo);
+
     }
 
 }
