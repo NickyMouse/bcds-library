@@ -38,10 +38,18 @@
 		</form>
 		<form name="userInfoCommand">
 			<field property="oldPassword" depends="required">
-			</field>	
-			<field property="newPassword" depends="required">
 			</field>
-			<field property="confirmPassword" depends="required">
+			<field property="name" depends="required">
+			</field>
+			<field property="email" depends="required">
+			</field>
+			<field property="aliTalkId" depends="required">
+			</field>
+			<field property="workId" depends="required">
+			</field>
+			<field property="location" depends="required">
+			</field>
+			<field property="ext" depends="required">
 			</field>
 		</form>
 		<form name="bookItem">
@@ -54,11 +62,11 @@
 			<field property="password" depends="required">
 			</field>
 		</form>
-		
+
 		<form name="memberCommand">
 			<field property="id"></field>
 		</form>
-		
+
 		<form name="reserveCommand">
 			<field property="bookItemId" depends="required">
 			</field>
@@ -95,7 +103,7 @@
 				<arg0 key="password" resource="false" />
 			</field>
 			<field property="confirmPassword" depends="required,validwhen">
-				<msg name="validwhen" key="errors.equal" bundle="errors.equal"/>
+				<msg name="validwhen" key="errors.equal" bundle="errors.equal" />
 				<arg0 key="confirmPassword" resource="false" />
 				<arg1 name="validwhen" key="password" resource="false" />
 				<var>
@@ -103,22 +111,22 @@
 					<var-value>(password==*this*)</var-value>
 				</var>
 			</field>
-		
+
 			<field property="email" depends="required,email">
 				<arg0 key="email" resource="false" />
 			</field>
 			<field property="aliTalkId" depends="required">
 				<arg0 key="aliTalkId" resource="false" />
 			</field>
-			
+
 			<field property="workId" depends="required">
 				<arg0 key="workId" resource="false" />
 			</field>
-			
+
 			<field property="location" depends="required">
 				<arg0 key="location" resource="false" />
 			</field>
-			
+
 			<field property="ext" depends="required">
 				<arg0 key="ext" resource="false" />
 			</field>
