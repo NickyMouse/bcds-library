@@ -241,4 +241,20 @@
 		WHERE
 		r.ID=#value:DECIMAL#
 	</select>
+	<select id="listBookItemsByLoginIdAndStateAndBookInfoIds" parameterClass="java.util.HashMap"
+		resultMap="BookItemWithBookInfoAndReservatioinAndLendResult">
+		SELECT
+		ID,STATE,LOGIN_ID,ADD_TIME,REMOVE_TIME,BOOK_INFO_ID,FIRST_ADD_TIME,GMT_CREATE,GMT_MODIFIED,TAGS
+		FROM BOOK_ITEM
+		where LOGIN_ID=#loginId:VARCHAR# AND
+		BOOK_INFO_ID IN (
+		<iterate conjunction="," property="bookInfoIds">
+			#bookInfoIds[]#
+		</iterate>
+		)
+		<isNotEmpty property="state" open="and ">state=#state:VARCHAR#
+		</isNotEmpty>
+		ORDER BY ID DESC
+	</select>
+	
 </sqlMap>

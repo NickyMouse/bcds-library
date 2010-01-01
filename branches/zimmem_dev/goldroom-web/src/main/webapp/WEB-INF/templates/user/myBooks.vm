@@ -3,12 +3,12 @@
 #parse("widget/pageNav.vm")
 <table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
 	<tbody>
-		#if(!$state && $bookItemList && $bookItemList.size()==0)
+		#if(!$state && $bookItemList && $bookItemList.size()==0 && !$keywords)
 			<tr height="50" valign="middle"><td align="center">
 				暂无书籍，<a href="$SERVER_NAME/user/beforeShelve.htm">图书上架</a>。<a href="$SERVER_NAME/faq/index.htm#onShelves">如何上架书籍？</a>	
 			</td></tr>
 		#else
-		<tr height="15px" valign="middle"><td>&nbsp;&nbsp;&nbsp;&nbsp;
+		<tr height="15px" valign="middle"><td width="100px">&nbsp;&nbsp;&nbsp;&nbsp;
 		<select id="stateFilter" onchange="javascript:changeFilter();">
 			<option value="">全部</option>
 			<option value="idle" #if($state &&$state.equals("idle"))selected="true"#end>闲置</option>
@@ -16,12 +16,27 @@
 			<option value="lended" #if($state &&$state.equals("lended"))selected="true"#end>被借阅</option>
 			<option value="unavailable" #if($state &&$state.equals("unavailable"))selected="true"#end>已下架</option>
 		</select>
-		</td></tr>
+		</td>
+		<td><form onsubmit="return myBookSeach()">
+			<input type="text" size="30" id="myBookSearchBox" value="$!keywords"/> <input type="submit" onclick="return myBookSeach()" value="搜索我的图书"/>
+			<input type="submit" onclick="return clearMyBookSeach()" value="去除搜索条件"/>
+			</form>
+			
+			
+			
+		</td>
+		</tr>
 		#end
-
+		#if($keywords && $keywords.length()> 0 && $bookItemList && $bookItemList.size()==0)
+			<tr height="50" valign="middle"><td align="center"  colspan="2">
+				暂无符合关键字<font color="red">$keywords</font>的书籍<br/><br/>
+				<font size="2">刚上架的书籍可能会无法立刻搜索到,请稍候尝试。</font>
+			</td></tr>
+		
+		#end
 		#foreach($bookItem in $bookItemList)
 		<tr height="170" valign="middle">
-			<td class="lines" align="left" valign="middle">
+			<td class="lines" align="left" valign="middle" colspan="2">
 				<div onmouseover="javascript:this.style.background='#F7F7F7'" onmouseout="javascript:this.style.background=''" style="width=100%;">
 					<table>
 					<tr  valign="middle">
@@ -97,6 +112,8 @@
 								借阅者：$memberInfo.name
 								<A href=" http://web.im.alisoft.com/msg.aw?v=2&amp;uid=${memberInfo.aliTalkId}&amp;site=cnalichn&amp;s=1" target=_blank><IMG border=0 alt=点击这里给我发消息 src=" http://web.im.alisoft.com/online.aw?v=2&amp;uid=${memberInfo.aliTalkId}&amp;site=cnalichn&amp;s=1"></A>
                                 <a href="mailto:${memberInfo.email}"><img src="$SERVER_NAME/images/mail.gif"/></a>
+                                <br/>
+								借阅时间：$!dateTool.format("yyyy-MM-dd",$!{bookItem.lending.lendTime}) 至 $!dateTool.format("yyyy-MM-dd",$!{bookItem.lending.returnTime})
 							#elseif($bookItem.state == "reservated")
 								#set($memberInfo = $!memberInfoCache.getMemberInfo($!{bookItem.reservation.subscriber}))
 								预约者：$!memberInfo.name
@@ -211,7 +228,25 @@ function reputOnShelves(bookItemId, bookName){
 }
 
 function changeFilter(){	
-	window.location.href="$SERVER_NAME/user/myBooks.htm?state=" + document.getElementById("stateFilter").value;;
+	var redirectLocation = "$SERVER_NAME/user/myBooks.htm?state=" + document.getElementById("stateFilter").value;
+	#if($keywords && $keywords.length()> 0)
+		redirectLocation += "&keywords=$!keywords";
+	#end
+	window.location.href=redirectLocation;
+}
+function myBookSeach(){
+	var redirectLocation = "$SERVER_NAME/user/myBooks.htm?state=" + document.getElementById("stateFilter").value;
+	var keywords = document.getElementById("myBookSearchBox").value.trim();
+	if(keywords.length > 0){
+		redirectLocation += "&keywords="+keywords;	
+	}
+	window.location.href=redirectLocation;
+	return false;
+}
+function clearMyBookSeach(){
+	var redirectLocation = "$SERVER_NAME/user/myBooks.htm?state=" + document.getElementById("stateFilter").value;
+	window.location.href=redirectLocation;
+	return false;
 }
 -->
 </script>

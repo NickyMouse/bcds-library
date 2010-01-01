@@ -63,6 +63,13 @@ public interface BookItemService {
     Result listBookItemsByLoginIdAndState(String loginId, String state, int page, int pagesize);
 
     /**
+     * 通过loginId,state, bookInfo ids 查找bookitem
+     * 
+     * @param loginId
+     * @return
+     */
+    List<BookItem> listBookItemsByLoginIdAndStateAndBookInfoIds(String loginId, String state, List<Integer> bookInfoIds);
+    /**
      * @param bookInfoId
      * @return
      */

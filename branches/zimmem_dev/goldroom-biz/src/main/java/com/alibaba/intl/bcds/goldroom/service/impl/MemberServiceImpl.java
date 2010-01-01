@@ -5,19 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.intl.bcds.goldroom.constants.MemberEnableEnum;
 import com.alibaba.intl.bcds.goldroom.constants.MemberLogType;
 import com.alibaba.intl.bcds.goldroom.constants.RoleEnum;
+import com.alibaba.intl.bcds.goldroom.dao.IntegralDao;
 import com.alibaba.intl.bcds.goldroom.dao.MemberDAO;
 import com.alibaba.intl.bcds.goldroom.dao.MemberLogDAO;
 import com.alibaba.intl.bcds.goldroom.dao.MemberRoleDAO;
+import com.alibaba.intl.bcds.goldroom.dataobject.Integral;
+import com.alibaba.intl.bcds.goldroom.dataobject.IntegralQuery;
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.dataobject.MemberLog;
 import com.alibaba.intl.bcds.goldroom.dataobject.MemberRole;
 import com.alibaba.intl.bcds.goldroom.dto.MemberDTO;
 import com.alibaba.intl.bcds.goldroom.exception.LoginIdDuplicatedException;
+import com.alibaba.intl.bcds.goldroom.mail.dataobject.AccountApprovedEmailInfo;
+import com.alibaba.intl.bcds.goldroom.mail.service.SendMailService;
 import com.alibaba.intl.bcds.goldroom.service.MemberService;
 import com.alibaba.intl.bcds.goldroom.service.result.Result;
 
@@ -27,6 +33,13 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO memberDAO;
 	private MemberLogDAO memberLogDAO;
 	private MemberRoleDAO memberRoleDAO;
+	private IntegralDao integralDao;
+	private SendMailService sendMailService;
+	private static Logger logger = Logger.getLogger(MemberServiceImpl.class);
+
+	public void setSendMailService(SendMailService sendMailService) {
+		this.sendMailService = sendMailService;
+	}
 
 	@Override
 	public List<Member> listMemberByLoginIds(List<Integer> ids) {
@@ -37,8 +50,8 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
-	public void setMemberDAO(MemberDAO memberDAO) {
-		this.memberDAO = memberDAO;
+	public void setIntegralDao(IntegralDao integralDao) {
+		this.integralDao = integralDao;
 	}
 
 	public void setMemberLogDAO(MemberLogDAO memberLogDAO) {
@@ -47,6 +60,10 @@ public class MemberServiceImpl implements MemberService {
 
 	public void setMemberRoleDAO(MemberRoleDAO memberRoleDAO) {
 		this.memberRoleDAO = memberRoleDAO;
+	}
+
+	public void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
 	}
 
 	@Override
@@ -80,8 +97,16 @@ public class MemberServiceImpl implements MemberService {
 			List<Member> members = memberDAO.listMemberByIds(ids);
 			for (Member member : members) {
 				member.setEnable(MemberEnableEnum.APPROVE.getValue());
+				// 发送通知邮件
+				AccountApprovedEmailInfo emailInfo = new AccountApprovedEmailInfo(
+						member);
+				sendMailService.sendMail(emailInfo);
+
+				this.integralDao.insert(new IntegralQuery(member.getLoginId(),
+						100));
 			}
 			memberDAO.updateByLoginIds(members);
+
 			return Result.SUCCESS;
 		} catch (Exception e) {
 			return new Result(false);
@@ -119,6 +144,15 @@ public class MemberServiceImpl implements MemberService {
 		return retList;
 	}
 
+	@Override
+	public Result updateUserInfoByLoginId(Member member) {
+		if (memberDAO.updateUserInfoByLoginId(member) > 0) {
+			return Result.SUCCESS;
+		} else {
+			return new Result(false);
+		}
+	}
+	
 	@Override
 	public Result changePasswordByLoginId(String loginId, String newPassword) {
 		if (memberDAO.updatePasswordByLoginId(loginId, newPassword) > 0) {

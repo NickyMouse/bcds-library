@@ -14,6 +14,8 @@
 		<result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
 		<result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
 		<result column="ENABLE" property="enable" jdbcType="INTEGER" />
+		<result column="LOCATION" property="location" jdbcType="VARCHAR" />
+		<result column="EXT" property="ext" jdbcType="VARCHAR" />
 	</resultMap>
 	<resultMap id="MiniInfoResultMap" class="Member">
 		<result column="NAME" property="name" jdbcType="VARCHAR" />
@@ -21,6 +23,8 @@
 		<result column="LOGIN_ID" property="loginId" jdbcType="VARCHAR" />
 		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
 		<result column="ALI_TALK_ID" property="aliTalkId" jdbcType="VARCHAR" />
+		<result column="LOCATION" property="location" jdbcType="VARCHAR" />
+		<result column="EXT" property="ext" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="selectByLoginId" resultMap="BaseResultMap"
@@ -28,7 +32,7 @@
 		select ID, NAME, WORK_ID, LOGIN_ID, PASSWORD, EMAIL,
 		ALI_TALK_ID,
 		GMT_CREATE, GMT_MODIFIED,
-		ENABLE
+		ENABLE, LOCATION, EXT
 		from MEMBER
 		where LOGIN_ID =
 		#loginId:VARCHAR#
@@ -38,7 +42,7 @@
 		insert into MEMBER (NAME,
 		WORK_ID, LOGIN_ID, PASSWORD, EMAIL,
 		ALI_TALK_ID, GMT_CREATE,
-		GMT_MODIFIED, ENABLE)
+		GMT_MODIFIED, ENABLE, LOCATION, EXT)
 		values (
 		#name:VARCHAR#,
 		#workId:INTEGER#, #loginId:VARCHAR#,
@@ -46,7 +50,8 @@
 		#email:VARCHAR#, #aliTalkId:VARCHAR#,
 		now(),
 		now(),
-		#enable:INTEGER#)
+		#enable:INTEGER#,
+		#location:VARCHAR#, #ext:VARCHAR#)
 		<selectKey resultClass="int" keyProperty="id">
 			select
 			last_insert_id() as ID from MEMBER limit 1
@@ -61,7 +66,7 @@
 	<select id="listMemberByLoginIds" resultMap="BaseResultMap" parameterClass="java.util.HashMap">
 		select ID, NAME, WORK_ID, LOGIN_ID, PASSWORD, EMAIL, ALI_TALK_ID,
 		GMT_CREATE, GMT_MODIFIED,
-		ENABLE
+		ENABLE, LOCATION, EXT
 		from MEMBER
 		WHERE LOGIN_ID IN (
 		<iterate conjunction="," property="loginIdsList">
@@ -73,7 +78,7 @@
 	<select id="listMemberByIds" resultMap="BaseResultMap" parameterClass="java.util.HashMap">
 		select ID, NAME, WORK_ID, LOGIN_ID, PASSWORD, EMAIL, ALI_TALK_ID,
 		GMT_CREATE, GMT_MODIFIED,
-		ENABLE
+		ENABLE, LOCATION, EXT
 		from MEMBER
 		WHERE ID IN (
 		<iterate conjunction="," property="idList">
@@ -87,11 +92,39 @@
 		select ID, NAME, WORK_ID, LOGIN_ID, PASSWORD, EMAIL,
 		ALI_TALK_ID,
 		GMT_CREATE, GMT_MODIFIED,
-		ENABLE
+		ENABLE, LOCATION, EXT
 		from MEMBER where
 		ENABLE=#status:INTEGER#
 	</select>
 
+	<update id="updateUserInfoByLoginId" parameterClass="Member">
+		update MEMBER
+		<dynamic prepend="set">
+			<isNotEmpty prepend="," property="password">
+				PASSWORD = #password:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="name">
+				NAME = #name:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="email">
+				EMAIL = #email:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="aliTalkId">
+				ALI_TALK_ID = #aliTalkId:VARCHAR#
+			</isNotEmpty>
+			<isNotNull prepend="," property="workId">
+				WORK_ID = #workId:INTEGER#
+			</isNotNull>
+			<isNotEmpty prepend="," property="location">
+				LOCATION = #location:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="ext">
+				EXT = #ext:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+		where LOGIN_ID = #loginId:VARCHAR#
+	</update>
+	
 	<update id="updatePasswordByLoginId" parameterClass="Member">
 		update MEMBER
 		set PASSWORD = #password:VARCHAR#		
@@ -100,7 +133,7 @@
 	
 	<select id="listMemberInfo" resultMap="MiniInfoResultMap">
 		select LOGIN_ID, NAME, WORK_ID, EMAIL,
-		ALI_TALK_ID
+		ALI_TALK_ID, LOCATION, EXT
 		from MEMBER where ENABLE=1
 	</select>
 </sqlMap>

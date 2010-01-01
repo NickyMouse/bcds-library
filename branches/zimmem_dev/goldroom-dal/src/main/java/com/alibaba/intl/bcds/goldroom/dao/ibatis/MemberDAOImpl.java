@@ -71,6 +71,12 @@ public class MemberDAOImpl extends SqlMapClientDaoSupport implements MemberDAO {
 	}
 
 	@Override
+	public int updateUserInfoByLoginId(Member member) {;
+		return getSqlMapClientTemplate().update("MEMBER.updateUserInfoByLoginId",
+				member);
+	}
+	
+	@Override
 	public int updatePasswordByLoginId(String loginId, String password) {
 		Member member = new Member();
 		member.setLoginId(loginId);

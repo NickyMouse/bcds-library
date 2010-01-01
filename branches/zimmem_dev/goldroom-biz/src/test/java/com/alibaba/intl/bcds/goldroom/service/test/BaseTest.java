@@ -15,16 +15,17 @@
  */
 package com.alibaba.intl.bcds.goldroom.service.test;
 
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * TODO Comment of BaseTest
  * 
  * @author Zimmem
  */
-/**@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { 
-        "classpath:goldroom-dal.xml", "classpath:goldroom-biz.xml" })
-        */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:goldroom-dal.xml", "classpath:goldroom-biz.xml","classpath:goldroom-dal-test.xml" })
 public class BaseTest {
 
 }

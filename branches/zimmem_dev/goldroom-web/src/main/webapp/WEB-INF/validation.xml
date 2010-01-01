@@ -38,7 +38,7 @@
 		</form>
 		<form name="userInfoCommand">
 			<field property="oldPassword" depends="required">
-			</field>
+			</field>	
 			<field property="newPassword" depends="required">
 			</field>
 			<field property="confirmPassword" depends="required">
@@ -54,14 +54,11 @@
 			<field property="password" depends="required">
 			</field>
 		</form>
+		
 		<form name="memberCommand">
 			<field property="id"></field>
 		</form>
-
-		<form name="bookItem">
-			<field property="tags"></field>
-		</form>
-
+		
 		<form name="reserveCommand">
 			<field property="bookItemId" depends="required">
 			</field>
@@ -116,6 +113,14 @@
 
 			<field property="workId" depends="required">
 				<arg0 key="workId" resource="false" />
+			</field>
+			
+			<field property="location" depends="required">
+				<arg0 key="location" resource="false" />
+			</field>
+			
+			<field property="ext" depends="required">
+				<arg0 key="ext" resource="false" />
 			</field>
 		</form>
 		<form name="shelve">
