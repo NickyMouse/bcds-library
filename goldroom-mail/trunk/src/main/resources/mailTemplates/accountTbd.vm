@@ -1,0 +1,12 @@
+<html>
+<body>
+##用户申请帐号,审核通过邮件
+尊敬的$!{info.owner.name}:<br/>
+     您申请的账号$!{info.owner.loginId}未能通过审批，申请帐号请填写真实的资料。<br/>
+     感谢您对图书管理平台的支持!
+     <a href="http://goldroom.ali-learn.com/">进入黄金屋[Gold Room]，再次申请帐号。</a>
+     
+    <br/>
+    <a href="http://goldroom.ali-learn.com/">黄金屋[Gold Room]</a>
+</body>
+</html>

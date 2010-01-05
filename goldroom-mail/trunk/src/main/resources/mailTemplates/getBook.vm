@@ -1,0 +1,22 @@
+<html>
+<body>
+##图书成功预约后,书主确认借书时,通知成功借阅者去拿书.
+尊敬的$!{info.borrower.name}:<br/>
+     恭喜您,书主$!{info.owner.name}已同意将《$!{info.bookInfo.name}》借给您,请您务必好好保管哦!赶紧去领书吧!
+     
+     <p>书主信息：
+     姓名：$!{info.owner.name} <br/>
+     工号：$!{info.owner.workId} <br/>
+     Email: $!{info.owner.email} <br/>
+     贸易通：$!{info.owner.aliTalkId} <br/>
+     #if($info.owner.location)
+     位置：$!{info.owner.location} <br/>
+     #end
+     #if($info.owner.ext)
+     分机：$!{info.owner.ext} <br/>
+     #end
+     </p>
+     <br/>
+    <a href="http://goldroom.ali-learn.com/">黄金屋[Gold Room]</a>
+</body>
+</html>

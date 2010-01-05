@@ -1,4 +1,0 @@
-##当借阅者需要还书时
-
-尊敬的${info.borrower.name}:
-    您的《${info.bookInfo.name}》书,借阅时间为$!{info.lending.lendTime} ~ $!{info.lending.returnTime},请记得抽时间去还书哦!
