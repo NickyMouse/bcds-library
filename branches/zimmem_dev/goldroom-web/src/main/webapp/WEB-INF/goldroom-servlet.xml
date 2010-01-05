@@ -30,6 +30,9 @@
 				<entry key="stringFormatUtil">
 					<bean class="com.alibaba.intl.bcds.goldroom.web.utils.StringFormatUtil"/>
 				</entry>
+				<entry key="integralUtil">
+					<bean class="com.alibaba.intl.bcds.goldroom.web.utils.IntegralUtil" />
+				</entry>
 			</map>
 		</property>
 	</bean>

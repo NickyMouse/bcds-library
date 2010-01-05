@@ -90,7 +90,7 @@ public class BookInfoServiceImpl implements BookInfoService {
         if (bookInfo == null) {
             bookInfo = bookInfoFetcher.fetch(isbn);
             if (bookInfo != null) {
-                bookInfoDao.insert(bookInfo);
+                bookInfo.setId(bookInfoDao.insert(bookInfo));
             }
         }
         return bookInfo;

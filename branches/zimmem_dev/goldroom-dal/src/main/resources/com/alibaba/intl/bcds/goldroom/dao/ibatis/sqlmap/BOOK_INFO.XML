@@ -27,15 +27,14 @@
 	</select>
 
 	<insert id="insert" parameterClass="BookInfo">
-		<selectKey resultClass="int" keyProperty="id">
-			SELECT @@IDENTITY
-			as id
-		</selectKey>
 		INSERT INTO BOOK_INFO
-		(ID,AUTHOR,NAME,PUBLISHER,PUBLISH_TIME,ISBN,CATEGORY_ID,IMG_URL,DESCRIPTION,GMT_CREATE,GMT_MODIFIED,EDITION,PAGES,TRANSLATOR)
-		VALUES(#id#,#author:VARCHAR#,#name:VARCHAR#,#publisher:VARCHAR#,#publishTime:DATE#,#isbn:VARCHAR#,
+		(AUTHOR,NAME,PUBLISHER,PUBLISH_TIME,ISBN,CATEGORY_ID,IMG_URL,DESCRIPTION,GMT_CREATE,GMT_MODIFIED,EDITION,PAGES,TRANSLATOR,ISBN_10,ISBN_13)
+		VALUES(#author:VARCHAR#,#name:VARCHAR#,#publisher:VARCHAR#,#publishTime:DATE#,#isbn:VARCHAR#,
 		#categoryId:DECIMAL#, #imgUrl:VARCHAR#, #description:VARCHAR#, NOW(),
-		NOW(),#edition:VARCHAR#,#pages:DECIMAL#,#translator:VARCHAR#)
+		NOW(),#edition:VARCHAR#,#pages:DECIMAL#,#translator:VARCHAR#,#isbn10:VARCHAR#,#isbn13:VARCHAR#)
+		  <selectKey resultClass="int" keyProperty="id">
+        select last_insert_id() as ID from BOOK_INFO limit 1
+      </selectKey>
 	</insert>
 
 	<update id="updateById" parameterClass="BookInfo">
@@ -74,7 +73,7 @@
 		SELECT
 		ID,AUTHOR,NAME,PUBLISHER,PUBLISH_TIME,ISBN,CATEGORY_ID,IMG_URL,DESCRIPTION,GMT_CREATE,GMT_MODIFIED,EDITION,PAGES,TRANSLATOR
 		FROM BOOK_INFO
-		WHERE ISBN=#value#
+		WHERE ISBN=#value:VARCHAR# or ISBN_10 = #value:VARCHAR# or ISBN_13 = #value:VARCHAR#
 	</select>
 
 	<update id="updateCategory" parameterClass="BookInfo">

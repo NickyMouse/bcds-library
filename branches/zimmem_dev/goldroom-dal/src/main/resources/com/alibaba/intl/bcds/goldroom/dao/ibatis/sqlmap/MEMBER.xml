@@ -28,7 +28,7 @@
 	</resultMap>
 
 	<select id="selectByLoginId" resultMap="BaseResultMap"
-		parameterClass="String">
+		parameterClass="java.lang.String">
 		select ID, NAME, WORK_ID, LOGIN_ID, PASSWORD, EMAIL,
 		ALI_TALK_ID,
 		GMT_CREATE, GMT_MODIFIED,

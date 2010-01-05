@@ -101,7 +101,8 @@ public class DoubanBookInfoFetcher implements BookInfoFetcher, InitializingBean 
             info.setPublishTime(dateConverter.conver(queryByXpath(
                     "/entry/db:attribute[@name='pubdate']", document)));
 
-            String imageUrl = queryByXpath("/entry/db:attribute[@name='pubdate']", document);
+            String imageUrl = createXpath("/entry/s:link[@rel='image']").selectSingleNode(document)
+                    .valueOf("@href");
             info.setImgUrl(saveImage(info.getIsbn(), imageUrl));
             return info;
         } catch (DocumentException e) {

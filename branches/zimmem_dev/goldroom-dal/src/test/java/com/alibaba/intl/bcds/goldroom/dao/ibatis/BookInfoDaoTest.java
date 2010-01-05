@@ -14,7 +14,7 @@ import com.alibaba.intl.bcds.goldroom.dao.test.BaseTest;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 
 @Transactional()
-@TransactionConfiguration(defaultRollback = true)
+@TransactionConfiguration(defaultRollback = false)
 public class BookInfoDaoTest extends BaseTest {
 
     @Autowired
@@ -33,10 +33,13 @@ public class BookInfoDaoTest extends BaseTest {
         bookInfoDO.setCategoryName("Tec");
         bookInfoDO.setPublishTime(new Date());
         bookInfoDO.setIsbn("1222-5431-2123-2321");
-        bookInfoDao.insert(bookInfoDO);
+        int id = bookInfoDao.insert(bookInfoDO);
+        System.out.println(id);
+        System.out.println(bookInfoDO.getId());
+        assertTrue(id > 0);
     }
 
-    @Test
+    // @Test
     public void testListAll() {
         List<BookInfo> list = bookInfoDao.listAll();
         for (BookInfo bookInfo : list) {
@@ -45,12 +48,12 @@ public class BookInfoDaoTest extends BaseTest {
         //assertEquals(bookInfoDao.listAll().get(3).getAuthor(), "中文");
     }
 
-    @Test
+    //@Test
     public void testUpdateById() {
         //fail("Not yet implemented");
     }
 
-    @Test
+    //@Test
     public void testFindById() {
         //fail("Not yet implemented");
     }

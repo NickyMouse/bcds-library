@@ -17,7 +17,9 @@
 
 	<bean id="dateConverter" class="com.alibaba.intl.bcds.goldroom.util.SimpleDateConverter" />
 
-	<bean id="imageUtil" class="com.alibaba.intl.bcds.goldroom.util.ImageUtilMock" />
+	<bean id="imageUtil" class="com.alibaba.intl.bcds.goldroom.util.ImageUtilImpl">
+		<property name="uploadPath" value="${goldroom.fileupload.path}" />
+	</bean>
 
 	<bean id="bookSearchService"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.service.impl.BookSearchServiceImpl" />
@@ -30,9 +32,9 @@
 
 	<bean id="memberService"
 		class="com.alibaba.intl.bcds.goldroom.service.impl.MemberServiceImpl" />
-<bean id="sendMailService"
+	<bean id="sendMailService"
 		class="com.alibaba.intl.bcds.goldroom.mail.service.impl.SendMailServiceImpl" />
-		
+
 	<bean id="integralService"
 		class="com.alibaba.intl.bcds.goldroom.service.impl.IntegralServiceImpl" />
 </beans>

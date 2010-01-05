@@ -125,6 +125,10 @@
 		</form>
 		<form name="shelve">
 			<field property="addCategoryFirstTime" depends="required" />
+			<field property="bookInfo.publishTime" depends="required">
+				<msg key="validation.bookInfo.publishTime.required" name="validation.bookInfo.publishTime.required" />
+				<arg0 key="publishTime" resource="false" />
+			</field>
 		</form>
 	</formset>
 

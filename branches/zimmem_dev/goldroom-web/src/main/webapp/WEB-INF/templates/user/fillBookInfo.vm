@@ -10,7 +10,6 @@
             <tr  valign="top">
               <td align="right">ISBN：&nbsp;&nbsp; </td>
               <td align="left">$!{isbn}
-                
               </td>
             </tr>
 			<tr valign="top">
