@@ -114,18 +114,6 @@ public interface BookItemService {
      * @return
      */
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    Result lend(int reservationId, Date lendTime, Date returnTime, String currentUser);
-
-    /**
-     * 确定借书
-     * 
-     * @param reservationId
-     * @param lendTime
-     * @param returnTime
-     * @param owner
-     * @return
-     */
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     Result lend(int reservationId, String currentUser);
 
     /**
