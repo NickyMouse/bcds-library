@@ -85,20 +85,6 @@ function getShelveForm()
                                     </p>
                                 </td>
                             </tr>
-                            #if(!${shelve.updateCategory})
-                                <tr>
-                                    <td align="right">类目:&nbsp;&nbsp;</td>
-                                    <td align="left">$!categoryCache.getFullName($!{bookInfo.categoryId},">>")</td>
-                                </tr>
-                             #else
-                                    <tr valign="top">
-                                        #springBind("shelve.bookInfo.categoryId")
-                                        <td align="right">选择类目:&nbsp;&nbsp;</td>
-                                        <td >#parse("widget/selectCategory.vm")
-                                            #validationError()
-                                        </td>
-                                    </tr>
-							#end
 						</table>
 					</td>
 				</tr>
@@ -159,13 +145,6 @@ function getShelveForm()
                         ##springBind("bookInfo.edition")
                         <td align="right">版本：&nbsp;&nbsp; </td>
                         <td >#springFormInput("shelve.bookInfo.edition" 'size="45" maxlength="45"')
-                            #validationError()
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        ##springBind("bookInfo.categoryId")
-                        <td align="right">选择类目：&nbsp;&nbsp;</td>
-                        <td >#parse("widget/selectCategory.vm")
                             #validationError()
                         </td>
                     </tr>
