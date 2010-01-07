@@ -13,7 +13,7 @@
 				#set($count = 1)
 				#foreach($integralView in $integralViewList)
 					<tr><td style="font-size: 14px; color: #755FFF;" align="center">${count}</td>
-						<td style="font-size: 14px; color: #FFA413;" align="center">$integralView.getMemberName()</td>
+						<td style="font-size: 14px; color: #FFA413;" align="center">$integralView.getMemberName()#if($!{integralUtil.getIntegralLevelUrl($integralView.getIntegralValue())})<a href="$SERVER_NAME/faq/index.htm#integarl" title="当前积分：$integralView.getIntegralValue()"><img src="$SERVER_NAME$!{integralUtil.getIntegralLevelUrl($integralView.getIntegralValue())}"/></a>#end</td>
 						<td style="font-size: 14px; color: #75A413;" align="center">$integralView.getIntegralValue()</td>
 					</tr>
 					#set($count = $count + 1)
