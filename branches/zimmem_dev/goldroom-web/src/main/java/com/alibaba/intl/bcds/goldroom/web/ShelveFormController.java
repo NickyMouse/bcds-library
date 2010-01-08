@@ -82,7 +82,7 @@ public class ShelveFormController extends SimpleFormController {
                                                 Errors errors) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
         String isbn = (String) request.getParameter("isbn");
-        if (!validateIsbn(isbn)) {
+        if (!validateIsbn(isbn) && !request.getMethod().equals("POST")) {
             map.put("isbnError", true);
             map.put("isbn", isbn);
             return map;
