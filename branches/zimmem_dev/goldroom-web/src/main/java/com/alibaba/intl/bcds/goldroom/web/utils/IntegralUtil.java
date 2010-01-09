@@ -41,20 +41,18 @@ public class IntegralUtil {
     public String getIntegralLevelUrl(long integral) {
         String levelImg = "";
         if (integral < 500) {
-            //
-        } else if (integral < 1000) {
             levelImg = "1.png";
-        } else if (integral < 2000) {
+        } else if (integral < 1000) {
             levelImg = "2.png";
-        } else if (integral < 5000) {
+        } else if (integral < 2000) {
             levelImg = "3.png";
-        } else if (integral < 10000) {
+        } else if (integral < 5000) {
             levelImg = "4.png";
-        } else if (integral < 20000) {
+        } else if (integral < 10000) {
             levelImg = "5.png";
-        } else if (integral < 50000) {
+        } else if (integral < 20000) {
             levelImg = "6.png";
-        } else if (integral < 100000) {
+        } else if (integral < 50000) {
             levelImg = "7.png";
         } else {
             levelImg = "8.png";
