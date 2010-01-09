@@ -133,7 +133,7 @@ public class ShelveFormController extends SimpleFormController {
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
             throws Exception {
 
-        DateFormat fmt = new SimpleDateFormat("yyyy-M-d");
+        DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);
         binder.registerCustomEditor(Date.class, dateEditor);
         super.initBinder(request, binder);
