@@ -47,7 +47,7 @@
             <td align="left">$!dateTool.format("yyyy-MM",$!bookSearchInfo.bookPublishTime)</td>
           </tr>
         #end
-        #if($!bookSearchInfo.bookEdition)
+        #if($!bookSearchInfo.bookEdition && $!bookSearchInfo.bookEdition.length() > 0)
           <tr>
             <td align="right"><strong>版次</strong>:&nbsp;&nbsp;</td>
             <td align="left">$!bookSearchInfo.bookEdition</td>
