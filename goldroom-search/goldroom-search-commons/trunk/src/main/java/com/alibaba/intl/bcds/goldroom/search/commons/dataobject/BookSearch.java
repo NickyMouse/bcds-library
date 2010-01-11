@@ -1,5 +1,5 @@
 package com.alibaba.intl.bcds.goldroom.search.commons.dataobject;
 
-public class BookSearch extends BuildBookSearch{
+public class BookSearch extends BuildBookSearch {
 
 }

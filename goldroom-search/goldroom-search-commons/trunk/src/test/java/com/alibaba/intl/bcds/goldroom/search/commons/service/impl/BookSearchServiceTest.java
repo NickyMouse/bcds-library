@@ -32,16 +32,23 @@ public class BookSearchServiceTest extends TestCase {
 //		}
 //		assertNotNull(list);
 	}
-
 	
+	public void testSearchBookByInfoId(){
+	    System.out.println("testSearchBookByInfoId");
+	    BookSearch aDO = bookSearchService.searchBookByInfoId(13);
+	    assertNotNull(aDO);
+	    System.out.println(aDO.getBookName()+",   "+aDO.getBookImgUrl());
+	}
+
+	/*
     public void testSearchBookByKeyword() {
 		System.out.println("testSearchBookByKeyword");
 		BookSearchQueryObject obj = bookSearchService.searchBookByKeyword(
-				"bababa", 0, 30);
+				"59秒", 0, 30);
 		List<BookSearch> list = obj.getResultList();
 		System.out.println(obj.getTotalCount());
 		for (BookSearch aDO : list) {
-			System.out.println(aDO.getBookName()+",   " + aDO.getBookDescription()+",  "+ aDO.getBookTags());
+			System.out.println(aDO.getBookName()+",   "+aDO.getBookImgUrl());
 		}
 
 		assertNotNull(list);
@@ -64,5 +71,5 @@ public class BookSearchServiceTest extends TestCase {
 			System.out.println(aDO.getBookName()+ ":"+aDO.getBookOwners());
 		}
 		assertNotNull(list);
-	}
+	}*/
 }

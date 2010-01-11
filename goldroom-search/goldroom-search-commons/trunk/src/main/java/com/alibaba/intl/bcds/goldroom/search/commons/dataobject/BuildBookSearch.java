@@ -3,131 +3,149 @@ package com.alibaba.intl.bcds.goldroom.search.commons.dataobject;
 import java.util.Date;
 
 public class BuildBookSearch {
-	
-	private Date itemAddTime;
-	private Date itemFirstAddTime;
-	private String bookTags;
-	private Integer bookInfoId;
-	private String bookAuthor;
-	private String bookName;
-	private String bookPublisher;
-	private Date bookPublishTime;
-	private String bookIsbn;
-	private Integer bookCategoryId;
-	private String bookImgUrl;
-	private String bookDescription;
-	private String bookEdition;
-	private String bookOwners;
-	
-	public Date getItemAddTime() {
-		return itemAddTime;
-	}
 
-	public void setItemAddTime(Date itemAddTime) {
-		this.itemAddTime = itemAddTime;
-	}
+    private Date    itemAddTime;
+    private Date    itemFirstAddTime;
+    private String  bookTags;
+    private Integer bookInfoId;
+    private String  bookAuthor;
+    private String  bookName;
+    private String  bookPublisher;
+    private Date    bookPublishTime;
+    private String  bookIsbn;
+    private Integer bookCategoryId;
+    private String  bookImgUrl;
+    private String  bookDescription;
+    private String  bookEdition;
+    private String  bookOwners;
+    private Integer bookPages;
+    private String  bookTranslator;
 
-	public Date getItemFirstAddTime() {
-		return itemFirstAddTime;
-	}
+    public Integer getBookPages() {
+        return bookPages;
+    }
 
-	public void setItemFirstAddTime(Date itemFirstAddTime) {
-		this.itemFirstAddTime = itemFirstAddTime;
-	}
+    public void setBookPages(Integer bookPages) {
+        this.bookPages = bookPages;
+    }
 
-	public Integer getBookInfoId() {
-		return bookInfoId;
-	}
+    public String getBookTranslator() {
+        return bookTranslator;
+    }
 
-	public void setBookInfoId(Integer bookInfoId) {
-		this.bookInfoId = bookInfoId;
-	}
+    public void setBookTranslator(String bookTranslator) {
+        this.bookTranslator = bookTranslator;
+    }
 
-	public String getBookAuthor() {
-		return bookAuthor;
-	}
+    public Date getItemAddTime() {
+        return itemAddTime;
+    }
 
-	public void setBookAuthor(String bookAuthor) {
-		this.bookAuthor = bookAuthor;
-	}
+    public void setItemAddTime(Date itemAddTime) {
+        this.itemAddTime = itemAddTime;
+    }
 
-	public String getBookName() {
-		return bookName;
-	}
+    public Date getItemFirstAddTime() {
+        return itemFirstAddTime;
+    }
 
-	public void setBookName(String bookName) {
-		this.bookName = bookName;
-	}
+    public void setItemFirstAddTime(Date itemFirstAddTime) {
+        this.itemFirstAddTime = itemFirstAddTime;
+    }
 
-	public String getBookPublisher() {
-		return bookPublisher;
-	}
+    public Integer getBookInfoId() {
+        return bookInfoId;
+    }
 
-	public void setBookPublisher(String bookPublisher) {
-		this.bookPublisher = bookPublisher;
-	}
+    public void setBookInfoId(Integer bookInfoId) {
+        this.bookInfoId = bookInfoId;
+    }
 
-	public Date getBookPublishTime() {
-		return bookPublishTime;
-	}
+    public String getBookAuthor() {
+        return bookAuthor;
+    }
 
-	public void setBookPublishTime(Date bookPublishTime) {
-		this.bookPublishTime = bookPublishTime;
-	}
+    public void setBookAuthor(String bookAuthor) {
+        this.bookAuthor = bookAuthor;
+    }
 
-	public String getBookIsbn() {
-		return bookIsbn;
-	}
+    public String getBookName() {
+        return bookName;
+    }
 
-	public void setBookIsbn(String bookIsbn) {
-		this.bookIsbn = bookIsbn;
-	}
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
 
-	public Integer getBookCategoryId() {
-		return bookCategoryId;
-	}
+    public String getBookPublisher() {
+        return bookPublisher;
+    }
 
-	public void setBookCategoryId(Integer bookCategoryId) {
-		this.bookCategoryId = bookCategoryId;
-	}
+    public void setBookPublisher(String bookPublisher) {
+        this.bookPublisher = bookPublisher;
+    }
 
-	public String getBookImgUrl() {
-		return bookImgUrl;
-	}
+    public Date getBookPublishTime() {
+        return bookPublishTime;
+    }
 
-	public void setBookImgUrl(String bookImgUrl) {
-		this.bookImgUrl = bookImgUrl;
-	}
+    public void setBookPublishTime(Date bookPublishTime) {
+        this.bookPublishTime = bookPublishTime;
+    }
 
-	public String getBookDescription() {
-		return bookDescription;
-	}
+    public String getBookIsbn() {
+        return bookIsbn;
+    }
 
-	public void setBookDescription(String bookDescription) {
-		this.bookDescription = bookDescription;
-	}
+    public void setBookIsbn(String bookIsbn) {
+        this.bookIsbn = bookIsbn;
+    }
 
-	public String getBookEdition() {
-		return bookEdition;
-	}
+    public Integer getBookCategoryId() {
+        return bookCategoryId;
+    }
 
-	public void setBookEdition(String bookEdition) {
-		this.bookEdition = bookEdition;
-	}
+    public void setBookCategoryId(Integer bookCategoryId) {
+        this.bookCategoryId = bookCategoryId;
+    }
 
-	public void setBookTags(String bookTags) {
-		this.bookTags = bookTags;
-	}
+    public String getBookImgUrl() {
+        return bookImgUrl;
+    }
 
-	public String getBookTags() {
-		return bookTags;
-	}
+    public void setBookImgUrl(String bookImgUrl) {
+        this.bookImgUrl = bookImgUrl;
+    }
 
-	public void setBookOwners(String bookOwners) {
-		this.bookOwners = bookOwners;
-	}
+    public String getBookDescription() {
+        return bookDescription;
+    }
 
-	public String getBookOwners() {
-		return bookOwners;
-	}
+    public void setBookDescription(String bookDescription) {
+        this.bookDescription = bookDescription;
+    }
+
+    public String getBookEdition() {
+        return bookEdition;
+    }
+
+    public void setBookEdition(String bookEdition) {
+        this.bookEdition = bookEdition;
+    }
+
+    public void setBookTags(String bookTags) {
+        this.bookTags = bookTags;
+    }
+
+    public String getBookTags() {
+        return bookTags;
+    }
+
+    public void setBookOwners(String bookOwners) {
+        this.bookOwners = bookOwners;
+    }
+
+    public String getBookOwners() {
+        return bookOwners;
+    }
 }

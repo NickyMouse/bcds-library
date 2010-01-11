@@ -21,91 +21,86 @@ import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.helper.DocumentT
 import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQueryObject;
 
 public class BookSearchDaoImpl implements BookSearchDao {
-	private static Logger logger = Logger.getLogger(BookSearchDaoImpl.class);
-	/**
-	 * 搜索的数据源
-	 */
-	private SearchDatasource searchDatasource;
 
-	public SearchDatasource getSearchDatasource() {
-		return searchDatasource;
-	}
+    private static Logger    logger = Logger.getLogger(BookSearchDaoImpl.class);
+    /**
+     * 搜索的数据源
+     */
+    private SearchDatasource searchDatasource;
 
-	public void setSearchDatasource(SearchDatasource searchDatasource) {
-		this.searchDatasource = searchDatasource;
-	}
+    public SearchDatasource getSearchDatasource() {
+        return searchDatasource;
+    }
 
-	@SuppressWarnings("unchecked")
-	public void searchByQuery(BookSearchQueryObject bsQueryObj) {
-		int number = bsQueryObj.getN() + bsQueryObj.getSkipResult();
+    public void setSearchDatasource(SearchDatasource searchDatasource) {
+        this.searchDatasource = searchDatasource;
+    }
 
-		String primarySortKey = bsQueryObj.getPrimarySortFiled();
-		Searcher searcher = searchDatasource.getSearcher();
+    @SuppressWarnings("unchecked")
+    public void searchByQuery(BookSearchQueryObject bsQueryObj) {
+        int number = bsQueryObj.getN() + bsQueryObj.getSkipResult();
 
-		Query query = bsQueryObj.getQuery();
+        String primarySortKey = bsQueryObj.getPrimarySortFiled();
+        Searcher searcher = searchDatasource.getSearcher();
 
-		long start = new Date().getTime();
-		TopDocs docs = null;
-		try {
-			Sort sort = new Sort(new SortField(primarySortKey, SortField.AUTO,
-					bsQueryObj.isReverse()));
-			docs = searcher.search(query, null, number, sort);
+        Query query = bsQueryObj.getQuery();
 
-		} catch (IOException e) {
-			logger.error(e);
-			return;
-		}
+        long start = new Date().getTime();
+        TopDocs docs = null;
+        try {
+            Sort sort = new Sort(new SortField(primarySortKey, SortField.AUTO, bsQueryObj.isReverse()));
+            docs = searcher.search(query, null, number, sort);
 
-		long end = new Date().getTime();
+        } catch (IOException e) {
+            logger.error(e);
+            return;
+        }
 
-		int numTotalHits = docs.scoreDocs.length;
-		logger.info("[Search Result]" + numTotalHits
-				+ " total matching documents. Time is " + (end - start) + "ms");
+        long end = new Date().getTime();
 
-		// 初始化 Document到DO（data object）的转换器
-		DocumentToDoConvertor convertor = DocumentToDoConvertor.getConvertor(
-				bsQueryObj.isHighlight(), query);
+        int numTotalHits = docs.scoreDocs.length;
+        logger.info("[Search Result]" + numTotalHits + " total matching documents. Time is " + (end - start) + "ms");
 
-		// 利用转换器将结果转换成DO
-		List result = getResult(searcher, convertor, docs, bsQueryObj
-				.getSkipResult(), bsQueryObj.getN());
-		bsQueryObj.setResultList(result);
-		bsQueryObj.setTotalCount(docs.totalHits);
-	}
+        // 初始化 Document到DO（data object）的转换器
+        DocumentToDoConvertor convertor = DocumentToDoConvertor.getConvertor(bsQueryObj.isHighlight(), query);
 
-	/**
-	 * 将搜索结果从Document转换成 DO
-	 * 
-	 * @param searcher
-	 * @param convertor
-	 *            转换器
-	 * @param topDocs
-	 * @param skipResult
-	 * @param n
-	 * @return
-	 */
-	protected List<BookSearch> getResult(Searcher searcher,
-			DocumentToDoConvertor convertor, TopDocs topDocs, int skipResult,
-			int n) {
-		List<BookSearch> doList = new ArrayList<BookSearch>();
-		ScoreDoc[] scoreDocList = topDocs.scoreDocs;
-		if (skipResult >= topDocs.scoreDocs.length) {
-			return doList;
-		}
-		int count = 0;
-		for (ScoreDoc scoreDoc : scoreDocList) {
-			count++;
-			if (count <= skipResult) {
-				continue;
-			}
-			Document doc = null;
-			try {
-				doc = searcher.doc(scoreDoc.doc);
-				doList.add(convertor.convertToBookSearchDO(doc));
-			} catch (IOException e) {
-				logger.error(e);
-			}
-		}
-		return doList;
-	}
+        // 利用转换器将结果转换成DO
+        List result = getResult(searcher, convertor, docs, bsQueryObj.getSkipResult(), bsQueryObj.getN());
+        bsQueryObj.setResultList(result);
+        bsQueryObj.setTotalCount(docs.totalHits);
+    }
+
+    /**
+     * 将搜索结果从Document转换成 DO
+     * 
+     * @param searcher
+     * @param convertor 转换器
+     * @param topDocs
+     * @param skipResult
+     * @param n
+     * @return
+     */
+    protected List<BookSearch> getResult(Searcher searcher, DocumentToDoConvertor convertor, TopDocs topDocs,
+                                         int skipResult, int n) {
+        List<BookSearch> doList = new ArrayList<BookSearch>();
+        ScoreDoc[] scoreDocList = topDocs.scoreDocs;
+        if (skipResult >= topDocs.scoreDocs.length) {
+            return doList;
+        }
+        int count = 0;
+        for (ScoreDoc scoreDoc : scoreDocList) {
+            count++;
+            if (count <= skipResult) {
+                continue;
+            }
+            Document doc = null;
+            try {
+                doc = searcher.doc(scoreDoc.doc);
+                doList.add(convertor.convertToBookSearchDO(doc));
+            } catch (IOException e) {
+                logger.error(e);
+            }
+        }
+        return doList;
+    }
 }

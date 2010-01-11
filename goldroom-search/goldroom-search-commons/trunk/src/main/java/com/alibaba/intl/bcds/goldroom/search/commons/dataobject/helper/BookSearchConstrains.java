@@ -20,4 +20,6 @@ public class BookSearchConstrains {
 	public static String BOOK_DESCRIPTION = "bookDescription";
 	public static String BOOK_EDITION = "bookEdition";
 	public static String BOOK_OWNERS = "bookOwners";
+	public static String BOOK_PAGES = "bookPages";
+	public static String BOOK_TRANSLATOR = "bookTranslator";
 }

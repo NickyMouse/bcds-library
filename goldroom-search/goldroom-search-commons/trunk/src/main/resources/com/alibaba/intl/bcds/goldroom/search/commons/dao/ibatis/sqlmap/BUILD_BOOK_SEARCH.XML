@@ -23,6 +23,8 @@
 			jdbcType="VARCHAR" />
 		<result property="bookEdition" column="BOOK_EDITION" jdbcType="VARCHAR" />
 		<result property="bookOwners" column="BOOK_OWNERS" jdbcType="VARCHAR" />
+		<result property="bookPages" column="BOOK_PAGES" jdbcType="DECIMAL" />
+		<result property="bookTranslator" column="BOOK_TRANSLATOR" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="listAllBook" resultMap="bookSearchResult">
@@ -40,7 +42,9 @@
 		info.IMG_URL BOOK_IMG_URL,
 		info.DESCRIPTION BOOK_DESCRIPTION,
 		info.EDITION BOOK_EDITION,
-		GROUP_CONCAT(m.LOGIN_ID) BOOK_OWNERS
+		GROUP_CONCAT(m.LOGIN_ID) BOOK_OWNERS,
+		info.PAGES BOOK_PAGES,
+		info.TRANSLATOR BOOK_TRANSLATOR
 		FROM BOOK_ITEM item
 		JOIN BOOK_INFO info ON item.BOOK_INFO_ID = info.ID
 		JOIN MEMBER m ON item.LOGIN_ID = m.LOGIN_ID
@@ -69,7 +73,9 @@
 		info.IMG_URL BOOK_IMG_URL,
 		info.DESCRIPTION BOOK_DESCRIPTION,
 		info.EDITION BOOK_EDITION,
-		GROUP_CONCAT(m.LOGIN_ID) BOOK_OWNERS
+		GROUP_CONCAT(m.LOGIN_ID) BOOK_OWNERS,
+		info.PAGES BOOK_PAGES,
+		info.TRANSLATOR BOOK_TRANSLATOR
 		FROM BOOK_ITEM item
 		JOIN BOOK_INFO info ON item.BOOK_INFO_ID = info.ID
 		JOIN MEMBER m ON item.LOGIN_ID = m.LOGIN_ID
