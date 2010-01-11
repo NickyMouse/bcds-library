@@ -19,11 +19,11 @@
       <td width="600"><table width="80%"">
           <tr>
             <td align="right" width="25%" valign="top"><strong>作者</strong>:&nbsp;&nbsp;</td>
-            <td align="left">$bookSearchInfo.bookAuthor</td>
+            <td align="left">$!bookSearchInfo.bookAuthor</td>
           </tr>
           <tr>
             <td align="right"><strong>ISBN</strong>:&nbsp;&nbsp;</td>
-            <td align="left">$bookSearchInfo.bookIsbn</td>
+            <td align="left">$!bookSearchInfo.bookIsbn</td>
           </tr>
 		   <tr>
             <td align="right"><strong>类目</strong>:&nbsp;&nbsp;</td>
@@ -31,26 +31,26 @@
           </tr>
           <tr>
             <td align="right"><strong>出版社</strong>:&nbsp;&nbsp;</td>
-            <td align="left">$bookSearchInfo.bookPublisher</td>
+            <td align="left">$!bookSearchInfo.bookPublisher</td>
           </tr>
           <tr>
             <td align="right"><strong>出版时间</strong>:&nbsp;&nbsp;</td>
-            <td align="left">$dateTool.format("yyyy-MM",$bookSearchInfo.bookPublishTime)</td>
+            <td align="left">$!dateTool.format("yyyy-MM",$!bookSearchInfo.bookPublishTime)</td>
           </tr>
           <tr>
             <td align="right"><strong>版次</strong>:&nbsp;&nbsp;</td>
-            <td align="left">$bookSearchInfo.bookEdition</td>
+            <td align="left">$!bookSearchInfo.bookEdition</td>
           </tr>
           <tr>
             <td align="right" valign="top"><strong>描述</strong>:&nbsp;&nbsp;</td>
-            <td align="left"><p>$bookSearchInfo.bookDescription
+            <td align="left"><p>$!bookSearchInfo.bookDescription
             </p></td>
           </tr>
 		  <tr>
             <td colspan="2">
             	<div style="position:relative;left:80px">
-            	<form action="/user/findIsbn.htm" method="POST">              
-					<input  type="hidden" name="isbn" value="$bookSearchInfo.bookIsbn"/>
+            	<form action="$SERVER_NAME/user/shelveForm.htm?isbn=$!bookSearchInfo.bookIsbn" method="POST">              
+					<input  type="hidden" name="isbn" value="$!bookSearchInfo.bookIsbn"/>
 					<input type="submit" value="我也有这本书，我要上架"/>
 				</form>
 				</div>
