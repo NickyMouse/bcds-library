@@ -173,7 +173,6 @@
 
 	<bean name="/user/fileUpload.htm"
 		class="com.alibaba.intl.bcds.goldroom.web.FileUploadController">
-		<property name="uploadRoot" ref="fileUploadPath" />
 		<property name="commandName" value="uploadFileCommand" />
 		<property name="commandClass"
 			value="com.alibaba.intl.bcds.goldroom.web.command.UploadFileCommand" />
