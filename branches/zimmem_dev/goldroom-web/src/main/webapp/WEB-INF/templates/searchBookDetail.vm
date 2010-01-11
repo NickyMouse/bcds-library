@@ -17,35 +17,61 @@
 		#end
 	  </td>
       <td width="600"><table width="80%"">
+      	#if($!bookSearchInfo.bookAuthor)
           <tr>
             <td align="right" width="25%" valign="top"><strong>作者</strong>:&nbsp;&nbsp;</td>
             <td align="left">$!bookSearchInfo.bookAuthor</td>
           </tr>
+        #end
+        #if($!bookSearchInfo.bookIsbn)
           <tr>
             <td align="right"><strong>ISBN</strong>:&nbsp;&nbsp;</td>
             <td align="left">$!bookSearchInfo.bookIsbn</td>
           </tr>
+        #end
+        #if($!{bookSearchInfo.bookCategoryId})
 		   <tr>
             <td align="right"><strong>类目</strong>:&nbsp;&nbsp;</td>
             <td align="left">$!categoryCache.getFullName($!{bookSearchInfo.bookCategoryId},">>")</td>
           </tr>
+        #end
+        #if($!bookSearchInfo.bookPublisher)
           <tr>
             <td align="right"><strong>出版社</strong>:&nbsp;&nbsp;</td>
             <td align="left">$!bookSearchInfo.bookPublisher</td>
           </tr>
+        #end
+        #if($!bookSearchInfo.bookPublishTime)
           <tr>
             <td align="right"><strong>出版时间</strong>:&nbsp;&nbsp;</td>
             <td align="left">$!dateTool.format("yyyy-MM",$!bookSearchInfo.bookPublishTime)</td>
           </tr>
+        #end
+        #if($!bookSearchInfo.bookEdition)
           <tr>
             <td align="right"><strong>版次</strong>:&nbsp;&nbsp;</td>
             <td align="left">$!bookSearchInfo.bookEdition</td>
           </tr>
+        #end
+        #if($!bookSearchInfo.bookPages)
+          <tr>
+            <td align="right"><strong>页数</strong>:&nbsp;&nbsp;</td>
+            <td align="left">$!bookSearchInfo.bookPages</td>
+          </tr>
+        #end
+        #if($!bookSearchInfo.bookTranslator)
+          <tr>
+            <td align="right"><strong>译者</strong>:&nbsp;&nbsp;</td>
+            <td align="left">$!bookSearchInfo.bookTranslator</td>
+          </tr>
+        #end
+        #if($!bookSearchInfo.bookDescription)
           <tr>
             <td align="right" valign="top"><strong>描述</strong>:&nbsp;&nbsp;</td>
             <td align="left"><p>$!bookSearchInfo.bookDescription
             </p></td>
           </tr>
+        #end
 		  <tr>
             <td colspan="2">
             	<div style="position:relative;left:80px">

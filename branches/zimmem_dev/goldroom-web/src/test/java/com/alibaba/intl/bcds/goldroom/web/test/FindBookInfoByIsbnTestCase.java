@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
-import com.alibaba.intl.bcds.goldroom.web.FindIsbnController;
 import com.alibaba.intl.bcds.goldroom.web.test.mock.BookInfoServiceMock;
 
 /**
@@ -46,9 +45,9 @@ public class FindBookInfoByIsbnTestCase {
 
     @Before
     public void before() {
-        FindIsbnController _controller = new FindIsbnController();
-        _controller.setBookInfoService(new BookInfoServiceMock());
-        controller = _controller;
+//        FindIsbnController _controller = new FindIsbnController();
+//        _controller.setBookInfoService(new BookInfoServiceMock());
+//        controller = _controller;
     }
 
     @Test

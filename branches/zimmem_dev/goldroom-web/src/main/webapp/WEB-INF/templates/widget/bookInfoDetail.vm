@@ -12,35 +12,61 @@
 		#end
 	  </td>
       <td width="600"><table width="80%"">
+          #if($!bookInfo.author)
           <tr>
             <td align="right" width="25%"><strong>作者</strong>:&nbsp;&nbsp;</td>
             <td align="left">$!bookInfo.author</td>
           </tr>
+          #end
+          #if($!bookInfo.isbn)
           <tr>
             <td align="right"><strong>ISBN</strong>:&nbsp;&nbsp;</td>
             <td align="left">$!bookInfo.isbn</td>
           </tr>
+          #end
+          #if($!{bookInfo.categoryId})
 		  <tr>
             <td align="right"><strong>类目</strong>:&nbsp;&nbsp;</td>
             <td align="left">$!categoryCache.getFullName($!{bookInfo.categoryId},">>")</td>
           </tr>
+          #end
+          #if($!bookInfo.publisher)
           <tr>
             <td align="right"><strong>出版社</strong>:&nbsp;&nbsp;</td>
             <td align="left">$!bookInfo.publisher</td>
           </tr>
+          #end
+          #if($bookInfo.publishTime)
           <tr>
             <td align="right"><strong>出版日期</strong>:&nbsp;&nbsp;</td>
             <td align="left">$!dateTool.format("yyyy-MM",$bookInfo.publishTime)</td>
           </tr>
+          #end
+          #if($!bookInfo.edition)
           <tr>
             <td align="right"><strong>版次</strong>:&nbsp;&nbsp;</td>
             <td align="left">$!bookInfo.edition</td>
           </tr>
+          #end
+           #if($!bookInfo.pages)
+          <tr>
+            <td align="right"><strong>页数</strong>:&nbsp;&nbsp;</td>
+            <td align="left">$!bookInfo.pages</td>
+          </tr>
+          #end
+           #if($!bookInfo.translator)
+          <tr>
+            <td align="right"><strong>译者</strong>:&nbsp;&nbsp;</td>
+            <td align="left">$!bookInfo.translator</td>
+          </tr>
+          #end
+          #if($!bookInfo.description)
           <tr>
             <td align="right" valign="top"><strong>描述</strong>:&nbsp;&nbsp;</td>
             <td align="left"><p>$!bookInfo.description
             </p></td>
           </tr>
+          #end
         </table></td>
     </tr>
   </tbody>

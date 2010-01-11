@@ -66,4 +66,16 @@ public class BookInfoServiceMock implements BookInfoService {
         return null;
     }
 
+    @Override
+    public BookInfo getBookInfoFromDbAndNetWork(String isbn) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void updateCategory(BookInfo bookInfo) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }
