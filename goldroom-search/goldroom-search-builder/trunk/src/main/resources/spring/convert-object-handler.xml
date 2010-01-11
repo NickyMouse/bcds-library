@@ -4,23 +4,24 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
 	default-autowire="byName">
 
-	<bean id="bookInfoConvertObjectHandler" class="com.alibaba.intl.bcds.goldroom.search.builder.utils.SimpleConvertObjectHandler">
+	<bean id="bookInfoConvertObjectHandler"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.SimpleConvertObjectHandler">
 		<property name="rules">
 			<map>
-				<entry key="itemAddTime" value-ref="itemAddTime"/>
-				<entry key="itemFirstAddTime" value-ref="itemFirstAddTime"/>
-				<entry key="bookTags" value-ref="bookTags"/>
-				<entry key="bookInfoId" value-ref="bookInfoId"/>
-				<entry key="bookAuthor" value-ref="bookAuthor"/>
-				<entry key="bookName" value-ref="bookName"/>
-				<entry key="bookPublisher" value-ref="bookPublisher"/>
-				<entry key="bookPublishTime" value-ref="bookPublishTime"/>
-				<entry key="bookIsbn" value-ref="bookIsbn"/>
-				<entry key="bookCategoryId" value-ref="bookCategoryId"/>
-				<entry key="bookImgUrl" value-ref="bookImgUrl"/>
-				<entry key="bookDescription" value-ref="bookDescription"/>
-				<entry key="bookEdition" value-ref="bookEdition"/>
-				<entry key="bookOwners" value-ref="bookOwners"/>
+				<entry key="itemAddTime" value-ref="itemAddTime" />
+				<entry key="itemFirstAddTime" value-ref="itemFirstAddTime" />
+				<entry key="bookTags" value-ref="bookTags" />
+				<entry key="bookInfoId" value-ref="bookInfoId" />
+				<entry key="bookAuthor" value-ref="bookAuthor" />
+				<entry key="bookName" value-ref="bookName" />
+				<entry key="bookPublisher" value-ref="bookPublisher" />
+				<entry key="bookPublishTime" value-ref="bookPublishTime" />
+				<entry key="bookIsbn" value-ref="bookIsbn" />
+				<entry key="bookCategoryId" value-ref="bookCategoryId" />
+				<entry key="bookImgUrl" value-ref="bookImgUrl" />
+				<entry key="bookDescription" value-ref="bookDescription" />
+				<entry key="bookEdition" value-ref="bookEdition" />
+				<entry key="bookOwners" value-ref="bookOwners" />
 			</map>
 		</property>
 	</bean>
@@ -38,7 +39,7 @@
 		<constructor-arg value="YES" />
 		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
-	
+
 	<bean id="bookTags"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="bookTags" />
@@ -122,4 +123,16 @@
 		<constructor-arg value="ANALYZED_NO_NORMS" />
 	</bean>
 
+	<bean id="bookPages"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookPages" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+	<bean id="bookTranslator"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="bookTranslator" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
 </beans>
