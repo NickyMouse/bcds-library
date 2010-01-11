@@ -49,10 +49,10 @@
 		  <tr>
             <td colspan="2">
             	<div style="position:relative;left:80px">
-            	<form action="$SERVER_NAME/user/shelveForm.htm?isbn=$!bookSearchInfo.bookIsbn" method="POST">              
-					<input  type="hidden" name="isbn" value="$!bookSearchInfo.bookIsbn"/>
-					<input type="submit" value="我也有这本书，我要上架"/>
-				</form>
+            	##<form action="$SERVER_NAME/user/shelveForm.htm?isbn=$!bookSearchInfo.bookIsbn" method="POST">              
+				##	<input  type="hidden" name="isbn" value="$!bookSearchInfo.bookIsbn"/>
+				##	<input type="submit" value="我也有这本书，我要上架"/>
+				##</form>
 				</div>
 				#if(!$bookItemList || $bookItemList.size()==0)
 				<div style="cursor: pointer;position:relative; left:80px; top:0px">
