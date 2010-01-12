@@ -117,10 +117,17 @@ public class DoubanBookInfoFetcher implements BookInfoFetcher, InitializingBean 
      * @return
      */
     private String saveImage(String isbn, String imageUrl) {
-        HttpMethod method = new GetMethod(imageUrl);
+        
+        String largeImageUrl = StringUtils.replaceOnce(imageUrl, "s", "l");
+        HttpMethod method = new GetMethod(largeImageUrl);
         HttpClient client = new HttpClient();
         try {
+            //尝试先取大图，如果取不到再取api里的小图地址，上帝保佑douban不要乱改图片地址吧~~~
             client.executeMethod(method);
+            if (method.getStatusCode() != 200) {
+                method = new GetMethod(imageUrl);
+                client.executeMethod(method);
+            }
             byte[] imgBody = method.getResponseBody();
             return imageUtil.save(isbn, getImageSuffix(imageUrl), imgBody);
         } catch (Exception e) {
