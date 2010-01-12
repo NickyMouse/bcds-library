@@ -79,19 +79,6 @@
 					<a href="$SERVER_NAME/user/shelveForm.htm?isbn=$!bookSearchInfo.bookIsbn">我也有这本书，我要上架</a>
 				#end
 				</div>
-				#if(!$bookItemList || $bookItemList.size()==0)
-				<div style="cursor: pointer;position:relative; left:80px; top:0px">
-				<table onClick="window.open('$SERVER_NAME/searchBookDetail.htm?id=${bookSearchInfo.bookInfoId}&showOwners=true','_self')"  border="0" cellpadding="0" cellspacing="0">	
-					<tbody><tr>
-                    <td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
-                    <td class="button_dark">
-						查看拥有该图书的人
-                    </td>
-                    <td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
-                    </tr>
-				</tbody></table>
-				</div>
-				#end
 			</td>
 		  </tr>
         </table></td>
@@ -100,9 +87,7 @@
 </table>
 
 <br/>
-#if($bookItemList && $bookItemList.size()==0)
-暂无
-#elseif($bookItemList.size()>0)
+#if($bookItemList.size()>0)
 <table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="1" bordercolor="#cce4a3" >
   <tbody>
     <tr>
