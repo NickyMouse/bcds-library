@@ -5,7 +5,7 @@
 	<tbody>
 		#if(!$state && $bookItemList && $bookItemList.size()==0 && !$keywords)
 			<tr height="50" valign="middle"><td align="center">
-				暂无书籍，<a href="$SERVER_NAME/user/beforeShelve.htm">图书上架</a>。<a href="$SERVER_NAME/faq/index.htm#onShelves">如何上架书籍？</a>	
+				暂无书籍，<a href="$SERVER_NAME/user/shelve.htm">图书上架</a>。<a href="$SERVER_NAME/faq/index.htm#onShelves">如何上架书籍？</a>	
 			</td></tr>
 		#else
 		<tr height="15px" valign="middle"><td width="100px">&nbsp;&nbsp;&nbsp;&nbsp;
