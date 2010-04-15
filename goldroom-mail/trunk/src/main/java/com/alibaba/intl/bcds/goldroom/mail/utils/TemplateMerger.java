@@ -3,6 +3,8 @@ package com.alibaba.intl.bcds.goldroom.mail.utils;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Properties;
 
@@ -22,13 +24,23 @@ public class TemplateMerger {
     private static Properties     props       = new Properties();
     private static FormatUtils    formatUtils = new FormatUtils();
 
+    private static void initProps() throws IOException {
+        InputStream is = props.getClass().getResourceAsStream("/velocity.properties");
+        if (is != null) {
+            props.load(is);
+        }
+        if (is == null || props.size() == 0) {
+            String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+            FileInputStream fis = new FileInputStream(new File(basePath + "velocity.properties"));
+            props.load(new BufferedInputStream(fis));
+        }
+    }
+
     public static TemplateMerger getInstance() {
         if (merger == null) {
             merger = new TemplateMerger();
             try {
-                String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-                FileInputStream fis = new FileInputStream(new File(basePath + "velocity.properties"));
-                props.load(new BufferedInputStream(fis));
+                initProps();
                 velocity.init(props);
             } catch (Exception e) {
                 logger.error(e);

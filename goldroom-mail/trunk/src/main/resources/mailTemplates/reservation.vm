@@ -7,6 +7,6 @@
      借阅的时间为：$!formatUtils.formatDate($info.reservation.lendTime) ~ $!formatUtils.formatDate($info.reservation.returnTime)
      
      <br/>
-     <a href="http://goldroom.ali-learn.com/">黄金屋[Gold Room]</a>
+     <a href="http://athena.hz.ali.com:8080/home.htm">黄金屋[Gold Room]</a>
 </body>
 </html>

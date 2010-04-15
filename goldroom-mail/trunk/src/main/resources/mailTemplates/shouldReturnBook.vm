@@ -8,8 +8,10 @@
      	还有$!{info.lending.expireDays}天就到期了。请尽快归还。
      #else
      	已过期，
-     #end
-     
+	 #end
+	 <br/>
+             如果您借阅的书籍已经归还了，请让书籍的拥有者在系统中“确认归还”。
+
      <p>书主信息：
      姓名：$!{info.owner.name} <br/>
      工号：$!{info.owner.workId} <br/>
@@ -23,6 +25,7 @@
      #end
      </p>
      <br/>
-     <a href="http://goldroom.ali-learn.com/">黄金屋[Gold Room]</a>
+	 <br/>
+     <a href="http://athena.hz.ali.com:8080/home.htm">黄金屋[Gold Room]</a>
 </body>
 </html>
