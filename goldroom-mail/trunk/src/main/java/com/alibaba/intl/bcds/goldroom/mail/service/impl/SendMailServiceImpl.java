@@ -21,6 +21,9 @@ public class SendMailServiceImpl implements SendMailService {
     private static Logger           logger   = Logger.getLogger(SendMailServiceImpl.class);
     private static EmailInfoChecker checker  = new EmailInfoCheckerImpl();
 
+    public ExecutorService getExecutorService(){
+        return executor;
+    }
     @Override
     public void sendMail(EmailInfo emailInfo) {
         EmailBuilder builder = EmailBuilderFactory.getEmailBuilder(emailInfo);

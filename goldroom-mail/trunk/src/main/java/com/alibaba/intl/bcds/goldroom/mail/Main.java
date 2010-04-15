@@ -3,6 +3,8 @@ package com.alibaba.intl.bcds.goldroom.mail;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.mail.MessagingException;
 
@@ -28,7 +30,7 @@ public class Main {
     private static MailDao             mailDao     = (MailDao) MailApplicationContext.getMailContext().getBean(
                                                                                                                "mailDao");
 
-    public static void main(String[] args) throws IOException, MessagingException, EmailException {
+    public static void main(String[] args) throws IOException, MessagingException, EmailException, InterruptedException {
 
         int notifyDays = 3;
         if (args.length > 0 && NumberUtils.isDigits(args[0])) {
@@ -46,7 +48,13 @@ public class Main {
         logger.info("====2.end doNotification(false, notifyDays);");
         logger.info("====2.used " + (endTime.getTime() - middle.getTime()) + "ms");
         logger.info("====Total Time: " + (endTime.getTime() - startTime.getTime()) + "ms");
-
+        ExecutorService e = mailService.getExecutorService();
+       
+        while (!e.isTerminated()) {
+            e.shutdown();
+            e.awaitTermination(2, TimeUnit.SECONDS);
+        }
+        System.out.println("done");
     }
 
     private static void doNotification(boolean isExpire, int notifyDays) {
