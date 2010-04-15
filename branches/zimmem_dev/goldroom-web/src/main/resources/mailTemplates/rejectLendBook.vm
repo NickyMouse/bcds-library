@@ -5,6 +5,6 @@
      您所预约的书籍《$!{info.bookInfo.name}》，书主$!{info.owner.name}拒绝了您的预约。
    
      <br/>
-     <a href="http://goldroom.ali-learn.com/">黄金屋[Gold Room]</a>
+     <a href="http://athena.hz.ali.com:8080/home.htm">黄金屋[Gold Room]</a>
 </body>
 </html>
