@@ -1,0 +1,275 @@
+<script>
+<!--
+function getShelveForm()
+{
+
+   var isbn=document.getElementById("_isbn").value;
+   window.location.href="$SERVER_NAME/user/shelveForm.htm?isbn="+isbn; 
+}
+	-->
+    
+</script>
+
+<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0">
+  <tbody>
+
+    <tr width="100%">
+      <td align="center">
+		<div id="findIsbnDiv">
+          <table>			
+            <tr rowspan="2">
+              <td style="font-size: 14px;color:#ACD674">请填写要上架书籍的ISBN:</td>
+              <td><input  type="text" name="_isbn" id="_isbn" value="$!{isbn}" />
+                <input type="button" id="ok" value="確　定" onclick="javascript: getShelveForm();" />
+                <input type="button" value="取　消" onclick="window.location.href='$SERVER_NAME/home.htm'"/>
+				#if($isbnError)<br/><font color="red">isbn只能由10位或13位数字字符符组成，请去除多余字符</font>#end
+              </td>
+            </tr>       
+          </table>
+        </div>
+		  <hr/>
+        </td>
+    </tr>
+  </tbody>
+</table>
+#if(!$isbnError || $showForm)
+<div id="shelveFormDiv">
+	#if(${shelve.newBookInfo})
+<script type="text/javascript" src="$!SERVER_NAME/js/jquery-1.3.2.min.js"></script> 
+<script type="text/javascript" src="$!SERVER_NAME/js/ajaxfileupload.js"></script> 
+<script>
+<!--
+function uploadFile(){
+     	#set($dollar = "$")
+     	var isbn = $("#isbn").val();
+		var imagePath='$SERVER_NAME/upload';
+        ${dollar}.ajaxFileUpload({
+              url:'$SERVER_NAME/user/fileUpload.htm?isbn=' + isbn,
+              secureuri:false,
+              fileElementId:'file',		//与页面处理代码中file相对应的ID值
+              dataType: 'text',			//返回数据类型:text，xml，json，html,scritp,jsonp五种
+              success: function (data, status){
+			  document.getElementById('bookCoverImage').src=imagePath+data;
+			  document.getElementById('bookInfo.imgUrl').value=data;
+			  	//$('#bookCoverImage').src('data');
+              },
+              error: function (data, status, e){
+			    alert(e);
+              }
+          });
+
+          return false;
+}
+-->
+</script>
+<div style="height:150;width:100;vertical-align:middle">
+
+	<img id="bookCoverImage" class="bookImage" src="$SERVER_NAME/images/noPhoto.png"/>
+
+</div>
+<div id="uploadImageForm" #if(!${imgSrc})#end>
+	<form name="upload" id="fileUpload" method="post" action="/user/fileUpload.htm" enctype="multipart/form-data">
+		<input id="isbn" type="hidden" name="isbn" value="$!{isbn}"/>
+		<input id="file" type="file" name="file"  value="$!imgSrc"/>
+		<button  onclick="javascript:uploadFile()" >上传图片</button>
+	</form>
+</div>
+#end
+<form action="/user/shelveForm.htm" method="POST">
+    #springFormHiddenInput("shelve.newBookInfo","")
+    #springFormHiddenInput("shelve.updateCategory","")
+    #springFormHiddenInput("shelve.bookInfo.id","")
+	 #springFormHiddenInput("shelve.bookInfo.isbn","")
+    <table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
+        <tbody>
+            #if($bookInfo)
+                <tr>
+                    <td align="right" valign="top">
+                        #if($bookInfo.imgUrl && !$bookInfo.getImgUrl().equals(""))
+                            <img id="bookCoverImage" class="detailBookImage" src="$UPLOAD_IMAGE_PATH/$bookInfo.imgUrl"/>
+                            #else
+                                <img id="bookCoverImage" class="detailBookImage" src="$SERVER_NAME/images/noPhoto.png"/>
+                        #end
+                    </td>
+                    <td>
+                        <table width="80%"">
+                            <tr >
+                                <td align="right">书名:&nbsp;&nbsp;</td>
+                                <td >
+                                    $!{bookInfo.name}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" width="25%">作者:&nbsp;&nbsp;</td>
+                                <td align="left">$!{bookInfo.author}</td>
+                            </tr>
+                            <tr>
+                                <td align="right">ISBN:&nbsp;&nbsp;</td>
+                                <td align="left">$!{bookInfo.isbn}</td>
+                            </tr>
+                            <tr>
+                                <td align="right">出版社:&nbsp;&nbsp;</td>
+                                <td align="left">$!{bookInfo.publisher}</td>
+                            </tr>
+                            <tr>
+                                <td align="right">出版日期:&nbsp;&nbsp;</td>
+                                <td align="left">$!dateTool.format("yyyy-MM",${bookInfo.publishTime})</td>
+                            </tr>
+                            <tr>
+                                <td align="right">版次:&nbsp;&nbsp;</td>
+                                <td align="left">$!{bookInfo.edition}</td>
+                            </tr>
+                            <tr>
+                                <td align="right" valign="top">描述:&nbsp;&nbsp;</td>
+                                <td align="left">
+                                    <p>$!{bookInfo.description}
+                                    </p>
+                                </td>
+                            </tr>
+						</table>
+					</td>
+				</tr>
+#else
+    <tr>
+        <td align="center">
+			 #springFormHiddenInput("shelve.bookInfo.imgUrl","")
+            <table >
+                <tbody >
+                    <tr  valign="top">
+                        <td align="right">ISBN：&nbsp;&nbsp; </td>
+                        <td align="left">$!{isbn}                
+                        </td>
+                    </tr>
+                    <tr  valign="top">
+                        ##springBind("shelve.bookInfo.name")
+                        <td align="right">书本名称：&nbsp;&nbsp; </td>
+                        <td >#springFormInput("shelve.bookInfo.name" 'size="45" maxlength="45"')
+                            #validationError()
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        ##springBind("bookInfo.author")
+                        <td align="right">作者：&nbsp;&nbsp;</td>
+                        <td >#springFormInput("shelve.bookInfo.author" 'size="45" maxlength="45"')
+                            #validationError()
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        ##springBind("bookInfo.publisher")
+                        <td align="right">出版社：&nbsp;&nbsp; </td>
+                        <td >#springFormInput("shelve.bookInfo.publisher" 'size="45" maxlength="45"')
+                            #validationError()
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        ##springBind("bookInfo.publishTime")
+                        <td align="right">出版时间：&nbsp;&nbsp; </td>
+                        <td >#parse("widget/yearMonthSelector.vm")
+                            #springFormHiddenInput("shelve.bookInfo.publishTime" 'size="45" maxlength="45" readonly="true" ')
+                            #validationError()
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        ##springBind("bookInfo.edition")
+                        <td align="right">版本：&nbsp;&nbsp; </td>
+                        <td >#springFormInput("shelve.bookInfo.edition" 'size="45" maxlength="45"')
+                            #validationError()
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        ##springBind("bookInfo.description")
+                        <td align="right">书本描述：&nbsp;&nbsp; </td>
+                        <td >#springFormTextarea("shelve.bookInfo.description" 'rows="5" cols="51"')
+                            #validationError()
+                        </td>
+                    </tr>
+#end
+                </tbody>
+            </table>
+            <table align="center">
+                <tbody>
+                    <tr valign="top">
+                        <td align="right">
+                            标签:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                            #springFormInput("shelve.bookItem.tags" 'size="45" maxlength="45" title="输入一些关键字方便其它人查找"')			
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            备注:&nbsp;&nbsp;
+                        </td>
+                        <td>
+                            #springFormTextarea("shelve.bookItem.remark" 'rows="5" cols="51" title="对你的书的情况说明"')			
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="hidden" name="imgUrl" value=""/>
+                        </td>
+                        <td colspan="1">
+                            <input  type="submit" value ="确定上架" onclick="javascript:getYearMonthDay('bookInfo.publishTime')"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+</tbody>
+</table>
+</form>
+
+##类目相关脚本
+	<style type="text/css">
+#shelveFormDiv input,textarea,select{
+  
+	border-top: 1px solid #71BF08;
+	border-left: 1px solid #71BF08;
+	border-bottom: 1px solid #D3F0AD;
+	border-right: 1px solid #D3F0AD;
+	padding: 1px;
+	color: #333;
+
+}
+
+#findIsbnDiv input{
+  
+	border-top: 1px solid #71BF08;
+	border-left: 1px solid #71BF08;
+	border-bottom: 1px solid #D3F0AD;
+	border-right: 1px solid #D3F0AD;
+	padding: 1px;
+	color: #333;
+}
+#shelveFormDiv td{
+	font-size: 14px;	
+	color: #71BF08;
+}
+#uploadImageRadio input{
+	border-top: 0px solid #71BF08;
+	border-left: 0px solid #71BF08;
+	border-bottom: 0px solid #D3F0AD;
+	border-right: 0px solid #D3F0AD;
+
+color: #333;
+}
+
+    #selectDiv{ 
+        width:420px;
+        height:220px;
+        background:#EDF1F8; 
+        border: 1px solid #D3F0AD;
+        float:left;
+        overflow:hidden;
+        position:absolute;
+        left:500px;
+        top:537px;
+        float:left;
+    }
+    .content{
+    padding:1px;
+    }
+</style>
+
+#end

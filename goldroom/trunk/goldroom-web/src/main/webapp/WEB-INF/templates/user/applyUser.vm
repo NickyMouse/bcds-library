@@ -1,0 +1,172 @@
+<style type="text/css">
+	input,textarea{
+	border-top: 1px solid #555;
+	border-left: 1px solid #555;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	padding: 1px;
+	color: #333;
+
+}
+td{
+	font-size: 14px;	
+	color: #71BF08;
+}
+</style>
+<script src="$SERVER_NAME/js/md5-min.js"></script>
+<script src="$SERVER_NAME/js/validation.js"></script>
+<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0"><tr><td align="center">
+
+<form action="/user/applyUser.htm" method="POST" name="applyForm">
+	<table width="80%" cellspacing="0" >
+		<tr>
+			#springBind("applyUser.loginId")
+			<td align="right" valign="top">用户名：</td>
+			<td>#springFormInput("applyUser.loginId" 'size="30" maxlength="45" title="用于登录系统时"')
+				<font color="red" size="2">*&nbsp;&nbsp;只能为英文字母,数字或者下划线</font>
+			#validationError()
+			</td>
+		</tr>
+		<tr>
+			#springBind("applyUser.name")
+			<td align="right" valign="top">真实姓名：</td>
+			<td>#springFormInput("applyUser.name" 'size="30" maxlength="45" title="请输入您的真实姓"')
+            <font color="red" size="2">*</font>
+			#validationError()
+			</td>
+		</tr>
+		<tr>
+			#springBind("applyUser.password")
+			<td align="right">密码：</td>
+			<td><input type = "password" name="password" id="password" size="31"/><font color="red" size="2"> *</font>
+			#validationError()
+			</td>
+		</tr>
+		<tr >
+			#springBind("applyUser.confirmPassword")
+            <td align="right">重复输入密码：</td>
+			<td><input type="password" name="confirmPassword" id="confirm" size="31"/><font color="red" size="2"> *</font>
+			#validationError()</td>
+        </tr>
+		<tr>
+			#springBind("applyUser.email")
+			<td align="right">邮箱地址：</td>
+			<td>#springFormInput("applyUser.email" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()
+			</td>
+		</tr>
+		<tr>
+				#springBind("applyUser.aliTalkId")
+			<td align="right">贸易通ID：</td>
+			<td>#springFormInput("applyUser.aliTalkId" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+				#validationError()</td>
+		</tr>
+		<tr>
+			#springBind("applyUser.workId")
+			<td align="right">工号：</td>
+			<td>#springFormInput("applyUser.workId" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()</td>
+		</tr>
+        <tr>
+			#springBind("applyUser.location")
+			<td align="right">座位号：</td>
+			<td>#springFormInput("applyUser.location" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()</td>
+		</tr>
+		<tr>
+			#springBind("applyUser.ext")
+			<td align="right">分机：</td>
+			<td>#springFormInput("applyUser.ext" 'size="30" maxlength="45"')<font color="red" size="2">*</font>
+			#validationError()</td>
+		</tr>
+		<tr><td></td><td  align="left">
+			<table onClick="javascript:check();" style="cursor: pointer;" border="0" cellpadding="0" cellspacing="0">	
+				<tbody><tr>
+					<td><img src="$SERVER_NAME/images/button_dark_left.gif" border="0"></td>
+							<td class="button_dark">提交申请	</td>
+					<td><img src="$SERVER_NAME/images/button_dark_right.gif" border="0"></td>		
+				</tr>
+			</tbody></table>
+			</td>
+		</tr>
+	</table>
+</form>
+</td></tr>
+</table>
+<script LANGUAGE="javascript">
+// 字符串两边去空
+function init() {
+	document.applyForm.loginId.value = document.applyForm.loginId.value.trim();
+	document.applyForm.name.value = document.applyForm.name.value.trim();
+	document.applyForm.email.value = document.applyForm.email.value.trim();
+	document.applyForm.aliTalkId.value = document.applyForm.aliTalkId.value.trim();
+	document.applyForm.workId.value = document.applyForm.workId.value.trim();
+	document.applyForm.location.value = document.applyForm.location.value.trim();
+	document.applyForm.ext.value = document.applyForm.ext.value.trim();
+}
+function check()
+{
+// 去除字符串两边空格
+	init();
+	if (document.applyForm.loginId.value == ""){
+		alert("请填写您的登录名！");
+		document.applyForm.loginId.focus()
+		return (false);
+	}
+	var loginFilter=/^\s*([A-Za-z0-9_]+)/;
+	if (!loginFilter.test(document.applyForm.loginId.value)){
+		alert("登录名只能为英文字母、数字、下划线组成");
+		return (false);
+	}
+	if (document.applyForm.name.value == ""){
+		alert("请填写您的用户名！");
+		document.form1.name.focus();
+		return (false);
+	}
+		if (!document.applyForm.password.value.isLegalPassword()) {
+		alert("密码不能含有汉字或空格");
+		document.applyForm.password.value = "";
+		document.applyForm.password.focus();
+		return (false);
+	}
+	if (document.applyForm.confirm.value.length ==0) {
+		alert("密码不能为空");		
+		document.applyForm.confirm.focus();
+		return (false);
+	}
+	if (!document.applyForm.confirm.value.isLegalPassword()) {
+		alert("密码不能含有汉字或空格");
+		document.applyForm.confirm.value = "";
+		document.applyForm.confirm.focus();
+		return (false);
+	}
+    if (document.applyForm.password.value != document.applyForm.confirm.value){
+        alert("两次填写的密码不一致，请重新填写！");
+        document.applyForm.password.focus();
+        document.applyForm.password.select();
+        return (false);
+	}
+
+	var filter=/^\s*([A-Za-z0-9_-]+(\.\w+)*@[.A-Za-z0-9_-]+(\w+\.)+\w{2,3})\s*$/;
+	if (!filter.test(document.applyForm.email.value)) {
+		alert("邮件地址不正确,请重新填写！");
+		document.applyForm.email.focus();
+		document.applyForm.email.select();
+		return (false);
+	}
+	if (document.applyForm.aliTalkId.value == ""){
+		alert("请填写您的贸易通ID！");
+		document.form1.aliTalkId.focus();
+		return (false);
+	}
+	if (document.applyForm.workId.value == ""){
+		alert("请填写您的工号！");
+		document.form1.workId.focus();
+		return (false);
+	}
+	document.applyForm.password.value = hex_md5(document.applyForm.password.value);
+	document.applyForm.confirm.value = hex_md5(document.applyForm.confirm.value);
+	
+	document.applyForm.submit();
+}
+</script>

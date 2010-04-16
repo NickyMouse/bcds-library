@@ -1,0 +1,140 @@
+<link rel="stylesheet" type="text/css" href="$SERVER_NAME/css/calendar.css" media="screen" />
+<script type="text/javascript" src="$SERVER_NAME/js/mootools.js"></script>
+<script type="text/javascript" src="$SERVER_NAME/js/calendar.rc4.js"></script>
+
+
+<table style="width: 80%;margin:auto;" cellspacing="3" cellpadding="0" border="0">
+  <tbody>
+    <tr>
+      <td colspan="2" align="center"><h1>$bookSearchInfo.bookName</h1></td>
+    </tr>
+    <tr>
+      <td width="300" align="right" valign="top">
+		#if($bookSearchInfo.bookImgUrl && !$bookSearchInfo.getBookImgUrl().equals(""))
+			<img id="bookCoverImage" class="detailBookImage" src="$UPLOAD_IMAGE_PATH/$bookSearchInfo.bookImgUrl"/>
+		#else
+			<img id="bookCoverImage" class="detailBookImage" src="$SERVER_NAME/images/noPhoto.png"/>
+		#end
+	  </td>
+      <td width="600"><table width="80%"">
+      	#if($!bookSearchInfo.bookAuthor)
+          <tr>
+            <td align="right" width="25%" valign="top"><strong>作者</strong>:&nbsp;&nbsp;</td>
+            <td align="left">$!bookSearchInfo.bookAuthor</td>
+          </tr>
+        #end
+        #if($!bookSearchInfo.bookIsbn)
+          <tr>
+            <td align="right"><strong>ISBN</strong>:&nbsp;&nbsp;</td>
+            <td align="left">$!bookSearchInfo.bookIsbn</td>
+          </tr>
+        #end
+        #if($!{bookSearchInfo.bookCategoryId})
+		   <tr>
+            <td align="right"><strong>类目</strong>:&nbsp;&nbsp;</td>
+            <td align="left">$!categoryCache.getFullName($!{bookSearchInfo.bookCategoryId},">>")</td>
+          </tr>
+        #end
+        #if($!bookSearchInfo.bookPublisher)
+          <tr>
+            <td align="right"><strong>出版社</strong>:&nbsp;&nbsp;</td>
+            <td align="left">$!bookSearchInfo.bookPublisher</td>
+          </tr>
+        #end
+        #if($!bookSearchInfo.bookPublishTime)
+          <tr>
+            <td align="right"><strong>出版时间</strong>:&nbsp;&nbsp;</td>
+            <td align="left">$!dateTool.format("yyyy-MM",$!bookSearchInfo.bookPublishTime)</td>
+          </tr>
+        #end
+        #if($!bookSearchInfo.bookEdition && $!bookSearchInfo.bookEdition.length() > 0)
+          <tr>
+            <td align="right"><strong>版次</strong>:&nbsp;&nbsp;</td>
+            <td align="left">$!bookSearchInfo.bookEdition</td>
+          </tr>
+        #end
+        #if($!bookSearchInfo.bookPages)
+          <tr>
+            <td align="right"><strong>页数</strong>:&nbsp;&nbsp;</td>
+            <td align="left">$!bookSearchInfo.bookPages</td>
+          </tr>
+        #end
+        #if($!bookSearchInfo.bookTranslator)
+          <tr>
+            <td align="right"><strong>译者</strong>:&nbsp;&nbsp;</td>
+            <td align="left">$!bookSearchInfo.bookTranslator</td>
+          </tr>
+        #end
+        #if($!bookSearchInfo.bookDescription)
+          <tr>
+            <td align="right" valign="top"><strong>描述</strong>:&nbsp;&nbsp;</td>
+            <td align="left"><p>$!bookSearchInfo.bookDescription
+            </p></td>
+          </tr>
+        #end
+		  <tr>
+            <td colspan="2">
+            	<div style="position:relative;left:80px">
+				#if($!bookSearchInfo.bookIsbn)
+					<a href="$SERVER_NAME/user/shelveForm.htm?isbn=$!bookSearchInfo.bookIsbn">我也有这本书，我要上架</a>
+				#end
+				</div>
+			</td>
+		  </tr>
+        </table></td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+#if($bookItemList.size()>0)
+<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="1" bordercolor="#cce4a3" >
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><h1>拥有该书的人</h1></td>
+    </tr>
+    <tr align="center">
+      <td class="lines" width="15%" valign="top" bgcolor="#ACD36B">姓名</td>
+      <td class="lines" width="15%" valign="top" bgcolor="#ACD36B">上架时间</td>
+      <td class="lines" width="15%" valign="top" bgcolor="#ACD36B">旺旺</td>
+      <td class="lines" width="15%" valign="top" bgcolor="#ACD36B">&nbsp;</td>
+    </tr>
+	#foreach($bookItem in $bookItemList)
+		#if(!$bookItem.getState().equals("unavailable"))
+			#foreach($owner in $ownerInfoList)
+				#if($owner.getLoginId().equals($bookItem.getLoginId()))
+	            <tr align="center">
+	        		<td>$owner.name
+	        		</td>
+	              <td>$dateTool.format("yyyy-MM-dd",$bookItem.addTime)</td>
+	              <td>
+	        		<A href=" http://web.im.alisoft.com/msg.aw?v=2&amp;uid=$owner.aliTalkId&amp;site=cnalichn&amp;s=1" target=_blank><IMG border=0 alt=点击这里给我发消息 src=" http://web.im.alisoft.com/online.aw?v=2&amp;uid=$owner.aliTalkId&amp;site=cnalichn&amp;s=1"></A>
+	        	  </td>
+	              <td align="center">
+					
+					#if($bookItem.getState().equals("idle"))
+	                    <a id="reserveLink${bookItem.id}" onclick="document.getElementById('reserveForm${bookItem.id}').style.display=''; this.style.display='none';new Calendar({ lendTime$bookItem.id: 'Y-m-d' }, { direction: 1, tweak: {x: 6, y: -20} }); new Calendar({ returnTime$bookItem.id: 'Y-m-d' }, { direction: 1, tweak: {x: 6, y: -20} });" style="cursor:pointer;">预约</a>
+						<form action="/user/reserveBook.htm" name="reserveForm" method="POST" style="display:none;" id="reserveForm$bookItem.id">
+	                       
+	                        <label for="lendTime$bookItem.id">借阅时间</label><input type="text" name="lendTime" id="lendTime$bookItem.id" value="" readonly="true"/>
+							<br/>
+	                        <label for="returnTime$bookItem.id">归还时间</label><input type="text" name="returnTime" id="returnTime$bookItem.id" value="" readonly="true"/>
+							<br/>
+							<input type="submit" value="确定"/>
+							
+							<input type="hidden" name="bookItemId" id="bookItemId" value="$bookItem.id"/>
+						</form>	
+						
+					#else
+							不能预约
+					#end
+	              </td>
+	            </tr>
+				#end
+			#end
+		#end
+	#end
+  </tbody>
+</table>
+#end
+</br>

@@ -1,0 +1,84 @@
+<table style="width: 80%;margin:auto;" cellspacing="0" cellpadding="3" border="0">
+  <tbody>
+
+    <tr width="100%">
+      <td align="center">
+		<div id="findIsbnDiv">
+          <table>			
+            <tr rowspan="2">
+              <td style="font-size: 14px;color:#ACD674">请填写要上架书籍的ISBN:</td>
+              <td><input  type="text" name="_isbn" id="_isbn" value="" />
+                <input type="button" id="ok" value="確　定" onclick="javascript: getShelveForm();" />
+                <input type="button" value="取　消" onclick="window.location.href='$SERVER_NAME/home.htm'"/>
+              </td>
+            </tr>       
+          </table>
+        </div>
+		  <hr/>
+        </td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+<!--
+function getShelveForm()
+{
+
+   var isbn=document.getElementById("_isbn").value;
+   window.location.href="$SERVER_NAME/user/shelveForm.htm?isbn="+isbn; 
+}
+	-->
+    
+</script>
+##类目相关脚本
+	<style type="text/css">
+#shelveFormDiv input,textarea,select{
+  
+	border-top: 1px solid #71BF08;
+	border-left: 1px solid #71BF08;
+	border-bottom: 1px solid #D3F0AD;
+	border-right: 1px solid #D3F0AD;
+	padding: 1px;
+	color: #333;
+
+}
+
+#findIsbnDiv input{
+  
+	border-top: 1px solid #71BF08;
+	border-left: 1px solid #71BF08;
+	border-bottom: 1px solid #D3F0AD;
+	border-right: 1px solid #D3F0AD;
+	padding: 1px;
+	color: #333;
+}
+#shelveFormDiv td{
+	font-size: 14px;	
+	color: #71BF08;
+}
+#uploadImageRadio input{
+	border-top: 0px solid #71BF08;
+	border-left: 0px solid #71BF08;
+	border-bottom: 0px solid #D3F0AD;
+	border-right: 0px solid #D3F0AD;
+
+color: #333;
+}
+
+    #selectDiv{ 
+        width:420px;
+        height:220px;
+        background:#EDF1F8; 
+        border: 1px solid #D3F0AD;
+        float:left;
+        overflow:hidden;
+        position:absolute;
+        left:500px;
+        top:537px;
+        float:left;
+    }
+    .content{
+    padding:1px;
+    }
+</style>
