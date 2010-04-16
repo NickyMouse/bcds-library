@@ -1,2 +1,0 @@
-#set($bookInfo=$bookItem.bookInfo)
-#parse("widget/bookInfoDetail.vm")

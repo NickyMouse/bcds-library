@@ -1,5 +1,0 @@
-#macro(validationError)
-	#foreach($err in $status.errorMessages)
-		<br/><font color="red">$err</font>
-	#end
-#end
