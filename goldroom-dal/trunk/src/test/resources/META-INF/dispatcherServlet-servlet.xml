@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:flex="http://www.springframework.org/schema/flex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+ 		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd"
+	default-autowire="byType">
+
+
+	<bean id="propertyConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>file:${user.home}/goldroom.properties</value>
+		</property>
+	</bean>
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.alibaba.intl.goldroom" />
+
+	<tx:annotation-driven transaction-manager="transactionManager"
+		mode="proxy" />
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/goldroom" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="goldroomPU" />
+	</bean>
+	<bean id="memberDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.MemberDaoImpl">
+	</bean>
+	<bean id="bookItemDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.BookItemDaoImpl">
+	</bean>
+	<bean id="bookInfoDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.BookInfoDaoImpl" />
+	<bean id="bookItemLogDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.BookItemLogDaoImpl" />
+	<bean id="categoryDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.CategoryDaoImpl" />
+	<bean id="lendingDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.LendingDaoImpl" />
+	<bean id="reservationDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.ReservationDaoImpl" />
+	<bean id="memberLogDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.MemberLogDaoImpl" />
+	<bean id="integralDao" class="com.alibaba.intl.goldroom.dao.impl.IntegralDaoImpl" />
+
+</beans>
