@@ -103,7 +103,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>org.springframework.context</artifactId>
 			<version>${spring.version}</version>
-			<type>pom</type>
 		</dependency>
 	</dependencies>
 	<build>
