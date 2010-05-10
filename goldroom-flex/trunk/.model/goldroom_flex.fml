@@ -13,9 +13,9 @@
     <annotation name="ServiceConfig">
       <item name="DEFAULT_ENTITY_PACKAGE">com.alibaba.intl.goldroom.flex.dataobject</item>
       <item name="contextRoot">/</item>
-      <item name="rootUrl">http://localhost:8080</item>
+      <item name="rootUrl">http://athena.hz.ali.com:8080</item>
       <item name="LINKED_FILE"></item>
-      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080//messagebroker/amf</item>
+      <item name="ABSOLUTE_ENDPOINT">http://athena.hz.ali.com:8080//messagebroker/amf</item>
     </annotation>
     <annotation name="ServiceTypeGroup">
       <item name="ServiceBackendType">BlazeDS</item>
@@ -111,9 +111,9 @@
     <annotation name="ServiceConfig">
       <item name="DEFAULT_ENTITY_PACKAGE">com.alibaba.intl.goldroom.flex.dataobject</item>
       <item name="contextRoot">/</item>
-      <item name="rootUrl">http://localhost:8080</item>
+      <item name="rootUrl">http://athena.hz.ali.com:8080</item>
       <item name="LINKED_FILE"></item>
-      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080//messagebroker/amf</item>
+      <item name="ABSOLUTE_ENDPOINT">http://athena.hz.ali.com:8080//messagebroker/amf</item>
     </annotation>
     <annotation name="ServiceTypeGroup">
       <item name="ServiceBackendType">BlazeDS</item>
@@ -275,9 +275,9 @@
     <annotation name="ServiceConfig">
       <item name="DEFAULT_ENTITY_PACKAGE">com.alibaba.intl.goldroom.flex.dataobject</item>
       <item name="contextRoot">/</item>
-      <item name="rootUrl">http://localhost:8080</item>
+      <item name="rootUrl">http://athena.hz.ali.com:8080</item>
       <item name="LINKED_FILE"></item>
-      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080//messagebroker/amf</item>
+      <item name="ABSOLUTE_ENDPOINT">http://athena.hz.ali.com:8080//messagebroker/amf</item>
     </annotation>
     <annotation name="ServiceTypeGroup">
       <item name="ServiceBackendType">BlazeDS</item>
@@ -389,9 +389,9 @@
     <annotation name="ServiceConfig">
       <item name="DEFAULT_ENTITY_PACKAGE">com.alibaba.intl.goldroom.flex.dataobject</item>
       <item name="contextRoot">/</item>
-      <item name="rootUrl">http://localhost:8080</item>
+      <item name="rootUrl">http://athena.hz.ali.com:8080</item>
       <item name="LINKED_FILE"></item>
-      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080//messagebroker/amf</item>
+      <item name="ABSOLUTE_ENDPOINT">http://athena.hz.ali.com:8080//messagebroker/amf</item>
     </annotation>
     <annotation name="ServiceTypeGroup">
       <item name="ServiceBackendType">BlazeDS</item>
@@ -473,9 +473,9 @@
     <annotation name="ServiceConfig">
       <item name="DEFAULT_ENTITY_PACKAGE">com.alibaba.intl.goldroom.flex.dataobject</item>
       <item name="contextRoot">/</item>
-      <item name="rootUrl">http://localhost:8080</item>
+      <item name="rootUrl">http://athena.hz.ali.com:8080</item>
       <item name="LINKED_FILE"></item>
-      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080//messagebroker/amf</item>
+      <item name="ABSOLUTE_ENDPOINT">http://athena.hz.ali.com:8080//messagebroker/amf</item>
     </annotation>
     <annotation name="ServiceTypeGroup">
       <item name="ServiceBackendType">BlazeDS</item>
