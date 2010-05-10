@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="210" height="36" xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+
+	<fx:Script>
+		<![CDATA[
+			import com.alibaba.intl.goldroom.flex.dataobject.Member;
+			import com.goldroom.flex.component.user.ApplyUser;
+			import com.goldroom.flex.data.RunData;
+			import com.goldroom.flex.home.Home;
+			import mx.controls.Alert;
+			
+			import spark.events.TextOperationEvent;
+			protected function signinBtn_clickHandler(event:MouseEvent):void
+			{
+				this.signPanel.visible = !this.signPanel.visible;
+				this.logindErrorMsg.text = "";
+			}
+			
+			protected function cancelBtn_clickHandler(event:MouseEvent):void
+			{
+				this.signPanel.visible = false;
+			}
+			
+			public function hideSigninBtn ():void 
+			{
+				this.signPanel.visible = false;
+			}
+
+			protected function registerBtn_clickHandler(event:MouseEvent):void
+			{
+				ApplyUser.popApplyWin(root);
+			}
+			
+			
+			protected function signBtn_clickHandler(event:MouseEvent):void
+			{
+				if(loginId.text.length == 0){
+					loginId.errorString = "请输入用户名";
+					signBtn.errorString = "请输入用户名";
+					return;
+				} else{
+					loginId.errorString = "";
+					signBtn.errorString = "";
+				}
+				
+				if(password.text.length == 0){
+					password.errorString = "请输入密码";
+					signBtn.errorString = "请输入密码";
+					return;
+				} else{
+					loginId.errorString = "";
+					signBtn.errorString = "";
+				}
+
+				loginResult.token = memberService.login(loginId.text, password.text);				
+			}
+			protected function loginIdDone():void{
+				if(loginResult.lastResult != null){
+					RunData.getRunData().putData("loginUser",loginResult.lastResult);
+					signinBtn.visible = false;
+					registerBtn.visible = false;
+					signPanel.visible = false;
+					signoutBtn.visible = true;
+					welcomeLabel.text = "欢迎 " + loginResult.lastResult.name;
+					welcomeLabel.visible = true;
+					Home.getHome().afterLogin();
+				} else {
+					logindErrorMsg.text = "用户名或密码不正确，请重新输入";
+					password.text = "";
+				}
+			}
+
+			protected function signoutBtn_clickHandler(event:MouseEvent):void
+			{
+				RunData.getRunData().putData("loginUser",null);
+				Home.getHome().afterLogout();
+				signoutBtn.visible = false;
+				welcomeLabel.visible = false;
+				
+				signinBtn.visible = true;
+				registerBtn.visible = true;
+				
+				welcomeLabel.text = "";
+			}
+
+
+			protected function loginId_focusOutHandler(event:FocusEvent):void
+			{
+				if(loginId.text.length == 0){
+					loginId.errorString = "请输入用户名";
+				} else{
+					loginId.errorString = "";
+				}
+			}
+
+
+			protected function password_focusOutHandler(event:FocusEvent):void
+			{
+				if(password.text.length == 0){
+					password.errorString = "请输入密码";
+				} else{
+					password.errorString = "";
+				}
+			}
+
+		]]>
+	</fx:Script>
+	
+
+	<fx:Declarations>
+		<s:CallResponder id="loginResult" result="loginIdDone()"/>
+		<services:MemberService id="memberService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+	</fx:Declarations>
+	
+	<mx:Label  x="50" y="3" text="Welcome " id="welcomeLabel" visible="false"/>
+	<mx:LinkButton x="140" y="1" label="登出" id="signoutBtn" visible="false" click="signoutBtn_clickHandler(event)"/>
+	
+	<mx:LinkButton x="140" y="1" label="登录" id="signinBtn" click="signinBtn_clickHandler(event)" visible="true"/>
+	
+	<s:BorderContainer x="-23" y="34" width="210" height="155" cornerRadius="15" id="signPanel" visible="true">
+		<s:Label x="25" y="10" text="用户名"/>
+		<s:TextInput x="25" y="25" id="loginId" width="160" focusOut="loginId_focusOutHandler(event)"/>
+		
+		<s:Label x="25" y="55" text="密码"/>
+		<s:TextInput x="25" y="70" id="password" width="160" displayAsPassword="true" focusOut="password_focusOutHandler(event)"/>
+		
+		<s:Label x="20" y="100" text="" color="#FF0000" id="logindErrorMsg"/>
+		
+		<s:Button x="26" y="118" label="登录" id="signBtn" click="signBtn_clickHandler(event)"/>
+		<s:Button x="115" y="118" label="取消" id="cancelBtn" click="signPanel.visible=false;"/>
+	</s:BorderContainer>
+	<mx:LinkButton x="75" y="1" label="注册" id="registerBtn" click="registerBtn_clickHandler(event)"/>
+	<s:Label x="130" y="7" text="|"/>
+</s:Group>

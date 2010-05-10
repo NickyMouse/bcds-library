@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="622" height="485" xmlns:component="com.goldroom.flex.component.*" xmlns:services="com.alibaba.intl.goldroom.flex.services.*" implements="com.goldroom.flex.script.page.IPageNavigator" xmlns:page="com.goldroom.flex.component.page.*">
+	<fx:Script>
+		<![CDATA[
+			import com.alibaba.intl.goldroom.flex.dataobject.BookItem;
+			import com.goldroom.flex.component.BookDetail;
+			import com.goldroom.flex.data.RunData;
+			import com.goldroom.flex.script.page.IPageNavigator;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.controls.advancedDataGridClasses.AdvancedDataGridItemRenderer;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import spark.events.IndexChangeEvent;
+		
+			protected var currentPage:int = 1;
+			protected var totalCount:int = 1;
+		
+			private var comboBoxItems:ArrayCollection = new ArrayCollection([
+				{label:"全部", value:"all"},
+				{label:"空闲", value:"idle"},
+				{label:"被预约", value:"reservated"},
+				{label:"被借阅", value:"lended"},
+				{label:"已下架", value:"unavailable"}]);
+			
+			protected function bookList_creationCompleteHandler(event:FlexEvent):void
+			{
+				var loginId:String  =  RunData.getRunData().getLoginUser().loginId;
+				listBookItemsByLoginIdAndStateResult.token = bookItemService.listBookItemsByLoginIdAndState(loginId, "all", currentPage, RunData.getRunData().getPageSize());
+				pageNavigator.setPageNavigator(this);
+			}
+			
+
+			protected function getColumnValue(item:Object, column:AdvancedDataGridColumn):String{
+				if(column.dataField == "bookName"){
+					return BookItem(item).bookInfo.name;		
+				} else if(column.dataField == "author"){
+					return BookItem(item).bookInfo.author;
+				} else if(column.dataField == "state"){
+					var state:String = BookItem(item).state;
+					if (state == "idle") {
+						return "空闲";
+					} else if (state == "unavailable") {
+						return "已下架";
+					} else if (state == "lended"){
+						return "被借阅";
+					} else if(state == "reservated") {
+						return "被预约";
+					}
+				}
+				return "";
+			}
+			
+			public function refresh():void{
+				var loginId:String  =  RunData.getRunData().getLoginUser().loginId;
+				listBookItemsByLoginIdAndStateResult.token = bookItemService.listBookItemsByLoginIdAndState(loginId, "all", currentPage, RunData.getRunData().getPageSize());
+				this.bookStateCombobox.selectedIndex = 0;
+				optionPane.visible = false;
+				pageNavigator.setPageNavigator(this);
+			}
+
+			protected function listBookItemsByLoginIdAndStateResult_resultHandler(event:ResultEvent):void
+			{
+				showResult(listBookItemsByLoginIdAndStateResult.lastResult.totalCount);
+				if(listBookItemsByLoginIdAndStateResult.lastResult.totalCount == 0){
+					return;
+				}
+				this.totalCount =  listBookItemsByLoginIdAndStateResult.lastResult.totalCount;
+				var list:ArrayCollection = listBookItemsByLoginIdAndStateResult.lastResult.itemList;
+				var imgUrls:ArrayList = new ArrayList();
+				var descs:ArrayList = new ArrayList();
+				var bookInfoIds:ArrayList = new ArrayList(); 
+				for(var i:int = 0; i < list.length; i++) {
+					imgUrls.addItem(BookItem(list.getItemAt(i)).bookInfo.imgUrl);
+					descs.addItem(BookItem(list.getItemAt(i)).bookInfo.name);
+					bookInfoIds.addItem(BookItem(list.getItemAt(i)).bookInfo.id);
+				}
+				pageNavigator.refresh();
+				optionPane.visible = false;
+				gallery.createImagesList(imgUrls, descs, bookInfoIds, false, true);
+			}
+
+
+			protected function bookStateCombobox_changeHandler(event:IndexChangeEvent):void
+			{
+				var state:String = bookStateCombobox.selectedItem.value;
+				var loginId:String  =  RunData.getRunData().getLoginUser().loginId;
+				listBookItemsByLoginIdAndStateResult.token = bookItemService.listBookItemsByLoginIdAndState(loginId, state, currentPage, RunData.getRunData().getPageSize());
+			}
+
+
+			protected function bookListDataGrid_clickHandler(event:MouseEvent):void
+			{
+				if(event.target is AdvancedDataGridItemRenderer && bookListDataGrid.selectedIndex >= 0){
+					var bookItem:BookItem = bookListDataGrid.selectedItem as BookItem;
+					if(bookItem.state == "reservated" || bookItem.state == "lended") {
+						optionPane.initData(bookItem);
+					} else {
+						optionPane.visible = false;
+					}
+				}
+			}
+			
+			public function turnToPage(page:int):void{
+				var state:String = bookStateCombobox.selectedItem.value;
+				var loginId:String  =  RunData.getRunData().getLoginUser().loginId;
+				this.currentPage = page;
+				listBookItemsByLoginIdAndStateResult.token = bookItemService.listBookItemsByLoginIdAndState(loginId, state, page, RunData.getRunData().getPageSize());
+			}
+			public function getCurrentPage():int {
+				return this.currentPage;
+			}
+			
+			public function getTotalCount():int{
+				return this.totalCount;
+			}
+			
+
+			protected function bookListDataGrid_doubleClickHandler(event:MouseEvent):void
+			{
+				if(event.target is AdvancedDataGridItemRenderer && bookListDataGrid.selectedIndex >= 0){
+					BookDetail.popDetailWin(root, bookListDataGrid.selectedItem.bookInfo.id, false, true);
+				}
+			}
+			
+			protected function showResult(resultCount:int){
+				if(resultCount == 0){
+					noResultLabel.visible = true;
+					bookListDataGrid.visible = false;
+					gallery.visible = false;
+					pageNavigator.visible = false;
+				} else {
+					noResultLabel.visible = false;
+					bookListDataGrid.visible = true;
+					gallery.visible = true;
+					pageNavigator.visible = true;
+				}
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="listBookItemsByLoginIdAndStateResult" result="listBookItemsByLoginIdAndStateResult_resultHandler(event)"/>
+		<services:BookItemService id="bookItemService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+	</fx:Declarations>
+	<mx:AdvancedDataGrid x="0" y="237" id="bookListDataGrid" designViewDataType="flat" width="622" height="249" doubleClick="bookListDataGrid_doubleClickHandler(event)" creationComplete="bookList_creationCompleteHandler(event)" dataProvider="{listBookItemsByLoginIdAndStateResult.lastResult.itemList}" click="bookListDataGrid_clickHandler(event)">
+		<mx:columns>
+			<mx:AdvancedDataGridColumn headerText="书名" dataField="bookName" labelFunction="getColumnValue" sortable="false"/>
+			<mx:AdvancedDataGridColumn headerText="作者" dataField="author" labelFunction="getColumnValue" sortable="false"/>
+			<mx:AdvancedDataGridColumn headerText="状态" dataField="state" labelFunction="getColumnValue" width="80"/>
+		</mx:columns>
+	</mx:AdvancedDataGrid>
+	<component:Gallery id="gallery" x="10" y="33" height="200">
+	</component:Gallery>
+	<s:ComboBox x="41" y="4"  width="100" dataProvider="{comboBoxItems}" selectedIndex="0" id="bookStateCombobox" change="bookStateCombobox_changeHandler(event)">
+	</s:ComboBox>
+	<s:Label x="10" y="11" text="状态"/>
+	
+	<page:PageNavigator x="236" y="4" id="pageNavigator">
+	</page:PageNavigator>
+	<component:OptionPane x="615" y="268" id="optionPane" visible="false">
+	</component:OptionPane>
+	<s:Label x="273" y="53" width="76" text="无符合结果" id="noResultLabel" height="17" fontSize="14" visible="false"/>
+</s:Group>

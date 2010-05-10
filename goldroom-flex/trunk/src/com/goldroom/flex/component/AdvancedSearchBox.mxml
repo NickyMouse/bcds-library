@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Label x="149" y="23" text="Advanced Search"/>
+	<s:Label x="90" y="68" text="Book Name:"/>
+	<s:Label x="103" y="113" text="Publisher:"/>
+	<s:Label x="128" y="157" text="ISBN:"/>
+	<s:Label x="93" y="196" text="Description:"/>
+	<s:TextInput x="177" y="61" id="bookName" width="130"/>
+	<s:TextInput x="177" y="106" id="publisher" width="130"/>
+	<s:TextInput x="177" y="150" id="isbn" width="130"/>
+	<s:TextInput x="177" y="189" id="description" width="130"/>
+	<s:Button x="165" y="242" label="Search" id="searchBtn"/>
+</s:Group>

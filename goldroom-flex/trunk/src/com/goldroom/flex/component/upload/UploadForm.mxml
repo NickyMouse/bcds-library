@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="544" height="484" xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+	<fx:Script>
+		<![CDATA[
+			import com.alibaba.intl.goldroom.flex.dataobject.BookInfo;
+			import com.alibaba.intl.goldroom.flex.dataobject.BookItem;
+			import com.goldroom.flex.data.RunData;
+			
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import spark.components.supportClasses.SkinnableTextBase;
+			
+			
+			protected var foundBookInfo:BookInfo;
+			protected function findBookBtn_clickHandler(event:MouseEvent):void
+			{
+				if(this.isbnInput.text.length > 0){
+					findBookInfoByIsbnResult.token = bookInfoService.findBookInfoByIsbn(this.isbnInput.text);
+					this.isbnInput.errorString = "";
+					this.findBookBtn.errorString = "";
+				} else {
+					this.isbnInput.errorString = "请输入ISBN";
+					this.findBookBtn.errorString = "请输入ISBN";
+				}
+				
+			}
+			
+
+			protected function findBookInfoByIsbnResult_resultHandler(event:ResultEvent):void
+			{
+				if(findBookInfoByIsbnResult.lastResult == null){
+					findBookInfoByIsbnFromRemoteResult.token = bookInfoService.getBookInfoFromDbAndNetWork(this.isbnInput.text);
+				} else {
+					fillForm(findBookInfoByIsbnResult.lastResult);
+				}
+			}
+
+			protected function fillForm(bookInfo:BookInfo):void{
+				this.foundBookInfo = bookInfo;
+				fillField(this.bookNameInput, bookInfo.name);
+				fillField(this.authorInput, bookInfo.author);
+				fillField(this.publisherInput, bookInfo.publisher);
+				fillField(this.editionInput, bookInfo.edition);
+				fillField(this.descriptionInput, bookInfo.description);
+				fillField(this.authorInput, bookInfo.author);
+				
+				if(bookInfo.publishTime != null){
+					var data:Date = bookInfo.publishTime;
+					this.publishTimeInput.text = (data.getMonth()+1) +"/" + data.getDate()+ "/"+ data.getFullYear();
+					this.publishTimeInput.editable = false;
+				}
+				
+				if(bookInfo.imgUrl != null && bookInfo.imgUrl.length > 0) {
+					this.bookImage.source = RunData.getRunData().getData("imgPath")+bookInfo.imgUrl;
+					uploadCoverBtn.visible = false;
+				}
+				this.bookImage.toolTip = bookInfo.name;
+				form.visible = true;
+			}
+			
+			protected function fillField(input:SkinnableTextBase, value:String):void{
+				if(value != null && value.length > 0){
+					input.text = value;
+					input.editable = false;
+				} else {
+					input.editable = true;
+					//input.errorString = "请填写";
+				}
+			}
+			
+			protected function findBookInfoByIsbnFromRemoteResult_resultHandler(event:ResultEvent):void
+			{
+				if(findBookInfoByIsbnFromRemoteResult.lastResult == null){
+					Alert.show("找不到相关信息");
+					form.visible = true;
+				} else {
+					fillForm(findBookInfoByIsbnFromRemoteResult.lastResult);
+				}
+			}
+
+
+			protected function form_creationCompleteHandler(event:FlexEvent):void
+			{
+				form.visible = false;
+			}
+
+			
+			protected function saveBtn_clickHandler(event:MouseEvent):void
+			{
+				var bookItem:BookItem = new BookItem();
+				if(this.foundBookInfo != null) {
+					bookItem.bookInfo = this.foundBookInfo;
+					bookItem.addTime = new Date();
+					bookItem.firstAddTime = new Date();
+					bookItem.member = RunData.getRunData().getLoginUser();
+					bookItem.remark = this.remarkInput.text;
+					bookItem.tags = this.tagsInput.text;
+				}
+				addBookItemResult.token = bookItemService.addBookItem(bookItem);
+			}
+			
+
+			protected function addBookItemResult_resultHandler(event:ResultEvent):void
+			{
+				Alert.show("成功分享");
+				this.form.visible = false;
+				this.isbnInput.text = "";
+			}
+			public function resert(): void{
+				this.form.visible = false;
+				this.isbnInput.text = "";
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="findBookInfoByIsbnFromRemoteResult" result="findBookInfoByIsbnFromRemoteResult_resultHandler(event)"/>
+		<s:CallResponder id="findBookInfoByIsbnResult" result="findBookInfoByIsbnResult_resultHandler(event)"/>
+		<services:BookInfoService id="bookInfoService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+		<s:CallResponder id="addBookItemResult" result="addBookItemResult_resultHandler(event)"/>
+		<services:BookItemService id="bookItemService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Label x="103" y="16" text="ISBN:"/>
+	<s:TextInput x="140" y="10" id="isbnInput"/>
+	<s:Button x="297" y="10" label="检索" id="findBookBtn" click="findBookBtn_clickHandler(event); findBookBtn_clickHandler(event)"/>
+	
+	<s:BorderContainer id="form" creationComplete="form_creationCompleteHandler(event)" width="429" height="433" y="41" x="48">
+		<s:Label x="47" y="12" text="书名:"/>
+		<s:TextInput x="90" y="10" id="bookNameInput"/>
+		
+		
+		<s:Label x="45" y="43" text="作者:"/>
+		<s:TextInput x="90" y="41" id="authorInput"/>
+		
+		<s:Label x="36" y="79" text="出版社:"/>
+		<s:TextInput x="90" y="73" id="publisherInput"/>
+		
+		<s:Label x="27" y="190" text="出版日期:"/>
+		<mx:DateField x="89" y="183" width="106" id="publishTimeInput"/>
+		
+		<s:Label x="46" y="111" text="版本:"/>
+		<s:TextInput x="90" y="106" id="editionInput"/>
+		
+		<s:Label x="47" y="263" text="描述:"/>
+		<s:TextArea x="87" y="221" width="320" height="72" id="descriptionInput"/>
+		
+		<s:Label x="50" y="148" text="标签:"/>
+		<s:TextInput x="89" y="142" width="126" id="tagsInput"/>
+		
+		<s:Label x="45" y="332" text="备注:"/>
+		<s:TextArea x="88" y="304" width="319" height="70" id="remarkInput"/>	
+		
+		<mx:Image width="142" height="176" id="bookImage" verticalCenter="-122" horizontalCenter="128" verticalAlign="middle" horizontalAlign="center"/>
+		<s:Button x="307" y="187" label="上传封面" id="uploadCoverBtn"/>
+		<s:Button x="194" y="389" label="保存" id="saveBtn" click="saveBtn_clickHandler(event)"/>
+	</s:BorderContainer>
+	
+</s:Group>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="230" height="24">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.goldroom.flex.script.page.IPageNavigator
+			protected var navigator:IPageNavigator;
+			protected var pageSize:int = 8;
+			protected var totalPage:int = 1;
+			
+			public function setPageNavigator(navigator:IPageNavigator):void
+			{
+				this.navigator = navigator;
+			}
+			
+
+			protected function prePage_clickHandler(event:MouseEvent):void
+			{
+				if(navigator.getCurrentPage() > 1){
+					navigator.turnToPage(navigator.getCurrentPage() - 1);
+				}
+			}
+
+
+			protected function nextPage_clickHandler(event:MouseEvent):void
+			{
+				if(getTotalPage() > navigator.getCurrentPage()){
+					navigator.turnToPage(navigator.getCurrentPage() + 1);
+				}
+			}
+			protected function getTotalPage():int {
+				totalPage = Math.ceil(navigator.getTotalCount()/8);
+				return totalPage;
+			}
+			
+			public function refresh():void{
+				if(navigator == null){
+					return;
+				}
+				
+				if(navigator.getCurrentPage() <= 1){
+					this.prePage.visible = false;
+				} else {
+					this.prePage.visible = true;
+				}
+				
+				if(getTotalPage() < navigator.getCurrentPage() + 1){
+					this.nextPage.visible = false;
+				} else {
+					this.nextPage.visible = true;
+				}
+				
+				totalPage = Math.ceil(navigator.getTotalCount()/8);
+				pageInfo.text = navigator.getCurrentPage().toString() + "/" + totalPage.toString();
+			}
+		]]>
+	</fx:Script>
+	<mx:LinkButton x="0" y="-2" label="&lt;&lt;上一页" id="prePage" click="prePage_clickHandler(event)" visible="false"/>
+	<mx:LinkButton x="78" y="-2" label="下一页&gt;&gt;" id="nextPage" click="nextPage_clickHandler(event)" visible="false"/>
+	<s:Label x="205" y="6" id="pageInfo"/>
+	
+</s:Group>

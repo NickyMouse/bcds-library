@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="130" height="180">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.goldroom.flex.data.RunData;
+			private var bookInfoId:int;
+			private var fromSearch:Boolean;
+			private var isMy:Boolean;
+			protected var fullDesc:String;
+			public function createImageItem(imageUrl:String, desc:String, bookInfoId:int, fromSearch:Boolean, isMy:Boolean):void{
+				this.img.source =  RunData.getRunData().getStringData("imgPath") + imageUrl;
+				this.img.toolTip = desc;
+				this.desc.toolTip = desc;
+				this.bookInfoId = bookInfoId;
+				this.fromSearch = fromSearch;
+				this.isMy = isMy;
+				fullDesc = desc;
+				if(desc.length > 9) {
+					this.desc.text = desc.substr(0,8) + "...";
+				} else {
+					this.desc.text = desc;
+				}
+				this.addEventListener(MouseEvent.CLICK,showBookDetail);
+			}
+			protected function showBookDetail(event:MouseEvent):void{
+				BookDetail.popDetailWin(root, this.bookInfoId, fromSearch, this.isMy);
+			}
+			
+			public function createImageItemWithoutLabel(imageUrl:String, desc:String, bookInfoId:int, fromSearch:Boolean, isMy:Boolean):void{
+				this.img.source =  RunData.getRunData().getStringData("imgPath") + imageUrl;
+				this.img.toolTip = desc;
+				this.bookInfoId = bookInfoId;
+				this.fromSearch = fromSearch;
+				this.isMy = isMy;
+				this.addEventListener(MouseEvent.CLICK,showBookDetail);
+				this.desc.visible = false;	
+			}
+		]]>
+	</fx:Script>
+	<s:Label x="5" y="160" text="" verticalAlign="middle" textAlign="center" width="120" height="16" id="desc"/>
+	<mx:Image width="120" height="150" id="img" verticalCenter="-10" horizontalCenter="0" verticalAlign="middle" horizontalAlign="center"/>
+</s:Group>

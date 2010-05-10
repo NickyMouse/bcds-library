@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="244" height="192" xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+	<fx:Declarations>
+		
+		<services:LendService id="lendService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+		<services:ReservationService id="reservationService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+		<s:CallResponder id="listLendingByBookItemIdResult" result="listLendingByBookItemIdResult_resultHandler(event)"/>
+		<s:CallResponder id="listReservationByBookItemIdResult" result="listReservationByBookItemIdResult_resultHandler(event)"/>
+		<s:CallResponder id="lendResult" result="lendResult_resultHandler(event)"/>
+		<s:CallResponder id="rejectLendResult" result="rejectLendResult_resultHandler(event)"/>
+		<s:CallResponder id="returnBookResult" result="returnBookResult_resultHandler(event)"/>
+		<s:CallResponder id="listReservatedBooksBySubscriberResult"/>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.alibaba.intl.goldroom.flex.dataobject.BookItem;
+			import com.alibaba.intl.goldroom.flex.dataobject.Lending;
+			import com.alibaba.intl.goldroom.flex.dataobject.Reservation;
+			import com.goldroom.flex.component.booklist.MyBookList;
+			import com.goldroom.flex.data.RunData;
+			
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			
+			protected var bookItem:BookItem;
+			protected var reservation:Reservation;
+			protected var lending:Lending;
+			public function initData(bookItem:BookItem) :void {
+				this.visible = true;
+				this.subscriber.editable = false;
+				this.workId.editable = false;
+				this.bookItem = bookItem;
+				if(bookItem.state == "reservated"){
+					listReservationByBookItemIdResult.token = reservationService.listReservationByBookItemId(bookItem.id);
+					this.allowBtn.visible = true;
+					this.disallowBtn.visible = true;
+					this.returnBtn.visible = false;
+				} else if(bookItem.state == "lended") {
+					listLendingByBookItemIdResult.token = lendService.listLendingByBookItemId(bookItem.id);
+					this.allowBtn.visible = false;
+					this.disallowBtn.visible = false;
+					this.returnBtn.visible = true;
+				}
+			}
+			
+
+			protected function allowBtn_clickHandler(event:MouseEvent):void
+			{
+				this.visible = false;
+				lendResult.token = lendService.lend(reservation.id, RunData.getRunData().getLoginUser().loginId);
+			}
+
+
+			protected function disallowBtn_clickHandler(event:MouseEvent):void
+			{
+				this.visible = false;
+				rejectLendResult.token = lendService.rejectLend(reservation.id, RunData.getRunData().getLoginUser().loginId);
+			}
+
+			
+			protected function returnBtn_clickHandler(event:MouseEvent):void
+			{
+				this.visible = false;
+				returnBookResult.token = lendService.returnBook(lending.id, RunData.getRunData().getLoginUser().loginId);
+			}
+			
+
+			protected function cancel_clickHandler(event:MouseEvent):void
+			{
+				this.visible = false;
+			}
+
+
+			protected function listReservationByBookItemIdResult_resultHandler(event:ResultEvent):void
+			{
+				if(listReservationByBookItemIdResult.lastResult != null && listReservationByBookItemIdResult.lastResult.totalCount >0 ){
+					this.reservation = listReservationByBookItemIdResult.lastResult.reservationList.getItemAt(0) as Reservation;
+					this.subscriber.text = reservation.subscriber.name;
+					this.workId.text = reservation.subscriber.workId.toString();
+					this.startDate.text = reservation.lendTime.toDateString();
+					this.endDate.text = reservation.returnTime.toDateString();
+				}
+					 
+			}
+
+
+			protected function listLendingByBookItemIdResult_resultHandler(event:ResultEvent):void
+			{
+				if(listLendingByBookItemIdResult.lastResult != null && listLendingByBookItemIdResult.lastResult.totalCount >0 ){
+					this.lending = listLendingByBookItemIdResult.lastResult.lendingList.getItemAt(0) as Lending;
+					this.subscriber.text = lending.subscriber.name;
+					this.workId.text = lending.subscriber.workId.toString();
+					this.startDate.text = lending.lendTime.toDateString();
+					this.endDate.text = lending.returnTime.toDateString();
+				}
+			}
+
+
+			protected function lendResult_resultHandler(event:ResultEvent):void
+			{
+				if(lendResult.lastResult){
+					Alert.show("同意借阅成功");
+				} else{
+					Alert.show("同意借阅失败");
+					
+				}
+				(this.parent as MyBookList).refresh();
+			}
+
+
+			protected function rejectLendResult_resultHandler(event:ResultEvent):void
+			{
+				if(rejectLendResult.lastResult){
+					Alert.show("拒绝借阅成功");
+				} else{
+					Alert.show("拒绝借阅失败");
+				}
+				(this.parent as MyBookList).refresh();
+			}
+
+
+			protected function returnBookResult_resultHandler(event:ResultEvent):void
+			{
+				if(returnBookResult.lastResult){
+					Alert.show("确认归还成功");
+				} else{
+					Alert.show("确认归还失败");
+				}
+				(this.parent as MyBookList).refresh();
+			}
+
+		]]>
+	</fx:Script>
+	<s:BorderContainer x="9" y="7" width="225" height="179" cornerRadius="5">
+		<s:Button x="6" y="145" label="同意" id="allowBtn" click="allowBtn_clickHandler(event)" width="57"/>
+		<s:Button x="77" y="145" label="拒绝" id="disallowBtn" click="disallowBtn_clickHandler(event)" width="58"/>
+		<s:Label x="33" y="18" text="姓名:"/>
+		<s:Label x="34" y="48" text="工号:"/>
+		<s:Label x="11" y="76" text="开始日期:"/>
+		<s:Label x="12" y="104" text="结束日期:"/>
+		<s:TextInput x="67" y="12" width="120" id="subscriber"/>
+		<s:TextInput x="68" y="44" width="119" id="workId"/>
+		<s:Label x="69" y="75" id="startDate"/>
+		<s:Label x="70" y="104" id="endDate"/>
+		<s:Button x="25" y="145" label="确认归还" id="returnBtn" click="returnBtn_clickHandler(event)"/>
+		<s:Button x="142" y="145" label="取消" id="cancel" click="cancel_clickHandler(event)"/>
+	</s:BorderContainer>
+</s:Group>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="600" height="170">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.goldroom.flex.data.RunData;
+			
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			import spark.components.VScrollBar;
+			private var bookInfoId:int;
+			private var fromSearch:Boolean;
+			public function createImagesList(imageUrls:ArrayList,descList:ArrayList,bookInfoIds:ArrayList,fromSearch:Boolean, isMy:Boolean):void{
+				this.imageGroup.removeAllElements();
+				for(var i:int = 0; i<imageUrls.length; i++) {
+					var imageItem:ImageItem = new ImageItem();
+					imageItem.createImageItemWithoutLabel(String(imageUrls.getItemAt(i)),
+						String(descList.getItemAt(i)),
+						int(bookInfoIds.getItemAt(i)),
+						fromSearch, isMy);
+					imageItem.x = 180 * i;
+					imageItem.y = 0;
+					
+					this.imageGroup.addElement(imageItem);
+				}
+			}
+			public function setSize(width:Number, height:Number):void{
+				scroller.width = width;
+				scroller.height = height;
+				this.width = width;
+				this.height = height;
+			}
+		]]>
+	</fx:Script>
+	<s:Scroller x="0" y="0" width="600" height="100%" id="scroller" verticalScrollPolicy="off">
+		<s:HGroup id="imageGroup" width="100%" height="100%" x="0" y="0" verticalAlign="top">
+		</s:HGroup>
+	</s:Scroller>
+</s:Group>

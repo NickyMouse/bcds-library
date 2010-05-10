@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="622" height="485" xmlns:component="com.goldroom.flex.component.*" xmlns:page="com.goldroom.flex.component.page.*" implements="com.goldroom.flex.script.page.IPageNavigator" xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+	<fx:Declarations>
+		<s:CallResponder id="listLendedBookItemBySubscriberResult" result="listLendedBookItemBySubscriberResult_resultHandler(event)"/>
+		<services:LendService id="lendService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.alibaba.intl.goldroom.flex.dataobject.BookItem;
+			import com.alibaba.intl.goldroom.flex.dataobject.Lending;
+			import com.alibaba.intl.goldroom.flex.dataobject.Member;
+			import com.goldroom.flex.component.BookDetail;
+			import com.goldroom.flex.data.RunData;
+			import com.goldroom.flex.script.page.IPageNavigator;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.controls.advancedDataGridClasses.AdvancedDataGridItemRenderer;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			protected var currentPage:int = 1;
+			protected var totalCount:int = 1;
+			
+			public function turnToPage(page:int):void{
+				var loginId:String  =  RunData.getRunData().getLoginUser().loginId;
+				this.currentPage = page;
+			}
+			
+			public function getCurrentPage():int {
+				return this.currentPage;
+			}
+			
+			public function getTotalCount():int{
+				return this.totalCount;
+			}
+
+			protected function bookListDataGrid_creationCompleteHandler(event:FlexEvent):void
+			{
+				refresh();
+			}
+			
+			public function refresh(){
+				var loginId:String = RunData.getRunData().getLoginUser().loginId;
+				listLendedBookItemBySubscriberResult.token = lendService.listLendedBookItemBySubscriber(loginId, currentPage, RunData.getRunData().getPageSize());
+			}
+
+			
+			protected function listLendedBookItemBySubscriberResult_resultHandler(event:ResultEvent):void
+			{
+				showResult(listLendedBookItemBySubscriberResult.lastResult.totalCount);
+				if(listLendedBookItemBySubscriberResult.lastResult.totalCount == 0){
+					return;
+				}
+				this.totalCount =  listLendedBookItemBySubscriberResult.lastResult.totalCount;
+				var list:ArrayCollection = listLendedBookItemBySubscriberResult.lastResult.lendingList;
+				var imgUrls:ArrayList = new ArrayList();
+				var descs:ArrayList = new ArrayList();
+				var bookInfoIds:ArrayList = new ArrayList(); 
+				for(var i:int = 0; i < list.length; i++) {
+					imgUrls.addItem(Lending(list.getItemAt(i)).bookItem.bookInfo.imgUrl);
+					descs.addItem(Lending(list.getItemAt(i)).bookItem.bookInfo.name);
+					bookInfoIds.addItem(Lending(list.getItemAt(i)).bookItem.bookInfo.id);
+				}
+				if(pageNavigator != null){
+					pageNavigator.refresh();
+				}
+				if(gallery != null){
+					gallery.createImagesList(imgUrls, descs, bookInfoIds, false, true);
+				}
+			}
+
+			protected function getColumnValue(item:Object, column:AdvancedDataGridColumn):String{
+				if(column.dataField == "bookName"){
+					return Lending(item).bookItem.bookInfo.name;
+				} else if(column.dataField == "owner"){
+					return Lending(item).bookItem.member.name;
+				} else if(column.dataField == "state"){
+					return "借阅中";
+				} else if(column.dataField == "lendTime" ){
+					return (Lending(item).lendTime as Date).toDateString();
+				} else if( column.dataField == "returnTime"){
+					return (Lending(item).returnTime as Date).toDateString();
+				}
+				return "";
+			}
+
+			protected function bookListDataGrid_clickHandler(event:MouseEvent):void
+			{
+				if(event.target is AdvancedDataGridItemRenderer && bookListDataGrid.selectedIndex >= 0){
+					BookDetail.popDetailWin(root, bookListDataGrid.selectedItem.bookItem.bookInfo.id, false, true);
+				}
+			}
+
+			protected function showResult(resultCount:int){
+				if(resultCount == 0){
+					noResultLabel.visible = true;
+					bookListDataGrid.visible = false;
+					gallery.visible = false;
+					pageNavigator.visible = false;
+				} else {
+					noResultLabel.visible = false;
+					bookListDataGrid.visible = true;
+					gallery.visible = true;
+					pageNavigator.visible = true;
+				}
+			}
+		]]>
+	</fx:Script>
+	<mx:AdvancedDataGrid x="0" y="237" id="bookListDataGrid" designViewDataType="flat" width="622" height="249" creationComplete="bookListDataGrid_creationCompleteHandler(event)" dataProvider="{listLendedBookItemBySubscriberResult.lastResult.lendingList}" click="bookListDataGrid_clickHandler(event)">
+		<mx:columns>
+			<mx:AdvancedDataGridColumn headerText="书名" dataField="bookName" labelFunction="getColumnValue" sortable="false"/>
+			<mx:AdvancedDataGridColumn headerText="状态" dataField="state" labelFunction="getColumnValue" width="80"/>
+			<mx:AdvancedDataGridColumn headerText="拥有者" dataField="owner" labelFunction="getColumnValue" sortable="false" width="100"/>
+			<mx:AdvancedDataGridColumn headerText="借阅日期" dataField="lendTime" labelFunction="getColumnValue" width="120"/>
+			<mx:AdvancedDataGridColumn headerText="归还日期" dataField="returnTime" labelFunction="getColumnValue" width="120"/>
+		</mx:columns>
+	</mx:AdvancedDataGrid>
+	<component:Gallery id="gallery" x="10" y="33" height="200">
+	</component:Gallery>
+	<page:PageNavigator x="236" y="4" id="pageNavigator">
+	</page:PageNavigator>
+	<s:Label x="273" y="53" width="76" text="无符合结果" id="noResultLabel" height="17" fontSize="14" visible="false"/>
+</s:Group>

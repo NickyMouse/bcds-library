@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="592" height="492" xmlns:component="com.goldroom.flex.component.*" xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+	<fx:Style>
+		.darkWin{
+			modalTransparencyBlur:0;
+			modalTransparency:0.6;
+			modalTransparencyColor:#000000;
+			modalTransparencyDuration:500;
+		}
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.alibaba.intl.goldroom.flex.dataobject.BookInfo;
+			import com.alibaba.intl.goldroom.flex.dataobject.BookSearch;
+			import com.alibaba.intl.goldroom.flex.dataobject.BookSearchResult;
+			import com.goldroom.flex.data.RunData;
+			
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			import mx.rpc.events.ResultEvent;
+			
+			import spark.components.TitleWindow;
+			
+			protected static var darkWin:TitleWindow = new TitleWindow();
+			protected static var bookDetail:BookDetail = new BookDetail();
+			darkWin.styleName = "darkWin";
+			darkWin.percentWidth  = 100;
+			darkWin.percentHeight = 100;
+			darkWin.addEventListener(CloseEvent.CLOSE, closeWin);
+			
+			protected var bookInfoId:int;
+			protected var bookOwners:String;
+			protected var fromSearch:Boolean;
+			protected var isMy:Boolean;
+			
+			public static function popDetailWin(parent:DisplayObject, bookInfoId:int, fromSearch:Boolean, isMy:Boolean):void{
+				bookDetail.bookInfoId = bookInfoId;
+				bookDetail.fromSearch = fromSearch;
+				bookDetail.isMy = isMy;
+				bookDetail.initData();
+				bookDetail.visible = false;
+				darkWin.title = "";
+				darkWin.addElement(bookDetail);
+				PopUpManager.addPopUp(darkWin, parent, true);
+				PopUpManager.centerPopUp(darkWin);
+				if(isMy){
+					bookDetail.borrowBtn.visible = false;
+					bookDetail.shareBtn.visible = false;
+				} else {
+					bookDetail.borrowBtn.visible = true;
+					bookDetail.shareBtn.visible = true;
+				}
+			}        
+
+			protected static function closeWin(event:CloseEvent):void {
+				PopUpManager.removePopUp(darkWin);
+			}
+			protected function closeBtn_clickHandler(event:MouseEvent):void
+			{
+				PopUpManager.removePopUp(darkWin);
+			}
+
+			protected function borrowBtn_clickHandler(event:MouseEvent):void
+			{
+				if(RunData.getRunData().getData("loginUser") == null) {
+					Alert.show("您还没有登录","请登录");
+				} else{
+					this.borrowBox.visible = true;
+					this.borrowBox.initData(bookInfoId, bookOwners);
+				}
+			}
+			
+			protected function initData():void
+			{
+				if(fromSearch) {
+					bookDetailSearchResult.token = bookInfoService.searchBookByInfoId(this.bookInfoId);
+				} else {
+					bookDetailResult.token = bookInfoService.findBookInfoById(this.bookInfoId);
+				}
+			}
+			
+
+			protected function bookDetailResult_resultHandler(event:ResultEvent):void
+			{
+				var result:BookInfo = bookDetailResult.lastResult;
+				if(result.author != null && result.author.length > 0){
+					this.authorText.text = result.author;
+				} else{
+					this.authorText.text = "-";
+				}
+				if(result.publishTime != null){
+					this.publishDateText.text = result.publishTime.toDateString();
+				}else {
+					this.publishDateText.text = "-";
+				}
+				if(result.publishTime != null){
+					this.publisherText.text = result.publisher;
+				} else {
+					this.publisherText.text = "-";
+				}
+				
+				if(result.isbn10 != null && result.isbn10.length > 0){
+					this.isbn10Text.text = result.isbn10;
+				} else{
+					this.isbn10Text.text = result.isbn;
+				}
+				darkWin.title = result.name;
+				this.nameText.text = result.name;
+				if(result.isbn13 != null && result.isbn13.length > 0){
+					this.isbn13Text.text = result.isbn13;
+					this.isbn13Label.visible = true;
+					this.isbn13Text.visible = true;
+				} else{
+					this.isbn13Label.visible = false;
+					this.isbn13Text.visible = false;
+				}
+				
+				this.descriptionText.text = result.description;
+				if(result.imgUrl != null){
+					bookImage.source = RunData.getRunData().getStringData("imgPath") + result.imgUrl;
+				}
+				bookDetail.visible = true;
+			}
+
+
+			protected function bookDetailSearchResult_resultHandler(event:ResultEvent):void
+			{
+				var result:BookSearch = bookDetailSearchResult.lastResult;
+				if(result.bookAuthor != null && result.bookAuthor.length > 0){
+					this.authorText.text = result.bookAuthor;
+				} else{
+					this.authorText.text = "-";
+				}
+				if(result.bookPublishTime != null){
+					this.publishDateText.text = result.bookPublishTime.toDateString();
+				}else {
+					this.publishDateText.text = "-";
+				}
+				if(result.bookPublisher != null){
+					this.publisherText.text = result.bookPublisher;
+				} else {
+					this.publisherText.text = "-";
+				}
+								
+				if(result.bookIsbn != null && result.bookIsbn.length > 0){
+					this.isbn10Text.text = result.bookIsbn;
+				} else{
+					this.isbn10Text.text = "-";
+				}
+				darkWin.title = result.bookName;
+				
+				this.nameText.text = result.bookName;
+				this.isbn13Label.visible = false;
+				this.isbn13Text.visible = false;
+				this.descriptionText.text = result.bookDescription;
+				
+				if(result.bookOwners.split(",").length - 2 > 0){
+					borrowBtn.visible = true;
+					this.bookOwners = result.bookOwners;
+				} else{
+					borrowBtn.visible = false;
+					this.bookOwners = "";
+				}
+				
+				bookImage.source = RunData.getRunData().getStringData("imgPath") + result.bookImgUrl;
+				bookDetail.visible = true;				
+			}
+
+
+			protected function shareBtn_clickHandler(event:MouseEvent):void
+			{
+				if(RunData.getRunData().getData("loginUser") == null) {
+					Alert.show("您还没有登录","请登录");
+				} else{
+					//this.borrowBox.visible = true;	
+				}
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="bookDetailResult" result="bookDetailResult_resultHandler(event)"/>
+		<s:CallResponder id="bookDetailSearchResult" result="bookDetailSearchResult_resultHandler(event)"/>
+		<services:BookInfoService id="bookInfoService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+	</fx:Declarations>
+	<mx:Canvas x="0" y="0" styleName="closeSysWin" width="100%" height="492" initialize="initData()">
+		<s:BorderContainer x="15" y="10" width="220" height="280">
+			<mx:Image x="5" y="5" width="200" height="250" verticalCenter="5" horizontalCenter="0" verticalAlign="middle" horizontalAlign="center" id="bookImage"/>
+		</s:BorderContainer>
+		<s:Button x="459" y="262" label="关闭" id="closeBtn" click="closeBtn_clickHandler(event)"/>
+		<s:Label x="295" y="24" text="书名:"/>
+		<s:Label x="295" y="66" text="作者:"/>
+		<s:Label x="272" y="142" text="出版日期:"/>
+		<s:Label x="283" y="108" text="出版社:"/>
+		
+		<s:Label x="338" y="24" id="nameText" maxWidth="240"/>
+		<s:Label x="338" y="67" id="authorText" maxWidth="240"/>
+		<s:Label x="338" y="108" id="publisherText" maxWidth="240"/>
+		<s:Label x="338" y="143" id="publishDateText" maxWidth="240"/>
+		
+		<mx:HRule x="237" y="168" width="340"/>
+		
+		<s:Label x="274" y="185" text="ISBN-10:"/>
+		<s:Label x="276" y="222" text="ISBN-13:" id="isbn13Label"/>
+		<s:Label x="338" y="184" id="isbn10Text"/>
+		<s:Label x="338" y="222" id="isbn13Text"/>
+		
+		<s:TextArea x="15" y="298" width="562" height="184" id="descriptionText" editable="false"/>
+		<s:Button x="271" y="262" label="分享" id="shareBtn" click="shareBtn_clickHandler(event)"/>
+		<s:Button x="368" y="262" label="借阅" id="borrowBtn" click="borrowBtn_clickHandler(event)"/>
+		
+		<component:BorrowBox x="91" y="96" visible="false" id="borrowBox">
+		</component:BorrowBox>
+	</mx:Canvas>
+</s:Group>

@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model xmlns="http://ns.adobe.com/Fiber/1.0">
+  <annotation name="ActionScriptGeneration">
+    <item name="FullyQualifyReferences">true</item>
+  </annotation>
+  <service name="MemberService">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">com.alibaba.intl.goldroom.flex.services</item>
+      <item name="Destination">memberService</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">com.alibaba.intl.goldroom.flex.dataobject</item>
+      <item name="contextRoot">/</item>
+      <item name="rootUrl">http://localhost:8080</item>
+      <item name="LINKED_FILE"></item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080//messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">BlazeDS</item>
+    </annotation>
+    <function name="applyMember" arguments="arg0:Member" return-type="Member">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">Member</item>
+        <item name="returnType">Member</item>
+      </annotation>
+    </function>
+    <function name="tbdMembers" arguments="arg0:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="findMemberByLoginId" arguments="arg0:string" return-type="Member">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">Member</item>
+      </annotation>
+    </function>
+    <function name="isLoginIdExist" arguments="arg0:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="changePassword" arguments="arg0:string,arg1:string,arg2:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string,string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="listMemberByLoginIds" arguments="arg0:string[]" return-type="Member[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">Member</item>
+      </annotation>
+    </function>
+    <function name="approveMember" arguments="arg0:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="login" arguments="arg0:string,arg1:string" return-type="Member">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string</item>
+        <item name="returnType">Member</item>
+      </annotation>
+    </function>
+    <function name="updateMemberByLoginId" arguments="arg0:Member" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">Member</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+  </service>
+  <service name="BookInfoService">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">com.alibaba.intl.goldroom.flex.services</item>
+      <item name="Destination">bookInfoService</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">com.alibaba.intl.goldroom.flex.dataobject</item>
+      <item name="contextRoot">/</item>
+      <item name="rootUrl">http://localhost:8080</item>
+      <item name="LINKED_FILE"></item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080//messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">BlazeDS</item>
+    </annotation>
+    <function name="findBookInfoById" arguments="arg0:integer" return-type="BookInfo">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+        <item name="returnType">BookInfo</item>
+      </annotation>
+    </function>
+    <function name="advancedBookSearch" arguments="arg0:string,arg1:string,arg2:string,arg3:string,arg4:string,arg5:integer,arg6:integer" return-type="BookSearchResult">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string,string,string,string,integer,integer</item>
+        <item name="returnType">BookSearchResult</item>
+      </annotation>
+    </function>
+    <function name="searchBookByTime" arguments="arg0:date,arg1:date,arg2:integer,arg3:integer" return-type="BookSearchResult">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">date,date,integer,integer</item>
+        <item name="returnType">BookSearchResult</item>
+      </annotation>
+    </function>
+    <function name="searchBookByInfoId" arguments="arg0:integer" return-type="BookSearch">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+        <item name="returnType">BookSearch</item>
+      </annotation>
+    </function>
+    <function name="addBookInfo" arguments="arg0:BookInfo" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">BookInfo</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="listAllBook" arguments="arg0:integer,arg1:integer" return-type="BookSearchResult">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,integer</item>
+        <item name="returnType">BookSearchResult</item>
+      </annotation>
+    </function>
+    <function name="searchBookByOwnersAndKeyword" arguments="arg0:string,arg1:string,arg2:integer,arg3:integer" return-type="BookSearchResult">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string,integer,integer</item>
+        <item name="returnType">BookSearchResult</item>
+      </annotation>
+    </function>
+    <function name="searchBookByKeyword" arguments="arg0:string,arg1:integer,arg2:integer" return-type="BookSearchResult">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,integer,integer</item>
+        <item name="returnType">BookSearchResult</item>
+      </annotation>
+    </function>
+    <function name="searchBookByInfoIds" arguments="arg0:integer[]" return-type="BookSearchResult">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+        <item name="returnType">BookSearchResult</item>
+      </annotation>
+    </function>
+    <function name="findBookInfoByIsbn" arguments="arg0:string" return-type="BookInfo">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">BookInfo</item>
+      </annotation>
+    </function>
+    <function name="getBookInfoFromDbAndNetWork" arguments="arg0:string" return-type="BookInfo">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">BookInfo</item>
+      </annotation>
+    </function>
+  </service>
+  <entity name="BookSearch">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">BookSearch</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearch</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">BookInfoService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">com.alibaba.intl.goldroom.flex.dataobject</item>
+    </annotation>
+    <property name="bookOwners" type="string"/>
+    <property name="bookImgUrl" type="string"/>
+    <property name="bookPages" type="integer"/>
+    <property name="bookPublisher" type="string"/>
+    <property name="itemAddTime" type="date"/>
+    <property name="bookEdition" type="string"/>
+    <property name="itemFirstAddTime" type="date"/>
+    <property name="bookAuthor" type="string"/>
+    <property name="bookIsbn" type="string"/>
+    <property name="bookPublishTime" type="date"/>
+    <property name="bookInfoId" type="integer"/>
+    <property name="bookDescription" type="string"/>
+    <property name="bookCategoryId" type="integer"/>
+    <property name="bookTags" type="string"/>
+    <property name="bookTranslator" type="string"/>
+    <property name="bookName" type="string"/>
+  </entity>
+  <entity name="BookSearchResult">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">BookSearchResult</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.alibaba.intl.goldroom.result.BookSearchResult</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">BookInfoService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">com.alibaba.intl.goldroom.flex.dataobject</item>
+    </annotation>
+    <property name="totalCount" type="integer"/>
+    <property name="bookList" type="BookSearch[]"/>
+  </entity>
+  <service name="BookItemService">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">com.alibaba.intl.goldroom.flex.services</item>
+      <item name="Destination">bookItemService</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">com.alibaba.intl.goldroom.flex.dataobject</item>
+      <item name="contextRoot">/</item>
+      <item name="rootUrl">http://localhost:8080</item>
+      <item name="LINKED_FILE"></item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080//messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">BlazeDS</item>
+    </annotation>
+    <function name="listBookItemsByLoginIdsAndBookInfoId" arguments="arg0:string[],arg1:integer" return-type="BookItem[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,integer</item>
+        <item name="returnType">BookItem</item>
+      </annotation>
+    </function>
+    <function name="getBookDetailByIdAndOwner" arguments="arg0:string,arg1:integer" return-type="BookItem">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,integer</item>
+        <item name="returnType">BookItem</item>
+      </annotation>
+    </function>
+    <function name="listBookItemsByLoginIdAndStateAndBookInfoIds" arguments="arg0:string,arg1:string,arg2:integer[]" return-type="BookItem[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string,integer</item>
+        <item name="returnType">BookItem</item>
+      </annotation>
+    </function>
+    <function name="offShelves" arguments="arg0:integer,arg1:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="reputOnShelves" arguments="arg0:integer,arg1:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="addBookItem" arguments="arg0:BookItem" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">BookItem</item>
+      </annotation>
+    </function>
+    <function name="deleteBookItem" arguments="arg0:integer,arg1:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="listBookItemsByLoginIdAndState" arguments="arg0:string,arg1:string,arg2:integer,arg3:integer" return-type="BookItemResult">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string,integer,integer</item>
+        <item name="returnType">BookItemResult</item>
+      </annotation>
+    </function>
+    <function name="listBookItemByBookInfoId" arguments="arg0:integer" return-type="BookItem[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+        <item name="returnType">BookItem</item>
+      </annotation>
+    </function>
+  </service>
+  <entity name="BookItemResult">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">BookItemResult</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.alibaba.intl.goldroom.result.BookItemResult</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">BookItemService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">com.alibaba.intl.goldroom.flex.dataobject</item>
+    </annotation>
+    <property name="totalCount" type="integer"/>
+    <property name="itemList" type="BookItem[]"/>
+  </entity>
+  <service name="ReservationService">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">com.alibaba.intl.goldroom.flex.services</item>
+      <item name="Destination">reservationService</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">com.alibaba.intl.goldroom.flex.dataobject</item>
+      <item name="contextRoot">/</item>
+      <item name="rootUrl">http://localhost:8080</item>
+      <item name="LINKED_FILE"></item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080//messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">BlazeDS</item>
+    </annotation>
+    <function name="listReservationByBookItemId" arguments="arg0:integer" return-type="ReservationResult">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+        <item name="returnType">ReservationResult</item>
+      </annotation>
+    </function>
+    <function name="reserve" arguments="arg0:string,arg1:integer,arg2:date,arg3:date" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,integer,date,date</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="listReservatedBooksBySubscriber" arguments="arg0:string,arg1:integer,arg2:integer" return-type="ReservationResult">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,integer,integer</item>
+        <item name="returnType">ReservationResult</item>
+      </annotation>
+    </function>
+  </service>
+  <entity name="Reservation">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Reservation</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.alibaba.intl.goldroom.dataobject.Reservation</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">ReservationService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">com.alibaba.intl.goldroom.flex.dataobject</item>
+    </annotation>
+    <property name="gmtModified" type="date"/>
+    <property name="id" type="integer"/>
+    <property name="bookItem" type="BookItem"/>
+    <property name="returnTime" type="date"/>
+    <property name="gmtCreate" type="date"/>
+    <property name="lendTime" type="date"/>
+    <property name="state" type="string"/>
+    <property name="subscriber" type="Member"/>
+  </entity>
+  <entity name="ReservationResult">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">ReservationResult</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.alibaba.intl.goldroom.result.ReservationResult</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">ReservationService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">com.alibaba.intl.goldroom.flex.dataobject</item>
+    </annotation>
+    <property name="totalCount" type="integer"/>
+    <property name="reservationList" type="Reservation[]"/>
+  </entity>
+  <service name="LendService">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">com.alibaba.intl.goldroom.flex.services</item>
+      <item name="Destination">lendService</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">com.alibaba.intl.goldroom.flex.dataobject</item>
+      <item name="contextRoot">/</item>
+      <item name="rootUrl">http://localhost:8080</item>
+      <item name="LINKED_FILE"></item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080//messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">BlazeDS</item>
+    </annotation>
+    <function name="rejectLend" arguments="arg0:integer,arg1:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="returnBook" arguments="arg0:integer,arg1:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="lend" arguments="arg0:integer,arg1:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="listLendingByBookItemId" arguments="arg0:integer" return-type="LendingResult">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+        <item name="returnType">LendingResult</item>
+      </annotation>
+    </function>
+    <function name="listLendedBookItemBySubscriber" arguments="arg0:string,arg1:integer,arg2:integer" return-type="LendingResult">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,integer,integer</item>
+        <item name="returnType">LendingResult</item>
+      </annotation>
+    </function>
+  </service>
+  <entity name="BookItem">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">BookItem</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.alibaba.intl.goldroom.dataobject.BookItem</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">LendService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">com.alibaba.intl.goldroom.flex.dataobject</item>
+    </annotation>
+    <property name="gmtModified" type="date" required="true"/>
+    <property name="id" type="integer" required="true"/>
+    <property name="tags" type="string" required="true"/>
+    <property name="member" type="Member" required="true"/>
+    <property name="firstAddTime" type="date" required="true"/>
+    <property name="gmtCreate" type="date" required="true"/>
+    <property name="remark" type="string" required="true"/>
+    <property name="state" type="string" required="true"/>
+    <property name="removeTime" type="date" required="true"/>
+    <property name="bookInfo" type="BookInfo" required="true"/>
+    <property name="addTime" type="date" required="true"/>
+  </entity>
+  <entity name="Member">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Member</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.alibaba.intl.goldroom.dataobject.Member</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">LendService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">com.alibaba.intl.goldroom.flex.dataobject</item>
+    </annotation>
+    <property name="gmtModified" type="date" required="true"/>
+    <property name="loginId" type="string" required="true"/>
+    <property name="gmtCreate" type="date" required="true"/>
+    <property name="location" type="string" required="true"/>
+    <property name="enable" type="integer" required="true"/>
+    <property name="password" type="string" required="true"/>
+    <property name="ext" type="string" required="true"/>
+    <property name="id" type="integer" required="true"/>
+    <property name="aliTalkId" type="string" required="true"/>
+    <property name="email" type="string" required="true"/>
+    <property name="name" type="string" required="true"/>
+    <property name="role" type="string" required="true"/>
+    <property name="workId" type="integer" required="true"/>
+  </entity>
+  <entity name="BookInfo">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">BookInfo</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.alibaba.intl.goldroom.dataobject.BookInfo</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">LendService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">com.alibaba.intl.goldroom.flex.dataobject</item>
+    </annotation>
+    <property name="gmtModified" type="date" required="true"/>
+    <property name="edition" type="string" required="true"/>
+    <property name="gmtCreate" type="date" required="true"/>
+    <property name="publishTime" type="date" required="true"/>
+    <property name="pages" type="integer" required="true"/>
+    <property name="categoryId" type="integer" required="true"/>
+    <property name="publisher" type="string" required="true"/>
+    <property name="imgUrl" type="string" required="true"/>
+    <property name="id" type="integer" required="true"/>
+    <property name="categoryName" type="string" required="true"/>
+    <property name="author" type="string" required="true"/>
+    <property name="source" type="string" required="true"/>
+    <property name="isbn10" type="string" required="true"/>
+    <property name="translator" type="string" required="true"/>
+    <property name="description" type="string" required="true"/>
+    <property name="isbn" type="string" required="true"/>
+    <property name="name" type="string" required="true"/>
+    <property name="isbn13" type="string" required="true"/>
+  </entity>
+  <entity name="Lending">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Lending</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.alibaba.intl.goldroom.dataobject.Lending</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">LendService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">com.alibaba.intl.goldroom.flex.dataobject</item>
+    </annotation>
+    <property name="gmtModified" type="date"/>
+    <property name="id" type="integer"/>
+    <property name="bookItem" type="BookItem"/>
+    <property name="returnTime" type="date"/>
+    <property name="gmtCreate" type="date"/>
+    <property name="lendTime" type="date"/>
+    <property name="state" type="string"/>
+    <property name="realReturnTime" type="date"/>
+    <property name="subscriber" type="Member"/>
+  </entity>
+  <entity name="LendingResult">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">LendingResult</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.alibaba.intl.goldroom.result.LendingResult</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">LendService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">com.alibaba.intl.goldroom.flex.dataobject</item>
+    </annotation>
+    <property name="lendingList" type="Lending[]"/>
+    <property name="totalCount" type="integer"/>
+  </entity>
+</model>

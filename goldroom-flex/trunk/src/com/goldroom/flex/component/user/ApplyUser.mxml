@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="400" xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+	<fx:Style>
+		.darkWin{
+			modalTransparencyBlur:0;
+			modalTransparency:0.6;
+			modalTransparencyColor:#000000;
+			modalTransparencyDuration:500;
+		}
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.alibaba.intl.goldroom.flex.dataobject.Member;
+			import com.goldroom.flex.data.RunData;
+			
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			import mx.validators.Validator;
+			
+			import spark.components.TitleWindow;
+			import spark.events.TextOperationEvent;
+			
+			protected static var darkWin:TitleWindow;
+			private var isLoginIdExist:Boolean;
+			public static function popApplyWin(parent:DisplayObject):void{
+				darkWin = new TitleWindow();
+				darkWin.styleName = "darkWin";
+				darkWin.percentWidth  = 100;
+				darkWin.percentHeight = 100;
+				darkWin.addEventListener(CloseEvent.CLOSE, closeWin);
+				darkWin.title = "注册";
+				var applyUser:ApplyUser = new ApplyUser();
+				applyUser.isLoginIdExist = true;
+				darkWin.addElement(applyUser);
+				PopUpManager.addPopUp(darkWin, parent, true);
+				PopUpManager.centerPopUp(darkWin);
+				
+			}        
+			
+			protected static function closeWin(event:CloseEvent):void {
+				PopUpManager.removePopUp(darkWin);
+			}
+			
+
+			protected function submitBtn_clickHandler(event:MouseEvent):void
+			{
+				if(!isLoginIdExist && Validator.validateAll(applyValitors).length == 0 && validatePassword()){
+					var member:Member = new Member();
+					member.loginId = this.loginId.text;
+					member.email = this.email.text;
+					member.workId = int(this.workId.text);
+					member.name = this.realName.text;
+					member.aliTalkId = this.aliTalk.text;
+					member.ext = this.ext.text;
+					member.location = this.location.text;
+					member.password = this.password.text;
+					applyMemberResult.token = memberService.applyMember(member);
+					darkWin.visible = false;
+					submitBtn.errorString = "";
+				} else {
+					submitBtn.errorString = "申请表单中含有填写错误的项";
+				}
+			}
+
+			protected function isOk():void{
+				if(applyMemberResult.lastResult != null){
+					Alert.show("帐号申请成功，需要等待管理员审批");
+				} else {
+					Alert.show("帐号申请失败");
+				}
+			}
+			
+			protected function cancelBtn_clickHandler(event:MouseEvent):void
+			{
+				darkWin.visible = false;
+			}
+
+
+			protected function rePassword_focusOutHandler(event:FocusEvent):void
+			{
+				validatePassword();
+			}
+			
+			protected function validatePassword():Boolean{
+				if(password.text != rePassword.text){
+					rePassword.errorString = "两次输入的密码不一致";
+					return false;
+				} else {
+					rePassword.errorString = "";
+					return true;
+				}
+			}
+
+
+			protected function loginId_focusOut(event:FocusEvent):void
+			{
+				if(loginId.text.length >0){
+					checkLoginIdResult.token = memberService.isLoginIdExist(loginId.text);
+				}
+			}
+			
+			protected function checkLoginIdCallBack():void{
+				if(checkLoginIdResult.lastResult){
+					loginId.errorString = "该用户名已存在";
+					isLoginIdExist = true;
+				} else {
+					loginId.errorString = "";
+					isLoginIdExist = false;
+				}
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="applyMemberResult" result="isOk()"/>
+		<s:CallResponder id="checkLoginIdResult" result="checkLoginIdCallBack()"/>
+		<services:MemberService id="memberService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+		<fx:Array id="applyValitors">
+			<mx:StringValidator id="loginIdV" source="{loginId}" property="text"
+								minLength="2"
+								maxLength="20"
+								required="true" 
+								requiredFieldError="请输入用户名"
+								tooShortError="用户名长度必须大于2"
+								tooLongError=" 用户名长度必须小于20"
+								trigger="{loginId}" triggerEvent="focusOut"/>
+			<mx:StringValidator id="passwordV" source="{password}" property="text" required="true" requiredFieldError="请输入密码" trigger="{password}" triggerEvent="focusOut"/>
+			<mx:StringValidator id="rePasswordV" source="{rePassword}" property="text" required="true" requiredFieldError="请再次输入密码" trigger="{rePassword}" triggerEvent="focusOut"/>
+			<mx:StringValidator id="realNameV" source="{realName}" property="text" required="true" requiredFieldError="请输入真实姓名" trigger="{realName}" triggerEvent="focusOut"/>
+			<mx:EmailValidator id="emailV" source="{email}" property="text" required="true" requiredFieldError="请输入Email" trigger="{email}" triggerEvent="focusOut"
+							   invalidCharError="请输入有效的Email"
+							   invalidDomainError="请输入有效的Email"
+							   missingAtSignError="请输入有效的Email"
+							   missingPeriodInDomainError="请输入有效的Email"
+							   missingUsernameError="请输入有效的Email"
+							   tooManyAtSignsError="请输入有效的Email" 
+			/>
+			<mx:StringValidator id="aliTalkV" source="{aliTalk}" property="text" required="true" requiredFieldError="请输入贸易通" trigger="{aliTalk}" triggerEvent="focusOut"/>
+			<mx:NumberValidator id="workIdV" source="{workId}" property="text" required="true" requiredFieldError="请输入工号" trigger="{workId}" triggerEvent="focusOut"/>
+		</fx:Array>
+	</fx:Declarations>
+	<mx:Canvas x="0" y="0" styleName="closeSysWin" width="100%" height="100%">
+			
+		<s:BorderContainer x="27" y="13" width="350" height="110">
+			<mx:FormItem label="用户名："  x="75" y="11">
+				<s:TextInput id="loginId" focusOut="loginId_focusOut(event)"/>
+			</mx:FormItem>
+			<mx:FormItem label="密码：" x="87" y="42" >
+				<s:TextInput id="password" displayAsPassword="true"/>
+			</mx:FormItem>
+			<mx:FormItem label="再次输入密码:" x="48" y="73">
+				<s:TextInput id="rePassword" displayAsPassword="true" focusOut="rePassword_focusOutHandler(event)" />
+			</mx:FormItem>
+		</s:BorderContainer>
+		<s:BorderContainer x="27" y="130" width="350" height="210">
+			<mx:FormItem label="真实姓名:" x="72" y="11">
+				<s:TextInput id="realName" />
+			</mx:FormItem>
+			<mx:FormItem label="Email:" x="89" y="45">
+				<s:TextInput id="email" />
+			</mx:FormItem>
+			<mx:FormItem label="贸易通:" x="84" y="77">
+				<s:TextInput id="aliTalk" />
+			</mx:FormItem>
+			<mx:FormItem label="工号:" x="96" y="109">
+				<s:TextInput id="workId" />
+			</mx:FormItem>
+			<mx:FormItem label="位置:" x="96" y="141">
+					<s:TextInput id="location" />
+			</mx:FormItem>
+			<mx:FormItem label="分机号:" x="84" y="171">
+				<s:TextInput id="ext" />
+			</mx:FormItem>
+		</s:BorderContainer>
+		<s:Button x="116" y="358" label="提交申请" id="submitBtn" click="submitBtn_clickHandler(event)"/>
+		<s:Button x="246" y="358" label="取消" id="cancelBtn"  click="cancelBtn_clickHandler(event)"/>
+	</mx:Canvas>
+</s:Group>

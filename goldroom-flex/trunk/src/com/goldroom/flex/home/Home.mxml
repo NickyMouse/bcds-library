@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="800" minHeight="600" width="100%" height="650" xmlns:component="com.goldroom.flex.component.*" xmlns:upload="com.goldroom.flex.component.upload.*" xmlns:user="com.goldroom.flex.component.user.*" xmlns:booklist="com.goldroom.flex.component.booklist.*" >
+	<fx:Style source="Home.css"/>
+	<fx:Style>
+		.accordion
+		{
+			font-size: 12;
+		}
+	</fx:Style>
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.goldroom.flex.component.BookDetail;
+			import com.goldroom.flex.component.ImagesList;
+			import com.goldroom.flex.component.user.ApplyUser;
+			import com.goldroom.flex.data.RunData;
+			
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.events.IndexChangedEvent;
+			
+			private static var homeInstance:Home;
+			protected var tabClickChangeFlag:Boolean;
+			protected function showBookDetail():void
+			{
+				RunData.getRunData().putData("detailName", "hello");
+			}
+			protected function initData():void{
+				homeInstance = this;
+				RunData.getRunData().putData("imgPath", "/upload/");
+				RunData.getRunData().putData("pageSize", 8);
+				mainMenu.removeChild(myBookTab);
+				bookNavigatorContent.createDeferredContent();
+			}
+
+			protected function mainMenu_changeHandler(event:IndexChangedEvent):void
+			{
+				if(event.newIndex != 0) {
+					signin.hideSigninBtn();
+				}
+				if(event.newIndex == 1) {
+//						searchBookList.reset();	
+//						searchBookList.searchAllBook(1);
+				}
+			}
+
+
+			protected function myBookBtn_clickHandler(event:MouseEvent):void
+			{
+				myBookList.refresh();
+				myBookList.visible = true;
+				reservationList.visible = false;
+				uploadForm.visible = false;
+				changePassword.visible = false;
+				this.lendingList.visible = false;
+			}
+
+
+			protected function shareBtn_clickHandler(event:MouseEvent):void
+			{
+				myBookList.visible = false;
+				reservationList.visible = false;
+				uploadForm.visible = true;
+				changePassword.visible = false;
+				this.lendingList.visible = false;
+				if(this.uploadForm != null){
+					uploadForm.resert();
+				}
+			}
+
+
+			protected function changePasswordBtn_clickHandler(event:MouseEvent):void
+			{
+				this.myBookList.visible = false;
+				this.reservationList.visible = false;
+				this.uploadForm.visible = false;
+				this.changePassword.visible = true;
+				this.lendingList.visible = false;
+			}
+
+			public function afterLogin():void {
+				mainMenu.addChild(myBookTab);
+			}
+			public function afterLogout():void {
+				mainMenu.removeChild(myBookTab);
+			}
+			
+			public static function getHome():Home {
+				return homeInstance;
+			}
+			
+
+			protected function viewMoreBtn_clickHandler(event:MouseEvent):void
+			{
+				this.mainMenu.selectedChild = bookNavigatorContent;
+				searchBookList.reset();	
+				searchBookList.searchAllBook(1);
+			}
+
+			public function searchBook(keyword:String):void{
+				searchBookList.reset();
+				searchBookList.searchBookByKeyword(keyword, 1);
+				tabClickChangeFlag = false;
+				this.mainMenu.selectedChild = bookNavigatorContent;
+			}
+
+			protected function reservedBtn_clickHandler(event:MouseEvent):void
+			{
+				this.myBookList.visible = false;
+				this.reservationList.visible = true;
+				this.uploadForm.visible = false;
+				this.lendingList.visible = false;
+				this.reservationList.refresh();
+			}
+
+
+			protected function borrowedBtn_clickHandler(event:MouseEvent):void
+			{
+				this.myBookList.visible = false;
+				this.reservationList.visible = false;
+				this.lendingList.visible = true;
+				this.lendingList.refresh();
+				this.uploadForm.visible = false;
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:Panel horizontalCenter="0" width="800" height="98%" creationComplete="initData()" id="mainPanel">
+			
+		<mx:TabNavigator x="10" y="70" width="780" height="100%" id="mainMenu" change="mainMenu_changeHandler(event)">
+			<s:NavigatorContent label="首页" width="100%" height="100%" textAlign="left" id="homeTab">
+				<s:Label x="10" y="10" text="最新书籍:"/>
+				<mx:LinkButton x="112" y="4" label="更多..." id="viewMoreBtn" click="viewMoreBtn_clickHandler(event)"/>
+				<component:NewBook x="40" y="30">
+				</component:NewBook>
+			</s:NavigatorContent>
+			
+			<s:NavigatorContent label="书籍" width="100%" height="100%" id="bookNavigatorContent">
+				<booklist:SearchBookList x="10" y="0" id="searchBookList" >
+				</booklist:SearchBookList>
+			</s:NavigatorContent>
+			
+			<s:NavigatorContent label="我的黄金屋" width="100%" height="100%" id="myBookTab">
+				<booklist:MyBookList x="155" y="0" id="myBookList">
+				</booklist:MyBookList>
+				<booklist:ReservationList x="155" y="0" id="reservationList" visible="false">
+				</booklist:ReservationList>
+				<booklist:LendingList x="155" y="0" id="lendingList" visible="false">
+				</booklist:LendingList>
+				<mx:Accordion x="0" y="0" width="150" height="150" headerStyleName="accordion">
+					<s:NavigatorContent label="书籍管理" width="100%" height="200">
+						<mx:LinkButton label="我的书籍" x="0" y="0" width="100%" id="myBookBtn" click="myBookBtn_clickHandler(event)"/>
+						<mx:LinkButton label="我预约的" x="0" y="25" width="100%" id="reservedBtn" click="reservedBtn_clickHandler(event)"/>
+						<mx:LinkButton label="我借阅的" x="0" y="50" width="100%" id="borrowedBtn" click="borrowedBtn_clickHandler(event)"/>
+						<mx:LinkButton label="分享书籍" x="0" y="75" width="100%" id="shareBtn" click="shareBtn_clickHandler(event)"/>
+					</s:NavigatorContent>
+					<s:NavigatorContent label="设置" width="100%" height="200">
+						<mx:LinkButton label="修改个人信息" x="0" y="0" width="100%" id="changeProfileBtn"/>
+						<mx:LinkButton label="修改密码" x="0" y="25" width="100%" id="changePasswordBtn" click="changePasswordBtn_clickHandler(event)"/>
+					</s:NavigatorContent>
+				
+				</mx:Accordion>
+				<upload:UploadForm x="200" y="0" visible="false" id="uploadForm">
+				</upload:UploadForm>
+				<user:ChangePassword x="260" y="5" id="changePassword" visible="false">
+				</user:ChangePassword>
+			</s:NavigatorContent>
+		<!--	<s:NavigatorContent label="高级搜索" width="100%" height="100%">
+				<component:AdvancedSearchBox x="194" y="10" click="Alert.show('hello','kk')">
+				</component:AdvancedSearchBox>
+			</s:NavigatorContent>-->
+		</mx:TabNavigator>
+		
+		<component:SearchBox id="searchBox" x="346" y="-38">
+		</component:SearchBox>
+		
+		<mx:Image x="10" y="0" source="./images/logo_internal.png" click="showBookDetail()"/>
+		<s:Label x="10" y="-18" text="Welcome to Goldroom."/>
+		<user:Signin id="signin" x="588" y="-30">
+		</user:Signin>
+	</s:Panel>
+</s:Application>

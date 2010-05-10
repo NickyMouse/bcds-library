@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="760" height="486" xmlns:component="com.goldroom.flex.component.*" xmlns:services="com.alibaba.intl.goldroom.flex.services.*" implements="com.goldroom.flex.script.page.IPageNavigator" xmlns:page="com.goldroom.flex.component.page.*">
+	<fx:Script>
+		<![CDATA[
+			import com.goldroom.flex.component.BookDetail;
+			import com.alibaba.intl.goldroom.flex.dataobject.BookItem;
+			import com.alibaba.intl.goldroom.flex.dataobject.BookSearch;
+			import com.goldroom.flex.data.RunData;
+			import com.goldroom.flex.script.page.IPageNavigator;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.controls.advancedDataGridClasses.AdvancedDataGridItemRenderer;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			protected var currentPage:int = 1;
+			protected var totalCount:int = 1;
+			protected var searchKeyword:String = "";
+			
+			public function reset(): void{
+				currentPage = 1;
+				totalCount = 1;
+				searchKeyword = "";
+			}
+			protected function bookListDataGrid_clickHandler(event:MouseEvent):void
+			{
+				if(event.target is AdvancedDataGridItemRenderer && bookListDataGrid.selectedIndex >= 0){
+					BookDetail.popDetailWin(root, bookListDataGrid.selectedItem.bookInfoId, true, false);
+				}
+			}
+
+			protected function bookListDataGrid_creationCompleteHandler(event:FlexEvent):void
+			{
+				pageNavigator.setPageNavigator(this);
+				searchAllBook(1);
+			}
+
+			public function searchAllBook(page:int):void{
+				if(searchKeyword != "") {
+					return;
+				}
+				listAllBookResult.token = bookInfoService.listAllBook(page, RunData.getRunData().getPageSize());
+			}
+			
+			public function searchBookByKeyword(keyword:String, page:int):void {
+				searchKeyword = keyword;
+				listAllBookResult.token = bookInfoService.searchBookByKeyword(searchKeyword, page, RunData.getRunData().getPageSize());
+			}
+			
+			protected function listAllBookResult_resultHandler(event:ResultEvent):void
+			{
+				if(listAllBookResult.lastResult.totalCount == 0){
+					Alert.show("暂无符合条件的书籍");
+				}
+				this.totalCount = listAllBookResult.lastResult.totalCount;
+				var list:ArrayCollection = listAllBookResult.lastResult.bookList;
+				processResult(list);
+			}
+			
+			protected function processResult(list:ArrayCollection):void{
+				
+				var imgUrls:ArrayList = new ArrayList();
+				var descs:ArrayList = new ArrayList();
+				var bookInfoIds:ArrayList = new ArrayList(); 
+				for(var i:int = 0; i < list.length; i++) {
+					imgUrls.addItem(BookSearch(list.getItemAt(i)).bookImgUrl);
+					descs.addItem(BookSearch(list.getItemAt(i)).bookName);
+					bookInfoIds.addItem(BookSearch(list.getItemAt(i)).bookInfoId);
+				}
+				gallery.createImagesList(imgUrls, descs, bookInfoIds, true, false);
+				gallery.setSize(740,180);				
+				pageNavigator.refresh();
+			}
+			
+			public function turnToPage(page:int):void{
+				this.currentPage = page;
+				if(searchKeyword.length > 0){
+					searchBookByKeyword(searchKeyword, currentPage);
+				} else {
+					searchAllBook(currentPage);
+				}
+			}
+			public function getCurrentPage():int {
+				return this.currentPage;
+			}
+			
+			public function getTotalCount():int{
+				return this.totalCount;
+			}
+
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="listAllBookResult" result="listAllBookResult_resultHandler(event)"/>
+		
+		<services:BookInfoService id="bookInfoService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+	</fx:Declarations>
+	<component:Gallery x="10" y="31" width="740" id="gallery">
+	</component:Gallery>
+	<mx:AdvancedDataGrid x="10" y="211" width="740" height="245" id="bookListDataGrid" click="bookListDataGrid_clickHandler(event)" creationComplete="bookListDataGrid_creationCompleteHandler(event)" dataProvider="{listAllBookResult.lastResult.bookList}">
+		<mx:columns>
+			<mx:AdvancedDataGridColumn headerText="书名" dataField="bookName" />
+			<mx:AdvancedDataGridColumn headerText="作者" dataField="bookAuthor"/>
+		</mx:columns>
+	</mx:AdvancedDataGrid>
+	<page:PageNavigator x="297" y="1" id="pageNavigator">
+	</page:PageNavigator>
+</s:Group>
