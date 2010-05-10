@@ -33,7 +33,7 @@
 			<version>1.2</version>
 		</dependency>
 		<dependency>
-			<groupId>com.alibaba.bcds</groupId>
+			<groupId>com.alibaba.goldroom</groupId>
 			<artifactId>goldroom-dal</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

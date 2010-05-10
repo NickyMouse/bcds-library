@@ -13,14 +13,14 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
 
-import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
-import com.alibaba.intl.bcds.goldroom.dataobject.LendingWithExpireDays;
-import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.mail.dao.MailDao;
 import com.alibaba.intl.bcds.goldroom.mail.dataobject.EmailInfo;
+import com.alibaba.intl.bcds.goldroom.mail.dataobject.LendingWithExpireDays;
 import com.alibaba.intl.bcds.goldroom.mail.enumeration.ServiceType;
 import com.alibaba.intl.bcds.goldroom.mail.service.impl.SendMailServiceImpl;
 import com.alibaba.intl.bcds.goldroom.mail.utils.MailApplicationContext;
+import com.alibaba.intl.goldroom.dataobject.BookInfo;
+import com.alibaba.intl.goldroom.dataobject.Member;
 
 public class Main {
 
@@ -72,7 +72,7 @@ public class Main {
                     continue;
                 }
                 String ownerLoginId = lending.getOwner();
-                String subscriberLoginId = lending.getSubscriber();
+                String subscriberLoginId = lending.getSubscriber().getLoginId();
                 if (StringUtils.isBlank(ownerLoginId) || StringUtils.isBlank(subscriberLoginId)) {
                     continue;
                 }

@@ -3,11 +3,11 @@ package com.alibaba.intl.bcds.goldroom.mail.dataobject;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
-import com.alibaba.intl.bcds.goldroom.dataobject.Lending;
-import com.alibaba.intl.bcds.goldroom.dataobject.Member;
-import com.alibaba.intl.bcds.goldroom.dataobject.Reservation;
 import com.alibaba.intl.bcds.goldroom.mail.enumeration.ServiceType;
+import com.alibaba.intl.goldroom.dataobject.BookInfo;
+import com.alibaba.intl.goldroom.dataobject.Lending;
+import com.alibaba.intl.goldroom.dataobject.Member;
+import com.alibaba.intl.goldroom.dataobject.Reservation;
 
 public class EmailInfo {
 

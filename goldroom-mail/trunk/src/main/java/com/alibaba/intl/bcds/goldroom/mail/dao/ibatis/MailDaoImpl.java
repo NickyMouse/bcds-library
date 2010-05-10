@@ -7,10 +7,10 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
-import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
-import com.alibaba.intl.bcds.goldroom.dataobject.LendingWithExpireDays;
-import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.mail.dao.MailDao;
+import com.alibaba.intl.bcds.goldroom.mail.dataobject.LendingWithExpireDays;
+import com.alibaba.intl.goldroom.dataobject.BookInfo;
+import com.alibaba.intl.goldroom.dataobject.Member;
 
 public class MailDaoImpl extends SqlMapClientDaoSupport implements MailDao {
 
