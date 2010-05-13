@@ -24,16 +24,19 @@ public class BookItemDaoImplTest {
     @Autowired
     BookItemDaoImpl bookItemDaoImpl;
 
-//    @Test
-//    public void listBookItemsByLoginId() {
-//        System.out.println("listBookItemsByLoginId");
-//        List<BookItem> list = bookItemDaoImpl.listBookItemsByLoginId("gangyi.xiaogy");
-//        for (BookItem i : list) {
-//            System.out.println(i.getBookInfo().getName());
-//        }
-//
-//        assertNotNull(list);
-//    }
+    @Autowired
+    CommentDaoImpl  commentDaoImpl;
+
+    // @Test
+    // public void listBookItemsByLoginId() {
+    // System.out.println("listBookItemsByLoginId");
+    // List<BookItem> list = bookItemDaoImpl.listBookItemsByLoginId("gangyi.xiaogy");
+    // for (BookItem i : list) {
+    // System.out.println(i.getBookInfo().getName());
+    // }
+    //
+    // assertNotNull(list);
+    // }
 
     @Test
     public void listBookItemsByLoginIdAndState() {
@@ -50,6 +53,7 @@ public class BookItemDaoImplTest {
         System.out.println("countBookItemsByLoginIdAndState");
         int count = bookItemDaoImpl.countBookItemsByLoginIdAndState("gangyi.xiaogy", "idle");
         System.out.println(count);
+        commentDaoImpl.listByLoginId("gangyi.xiaogy", 1, 2);
     }
 
     @Test
@@ -61,5 +65,5 @@ public class BookItemDaoImplTest {
         }
         assertNotNull(list);
     }
-    
+
 }

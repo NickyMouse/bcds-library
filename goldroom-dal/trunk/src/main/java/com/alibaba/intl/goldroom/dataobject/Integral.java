@@ -6,8 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -36,6 +38,10 @@ public class Integral {
     @Id
     @Column(name = "LOGIN_ID")
     private String  loginId;
+
+    @OneToOne
+    @JoinColumn(name = "LOGIN_ID")
+    private Member  member;
 
     // 积分值
     @Column(name = "VALUE")
@@ -79,6 +85,14 @@ public class Integral {
 
     public void setValue(long value) {
         this.value = value;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public Member getMember() {
+        return member;
     }
 
 }

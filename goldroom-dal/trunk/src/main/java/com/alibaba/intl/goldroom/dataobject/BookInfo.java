@@ -21,7 +21,7 @@ public class BookInfo {
 
     @Id
     @GeneratedValue
-    private int     id;
+    private Integer id;
 
     @Column(name = "AUTHOR")
     private String  author;
@@ -46,6 +46,9 @@ public class BookInfo {
 
     @Column(name = "IMG_URL")
     private String  imgUrl;
+
+    @Column(name = "E_BOOK_URL")
+    private String  eBookUrl;
 
     @Column(name = "DESCRIPTION")
     private String  description;
@@ -263,4 +266,11 @@ public class BookInfo {
         return categoryId;
     }
 
+    public String geteBookUrl() {
+        return eBookUrl;
+    }
+
+    public void seteBookUrl(String eBookUrl) {
+        this.eBookUrl = eBookUrl;
+    }
 }

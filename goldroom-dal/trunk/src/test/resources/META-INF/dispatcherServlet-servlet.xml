@@ -53,6 +53,7 @@
 	<bean id="lendingDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.LendingDaoImpl" />
 	<bean id="reservationDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.ReservationDaoImpl" />
 	<bean id="memberLogDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.MemberLogDaoImpl" />
-	<bean id="integralDao" class="com.alibaba.intl.goldroom.dao.impl.IntegralDaoImpl" />
-
+	<bean id="integralDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.IntegralDaoImpl" />
+	<bean id="commentDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.CommentDaoImpl" />
+	<bean id="adminConfigDaoImpl" class="com.alibaba.intl.goldroom.dao.impl.AdminConfigDaoImpl" />
 </beans>
