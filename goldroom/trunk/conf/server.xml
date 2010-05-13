@@ -166,6 +166,8 @@
 					reloadable="true" />
 				<Context docBase="F:/home/intlbcds/work/upload" path="/upload"
 					reloadable="true" />
+				<Context docBase="F:/home/intlbcds/work/ebook" path="/ebook"
+					reloadable="true" />
 			</Host>
 		</Engine>
 	</Service>

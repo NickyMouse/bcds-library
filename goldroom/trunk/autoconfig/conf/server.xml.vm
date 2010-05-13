@@ -166,6 +166,8 @@
 					reloadable="true" />
 				<Context docBase="${goldroom_fileupload_path}" path="/upload"
 					reloadable="true" />
+				<Context docBase="${goldroom_ebook_upload_path}" path="/ebook"
+					reloadable="true" />
 			</Host>
 		</Engine>
 	</Service>

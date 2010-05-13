@@ -8,6 +8,7 @@ import org.springframework.flex.remoting.RemotingDestination;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearch;
 import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchOption;
 import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQueryObject;
@@ -64,15 +65,18 @@ public class BookInfoService {
     // bookInfoDao.updateCategory(bookInfo);
     // }
 
-    public BookSearchResult searchBookByKeyword(String keyword, int page, int pageSize) {
-        BookSearchQueryObject obj = bookSearchService.searchBookByKeyword(keyword, (page - 1) * pageSize, pageSize);
+    public BookSearchResult searchBookByKeyword(String keyword, String type, int page, int pageSize) {
+        BookSearchQueryObject obj = bookSearchService.searchBookByKeyword(keyword,
+                                                                          SearchBookType.getSearchBookType(type),
+                                                                          (page - 1) * pageSize, pageSize);
         return new BookSearchResult(obj.getResultList(), obj.getTotalCount());
 
     }
 
-    public BookSearchResult searchBookByTime(Date startTime, Date endTime, int page, int pageSize) {
-        BookSearchQueryObject obj = bookSearchService.searchBookByTime(startTime, endTime, (page - 1) * pageSize,
-                                                                       pageSize);
+    public BookSearchResult searchBookByTime(Date startTime, Date endTime, String type, int page, int pageSize) {
+        BookSearchQueryObject obj = bookSearchService.searchBookByTime(startTime, endTime,
+                                                                       SearchBookType.getSearchBookType(type),
+                                                                       (page - 1) * pageSize, pageSize);
         return new BookSearchResult(obj.getResultList(), obj.getTotalCount());
     }
 
@@ -89,12 +93,14 @@ public class BookInfoService {
         option.setIsbn(isbn);
         option.setDaysBefore(daysBefore);
         option.setDescription(description);
-        BookSearchQueryObject obj = bookSearchService.advancedBookSearch(option, (page - 1) * pageSize, pageSize);
+        BookSearchQueryObject obj = bookSearchService.advancedBookSearch(option, SearchBookType.ALL, (page - 1)
+                                                                                                     * pageSize,
+                                                                         pageSize);
         return new BookSearchResult(obj.getResultList(), obj.getTotalCount());
     }
 
-    public BookSearchResult listAllBook(int page, int pageSize) {
-        BookSearchQueryObject obj = bookSearchService.listAllBook((page - 1) * pageSize, pageSize);
+    public BookSearchResult listAllBook(String type, int page, int pageSize) {
+        BookSearchQueryObject obj = bookSearchService.listAllBook(SearchBookType.getSearchBookType(type), (page - 1) * pageSize, pageSize);
         return new BookSearchResult(obj.getResultList(), obj.getTotalCount());
     }
 

@@ -16,6 +16,8 @@
 		<class>com.alibaba.intl.goldroom.dataobject.Member</class>
 		<class>com.alibaba.intl.goldroom.dataobject.MemberLog</class>
 		<class>com.alibaba.intl.goldroom.dataobject.Reservation</class>
+		<class>com.alibaba.intl.goldroom.dataobject.AdminConfig</class>
+		<class>com.alibaba.intl.goldroom.dataobject.Comment</class>
 		<properties>
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/goldroom" />

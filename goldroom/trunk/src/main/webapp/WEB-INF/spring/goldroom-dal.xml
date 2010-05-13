@@ -39,7 +39,10 @@
 	<bean id="memberDao" class="com.alibaba.intl.goldroom.dao.impl.MemberDaoImpl" />
 	<bean id="memberLogDao" class="com.alibaba.intl.goldroom.dao.impl.MemberLogDaoImpl" />
 	<bean id="integralDao" class="com.alibaba.intl.goldroom.dao.impl.IntegralDaoImpl" />
+	<bean id="commentDao" class="com.alibaba.intl.goldroom.dao.impl.CommentDaoImpl" />
+	<bean id="adminConfigDao" class="com.alibaba.intl.goldroom.dao.impl.AdminConfigDaoImpl" />
 	<bean id="bookSearchDao"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.BookSearchDaoImpl">
 	</bean>
+
 </beans>

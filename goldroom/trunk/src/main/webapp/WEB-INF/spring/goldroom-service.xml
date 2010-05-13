@@ -12,7 +12,8 @@
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx.xsd"
 	default-autowire="byName">
-	
+
+
 	<bean id="bookSearchService"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.service.impl.BookSearchServiceImpl" />
 	<bean id="bookInfoFetcher" class="com.alibaba.intl.goldroom.remote.DoubanBookInfoFetcher">
@@ -21,6 +22,12 @@
 	<bean id="bookInfoService" class="com.alibaba.intl.goldroom.service.BookInfoService" />
 	<bean id="bookItemService" class="com.alibaba.intl.goldroom.service.BookItemService" />
 	<bean id="memberService" class="com.alibaba.intl.goldroom.service.MemberService" />
+	<bean id="commentService" class="com.alibaba.intl.goldroom.service.CommentService" />
+	<bean id="adminConfigService" class="com.alibaba.intl.goldroom.service.AdminConfigService" />
+	<bean id="eBookUploadService" class="com.alibaba.intl.goldroom.service.EBookUploadService">
+		<property name="eBookUploadPath" value="${goldroom.ebook.upload.path}" />
+	</bean>
+
 	<bean id="sendMailService"
 		class="com.alibaba.intl.bcds.goldroom.mail.service.impl.SendMailServiceImpl" />
 
