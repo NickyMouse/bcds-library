@@ -20,6 +20,26 @@ public class BuildBookSearch {
     private String  bookOwners;
     private Integer bookPages;
     private String  bookTranslator;
+    private String  ebookUrl;
+    private String  hasEbook;
+
+    
+    public String getHasEbook() {
+        return hasEbook;
+    }
+
+    
+    public void setHasEbook(String hasEbook) {
+        this.hasEbook = hasEbook;
+    }
+
+    public String getEbookUrl() {
+        return ebookUrl;
+    }
+
+    public void setEbookUrl(String ebookUrl) {
+        this.ebookUrl = ebookUrl;
+    }
 
     public Integer getBookPages() {
         return bookPages;

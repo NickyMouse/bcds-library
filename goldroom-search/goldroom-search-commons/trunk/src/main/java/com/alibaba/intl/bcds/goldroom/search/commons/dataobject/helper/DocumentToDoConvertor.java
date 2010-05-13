@@ -6,6 +6,7 @@ import java.util.Date;
 
 import jeasy.analysis.MMAnalyzer;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
@@ -67,6 +68,8 @@ public class DocumentToDoConvertor {
             aDO.setBookOwners(doc.get(BookSearchConstrains.BOOK_OWNERS));
             aDO.setBookPages(NumberUtils.toInteger(doc.get(BookSearchConstrains.BOOK_PAGES)));
             aDO.setBookTranslator(doc.get(BookSearchConstrains.BOOK_TRANSLATOR));
+            aDO.setEbookUrl(doc.get(BookSearchConstrains.E_BOOK_URL));
+            aDO.setHasEbook(doc.get(BookSearchConstrains.HAS_EBOOK));
             highlight(aDO, doc);
         } catch (Exception e) {
             logger.error(e);
