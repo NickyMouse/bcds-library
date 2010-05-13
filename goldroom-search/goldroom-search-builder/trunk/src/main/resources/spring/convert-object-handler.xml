@@ -22,6 +22,8 @@
 				<entry key="bookDescription" value-ref="bookDescription" />
 				<entry key="bookEdition" value-ref="bookEdition" />
 				<entry key="bookOwners" value-ref="bookOwners" />
+				<entry key="ebookUrl" value-ref="ebookUrl" />
+				<entry key="hasEbook" value-ref="hasEbook" />
 			</map>
 		</property>
 	</bean>
@@ -132,6 +134,18 @@
 	<bean id="bookTranslator"
 		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
 		<constructor-arg value="bookTranslator" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+	<bean id="ebookUrl"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="ebookUrl" />
+		<constructor-arg value="YES" />
+		<constructor-arg value="NOT_ANALYZED" />
+	</bean>
+	<bean id="hasEbook"
+		class="com.alibaba.intl.bcds.goldroom.search.builder.utils.Rule">
+		<constructor-arg value="hasEbook" />
 		<constructor-arg value="YES" />
 		<constructor-arg value="NOT_ANALYZED" />
 	</bean>
