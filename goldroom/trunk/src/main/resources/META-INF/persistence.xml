@@ -20,9 +20,9 @@
 		<class>com.alibaba.intl.goldroom.dataobject.Comment</class>
 		<properties>
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/goldroom" />
-			<property name="hibernate.connection.username" value="root" />
-			<property name="hibernate.connection.password" value="root" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/goldroom?useUnicode=true&amp;characterEncoding=utf8" />
+			<property name="hibernate.connection.username" value="goldroom" />
+			<property name="hibernate.connection.password" value="goldroom" />
 			<property name="show_sql" value="true" />
 			<property name="dialect" value="org.hibernate.dialect.MySQLDialect" />
 		</properties>

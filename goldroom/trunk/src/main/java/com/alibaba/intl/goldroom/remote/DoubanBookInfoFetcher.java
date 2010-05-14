@@ -6,7 +6,6 @@
  */
 package com.alibaba.intl.goldroom.remote;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,15 +54,17 @@ public class DoubanBookInfoFetcher implements BookInfoFetcher, InitializingBean 
         HttpMethod method = new GetMethod(fetchUrl + isbn);
         HttpClient client = new HttpClient();
         try {
+            client.startSession("api.douban.com", 80);
             client.executeMethod(method);
             BookInfo info = parserBookInfo(method.getResponseBodyAsString());
+            client.endSession();
             return info;
+
         } catch (HttpException e) {
             logger.error("fetch bookinfo whth isbn(" + isbn + ") error", e);
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error("fetch bookinfo whth isbn(" + isbn + ") error", e);
         }
-
         return null;
     }
 

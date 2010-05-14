@@ -32,6 +32,5 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<import resource="spring/goldroom-dal.xml" />
-	<import resource="spring/goldroom-util.xml" />
 	<import resource="spring/goldroom-service.xml" />
 </beans>

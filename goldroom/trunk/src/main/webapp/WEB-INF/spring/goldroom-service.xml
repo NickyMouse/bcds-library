@@ -27,7 +27,6 @@
 	<bean id="eBookUploadService" class="com.alibaba.intl.goldroom.service.EBookUploadService">
 		<property name="eBookUploadPath" value="${goldroom.ebook.upload.path}" />
 	</bean>
-
 	<bean id="sendMailService"
 		class="com.alibaba.intl.bcds.goldroom.mail.service.impl.SendMailServiceImpl" />
 

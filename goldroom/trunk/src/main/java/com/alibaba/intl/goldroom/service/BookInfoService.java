@@ -37,12 +37,16 @@ public class BookInfoService {
         return bookInfoDao.findBookInfoByIsbn(isbn);
     }
 
-    public boolean addBookInfo(BookInfo bookInfo) {
+    public boolean updateBookInfo(BookInfo bookInfo) {
+        return bookInfoDao.updateById(bookInfo);
+    }
+
+    public BookInfo addBookInfo(BookInfo bookInfo) {
         if (bookInfoDao.findBookInfoByIsbn(bookInfo.getIsbn()) != null) {
-            return false;
+            return null;
         }
         bookInfoDao.save(bookInfo);
-        return true;
+        return bookInfo;
     }
 
     public BookInfo findBookInfoById(int id) {
@@ -100,7 +104,9 @@ public class BookInfoService {
     }
 
     public BookSearchResult listAllBook(String type, int page, int pageSize) {
-        BookSearchQueryObject obj = bookSearchService.listAllBook(SearchBookType.getSearchBookType(type), (page - 1) * pageSize, pageSize);
+        BookSearchQueryObject obj = bookSearchService.listAllBook(SearchBookType.getSearchBookType(type), (page - 1)
+                                                                                                          * pageSize,
+                                                                  pageSize);
         return new BookSearchResult(obj.getResultList(), obj.getTotalCount());
     }
 
