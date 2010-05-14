@@ -30,8 +30,8 @@
 
 	<select id="listAllBook" resultMap="bookSearchResult">
 		SELECT
-		item.ADD_TIME ITEM_ADD_TIME,
-		item.FIRST_ADD_TIME ITEM_FIRST_ADD_TIME,
+		info.GMT_CREATE ITEM_ADD_TIME,
+		info.GMT_CREATE ITEM_FIRST_ADD_TIME,
 		GROUP_CONCAT(item.TAGS) BOOK_TAGS,
 		info.ID BOOK_INFO_ID,
 		info.AUTHOR BOOK_AUTHOR,
@@ -61,8 +61,8 @@
 	
 	<select id="listBookByTime" resultMap="bookSearchResult">
 		SELECT
-		item.ADD_TIME ITEM_ADD_TIME,
-		item.FIRST_ADD_TIME ITEM_FIRST_ADD_TIME,
+		info.GMT_CREATE ITEM_ADD_TIME,
+		info.GMT_CREATE ITEM_FIRST_ADD_TIME,
 		GROUP_CONCAT(item.TAGS) BOOK_TAGS,
 		info.ID BOOK_INFO_ID,
 		info.AUTHOR BOOK_AUTHOR,
