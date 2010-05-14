@@ -76,12 +76,11 @@ public class BookInfoBuilder extends BaseBuilder {
                 if (StringUtils.isNotEmpty(book.getBookOwners())) {
                     String temp = "," + book.getBookOwners().replace('.', '@') + ",";
                     book.setBookOwners(temp);
-                    if (StringUtils.isEmpty(book.getEbookUrl())) {
-                        book.setHasEbook(Boolean.FALSE.toString());
-                    } else {
-                        book.setHasEbook(Boolean.TRUE.toString());
-                    }
-
+                }
+                if (StringUtils.isEmpty(book.getEbookUrl())) {
+                    book.setHasEbook(Boolean.FALSE.toString());
+                } else {
+                    book.setHasEbook(Boolean.TRUE.toString());
                 }
             }
             while (bookList != null && bookList.size() > 0) {
