@@ -48,14 +48,9 @@
 		info.TRANSLATOR BOOK_TRANSLATOR,
 		info.E_BOOK_URL E_BOOK_URL
 		FROM  BOOK_INFO info 
-		LEFT JOIN BOOK_ITEM item ON item.BOOK_INFO_ID = info.ID
-		LEFT JOIN MEMBER m ON item.LOGIN_ID = m.LOGIN_ID
-		WHERE
-		<![CDATA[
-			item.STATE<>'deleted'
-		]]>
+        LEFT  JOIN (BOOK_ITEM item ,MEMBER m) ON (item.BOOK_INFO_ID = info.ID AND item.LOGIN_ID = m.LOGIN_ID AND item.STATE<>'deleted')
 		GROUP BY info.ID
-		ORDER BY item.FIRST_ADD_TIME DESC
+		ORDER BY info.ID DESC
 		LIMIT
 		#skipRow#,#pageSize#
 	</select>
@@ -79,19 +74,16 @@
 		info.PAGES BOOK_PAGES,
 		info.TRANSLATOR BOOK_TRANSLATOR,
 		info.E_BOOK_URL E_BOOK_URL
-		FROM BOOK_ITEM item
-		JOIN BOOK_INFO info ON item.BOOK_INFO_ID = info.ID
-		JOIN MEMBER m ON item.LOGIN_ID = m.LOGIN_ID
-		WHERE
-		<![CDATA[
-			item.STATE<>'deleted' AND
+		FROM  BOOK_INFO info 
+        LEFT  JOIN (BOOK_ITEM item ,MEMBER m) ON (item.BOOK_INFO_ID = info.ID AND item.LOGIN_ID = m.LOGIN_ID AND item.STATE<>'deleted'
+        	AND
 			(
 				(item.GMT_MODIFIED >= #startTime:DATETIME# AND item.GMT_MODIFIED < #endTime:DATETIME#)
 				OR
 				(info.GMT_MODIFIED >= #startTime:DATETIME# AND info.GMT_MODIFIED < #endTime:DATETIME#)
 			)
-		]]>
+        )
 		GROUP BY info.ID
-		ORDER BY item.FIRST_ADD_TIME DESC
+		ORDER BY info.ID DESC
 	</select>
 </sqlMap>
