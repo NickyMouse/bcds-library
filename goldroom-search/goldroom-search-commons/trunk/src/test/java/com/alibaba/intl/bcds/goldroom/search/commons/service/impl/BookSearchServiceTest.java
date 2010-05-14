@@ -7,6 +7,7 @@ import junit.framework.TestCase;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearch;
 import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchQueryObject;
 import com.alibaba.intl.bcds.goldroom.search.commons.service.BookSearchService;
@@ -35,16 +36,17 @@ public class BookSearchServiceTest extends TestCase {
 	
 	public void testSearchBookByInfoId(){
 	    System.out.println("testSearchBookByInfoId");
-	    BookSearch aDO = bookSearchService.searchBookByInfoId(13);
+	    BookSearch aDO = bookSearchService.searchBookByInfoId(279);
+	    
 	    assertNotNull(aDO);
 	    System.out.println(aDO.getBookName()+",   "+aDO.getBookImgUrl());
 	}
-
-	/*
+/*
+	
     public void testSearchBookByKeyword() {
 		System.out.println("testSearchBookByKeyword");
 		BookSearchQueryObject obj = bookSearchService.searchBookByKeyword(
-				"59秒", 0, 30);
+				"action",SearchBookType.getSearchBookType("all"), 0, 30);
 		List<BookSearch> list = obj.getResultList();
 		System.out.println(obj.getTotalCount());
 		for (BookSearch aDO : list) {
@@ -72,4 +74,8 @@ public class BookSearchServiceTest extends TestCase {
 		}
 		assertNotNull(list);
 	}*/
+	
+	
+	
+	
 }
