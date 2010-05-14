@@ -86,7 +86,7 @@ public class BookInfoBuilder extends BaseBuilder {
             }
             while (bookList != null && bookList.size() > 0) {
                 List<Document> docList = factory.convertList(bookList);
-                System.out.println("page:" + page + " list:" + bookList.size());
+                System.out.println("page:" + page + " list:" + bookList.size() + "documentList:" + docList.size());
 
                 for (Document doc : docList) {
                     writer.addDocument(doc);
