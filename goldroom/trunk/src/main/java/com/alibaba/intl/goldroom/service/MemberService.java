@@ -133,9 +133,9 @@ public class MemberService {
         if (m == null) {
             return false;
         }
-        oldPassword =  MD5.getMD5(oldPassword);
+        oldPassword = MD5.getMD5(oldPassword);
         newPassword = MD5.getMD5(newPassword);
-        if(m.getPassword().equals(oldPassword)){
+        if (m.getPassword().equals(oldPassword)) {
             return memberDao.updatePasswordByLoginId(loginId, newPassword);
         } else {
             return false;
@@ -154,6 +154,14 @@ public class MemberService {
             return m;
         } else {
             return null;
+        }
+    }
+
+    public List<Member> listMemberByStatus(String status) {
+        if (StringUtils.isEmpty(status)) {
+            return null;
+        } else {
+            return memberDao.listMemberByStatus(MemberEnableEnum.getMemberEnableEnum(status).getValue());
         }
     }
 }
