@@ -54,10 +54,8 @@ public class DoubanBookInfoFetcher implements BookInfoFetcher, InitializingBean 
         HttpMethod method = new GetMethod(fetchUrl + isbn);
         HttpClient client = new HttpClient();
         try {
-            client.startSession("api.douban.com", 80);
             client.executeMethod(method);
             BookInfo info = parserBookInfo(method.getResponseBodyAsString());
-            client.endSession();
             return info;
 
         } catch (HttpException e) {
