@@ -72,25 +72,9 @@ public class BookInfoBuilder extends BaseBuilder {
             writer = new IndexWriter(this.getDestination(), new MMAnalyzer(), true, IndexWriter.MaxFieldLength.LIMITED);
 
             int page = 1;
-            List<BuildBookSearch> listToProcessed = BookSearchServiceLocator.getBuildBookSearchService().listAllBook(page);
-            List<BuildBookSearch> bookList = new ArrayList<BuildBookSearch>();
-            for (BuildBookSearch book : listToProcessed) {
-                if (StringUtils.isEmpty(book.getEbookUrl()) && StringUtils.isEmpty(book.getBookOwners())) {
-                    continue;
-                }
-                
-                if (StringUtils.isNotEmpty(book.getBookOwners())) {
-                    String temp = "," + book.getBookOwners().replace('.', '@') + ",";
-                    book.setBookOwners(temp);
-                }
-                if (StringUtils.isEmpty(book.getEbookUrl())) {
-                    book.setHasEbook(Boolean.FALSE.toString());
-                } else {
-                    book.setHasEbook(Boolean.TRUE.toString());
-                }
-                bookList.add(book);
-            }
-            
+            List<BuildBookSearch> listToProcessed = BookSearchServiceLocator.getBuildBookSearchService().listAllBook(
+                                                                                                                     page);
+            List<BuildBookSearch> bookList = filterBooks(listToProcessed);
             while (bookList != null && bookList.size() > 0) {
                 List<Document> docList = factory.convertList(bookList);
                 System.out.println("page:" + page + " list:" + bookList.size() + "documentList:" + docList.size());
@@ -99,7 +83,8 @@ public class BookInfoBuilder extends BaseBuilder {
                     writer.addDocument(doc);
                 }
                 page++;
-                bookList = BookSearchServiceLocator.getBuildBookSearchService().listAllBook(page);
+                listToProcessed = BookSearchServiceLocator.getBuildBookSearchService().listAllBook(page);
+                bookList = filterBooks(listToProcessed);
             }
             writer.optimize();
         } catch (IOException e) {
@@ -174,6 +159,27 @@ public class BookInfoBuilder extends BaseBuilder {
 
     public long getInterval() {
         return interval;
+    }
+
+    private List<BuildBookSearch> filterBooks(List<BuildBookSearch> listToProcessed) {
+        List<BuildBookSearch> bookList = new ArrayList<BuildBookSearch>();
+        for (BuildBookSearch book : listToProcessed) {
+            if (StringUtils.isEmpty(book.getEbookUrl()) && StringUtils.isEmpty(book.getBookOwners())) {
+                continue;
+            }
+
+            if (StringUtils.isNotEmpty(book.getBookOwners())) {
+                String temp = "," + book.getBookOwners().replace('.', '@') + ",";
+                book.setBookOwners(temp);
+            }
+            if (StringUtils.isEmpty(book.getEbookUrl())) {
+                book.setHasEbook(Boolean.FALSE.toString());
+            } else {
+                book.setHasEbook(Boolean.TRUE.toString());
+            }
+            bookList.add(book);
+        }
+        return bookList;
     }
 
     private void deleteIndex(List<BuildBookSearch> bookList) {
