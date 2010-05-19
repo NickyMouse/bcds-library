@@ -73,6 +73,11 @@ public class BookInfoBuilder extends BaseBuilder {
             int page = 1;
             List<BuildBookSearch> bookList = BookSearchServiceLocator.getBuildBookSearchService().listAllBook(page);
             for (BuildBookSearch book : bookList) {
+                if (StringUtils.isEmpty(book.getEbookUrl()) && StringUtils.isEmpty(book.getBookOwners())) {
+                    bookList.remove(book);
+                    continue;
+                }
+                
                 if (StringUtils.isNotEmpty(book.getBookOwners())) {
                     String temp = "," + book.getBookOwners().replace('.', '@') + ",";
                     book.setBookOwners(temp);
@@ -82,9 +87,7 @@ public class BookInfoBuilder extends BaseBuilder {
                 } else {
                     book.setHasEbook(Boolean.TRUE.toString());
                 }
-                if (StringUtils.isEmpty(book.getEbookUrl()) && StringUtils.isEmpty(book.getBookOwners())) {
-                    bookList.remove(book);
-                }
+                
             }
             
             while (bookList != null && bookList.size() > 0) {
