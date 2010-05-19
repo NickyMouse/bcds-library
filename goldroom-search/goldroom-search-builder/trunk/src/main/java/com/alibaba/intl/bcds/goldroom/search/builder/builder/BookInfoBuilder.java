@@ -1,6 +1,7 @@
 package com.alibaba.intl.bcds.goldroom.search.builder.builder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -71,10 +72,10 @@ public class BookInfoBuilder extends BaseBuilder {
             writer = new IndexWriter(this.getDestination(), new MMAnalyzer(), true, IndexWriter.MaxFieldLength.LIMITED);
 
             int page = 1;
-            List<BuildBookSearch> bookList = BookSearchServiceLocator.getBuildBookSearchService().listAllBook(page);
-            for (BuildBookSearch book : bookList) {
+            List<BuildBookSearch> listToProcessed = BookSearchServiceLocator.getBuildBookSearchService().listAllBook(page);
+            List<BuildBookSearch> bookList = new ArrayList<BuildBookSearch>();
+            for (BuildBookSearch book : listToProcessed) {
                 if (StringUtils.isEmpty(book.getEbookUrl()) && StringUtils.isEmpty(book.getBookOwners())) {
-                    bookList.remove(book);
                     continue;
                 }
                 
@@ -87,7 +88,7 @@ public class BookInfoBuilder extends BaseBuilder {
                 } else {
                     book.setHasEbook(Boolean.TRUE.toString());
                 }
-                
+                bookList.add(book);
             }
             
             while (bookList != null && bookList.size() > 0) {
