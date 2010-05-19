@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum RoleEnum {
-    ROLE_ADMIN("ROLE_ADMIN", "ROLE_ADMIN", 1), ROLE_USER("ROLE_USER", "ROLE_USER", 2);
+    ROLE_ADMIN("ROLE_ADMIN", "ROLE_ADMIN", 1), ROLE_USER("ROLE_USER", "ROLE_USER", 2), ROLE_LIBRARY("ROLE_LIBRARY",
+                                                                                                    "ROLE_LIBRARY", 3);
 
     private String                        name;
 
