@@ -82,7 +82,11 @@ public class BookInfoBuilder extends BaseBuilder {
                 } else {
                     book.setHasEbook(Boolean.TRUE.toString());
                 }
+                if (StringUtils.isEmpty(book.getEbookUrl()) && StringUtils.isEmpty(book.getBookOwners())) {
+                    bookList.remove(book);
+                }
             }
+            
             while (bookList != null && bookList.size() > 0) {
                 List<Document> docList = factory.convertList(bookList);
                 System.out.println("page:" + page + " list:" + bookList.size() + "documentList:" + docList.size());
