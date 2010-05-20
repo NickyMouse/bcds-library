@@ -27,9 +27,9 @@ public enum ServiceType {
     GET_BOOK("notify.get.book", "getBook.vm", "黄金屋 [Gold Room] 系统邮件：你的书籍预约已被批准。"),
 
     /**
-     * 6.有人还书，借阅者确认还书，邮件提醒。to:书籍借阅者
+     * 6.有人还书，拥有者确认还书，邮件提醒。to:书籍借阅者
      */
-    CONFIRM_RETURN_BOOK("notify.return.book", "confirmReturnBook.vm", "黄金屋 [Gold Room] 系统邮件：您的书籍需要按期归还。"),
+    CONFIRM_RETURN_BOOK("notify.return.book", "confirmReturnBook.vm", "黄金屋 [Gold Room] 系统邮件：你的书籍已经成功归还。"),
 
     /**
      * 7.书籍离归还前还有n天的提醒。to:书籍借阅者
