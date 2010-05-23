@@ -17,9 +17,10 @@ public class EmailInfoCheckerImpl implements EmailInfoChecker {
         } else {
             ServiceType serviceType = emailInfo.getServiceType();
             switch (serviceType) {
-                // 1.帐号申请通过. 2.不通过
+                // 1.帐号申请通过. 2.不通过 . 8.忘记密码
                 case ACCOUNT_APPROVED:
                 case ACCOUNT_TBD:
+                case FORGET_PASSWORD:
                     if (emailInfo.getOwner() != null) {
                         return true;
                     } else {

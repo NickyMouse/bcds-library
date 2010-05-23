@@ -34,7 +34,11 @@ public enum ServiceType {
     /**
      * 7.书籍离归还前还有n天的提醒。to:书籍借阅者
      */
-    SHOULD_RETURN_BOOK("notify.should.return.book", "shouldReturnBook.vm", "黄金屋 [Gold Room] 系统邮件：您的书籍应该要归还了。");
+    SHOULD_RETURN_BOOK("notify.should.return.book", "shouldReturnBook.vm", "黄金屋 [Gold Room] 系统邮件：您的书籍应该要归还了。"),
+    /**
+     * 8.忘记密码，重置密码邮件
+     */
+    FORGET_PASSWORD("forget.password", "forgetPassword.vm", "黄金屋 [Gold Room] 系统邮件：您的密码已经重置");
 
     private String serviceName;
     private String templateName;
