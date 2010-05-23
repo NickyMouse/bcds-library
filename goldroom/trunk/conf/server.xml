@@ -164,9 +164,9 @@
 
 				<Context docBase="target/goldroom" path="/"
 					reloadable="true" />
-				<Context docBase="F:/home/intlbcds/work/upload" path="/upload"
+				<Context docBase="/home/intlbcds/work/upload/images" path="/upload"
 					reloadable="true" />
-				<Context docBase="F:/home/intlbcds/work/ebook" path="/ebook"
+				<Context docBase="/home/intlbcds/work/upload/ebook" path="/ebook"
 					reloadable="true" />
 			</Host>
 		</Engine>
