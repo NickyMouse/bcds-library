@@ -17,4 +17,6 @@ public interface MemberDao {
     boolean updateMemberByLoginId(Member member);
 
     boolean updatePasswordByLoginId(String loginId, String password);
+
+    Member findByNameAndEmail(String name, String email);
 }

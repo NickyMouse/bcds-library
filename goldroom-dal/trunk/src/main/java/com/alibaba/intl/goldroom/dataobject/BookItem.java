@@ -14,7 +14,6 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-
 @Entity
 @Table(name = "BOOK_ITEM")
 @NamedQueries({
@@ -26,49 +25,45 @@ import org.apache.commons.lang.builder.ToStringBuilder;
                @NamedQuery(name = "listBookItemByBookInfoId", query = "SELECT i FROM BookItem i WHERE i.bookInfo.id = :bookInfoId ORDER BY i.gmtCreate DESC"),
                @NamedQuery(name = "listBookItemsByLoginIdAndStateAndBookInfoIds", query = "SELECT i FROM BookItem i WHERE i.bookInfo.id in (:bookInfoIds) AND i.member.loginId = :loginId AND state = :state"),
                @NamedQuery(name = "listBookItemsByLoginIdsAndBookInfoId", query = "SELECT i FROM BookItem i WHERE i.bookInfo.id = :bookInfoId AND i.member.loginId in (:loginIds)")
-               
+
 })
 public class BookItem {
 
     @Id
     @GeneratedValue
-    private Integer           id;
+    private Integer  id;
 
     @Column(name = "STATE")
-    private String            state;
+    private String   state;
 
     @ManyToOne
     @JoinColumn(name = "LOGIN_ID")
-    private Member            member;
+    private Member   member;
 
     @Column(name = "ADD_TIME")
-    private Date              addTime;
+    private Date     addTime;
 
     @Column(name = "REMOVE_TIME")
-    private Date              removeTime;
+    private Date     removeTime;
 
     @Column(name = "FIRST_ADD_TIME")
-    private Date              firstAddTime;
+    private Date     firstAddTime;
 
     @Column(name = "GMT_CREATE")
-    private Date              gmtCreate;
+    private Date     gmtCreate;
 
     @Column(name = "GMT_MODIFIED")
-    private Date              gmtModified;
+    private Date     gmtModified;
 
     @Column(name = "TAGS")
-    private String            tags;
+    private String   tags;
 
     @Column(name = "REMARK")
-    private String            remark;
+    private String   remark;
 
     @ManyToOne
     @JoinColumn(name = "BOOK_INFO_ID")
-    private BookInfo          bookInfo;
-
-   
-
-   
+    private BookInfo bookInfo;
 
     public Integer getId() {
         return id;

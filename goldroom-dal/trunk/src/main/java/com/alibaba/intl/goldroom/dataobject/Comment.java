@@ -16,8 +16,8 @@ import javax.persistence.Table;
 @Table(name = "COMMENT")
 @NamedQueries({
                @NamedQuery(name = "listAllComment", query = "SELECT c FROM Comment c ORDER BY gmtCreate DESC"),
-               @NamedQuery(name = "listCommentByTargetTypeAndTargetId", query = "SELECT c FROM Comment c WHERE targetType=:targetType AND targetId = :targetId"),
-               @NamedQuery(name = "listCommentByLoginId", query = "SELECT c FROM Comment c WHERE c.member.loginId = :loginId"),
+               @NamedQuery(name = "listCommentByTargetTypeAndTargetId", query = "SELECT c FROM Comment c WHERE targetType=:targetType AND targetId = :targetId ORDER BY gmtCreate DESC"),
+               @NamedQuery(name = "listCommentByLoginId", query = "SELECT c FROM Comment c WHERE c.member.loginId = :loginId ORDER BY gmtCreate DESC"),
                @NamedQuery(name = "deleteCommentByLoginId", query = "DELETE FROM Comment c WHERE c.member.loginId = :loginId"),
                @NamedQuery(name = "deleteCommentByTargetTypeAndTargetId", query = "DELETE FROM Comment c WHERE targetType=:targetType AND targetId = :targetId"),
                @NamedQuery(name = "deleteCommentById", query = "DELETE FROM Comment c WHERE id=:id")

@@ -12,7 +12,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ADMIN_CONFIG")
-@NamedQueries({ @NamedQuery(name = "listConfigByType", query = "SELECT c FROM AdminConfig c WHERE type = :type ORDER BY gmtCreate DESC")
+@NamedQueries({
+               @NamedQuery(name = "listConfigByType", query = "SELECT c FROM AdminConfig c WHERE type = :type ORDER BY gmtCreate DESC"),
+               @NamedQuery(name = "updateConfigByType", query = "SELECT c FROM AdminConfig c WHERE type = :type ORDER BY gmtCreate DESC")
 
 })
 public class AdminConfig {

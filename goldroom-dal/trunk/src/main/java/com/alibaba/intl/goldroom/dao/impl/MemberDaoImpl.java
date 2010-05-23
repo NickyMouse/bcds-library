@@ -36,7 +36,7 @@ public class MemberDaoImpl implements MemberDao {
     public List<Member> listMemberByStatus(Integer status) {
         Query q = em.createNamedQuery("listMemberByStatus");
         q.setParameter("status", status);
-        return null;
+        return q.getResultList();
     }
 
     public Member findByLoginId(String loginId) {
@@ -61,6 +61,18 @@ public class MemberDaoImpl implements MemberDao {
         m.setPassword(password);
         em.merge(m);
         return true;
+    }
+
+    public Member findByNameAndEmail(String name, String email) {
+        Query q = em.createNamedQuery("findMemberByNameAndEmail");
+        q.setParameter("name", name);
+        q.setParameter("email", email);
+        List<Member> result = q.getResultList();
+        if (result.size() > 0) {
+            return result.get(0);
+        } else {
+            return null;
+        }
     }
 
     // public Map<String, Member> listMemberInfo() {

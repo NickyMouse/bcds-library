@@ -15,7 +15,10 @@ import javax.persistence.Table;
 @NamedQueries({
                @NamedQuery(name = "findByLoginId", query = "SELECT m FROM Member m WHERE loginId = :loginId"),
                @NamedQuery(name = "listMemberByLoginIds", query = "SELECT m from Member m where loginId in (:loginIds)"),
-               @NamedQuery(name = "listMemberByStatus", query = "SELECT m from Member m where enable = :status") })
+               @NamedQuery(name = "listMemberByStatus", query = "SELECT m from Member m where enable = :status"),
+               @NamedQuery(name = "findMemberByNameAndEmail", query = "SELECT m from Member m where name = :name and email = :email")
+
+})
 public class Member {
 
     @GeneratedValue
