@@ -28,6 +28,8 @@ public class AdminConfigService {
             return StringUtils.EMPTY;
         }
     }
-    
-    
+
+    public boolean setAnnouncement(String announcement) {
+        return adminConfigDao.updateConfig(AdminConfigTypeEnum.ANNOUNCEMENT.getValue(), announcement);
+    }
 }

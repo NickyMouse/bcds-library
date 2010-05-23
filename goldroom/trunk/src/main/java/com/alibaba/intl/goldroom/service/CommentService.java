@@ -50,4 +50,8 @@ public class CommentService {
         commentDao.save(comment);
         return true;
     }
+
+    public boolean deleteCommentById(Integer commentId) {
+        return commentDao.deleteById(commentId);
+    }
 }

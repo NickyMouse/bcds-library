@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.flex.remoting.RemotingDestination;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import com.alibaba.intl.goldroom.dao.MemberDao;
 import com.alibaba.intl.goldroom.dataobject.Integral;
 import com.alibaba.intl.goldroom.dataobject.Member;
 import com.alibaba.intl.goldroom.util.MD5;
+import com.alibaba.intl.goldroom.util.PasswordGenerator;
 
 @Service
 @RemotingDestination
@@ -163,5 +165,20 @@ public class MemberService {
         } else {
             return memberDao.listMemberByStatus(MemberEnableEnum.getMemberEnableEnum(status).getValue());
         }
+    }
+
+    public boolean forgetPassword(String name, String email) {
+        Member m = memberDao.findByNameAndEmail(name, email);
+        if (m == null || !MemberEnableEnum.APPROVE.getValue().equals(m.getEnable())) {
+            return false;
+        }
+        String password = PasswordGenerator.getRandomPassword();
+        m.setPassword(password);
+        EmailInfo emailInfo = new EmailInfo(ServiceType.FORGET_PASSWORD);
+        emailInfo.setOwner(m);
+        emailInfo.addReceiverEmail(m.getEmail());
+        sendMailService.sendMail(emailInfo);
+        memberDao.updatePasswordByLoginId(m.getLoginId(), MD5.getMD5(password));
+        return true;
     }
 }
