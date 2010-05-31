@@ -36,7 +36,7 @@ public class BookSearchServiceTest extends TestCase {
 	
 	public void testSearchBookByInfoId(){
 	    System.out.println("testSearchBookByInfoId");
-	    BookSearch aDO = bookSearchService.searchBookByInfoId(279);
+	    BookSearch aDO = bookSearchService.searchBookByInfoId(282);
 	    
 	    assertNotNull(aDO);
 	    System.out.println(aDO.getBookName()+",   "+aDO.getBookImgUrl());
