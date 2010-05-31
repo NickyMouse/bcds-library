@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.flex.remoting.RemotingDestination;
 import org.springframework.stereotype.Service;
@@ -63,11 +62,12 @@ public class MemberService {
     }
 
     public Member applyMember(Member member) {
-        Member m = memberDao.findByLoginId(member.getLoginId());
+        Member m = memberDao.findByLoginId(member.getLoginId().trim());
         if (m != null) {
             logger.info("[New Member Apply Failed: loginId already exist]" + member.getLoginId());
             return null;
         }
+        member.setLoginId(member.getLoginId().trim());
         member.setEnable(MemberEnableEnum.NEW.getValue());
         member.setPassword(MD5.getMD5(member.getPassword()));
         member.setRole(RoleEnum.ROLE_USER.getName());
@@ -149,7 +149,7 @@ public class MemberService {
             return null;
         }
         Member m = memberDao.findByLoginId(loginId);
-        if (m == null || !MemberEnableEnum.APPROVE.getValue().equals(m.getEnable())) {
+        if (m == null || !loginId.equals(m.getLoginId()) || !MemberEnableEnum.APPROVE.getValue().equals(m.getEnable())) {
             return null;
         }
         if (MD5.getMD5(password).equals(m.getPassword())) {

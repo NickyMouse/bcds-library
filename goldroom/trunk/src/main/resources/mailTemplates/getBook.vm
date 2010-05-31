@@ -2,9 +2,16 @@
 <body>
 ##图书成功预约后,书主确认借书时,通知成功借阅者去拿书.
 尊敬的$!{info.borrower.name}:<br/>
-     恭喜您,书主$!{info.owner.name}已同意将《$!{info.bookInfo.name}》借给您,请您务必好好保管哦!赶紧去领书吧!
-     
-     <p>书主信息：
+     恭喜您,书主$!{info.owner.name}已同意将《$!{info.bookInfo.name}》借给您,请您务必好好保管哦!
+     #if($!{info.owner.role} == "ROLE_LIBRARY")
+		<br/>
+		<br/>技术部图书馆借阅规则：
+			<li>领书时间：每天中午 12 - 13点 </li>
+			<li>还书时间：每周三12 - 13点</li>
+	 #else
+		赶紧去领书吧!
+	 #end
+     <p>书主信息：<br/>
      姓名：$!{info.owner.name} <br/>
      工号：$!{info.owner.workId} <br/>
      Email: $!{info.owner.email} <br/>
@@ -17,6 +24,6 @@
      #end
      </p>
      <br/>
-    <a href="http://athena.hz.ali.com:8080/home.htm">黄金屋[Gold Room]</a>
+    <a href="http://goldroom.b2b.alibaba-inc.com/">黄金屋[Gold Room]</a>
 </body>
 </html>
