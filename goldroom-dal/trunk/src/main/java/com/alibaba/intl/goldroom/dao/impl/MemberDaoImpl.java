@@ -40,7 +40,14 @@ public class MemberDaoImpl implements MemberDao {
     }
 
     public Member findByLoginId(String loginId) {
-        return em.find(Member.class, loginId);
+        Query q = em.createNamedQuery("findByLoginId");
+        q.setParameter("loginId", loginId);
+        List<Member> resultList = q.getResultList();
+        if (resultList != null && resultList.size() > 0) {
+            return resultList.get(0);
+        } else {
+            return null;
+        }
     }
 
     public boolean updateMemberByLoginId(Member member) {
