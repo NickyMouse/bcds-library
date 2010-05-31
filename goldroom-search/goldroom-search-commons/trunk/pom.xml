@@ -65,4 +65,11 @@
 			<version>20030203.000129</version>
 		</dependency>
 	</dependencies>
+	<repositories>
+		<repository>
+			<id>bcds-repository</id>
+			<name>bcds-repository</name>
+			<url>http://bcds-library.googlecode.com/svn/repository</url>
+		</repository>
+	</repositories>
 </project>
