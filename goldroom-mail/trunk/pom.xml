@@ -81,4 +81,11 @@
 			</plugin>
 		</plugins>
 	</build>
+	<repositories>
+		<repository>
+			<id>bcds-repository</id>
+			<name>bcds-repository</name>
+			<url>http://bcds-library.googlecode.com/svn/repository</url>
+		</repository>
+	</repositories>
 </project>
