@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300"  xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300"  xmlns:services="com.goldroom.services.*">
 	<fx:Declarations>
 		<s:CallResponder id="newBookResult" result="newBookResult_resultHandler(event)"/>
 		<services:BookInfoService id="bookInfoService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import com.alibaba.intl.goldroom.flex.dataobject.BookInfo;
-			import com.alibaba.intl.goldroom.flex.dataobject.BookSearch;
-			import com.alibaba.intl.goldroom.flex.dataobject.BookSearchResult;
+			import com.goldroom.dataobject.BookInfo;
+			import com.goldroom.dataobject.BookSearch;
+			import com.goldroom.dataobject.BookSearchResult;
 			import com.goldroom.flex.data.RunData;
 			
 			import mx.collections.ArrayList;
 			import mx.controls.Alert;
 			import mx.rpc.events.ResultEvent;
 			protected function init():void {
-				var end:Date = new Date();
-				var from:Date = new Date(1970);
-				newBookResult.token = bookInfoService.searchBookByTime(from,end,1,5);
+				refresh();
 			}
 
 			protected function newBookResult_resultHandler(event:ResultEvent):void
 			{
+				canvas.removeAllElements();
 				var urls:ArrayList =  new ArrayList();
 				var desc:ArrayList =  new ArrayList();
 				var ids:ArrayList =  new ArrayList();
-				for(var i:int = 0; i<5; i++){
+				for(var i:int = 0; i<6; i++){
 					urls.addItem(newBookResult.lastResult.bookList[i].bookImgUrl);
 					desc.addItem(newBookResult.lastResult.bookList[i].bookName);
 					ids.addItem(newBookResult.lastResult.bookList[i].bookInfoId);
@@ -39,6 +38,11 @@
 				canvas.addElement(imagesList);
 			}
 
+			public function refresh():void{
+				var end:Date = new Date();
+				var from:Date = new Date(1970);
+				newBookResult.token = bookInfoService.searchBookByTime(from,end,"all", 1,6);
+			}
 		]]>
 	</fx:Script>
 	<mx:Canvas width="780" height="100%" id="canvas" creationComplete="init()">

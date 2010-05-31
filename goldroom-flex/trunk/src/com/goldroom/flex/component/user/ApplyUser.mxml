@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="400" xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="400" xmlns:services="com.goldroom.services.*">
 	<fx:Style>
 		.darkWin{
 			modalTransparencyBlur:0;
@@ -13,7 +13,7 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import com.alibaba.intl.goldroom.flex.dataobject.Member;
+			import com.goldroom.dataobject.Member;
 			import com.goldroom.flex.data.RunData;
 			
 			import mx.controls.Alert;
@@ -49,6 +49,14 @@
 			protected function submitBtn_clickHandler(event:MouseEvent):void
 			{
 				if(!isLoginIdExist && Validator.validateAll(applyValitors).length == 0 && validatePassword()){
+					if(this.loginId.text.indexOf(" ") >= 0){
+						submitBtn.errorString = "申请表单中含有填写错误的项";
+						this.loginId.errorString = "用户名中不能包含空格";
+						return;
+					}  else {
+						submitBtn.errorString = "";
+						this.loginId.errorString = "";
+					}
 					var member:Member = new Member();
 					member.loginId = this.loginId.text;
 					member.email = this.email.text;

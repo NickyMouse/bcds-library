@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="344" height="242" xmlns:services="com.goldroom.services.*">
+	<fx:Script>
+		<![CDATA[
+			import com.goldroom.dataobject.Comment;
+			import com.goldroom.flex.data.RunData;
+			
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			protected var bookInfoId:int;
+			public function init(bookInfoId:int):void
+			{
+				this.bookInfoId = bookInfoId;	
+				this.commentContent.text = "";
+				this.commentContent.setFocus();
+			}
+			protected function postBtn_clickHandler(event:MouseEvent):void
+			{
+				if(commentContent.text.length == 0) {
+					postBtn.errorString = "请输入评论内容";
+				}
+				if(commentContent.text.length >1000){
+					postBtn.errorString = "评论内容过长";
+				}
+				var comment:Comment = new Comment();
+				
+				comment.member = RunData.getRunData().getLoginUser();
+				if(comment.member == null){
+					Alert.show("请登录");
+					return;
+				}
+				comment.targetId = bookInfoId;
+				comment.content = commentContent.text;
+				
+				postCommentResult.token = commentService.postComment(comment);
+			}
+			
+
+			protected function closeBtn_clickHandler(event:MouseEvent):void
+			{
+				this.visible = false;
+			}
+
+
+			protected function postCommentResult_resultHandler(event:ResultEvent):void
+			{
+				if(postCommentResult.lastResult){
+					Alert.show("评论成功");
+					this.visible = false;
+				}
+				else {
+					Alert.show("评论失败，请稍候重试");
+					this.visible = false;
+				}
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="postCommentResult" result="postCommentResult_resultHandler(event)"/>
+		<services:CommentService id="commentService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:BorderContainer width="341" height="240" cornerRadius="5">
+		<s:TextArea x="4" y="6" width="330" height="187" id="commentContent"/>
+		<s:Button x="167" y="207" label="提交" id="postBtn" click="postBtn_clickHandler(event)"/>
+		<s:Button x="259" y="207" id="closeBtn" label="取消" click="closeBtn_clickHandler(event)"/>
+	</s:BorderContainer>
+	
+</s:Group>

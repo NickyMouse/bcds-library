@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="592" height="492" xmlns:component="com.goldroom.flex.component.*" xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="592" height="492" xmlns:component="com.goldroom.flex.component.*" xmlns:services="com.goldroom.services.*" xmlns:comment="com.goldroom.flex.component.comment.*">
 	<fx:Style>
 		.darkWin{
 			modalTransparencyBlur:0;
@@ -13,9 +13,9 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import com.alibaba.intl.goldroom.flex.dataobject.BookInfo;
-			import com.alibaba.intl.goldroom.flex.dataobject.BookSearch;
-			import com.alibaba.intl.goldroom.flex.dataobject.BookSearchResult;
+			import com.goldroom.dataobject.BookInfo;
+			import com.goldroom.dataobject.BookSearch;
+			import com.goldroom.dataobject.BookSearchResult;
 			import com.goldroom.flex.data.RunData;
 			
 			import mx.collections.ArrayList;
@@ -39,22 +39,38 @@
 			protected var isMy:Boolean;
 			
 			public static function popDetailWin(parent:DisplayObject, bookInfoId:int, fromSearch:Boolean, isMy:Boolean):void{
+				
 				bookDetail.bookInfoId = bookInfoId;
+				
 				bookDetail.fromSearch = fromSearch;
 				bookDetail.isMy = isMy;
+				if(bookDetail.downloadEbookBtn != null){
+					bookDetail.downloadEbookBtn.visible = false;
+				}
+				
 				bookDetail.initData();
 				bookDetail.visible = false;
+				
+				
+				if(bookDetail.comment != null){
+					bookDetail.comment.visible = false;
+				}
+				if(bookDetail.borrowBox != null){
+					bookDetail.borrowBox.visible = false;
+				}
 				darkWin.title = "";
 				darkWin.addElement(bookDetail);
 				PopUpManager.addPopUp(darkWin, parent, true);
 				PopUpManager.centerPopUp(darkWin);
+				
 				if(isMy){
 					bookDetail.borrowBtn.visible = false;
-					bookDetail.shareBtn.visible = false;
+					//bookDetail.shareBtn.visible = false;
 				} else {
 					bookDetail.borrowBtn.visible = true;
-					bookDetail.shareBtn.visible = true;
+					//bookDetail.shareBtn.visible = true;
 				}
+				
 			}        
 
 			protected static function closeWin(event:CloseEvent):void {
@@ -77,6 +93,7 @@
 			
 			protected function initData():void
 			{
+				commentList.init(bookInfoId);
 				if(fromSearch) {
 					bookDetailSearchResult.token = bookInfoService.searchBookByInfoId(this.bookInfoId);
 				} else {
@@ -121,9 +138,19 @@
 				}
 				
 				this.descriptionText.text = result.description;
-				if(result.imgUrl != null){
+				
+				if(result.imgUrl == null || result.imgUrl.length == 0){
+					bookImage.source = RunData.getRunData().getStringData("noPhoto");
+				} else {
 					bookImage.source = RunData.getRunData().getStringData("imgPath") + result.imgUrl;
 				}
+				if(result.eBookUrl == null || result.eBookUrl == "") {
+					downloadEbookBtn.visible = false;
+				} else {
+					downloadEbookBtn.visible = true;
+					ebookUrl.text = result.eBookUrl;
+				}
+
 				bookDetail.visible = true;
 			}
 
@@ -167,7 +194,23 @@
 					this.bookOwners = "";
 				}
 				
-				bookImage.source = RunData.getRunData().getStringData("imgPath") + result.bookImgUrl;
+				if(result.bookImgUrl == null || result.bookImgUrl.length == 0){
+					bookImage.source = RunData.getRunData().getStringData("noPhoto");
+				} else {
+					bookImage.source = RunData.getRunData().getStringData("imgPath") + result.bookImgUrl;
+				}
+				
+				if(result.hasEbook == "false") {
+					downloadEbookBtn.visible = false;
+				} else {
+					downloadEbookBtn.visible = true;
+					ebookUrl.text = result.ebookUrl;
+				}
+				if(result.bookOwners == ""){
+					this.borrowBtn.visible = false;
+				} else {
+					this.borrowBtn.visible = true;
+				}
 				bookDetail.visible = true;				
 			}
 
@@ -179,6 +222,28 @@
 				} else{
 					//this.borrowBox.visible = true;	
 				}
+			}
+
+
+			protected function commentBtn_clickHandler(event:MouseEvent):void
+			{
+				
+				if(RunData.getRunData().getData("loginUser") == null) {
+					Alert.show("您还没有登录","请登录");
+				} else{
+					comment.visible = true;
+					comment.init(bookInfoId);
+				}
+			}
+
+
+			protected function downloadEbookBtn_clickHandler(event:MouseEvent):void
+			{
+				navigateToURL(new URLRequest(RunData.getRunData().getStringData("ebookPath") + ebookUrl.text), "_blank");
+			}
+			
+			protected function comment_focusOut(event:FocusEvent):void{
+				commentList.refresh();
 			}
 
 		]]>
@@ -198,23 +263,31 @@
 		<s:Label x="272" y="142" text="出版日期:"/>
 		<s:Label x="283" y="108" text="出版社:"/>
 		
-		<s:Label x="338" y="24" id="nameText" maxWidth="240"/>
-		<s:Label x="338" y="67" id="authorText" maxWidth="240"/>
-		<s:Label x="338" y="108" id="publisherText" maxWidth="240"/>
-		<s:Label x="338" y="143" id="publishDateText" maxWidth="240"/>
+		<mx:Text x="338" y="19" id="nameText" maxWidth="240"/>
+		<mx:Text x="338" y="62" id="authorText" maxWidth="240"/>
+		<mx:Text x="338" y="104" id="publisherText" maxWidth="240"/>
+		<mx:Text x="338" y="139" id="publishDateText" maxWidth="240"/>
 		
 		<mx:HRule x="237" y="168" width="340"/>
 		
 		<s:Label x="274" y="185" text="ISBN-10:"/>
 		<s:Label x="276" y="222" text="ISBN-13:" id="isbn13Label"/>
-		<s:Label x="338" y="184" id="isbn10Text"/>
-		<s:Label x="338" y="222" id="isbn13Text"/>
+		<mx:Text x="338" y="181" id="isbn10Text"/>
+		<mx:Text x="338" y="218" id="isbn13Text"/>
 		
 		<s:TextArea x="15" y="298" width="562" height="184" id="descriptionText" editable="false"/>
-		<s:Button x="271" y="262" label="分享" id="shareBtn" click="shareBtn_clickHandler(event)"/>
+		<s:Button x="271" y="262" label="分享" id="shareBtn" click="shareBtn_clickHandler(event)" visible="false"/>
 		<s:Button x="368" y="262" label="借阅" id="borrowBtn" click="borrowBtn_clickHandler(event)"/>
+		<s:Button x="271" y="262" label="评论" id="commentBtn" click="commentBtn_clickHandler(event)"/>
+		<mx:LinkButton x="455" y="216" label="下载电子书" id="downloadEbookBtn" click="downloadEbookBtn_clickHandler(event)"/>
 		
 		<component:BorrowBox x="91" y="96" visible="false" id="borrowBox">
 		</component:BorrowBox>
+		<comment:PostComment x="120" y="87" id="comment" visible="false" focusOut="comment_focusOut(event)">
+		</comment:PostComment>
+		
+		<s:Label x="274" y="185" text="" visible="false" id="ebookUrl"/>
 	</mx:Canvas>
+	<comment:CommentList x="-320" y="0" id="commentList" height="332">
+	</comment:CommentList>
 </s:Group>

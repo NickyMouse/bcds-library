@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="622" height="485" xmlns:component="com.goldroom.flex.component.*" xmlns:page="com.goldroom.flex.component.page.*" implements="com.goldroom.flex.script.page.IPageNavigator" xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="740" height="550" xmlns:component="com.goldroom.flex.component.*" xmlns:page="com.goldroom.flex.component.page.*" implements="com.goldroom.flex.script.page.IPageNavigator" xmlns:services="com.goldroom.services.*">
 	<fx:Declarations>
 		<s:CallResponder id="listLendedBookItemBySubscriberResult" result="listLendedBookItemBySubscriberResult_resultHandler(event)"/>
 		<services:LendService id="lendService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import com.alibaba.intl.goldroom.flex.dataobject.BookItem;
-			import com.alibaba.intl.goldroom.flex.dataobject.Lending;
-			import com.alibaba.intl.goldroom.flex.dataobject.Member;
+			import com.goldroom.dataobject.BookItem;
+			import com.goldroom.dataobject.Lending;
+			import com.goldroom.dataobject.Member;
 			import com.goldroom.flex.component.BookDetail;
 			import com.goldroom.flex.data.RunData;
 			import com.goldroom.flex.script.page.IPageNavigator;
@@ -72,6 +72,7 @@
 				}
 				if(gallery != null){
 					gallery.createImagesList(imgUrls, descs, bookInfoIds, false, true);
+					gallery.setSize(740,200);
 				}
 			}
 
@@ -112,7 +113,7 @@
 			}
 		]]>
 	</fx:Script>
-	<mx:AdvancedDataGrid x="0" y="237" id="bookListDataGrid" designViewDataType="flat" width="622" height="249" creationComplete="bookListDataGrid_creationCompleteHandler(event)" dataProvider="{listLendedBookItemBySubscriberResult.lastResult.lendingList}" click="bookListDataGrid_clickHandler(event)">
+	<mx:AdvancedDataGrid x="0" y="237" id="bookListDataGrid" designViewDataType="flat" width="750" height="300" creationComplete="bookListDataGrid_creationCompleteHandler(event)" dataProvider="{listLendedBookItemBySubscriberResult.lastResult.lendingList}" click="bookListDataGrid_clickHandler(event)">
 		<mx:columns>
 			<mx:AdvancedDataGridColumn headerText="书名" dataField="bookName" labelFunction="getColumnValue" sortable="false"/>
 			<mx:AdvancedDataGridColumn headerText="状态" dataField="state" labelFunction="getColumnValue" width="80"/>

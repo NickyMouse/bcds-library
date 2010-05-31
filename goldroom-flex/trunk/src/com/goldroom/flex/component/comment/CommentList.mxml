@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="310" height="492" xmlns:services="com.goldroom.services.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.goldroom.dataobject.Comment;
+			import com.goldroom.flex.data.RunData;
+			
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
+			protected var bookInfoId:int;
+			public function init(bookInfoId:int):void
+			{
+				this.visible = false;
+				this.bookInfoId = bookInfoId;	
+				refresh();
+			}
+
+			
+			public function refresh():void{
+				commentGroup.removeAllElements();
+				listBookCommentByBookInfoIdResult.token = commentService.listBookCommentByBookInfoId(bookInfoId,1,100);
+			}
+		
+
+			protected function listBookCommentByBookInfoIdResult_resultHandler(event:ResultEvent):void
+			{
+				if(listBookCommentByBookInfoIdResult.lastResult == null || listBookCommentByBookInfoIdResult.lastResult.length == 0){
+					this.visible = false;
+					return;
+				} else {
+					this.visible = true;
+				}
+				var x : int = 0;
+				for (var i:int = 0; i < listBookCommentByBookInfoIdResult.lastResult.length; i++){
+					var commentItem:CommentItem = new CommentItem();
+					var comment:Comment = listBookCommentByBookInfoIdResult.lastResult.getItemAt(i) as Comment;
+					commentItem.init(comment.member.name, comment.gmtCreate, comment.content, comment.targetId, 2);
+					commentItem.x = x;
+					commentItem.y = y;
+					commentItem.setWidth(285);
+					commentGroup.addElement(commentItem);
+				}
+				commentGroup.validateNow();
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="listBookCommentByBookInfoIdResult" result="listBookCommentByBookInfoIdResult_resultHandler(event)"/>
+		<services:CommentService id="commentService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Scroller width="305" height="492" horizontalScrollPolicy="off">
+		<s:VGroup id="commentGroup">
+		</s:VGroup>
+	</s:Scroller>
+	
+</s:Group>

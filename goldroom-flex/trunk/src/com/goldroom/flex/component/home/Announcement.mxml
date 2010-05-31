@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="602" height="24" xmlns:services="com.goldroom.services.*">
+	<fx:Declarations>
+		<s:CallResponder id="getAnnouncementResult"/>
+		<services:AdminConfigService id="adminConfigService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import flash.utils.clearInterval;
+			import flash.utils.setInterval;
+			
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+		
+		private var toLeftInterval:uint;
+		
+		private var txt1Width:int = 600;
+		
+		// 从右向左滚动
+		private function rollToLeft():void {
+			var len:int = txt1.text.length * 12;// 这里的12为fontSize值
+			if(len < txt1Width) len = txt1Width;
+			var textX:int = txt1.x;
+			
+			if(textX > -len){
+				txt1.x = textX-5;
+			}else{
+				txt1.x = txt1Width;
+			}
+		}
+		
+		// 暂停滚动
+		private function pause(event:MouseEvent):void {
+		var text:Text = event.currentTarget as Text;
+		if(text.id == 'txt1')        clearInterval(toLeftInterval);
+		}
+		
+		// 恢复滚动
+		private function resume(event:MouseEvent):void {
+			var text:Text = event.currentTarget as Text;
+			if(text.id == 'txt1')        toLeftInterval = setInterval(rollToLeft,100);
+		}
+
+		protected function canvas1_creationCompleteHandler(event:FlexEvent):void
+		{
+			toLeftInterval = setInterval(rollToLeft,100);
+		}
+			
+			
+			protected function txt1_creationCompleteHandler(event:FlexEvent):void
+			{
+				getAnnouncementResult.token = adminConfigService.getAnnouncement();
+			}
+
+		]]>
+	</fx:Script>
+	
+		<mx:Canvas width="{txt1Width}" horizontalScrollPolicy="off" x="0" y="0" creationComplete="canvas1_creationCompleteHandler(event)">
+			<mx:Text id="txt1" text="{getAnnouncementResult.lastResult}" fontSize="12"
+					 mouseOver="pause(event)" mouseOut="resume(event)" x="0" y="-1" creationComplete="txt1_creationCompleteHandler(event)"/>
+		</mx:Canvas>
+		
+		          
+</s:Group>

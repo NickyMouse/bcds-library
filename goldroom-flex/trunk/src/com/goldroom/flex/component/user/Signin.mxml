@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="210" height="36" xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="210" height="36" xmlns:services="com.goldroom.services.*">
 
 	<fx:Script>
 		<![CDATA[
-			import com.alibaba.intl.goldroom.flex.dataobject.Member;
+			import com.goldroom.dataobject.Member;
 			import com.goldroom.flex.component.user.ApplyUser;
+			import com.goldroom.flex.component.user.ForgetPassword;
 			import com.goldroom.flex.data.RunData;
 			import com.goldroom.flex.home.Home;
+			import com.goldroom.flex.script.cookie.CookieUtil;
+			
 			import mx.controls.Alert;
 			
 			import spark.events.TextOperationEvent;
@@ -16,6 +19,7 @@
 			{
 				this.signPanel.visible = !this.signPanel.visible;
 				this.logindErrorMsg.text = "";
+				loginId.setFocus();
 			}
 			
 			protected function cancelBtn_clickHandler(event:MouseEvent):void
@@ -66,12 +70,33 @@
 					welcomeLabel.text = "欢迎 " + loginResult.lastResult.name;
 					welcomeLabel.visible = true;
 					Home.getHome().afterLogin();
+					CookieUtil.setCookie("loginUserId", loginResult.lastResult.loginId, 1);
 				} else {
 					logindErrorMsg.text = "用户名或密码不正确，请重新输入";
 					password.text = "";
 				}
 			}
 
+			public function checkIsLoginByCookie():void{
+				if(CookieUtil.getCookie("loginUserId") != null){
+					var loginId:String = CookieUtil.getCookie("loginUserId") as String;
+					findMemberByLoginIdResult.token = memberService.findMemberByLoginId(loginId);
+				} 
+			}
+			
+			protected function findMemberByLoginIdCallBack():void{
+				if(findMemberByLoginIdResult.lastResult != null) { 
+					RunData.getRunData().putData("loginUser",findMemberByLoginIdResult.lastResult);
+					signinBtn.visible = false;
+					registerBtn.visible = false;
+					signPanel.visible = false;
+					signoutBtn.visible = true;
+					welcomeLabel.text = "欢迎 " + findMemberByLoginIdResult.lastResult.name;
+					welcomeLabel.visible = true;
+					Home.getHome().afterLogin();
+					CookieUtil.setCookie("loginUserId", findMemberByLoginIdResult.lastResult.loginId, 1);
+				}
+			}
 			protected function signoutBtn_clickHandler(event:MouseEvent):void
 			{
 				RunData.getRunData().putData("loginUser",null);
@@ -81,7 +106,7 @@
 				
 				signinBtn.visible = true;
 				registerBtn.visible = true;
-				
+				CookieUtil.deleteCookie("loginUserId");
 				welcomeLabel.text = "";
 			}
 
@@ -105,31 +130,41 @@
 				}
 			}
 
+
+			protected function forgetPwBtn_clickHandler(event:MouseEvent):void
+			{
+				ForgetPassword.popForgetPasswordWin(root);
+			}
+
 		]]>
 	</fx:Script>
 	
 
 	<fx:Declarations>
 		<s:CallResponder id="loginResult" result="loginIdDone()"/>
+		<s:CallResponder id="findMemberByLoginIdResult" result="findMemberByLoginIdCallBack()"/>
 		<services:MemberService id="memberService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
 	</fx:Declarations>
 	
-	<mx:Label  x="50" y="3" text="Welcome " id="welcomeLabel" visible="false"/>
+	<mx:Label  x="20" y="3" text="Welcome " id="welcomeLabel" visible="false"/>
 	<mx:LinkButton x="140" y="1" label="登出" id="signoutBtn" visible="false" click="signoutBtn_clickHandler(event)"/>
 	
 	<mx:LinkButton x="140" y="1" label="登录" id="signinBtn" click="signinBtn_clickHandler(event)" visible="true"/>
 	
-	<s:BorderContainer x="-23" y="34" width="210" height="155" cornerRadius="15" id="signPanel" visible="true">
+	<s:BorderContainer x="-23" y="34" width="207" height="170" cornerRadius="15" id="signPanel" visible="false">
 		<s:Label x="25" y="10" text="用户名"/>
 		<s:TextInput x="25" y="25" id="loginId" width="160" focusOut="loginId_focusOutHandler(event)"/>
 		
 		<s:Label x="25" y="55" text="密码"/>
-		<s:TextInput x="25" y="70" id="password" width="160" displayAsPassword="true" focusOut="password_focusOutHandler(event)"/>
+		<s:TextInput x="25" y="70" id="password" width="160" displayAsPassword="true" focusOut="password_focusOutHandler(event)" enter="signBtn_clickHandler(null)"/>
 		
 		<s:Label x="20" y="100" text="" color="#FF0000" id="logindErrorMsg"/>
 		
-		<s:Button x="26" y="118" label="登录" id="signBtn" click="signBtn_clickHandler(event)"/>
-		<s:Button x="115" y="118" label="取消" id="cancelBtn" click="signPanel.visible=false;"/>
+		
+		<s:Button x="26" y="116" label="登录" id="signBtn" click="signBtn_clickHandler(event)"/>
+		<s:Button x="115" y="116" label="取消" id="cancelBtn" click="signPanel.visible=false;"/>
+		
+		<mx:LinkButton x="26" y="139" label="忘记密码?" id="forgetPwBtn" click="forgetPwBtn_clickHandler(event)" width="74"/>
 	</s:BorderContainer>
 	<mx:LinkButton x="75" y="1" label="注册" id="registerBtn" click="registerBtn_clickHandler(event)"/>
 	<s:Label x="130" y="7" text="|"/>

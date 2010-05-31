@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="244" height="192" xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="244" height="192" xmlns:services="com.goldroom.services.*">
 	<fx:Declarations>
 		
 		<services:LendService id="lendService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
@@ -12,13 +12,17 @@
 		<s:CallResponder id="rejectLendResult" result="rejectLendResult_resultHandler(event)"/>
 		<s:CallResponder id="returnBookResult" result="returnBookResult_resultHandler(event)"/>
 		<s:CallResponder id="listReservatedBooksBySubscriberResult"/>
+		<s:CallResponder id="reputOnShelvesResult" result="reputOnShelvesResult_resultHandler(event)"/>
+		<s:CallResponder id="offShelvesResult" result="offShelvesResult_resultHandler(event)"/>
+		<services:BookItemService id="bookItemService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+		
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import com.alibaba.intl.goldroom.flex.dataobject.BookItem;
-			import com.alibaba.intl.goldroom.flex.dataobject.Lending;
-			import com.alibaba.intl.goldroom.flex.dataobject.Reservation;
+			import com.goldroom.dataobject.BookItem;
+			import com.goldroom.dataobject.Lending;
+			import com.goldroom.dataobject.Reservation;
 			import com.goldroom.flex.component.booklist.MyBookList;
 			import com.goldroom.flex.data.RunData;
 			
@@ -38,11 +42,39 @@
 					this.allowBtn.visible = true;
 					this.disallowBtn.visible = true;
 					this.returnBtn.visible = false;
+					this.offShelveBtn.visible = false;
+					this.cancelBtn2.visible =false;
+					this.reputOnShevleBtn.visible = false;
+					this.cancel.visible = true;
+					setInfoVisible(true);
 				} else if(bookItem.state == "lended") {
 					listLendingByBookItemIdResult.token = lendService.listLendingByBookItemId(bookItem.id);
 					this.allowBtn.visible = false;
 					this.disallowBtn.visible = false;
 					this.returnBtn.visible = true;
+					this.offShelveBtn.visible = false;
+					this.cancelBtn2.visible =false;
+					this.reputOnShevleBtn.visible = false;
+					this.cancel.visible = true;
+					setInfoVisible(true);
+				} else if(bookItem.state == "idle") {
+					this.allowBtn.visible = false;
+					this.disallowBtn.visible = false;
+					this.returnBtn.visible = false;
+					this.cancel.visible = false;
+					this.offShelveBtn.visible = true;
+					this.cancelBtn2.visible =true;
+					this.reputOnShevleBtn.visible = false;
+					setInfoVisible(false);
+				} else if(bookItem.state == "unavailable") {
+					this.allowBtn.visible = false;
+					this.disallowBtn.visible = false;
+					this.returnBtn.visible = false;
+					this.cancel.visible = false;
+					this.offShelveBtn.visible = false;
+					this.cancelBtn2.visible =true;
+					this.reputOnShevleBtn.visible = true;
+					setInfoVisible(false);
 				}
 			}
 			
@@ -132,20 +164,82 @@
 				(this.parent as MyBookList).refresh();
 			}
 
+
+			protected function cancelBtn2_clickHandler(event:MouseEvent):void
+			{
+				this.visible = false;
+			}
+
+			protected function setInfoVisible(visible:Boolean):void {
+				nameL.visible = visible;
+				workIdL.visible = visible;
+				startDateL.visible = visible;
+				endDateL.visible = visible;
+				subscriber.visible = visible;
+				workId.visible = visible;
+				startDate.visible = visible;
+				endDate.visible = visible;
+				if(visible){
+					this.width = 225;
+					this.height = 180;
+					this.container.height = 180;
+				}else {
+					this.width = 225;
+					this.height = 60;
+					this.container.height = 60;
+				}
+			}
+			
+			protected function offShelveBtn_clickHandler(event:MouseEvent):void
+			{
+				offShelvesResult.token = bookItemService.offShelves(bookItem.id, RunData.getRunData().getLoginUser().loginId);
+			}
+			
+			
+			protected function reputOnShevleBtn_clickHandler(event:MouseEvent):void
+			{
+				reputOnShelvesResult.token = bookItemService.reputOnShelves(bookItem.id, RunData.getRunData().getLoginUser().loginId);
+			}
+			
+
+			protected function reputOnShelvesResult_resultHandler(event:ResultEvent):void
+			{
+				if(reputOnShelvesResult.lastResult == true){
+					Alert.show("书籍重新上架成功");
+				} else{
+					Alert.show("书籍重新上架失败");
+				}
+				(this.parent as MyBookList).refresh();
+			}
+
+
+			protected function offShelvesResult_resultHandler(event:ResultEvent):void
+			{
+				if(offShelvesResult.lastResult){
+					Alert.show("书籍下架成功");
+				} else{
+					Alert.show("书籍下架失败");
+				}
+				(this.parent as MyBookList).refresh();
+			}
+
 		]]>
 	</fx:Script>
-	<s:BorderContainer x="9" y="7" width="225" height="179" cornerRadius="5">
+	<s:BorderContainer x="9" y="7" width="225" height="180" cornerRadius="5" id="container">
 		<s:Button x="6" y="145" label="同意" id="allowBtn" click="allowBtn_clickHandler(event)" width="57"/>
 		<s:Button x="77" y="145" label="拒绝" id="disallowBtn" click="disallowBtn_clickHandler(event)" width="58"/>
-		<s:Label x="33" y="18" text="姓名:"/>
-		<s:Label x="34" y="48" text="工号:"/>
-		<s:Label x="11" y="76" text="开始日期:"/>
-		<s:Label x="12" y="104" text="结束日期:"/>
+		<s:Label x="33" y="18" text="姓名:" id="nameL"/>
+		<s:Label x="34" y="48" text="工号:" id="workIdL"/>
+		<s:Label x="11" y="76" text="开始日期:" id="startDateL"/>
+		<s:Label x="12" y="104" text="结束日期:" id="endDateL"/>
 		<s:TextInput x="67" y="12" width="120" id="subscriber"/>
 		<s:TextInput x="68" y="44" width="119" id="workId"/>
 		<s:Label x="69" y="75" id="startDate"/>
 		<s:Label x="70" y="104" id="endDate"/>
 		<s:Button x="25" y="145" label="确认归还" id="returnBtn" click="returnBtn_clickHandler(event)"/>
 		<s:Button x="142" y="145" label="取消" id="cancel" click="cancel_clickHandler(event)"/>
+		<s:Button x="27" y="13" label="下架" id="offShelveBtn" click="offShelveBtn_clickHandler(event)"/>
+		<s:Button x="127" y="13" label="取消" id="cancelBtn2" click="cancelBtn2_clickHandler(event)"/>
+		<s:Button x="26" y="13" label="重新上架" id="reputOnShevleBtn" click="reputOnShevleBtn_clickHandler(event)"/>
 	</s:BorderContainer>
 </s:Group>

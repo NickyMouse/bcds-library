@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="194" height="244">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+
+			protected function textarea_creationCompleteHandler(event:FlexEvent):void
+			{
+				textArea.text = "Gold Room是什么... \n" + 
+　　								"    Gold Room —— 黄金屋\n" +
+								"    本着资源共享的理念，本系统提供一个图书互借平台，实现图书价值最大化。\n\n" +
+								"    你们的任何建议与意见都可以发到我们的邮箱:\n    alibaba.library@gmail.com\n\n" +
+								"    在使用黄金屋的过程遇到任何的问题都可以联系我们的管理员:\n胡怀文 & 肖刚毅 & 胡宾"
+				
+					
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:TextArea x="1" y="1" id="textArea" creationComplete="textarea_creationCompleteHandler(event)" width="188" height="245" editable="false"/>
+</s:Group>

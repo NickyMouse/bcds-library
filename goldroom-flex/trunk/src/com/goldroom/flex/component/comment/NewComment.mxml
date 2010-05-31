@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="436" height="246" xmlns:services="com.goldroom.services.*">
+	<fx:Script>
+		<![CDATA[
+			import com.goldroom.dataobject.Comment;
+			import com.goldroom.dataobject.Member;
+			import com.goldroom.flex.component.BookDetail;
+			
+			import mx.controls.Alert;
+			import mx.controls.HRule;
+			import mx.controls.dataGridClasses.DataGridItemRenderer;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
+			protected function newComment_creationCompleteHandler(event:FlexEvent):void
+			{
+				refresh();
+			}
+		
+			
+			public function refresh():void{
+				this.removeAllElements();
+				listAllResult.token = commentService.listAll(1, 5);
+			}
+
+		
+
+
+			protected function listAllResult_resultHandler(event:ResultEvent):void
+			{
+				var x : int = 0;
+				var y : int = 0;
+				for (var i:int = 0; i < listAllResult.lastResult.length; i++){
+					var commentItem:CommentItem = new CommentItem();
+					var comment:Comment = listAllResult.lastResult.getItemAt(i) as Comment;
+					var shortComment:String = comment.content;
+					if(shortComment.length > 50){
+						shortComment = shortComment.substring(0,50);
+						var lineBreak:int = shortComment.indexOf("\n");
+						if(lineBreak > 0) {
+							shortComment = shortComment.substring(0, lineBreak);
+						}
+					}
+					
+					if(shortComment.length != comment.content.length){
+						shortComment = shortComment + "...";
+					}
+					commentItem.init(comment.member.name, comment.gmtCreate, shortComment, comment.targetId, 1);
+					commentItem.x = x;
+					commentItem.y = y;
+					this.addElement(commentItem);
+					
+					y += 49;
+				}
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="listAllResult" result="listAllResult_resultHandler(event)"/>
+		<services:CommentService id="commentService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+	</fx:Declarations>
+	<s:Label text="" id="newComment" creationComplete="newComment_creationCompleteHandler(event)"/>
+</s:Group>

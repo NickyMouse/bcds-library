@@ -1,7 +1,7 @@
 package com.goldroom.flex.data
 {
 	import flash.utils.Dictionary;
-	import com.alibaba.intl.goldroom.flex.dataobject.Member;
+	import com.goldroom.dataobject.Member;
 	public class RunData
 	{
 		private static var rundata:RunData;

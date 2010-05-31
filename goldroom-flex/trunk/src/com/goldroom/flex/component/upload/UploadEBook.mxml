@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="200" height="96" xmlns:services="com.goldroom.services.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
+			import mx.validators.StringValidator;
+			
+			private var file : FileReference;  
+			protected var lastByteLoaded:uint = 0;
+			protected var isEOF:Boolean = false;
+			protected var bufferSize:uint = 20 * 1024 * 8;
+			protected var isbn:String = "";
+			protected var ebookUrl:String = ""
+			public function setIsbn(isbn:String):void{
+				this.isbn = isbn;
+			}
+			
+			private function init():void {  
+				Security.allowDomain("*");  
+				uploadProgressBar.label = "上传完成 0%";
+				file = new FileReference();  
+				file.addEventListener(Event.SELECT, onFileSelect);  
+				file.addEventListener(Event.COMPLETE, completeHandle);  
+				uploadBtn.enabled = false;
+			}  
+			
+			private function onClickBrowserBtn() : void {  
+				file.browse(getTypeFilter());  
+			}  
+			
+			private function getTypeFilter() : Array {  
+				var imagesFilter:FileFilter = new FileFilter("Images (*.jpg, *.jpeg, *.gif, *.pdf, *.png, *.txt)", "*.jpg;*.jpeg;*.gif;*.pdf; *.png; *.txt");  				
+				return [imagesFilter];  
+			}  
+			
+			private function onFileSelect(event : Event) : void {
+				uploadProgressBar.label = "上传完成 0%";
+				uploadLabel.text = file.name;
+				isEOF = false;
+				lastByteLoaded = 0;
+				file.load();
+				uploadBtn.enabled = true;
+			}  
+			
+			
+			private function onClickUploadBtn() : void {
+				if( file.name == ""){
+					uploadBtn.errorString = "请选择上传文件";
+				} else{
+					uploadBtn.errorString = "";
+				}
+				lastByteLoaded = 0;
+				var transferSize = 0;
+				isEOF = false;
+				uploadBtn.enabled = false;
+				if (lastByteLoaded <= file.data.length) {
+					if(lastByteLoaded + bufferSize > file.data.length) {
+						transferSize = file.data.length - lastByteLoaded;
+						isEOF = true;
+					} else {
+						transferSize = bufferSize;
+						isEOF = false;
+					}
+					
+					var data:ByteArray = new ByteArray();
+					file.data.readBytes(data, lastByteLoaded, transferSize);
+					uploadEBookResult.token = eBookUploadService.uploadEBook(isbn, file.name, data, isEOF);
+					lastByteLoaded = lastByteLoaded + transferSize;
+					progressHandle(lastByteLoaded,file.data.length);
+				}
+			}
+			
+			
+			public function uploadDone():Boolean{
+				return isEOF;
+			}
+			
+			private function progressHandle(loaded:uint, total:uint) : void {  
+				var fileUploadPercent : uint = loaded / total * 100;
+				uploadProgressBar.setProgress(fileUploadPercent, 100);  
+				uploadProgressBar.label = "上传完成 " + fileUploadPercent + "%";
+			}
+			
+			private function completeHandle(event : Event) : void {  
+				uploadBtn.enabled = true;  
+			}
+
+			protected function browserBtn_creationCompleteHandler(event:FlexEvent):void
+			{
+				init();
+			}
+
+			public function getEbookUrl():String{
+				return ebookUrl;
+			}
+			protected function uploadEBookResult_resultHandler(event:ResultEvent):void
+			{
+				if(isEOF){
+					progressHandle(file.data.length,file.data.length);
+					ebookUrl = uploadEBookResult.lastResult;
+					return;
+				}
+				var transferSize:int = 0;
+				if (lastByteLoaded <= file.data.length) {
+					
+					if(lastByteLoaded + bufferSize > file.data.length) {
+						transferSize = file.data.length - lastByteLoaded;
+						isEOF = true;
+					} else {
+						transferSize = bufferSize;
+						isEOF = false;
+					}
+					var data:ByteArray = new ByteArray();
+					file.data.readBytes(data, lastByteLoaded, transferSize);
+					var data2:ByteArray = new ByteArray();
+					data2.writeBytes(data, lastByteLoaded, transferSize);
+					uploadEBookResult.token = eBookUploadService.uploadEBook(isbn, file.name, data2, isEOF);
+					lastByteLoaded = lastByteLoaded + transferSize;
+					progressHandle(lastByteLoaded,file.data.length);
+				}
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="uploadEBookResult" result="uploadEBookResult_resultHandler(event)"/>
+		<services:EBookUploadService id="eBookUploadService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<mx:Button id="browserBtn" x="10" y="67" label="浏览"   
+			   click="onClickBrowserBtn()" creationComplete="browserBtn_creationCompleteHandler(event)" />  
+	
+	<mx:Button id="uploadBtn" x="141" y="67" label="上传" enabled="true" click="onClickUploadBtn()" />  
+	
+	<mx:ProgressBar id="uploadProgressBar" x="6" y="32" width="190"   
+					themeColor="#009dff" maximum="100" direction="right" mode="manual" height="35"/>  
+	<mx:Label id="uploadLabel" x="6" y="10" width="190"/>  
+</s:Group>

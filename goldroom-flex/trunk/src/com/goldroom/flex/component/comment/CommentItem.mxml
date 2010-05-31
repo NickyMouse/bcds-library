@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="302" height="84" useHandCursor="true" buttonMode="true">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.goldroom.flex.component.BookDetail;
+			
+			import mx.controls.Alert;
+			import mx.core.mx_internal;
+			import mx.events.FlexEvent;
+			import mx.graphics.SolidColor;
+			import mx.utils.StringUtil;
+			
+			protected var shouldResize:Boolean;
+			protected var bookInfoId:int;
+			public function init(userName:String, time:Date, content:String, bookInfoId:int, lines:int):void{
+				this.container.createDeferredContent();
+				this.userName.text = userName;
+				
+				if(time != null) {
+					this.time.text = time.toDateString() + "  " + time.getHours() + ":" + time.getMinutes()
+				} else {
+					this.time.text = "";
+				}
+				this.content.text = content;
+				this.bookInfoId = bookInfoId;
+				if(lines > 1){
+					shouldResize = true;
+				} else {
+					shouldResize = false;
+				}
+			}
+
+			protected function container_clickHandler(event:MouseEvent):void
+			{
+				BookDetail.popDetailWin(root, bookInfoId, true, false);
+			}
+			
+			
+
+
+			protected function container_mouseOverHandler(event:MouseEvent):void
+			{
+				this.container.backgroundFill = new SolidColor(0X8DBDC7,0.9);
+			}
+
+
+			protected function container_mouseOutHandler(event:MouseEvent):void
+			{
+				this.container.backgroundFill = new SolidColor(0XFFFFFF, 1);
+			}
+
+			public function setWidth(width:int):void {
+				content.width = width - 50;
+				container.width = width;				
+			}
+			
+			public function getHeight():int{
+				return this.height;
+			}
+
+			protected function content_creationCompleteHandler(event:FlexEvent):void
+			{
+				if(shouldResize){
+					container.height = content.textHeight + 22;
+					this.height = container.height;
+				}
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:BorderContainer x="0" y="0" width="450" height="48" cornerRadius="5" borderColor="#D1E2ED" id="container" click="container_clickHandler(event)" mouseOver="container_mouseOverHandler(event)" mouseOut="container_mouseOutHandler(event)">
+		<mx:Text x="5" y="0" fontSize="12" id="userName"/>
+		<mx:Text x="100" y="0" id="time" color="#587075" useHandCursor="true" buttonMode="true"/>
+		<mx:Text  x="20" y="20" id="content"  width="380" creationComplete="content_creationCompleteHandler(event)"/>
+	</s:BorderContainer>
+</s:Group>

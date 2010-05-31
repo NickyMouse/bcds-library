@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="622" height="485" xmlns:component="com.goldroom.flex.component.*" xmlns:services="com.alibaba.intl.goldroom.flex.services.*" implements="com.goldroom.flex.script.page.IPageNavigator" xmlns:page="com.goldroom.flex.component.page.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="740" height="550" xmlns:component="com.goldroom.flex.component.*" xmlns:services="com.goldroom.services.*" implements="com.goldroom.flex.script.page.IPageNavigator" xmlns:page="com.goldroom.flex.component.page.*">
 	<fx:Script>
 		<![CDATA[
-			import com.alibaba.intl.goldroom.flex.dataobject.BookItem;
+			import com.goldroom.dataobject.BookItem;
 			import com.goldroom.flex.component.BookDetail;
 			import com.goldroom.flex.data.RunData;
 			import com.goldroom.flex.script.page.IPageNavigator;
@@ -12,11 +12,11 @@
 			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
 			import mx.controls.Alert;
+			import mx.controls.List;
 			import mx.controls.advancedDataGridClasses.AdvancedDataGridItemRenderer;
 			import mx.events.FlexEvent;
 			import mx.rpc.events.ResultEvent;
-			
-			import spark.events.IndexChangeEvent;
+			import mx.events.ListEvent;
 		
 			protected var currentPage:int = 1;
 			protected var totalCount:int = 1;
@@ -32,7 +32,7 @@
 			{
 				var loginId:String  =  RunData.getRunData().getLoginUser().loginId;
 				listBookItemsByLoginIdAndStateResult.token = bookItemService.listBookItemsByLoginIdAndState(loginId, "all", currentPage, RunData.getRunData().getPageSize());
-				pageNavigator.setPageNavigator(this);
+				pageNavigator.setPageNavigator(this, RunData.getRunData().getPageSize());
 			}
 			
 
@@ -61,7 +61,7 @@
 				listBookItemsByLoginIdAndStateResult.token = bookItemService.listBookItemsByLoginIdAndState(loginId, "all", currentPage, RunData.getRunData().getPageSize());
 				this.bookStateCombobox.selectedIndex = 0;
 				optionPane.visible = false;
-				pageNavigator.setPageNavigator(this);
+				pageNavigator.setPageNavigator(this, RunData.getRunData().getPageSize());
 			}
 
 			protected function listBookItemsByLoginIdAndStateResult_resultHandler(event:ResultEvent):void
@@ -83,13 +83,15 @@
 				pageNavigator.refresh();
 				optionPane.visible = false;
 				gallery.createImagesList(imgUrls, descs, bookInfoIds, false, true);
+				gallery.setSize(740,200);
 			}
 
 
-			protected function bookStateCombobox_changeHandler(event:IndexChangeEvent):void
+			protected function bookStateCombobox_changeHandler(event:ListEvent):void
 			{
 				var state:String = bookStateCombobox.selectedItem.value;
 				var loginId:String  =  RunData.getRunData().getLoginUser().loginId;
+				currentPage = 1;
 				listBookItemsByLoginIdAndStateResult.token = bookItemService.listBookItemsByLoginIdAndState(loginId, state, currentPage, RunData.getRunData().getPageSize());
 			}
 
@@ -98,11 +100,15 @@
 			{
 				if(event.target is AdvancedDataGridItemRenderer && bookListDataGrid.selectedIndex >= 0){
 					var bookItem:BookItem = bookListDataGrid.selectedItem as BookItem;
-					if(bookItem.state == "reservated" || bookItem.state == "lended") {
-						optionPane.initData(bookItem);
-					} else {
-						optionPane.visible = false;
-					}
+					
+					if(bookItem.state == "reservated" || bookItem.state == "lended"){
+						optionPane.x = event.stageX - 360;
+						optionPane.y = event.stageY - 300;						
+					} else if(bookItem.state == "idle" || bookItem.state == "unavailable") {
+						optionPane.x = event.stageX - 360;
+						optionPane.y = event.stageY - 150;
+					} 
+					optionPane.initData(bookItem);
 				}
 			}
 			
@@ -128,7 +134,7 @@
 				}
 			}
 			
-			protected function showResult(resultCount:int){
+			protected function showResult(resultCount:int):void{
 				if(resultCount == 0){
 					noResultLabel.visible = true;
 					bookListDataGrid.visible = false;
@@ -148,7 +154,7 @@
 		<s:CallResponder id="listBookItemsByLoginIdAndStateResult" result="listBookItemsByLoginIdAndStateResult_resultHandler(event)"/>
 		<services:BookItemService id="bookItemService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
 	</fx:Declarations>
-	<mx:AdvancedDataGrid x="0" y="237" id="bookListDataGrid" designViewDataType="flat" width="622" height="249" doubleClick="bookListDataGrid_doubleClickHandler(event)" creationComplete="bookList_creationCompleteHandler(event)" dataProvider="{listBookItemsByLoginIdAndStateResult.lastResult.itemList}" click="bookListDataGrid_clickHandler(event)">
+	<mx:AdvancedDataGrid x="0" y="237" id="bookListDataGrid" designViewDataType="flat" width="750" height="300" doubleClick="bookListDataGrid_doubleClickHandler(event)" creationComplete="bookList_creationCompleteHandler(event)" dataProvider="{listBookItemsByLoginIdAndStateResult.lastResult.itemList}" click="bookListDataGrid_clickHandler(event)">
 		<mx:columns>
 			<mx:AdvancedDataGridColumn headerText="书名" dataField="bookName" labelFunction="getColumnValue" sortable="false"/>
 			<mx:AdvancedDataGridColumn headerText="作者" dataField="author" labelFunction="getColumnValue" sortable="false"/>
@@ -157,8 +163,8 @@
 	</mx:AdvancedDataGrid>
 	<component:Gallery id="gallery" x="10" y="33" height="200">
 	</component:Gallery>
-	<s:ComboBox x="41" y="4"  width="100" dataProvider="{comboBoxItems}" selectedIndex="0" id="bookStateCombobox" change="bookStateCombobox_changeHandler(event)">
-	</s:ComboBox>
+	<mx:ComboBox x="41" y="4"  width="100" dataProvider="{comboBoxItems}" selectedIndex="0" id="bookStateCombobox" change="bookStateCombobox_changeHandler(event)">
+	</mx:ComboBox>
 	<s:Label x="10" y="11" text="状态"/>
 	
 	<page:PageNavigator x="236" y="4" id="pageNavigator">

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="760" height="486" xmlns:component="com.goldroom.flex.component.*" xmlns:services="com.alibaba.intl.goldroom.flex.services.*" implements="com.goldroom.flex.script.page.IPageNavigator" xmlns:page="com.goldroom.flex.component.page.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="760" height="486" xmlns:component="com.goldroom.flex.component.*" xmlns:services="com.goldroom.services.*" implements="com.goldroom.flex.script.page.IPageNavigator" xmlns:page="com.goldroom.flex.component.page.*">
 	<fx:Script>
 		<![CDATA[
+			import com.goldroom.dataobject.BookItem;
+			import com.goldroom.dataobject.BookSearch;
 			import com.goldroom.flex.component.BookDetail;
-			import com.alibaba.intl.goldroom.flex.dataobject.BookItem;
-			import com.alibaba.intl.goldroom.flex.dataobject.BookSearch;
+			import com.goldroom.flex.component.ImagesList;
 			import com.goldroom.flex.data.RunData;
 			import com.goldroom.flex.script.page.IPageNavigator;
 			
@@ -22,60 +23,83 @@
 			protected var currentPage:int = 1;
 			protected var totalCount:int = 1;
 			protected var searchKeyword:String = "";
+			protected var pageSize:int = 12;
+			protected var bookType:String = "all";
 			
+			public function setBookType(bookType:String):void{
+				this.bookType = bookType;
+			}
 			public function reset(): void{
 				currentPage = 1;
 				totalCount = 1;
 				searchKeyword = "";
-			}
-			protected function bookListDataGrid_clickHandler(event:MouseEvent):void
-			{
-				if(event.target is AdvancedDataGridItemRenderer && bookListDataGrid.selectedIndex >= 0){
-					BookDetail.popDetailWin(root, bookListDataGrid.selectedItem.bookInfoId, true, false);
-				}
-			}
-
-			protected function bookListDataGrid_creationCompleteHandler(event:FlexEvent):void
-			{
-				pageNavigator.setPageNavigator(this);
-				searchAllBook(1);
 			}
 
 			public function searchAllBook(page:int):void{
 				if(searchKeyword != "") {
 					return;
 				}
-				listAllBookResult.token = bookInfoService.listAllBook(page, RunData.getRunData().getPageSize());
+				listAllBookResult.token = bookInfoService.listAllBook(bookType, page, pageSize);
 			}
 			
 			public function searchBookByKeyword(keyword:String, page:int):void {
 				searchKeyword = keyword;
-				listAllBookResult.token = bookInfoService.searchBookByKeyword(searchKeyword, page, RunData.getRunData().getPageSize());
+				listAllBookResult.token = bookInfoService.searchBookByKeyword(searchKeyword, bookType, page, pageSize);
 			}
 			
 			protected function listAllBookResult_resultHandler(event:ResultEvent):void
 			{
 				if(listAllBookResult.lastResult.totalCount == 0){
-					Alert.show("暂无符合条件的书籍");
+					//Alert.show("暂无符合条件的书籍"+bookType);
+					searchKeyword = "";
+					if(bookType == "all"){
+						searchAllBook(1);
+					}
 				}
 				this.totalCount = listAllBookResult.lastResult.totalCount;
 				var list:ArrayCollection = listAllBookResult.lastResult.bookList;
+				pageNavigator.refresh();
 				processResult(list);
 			}
 			
 			protected function processResult(list:ArrayCollection):void{
 				
-				var imgUrls:ArrayList = new ArrayList();
-				var descs:ArrayList = new ArrayList();
-				var bookInfoIds:ArrayList = new ArrayList(); 
-				for(var i:int = 0; i < list.length; i++) {
-					imgUrls.addItem(BookSearch(list.getItemAt(i)).bookImgUrl);
-					descs.addItem(BookSearch(list.getItemAt(i)).bookName);
-					bookInfoIds.addItem(BookSearch(list.getItemAt(i)).bookInfoId);
+				var imgUrls1:ArrayList = new ArrayList();
+				var descs1:ArrayList = new ArrayList();
+				var bookInfoIds1:ArrayList = new ArrayList();
+				var count:int  = list.length;
+				canvas.removeAllElements();
+				if(list.length > pageSize/2){
+					count = pageSize/2;
+					var imgUrls2:ArrayList = new ArrayList();
+					var descs2:ArrayList = new ArrayList();
+					var bookInfoIds2:ArrayList = new ArrayList();
+					for(var i:int = count; i < list.length; i++) {
+						imgUrls2.addItem(BookSearch(list.getItemAt(i)).bookImgUrl);
+						descs2.addItem(BookSearch(list.getItemAt(i)).bookName);
+						bookInfoIds2.addItem(BookSearch(list.getItemAt(i)).bookInfoId);
+					}
+					var imagesList2:ImagesList = new ImagesList();
+					imagesList2.createImagesList(imgUrls2, descs2, bookInfoIds2, true, false);
+					imagesList2.x = 20;
+					imagesList2.y = 250;
+					canvas.addElement(imagesList2);
+
+				} else {
 				}
-				gallery.createImagesList(imgUrls, descs, bookInfoIds, true, false);
-				gallery.setSize(740,180);				
-				pageNavigator.refresh();
+				
+				for(i = 0; i < count; i++) {
+					imgUrls1.addItem(BookSearch(list.getItemAt(i)).bookImgUrl);
+					descs1.addItem(BookSearch(list.getItemAt(i)).bookName);
+					bookInfoIds1.addItem(BookSearch(list.getItemAt(i)).bookInfoId);
+				}
+				
+				var imagesList1:ImagesList = new ImagesList();
+				imagesList1.createImagesList(imgUrls1, descs1, bookInfoIds1, true, false);
+				imagesList1.x = 20;
+				imagesList1.y = 20;
+				canvas.addElement(imagesList1);
+				
 			}
 			
 			public function turnToPage(page:int):void{
@@ -95,6 +119,24 @@
 			}
 
 
+
+			protected function gallery1_creationCompleteHandler(event:FlexEvent):void
+			{
+				refresh();
+			}
+
+
+			public function refresh():void
+			{
+				pageNavigator.setPageNavigator(this, pageSize);
+				searchAllBook(1)
+			}
+			protected function viewAllBtn_clickHandler(event:MouseEvent):void
+			{
+				searchKeyword = "";
+				searchAllBook(1);
+			}
+
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -102,14 +144,11 @@
 		
 		<services:BookInfoService id="bookInfoService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
 	</fx:Declarations>
-	<component:Gallery x="10" y="31" width="740" id="gallery">
-	</component:Gallery>
-	<mx:AdvancedDataGrid x="10" y="211" width="740" height="245" id="bookListDataGrid" click="bookListDataGrid_clickHandler(event)" creationComplete="bookListDataGrid_creationCompleteHandler(event)" dataProvider="{listAllBookResult.lastResult.bookList}">
-		<mx:columns>
-			<mx:AdvancedDataGridColumn headerText="书名" dataField="bookName" />
-			<mx:AdvancedDataGridColumn headerText="作者" dataField="bookAuthor"/>
-		</mx:columns>
-	</mx:AdvancedDataGrid>
+	<mx:Canvas  x="10" y="31"  creationComplete="gallery1_creationCompleteHandler(event)" id="canvas">
+		
+	</mx:Canvas>
+	
 	<page:PageNavigator x="297" y="1" id="pageNavigator">
 	</page:PageNavigator>
+	<mx:LinkButton x="10" y="1" label="查看全部" id="viewAllBtn" click="viewAllBtn_clickHandler(event)"/>
 </s:Group>

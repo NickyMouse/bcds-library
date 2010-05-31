@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="544" height="484" xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="552" height="574" xmlns:services="com.goldroom.services.*" xmlns:upload="com.goldroom.flex.component.upload.*">
 	<fx:Script>
 		<![CDATA[
-			import com.alibaba.intl.goldroom.flex.dataobject.BookInfo;
-			import com.alibaba.intl.goldroom.flex.dataobject.BookItem;
+			import com.goldroom.dataobject.BookInfo;
+			import com.goldroom.dataobject.BookItem;
 			import com.goldroom.flex.data.RunData;
 			
 			import mx.controls.Alert;
 			import mx.events.FlexEvent;
 			import mx.rpc.events.ResultEvent;
-			
+			import mx.utils.StringUtil;
 			import spark.components.supportClasses.SkinnableTextBase;
 			
 			
@@ -46,7 +46,6 @@
 				fillField(this.publisherInput, bookInfo.publisher);
 				fillField(this.editionInput, bookInfo.edition);
 				fillField(this.descriptionInput, bookInfo.description);
-				fillField(this.authorInput, bookInfo.author);
 				
 				if(bookInfo.publishTime != null){
 					var data:Date = bookInfo.publishTime;
@@ -56,6 +55,7 @@
 				
 				if(bookInfo.imgUrl != null && bookInfo.imgUrl.length > 0) {
 					this.bookImage.source = RunData.getRunData().getData("imgPath")+bookInfo.imgUrl;
+					this.bookImage.visible = true;
 					uploadCoverBtn.visible = false;
 				}
 				this.bookImage.toolTip = bookInfo.name;
@@ -68,20 +68,53 @@
 					input.editable = false;
 				} else {
 					input.editable = true;
-					//input.errorString = "请填写";
 				}
 			}
 			
 			protected function findBookInfoByIsbnFromRemoteResult_resultHandler(event:ResultEvent):void
 			{
 				if(findBookInfoByIsbnFromRemoteResult.lastResult == null){
-					Alert.show("找不到相关信息");
+					Alert.show("找不到相关信息，请填写书籍信息");
+					resetForm();
 					form.visible = true;
+					uploadCoverBtn.visible = false;
 				} else {
+					this.isbnInput.editable = false;
 					fillForm(findBookInfoByIsbnFromRemoteResult.lastResult);
 				}
 			}
 
+			protected function resetForm():void{
+				this.bookNameInput.text = "";
+				this.bookNameInput.editable = true;
+				
+				this.authorInput.text = "";
+				this.authorInput.editable = true;
+				
+				this.editionInput.text = "";
+				this.editionInput.editable = true;
+				
+				this.publisherInput.text = "";
+				this.publisherInput.editable = true;
+				
+				this.tagsInput.text = "";
+				this.tagsInput.editable = true;
+				
+				this.publishTimeInput.text = "";
+				this.publishTimeInput.editable = true;
+				
+				this.descriptionInput.text = "";
+				this.descriptionInput.editable = true;
+				
+				this.remarkInput.text = "";
+				this.remarkInput.editable = true;
+				
+				this.bookUploader.visible = false;
+				this.ebook.selected = false;
+				this.realBook.selected = false;
+				this.bookImage.visible = false;
+				this.bookImage.toolTip = "";
+			}
 
 			protected function form_creationCompleteHandler(event:FlexEvent):void
 			{
@@ -91,16 +124,60 @@
 			
 			protected function saveBtn_clickHandler(event:MouseEvent):void
 			{
+				if(ebook.selected && !bookUploader.uploadDone()){
+					saveBtn.errorString = "请上传电子书";
+					return;
+				} else{
+					saveBtn.errorString = "";
+				}
+				
 				var bookItem:BookItem = new BookItem();
 				if(this.foundBookInfo != null) {
-					bookItem.bookInfo = this.foundBookInfo;
-					bookItem.addTime = new Date();
-					bookItem.firstAddTime = new Date();
-					bookItem.member = RunData.getRunData().getLoginUser();
-					bookItem.remark = this.remarkInput.text;
-					bookItem.tags = this.tagsInput.text;
+					if(realBook.selected) {
+						bookItem.bookInfo = this.foundBookInfo;
+						bookItem.addTime = new Date();
+						bookItem.firstAddTime = new Date();
+						bookItem.member = RunData.getRunData().getLoginUser();
+						bookItem.remark = this.remarkInput.text;
+						bookItem.tags = this.tagsInput.text;
+						addBookItemResult.token = bookItemService.addBookItem(bookItem);
+					}
+					if(ebook.selected){
+						this.foundBookInfo.eBookUrl = bookUploader.getEbookUrl();
+						updateBookInfoResult.token = bookInfoService.updateBookInfo(this.foundBookInfo);
+					}
+				} else {
+					var bookInfo:BookInfo = new BookInfo();
+					
+					if(this.bookNameInput.text.length == 0){
+						saveBtn.errorString="请填写书籍名称";
+						return;
+					} else {
+						saveBtn.errorString="";
+					}
+					
+					if(this.descriptionInput.text.length == 0){
+						saveBtn.errorString="请填写书籍描述信息";
+						return;
+					} else {
+						saveBtn.errorString="";
+					}
+					bookInfo.name = this.bookNameInput.text;
+					bookInfo.author = this.authorInput.text;
+					bookInfo.publisher = this.publisherInput.text;
+					bookInfo.publishTime = this.publishTimeInput.selectedDate;
+					bookInfo.edition = this.editionInput.text;
+					bookInfo.description = this.descriptionInput.text;
+					bookInfo.eBookUrl = bookUploader.getEbookUrl();
+					bookInfo.isbn = this.isbnInput.text;
+					if(bookInfo.isbn.length == 10){
+						bookInfo.isbn10 = bookInfo.isbn;
+					}
+					if(bookInfo.isbn.length == 13){
+						bookInfo.isbn13 = bookInfo.isbn;
+					}
+					addBookInfoResult.token = bookInfoService.addBookInfo(bookInfo);
 				}
-				addBookItemResult.token = bookItemService.addBookItem(bookItem);
 			}
 			
 
@@ -110,13 +187,61 @@
 				this.form.visible = false;
 				this.isbnInput.text = "";
 			}
+			
 			public function resert(): void{
 				this.form.visible = false;
 				this.isbnInput.text = "";
+				this.isbnInput.editable = true;
+				resetForm();
+			}
+
+			protected function ebook_clickHandler(event:MouseEvent):void
+			{
+				bookUploader.setIsbn(isbnInput.text);
+				this.bookUploader.visible = true;
+				
+			}
+
+
+			protected function realBook_clickHandler(event:MouseEvent):void
+			{
+				this.bookUploader.visible = false;
+				saveBtn.enabled = true
+			}
+
+
+			protected function addBookInfoResult_resultHandler(event:ResultEvent):void
+			{
+				if(realBook.selected) {
+					var bookItem:BookItem = new BookItem();
+					bookItem.bookInfo = (addBookInfoResult.lastResult as BookInfo);
+					bookItem.addTime = new Date();
+					bookItem.firstAddTime = new Date();
+					bookItem.member = RunData.getRunData().getLoginUser();
+					bookItem.remark = this.remarkInput.text;
+					bookItem.tags = this.tagsInput.text;
+					addBookItemResult.token = bookItemService.addBookItem(bookItem);
+				} else {
+					Alert.show("成功分享");
+					this.form.visible = false;
+					this.isbnInput.text = "";
+				}
+			}
+
+
+			protected function updateBookInfoResult_resultHandler(event:ResultEvent):void
+			{
+				if(updateBookInfoResult.lastResult){
+					Alert.show("成功分享");
+					this.form.visible = false;
+					this.isbnInput.text = "";
+				}
 			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
+		<s:CallResponder id="updateBookInfoResult" result="updateBookInfoResult_resultHandler(event)"/>
+		<s:CallResponder id="addBookInfoResult" result="addBookInfoResult_resultHandler(event)"/>
 		<s:CallResponder id="findBookInfoByIsbnFromRemoteResult" result="findBookInfoByIsbnFromRemoteResult_resultHandler(event)"/>
 		<s:CallResponder id="findBookInfoByIsbnResult" result="findBookInfoByIsbnResult_resultHandler(event)"/>
 		<services:BookInfoService id="bookInfoService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
@@ -128,10 +253,9 @@
 	<s:TextInput x="140" y="10" id="isbnInput"/>
 	<s:Button x="297" y="10" label="检索" id="findBookBtn" click="findBookBtn_clickHandler(event); findBookBtn_clickHandler(event)"/>
 	
-	<s:BorderContainer id="form" creationComplete="form_creationCompleteHandler(event)" width="429" height="433" y="41" x="48">
+	<s:BorderContainer id="form" creationComplete="form_creationCompleteHandler(event)" width="433" height="514" y="41" x="48">
 		<s:Label x="47" y="12" text="书名:"/>
 		<s:TextInput x="90" y="10" id="bookNameInput"/>
-		
 		
 		<s:Label x="45" y="43" text="作者:"/>
 		<s:TextInput x="90" y="41" id="authorInput"/>
@@ -139,24 +263,32 @@
 		<s:Label x="36" y="79" text="出版社:"/>
 		<s:TextInput x="90" y="73" id="publisherInput"/>
 		
-		<s:Label x="27" y="190" text="出版日期:"/>
-		<mx:DateField x="89" y="183" width="106" id="publishTimeInput"/>
-		
 		<s:Label x="46" y="111" text="版本:"/>
 		<s:TextInput x="90" y="106" id="editionInput"/>
-		
-		<s:Label x="47" y="263" text="描述:"/>
-		<s:TextArea x="87" y="221" width="320" height="72" id="descriptionInput"/>
 		
 		<s:Label x="50" y="148" text="标签:"/>
 		<s:TextInput x="89" y="142" width="126" id="tagsInput"/>
 		
+		<s:Label x="27" y="190" text="出版日期:"/>
+		<mx:DateField x="89" y="183" width="106" id="publishTimeInput"/>
+	
+		
+		<s:Label x="47" y="263" text="描述:"/>
+		<s:TextArea x="87" y="221" width="320" height="72" id="descriptionInput"/>
+		
+		
+		
 		<s:Label x="45" y="332" text="备注:"/>
 		<s:TextArea x="88" y="304" width="319" height="70" id="remarkInput"/>	
 		
-		<mx:Image width="142" height="176" id="bookImage" verticalCenter="-122" horizontalCenter="128" verticalAlign="middle" horizontalAlign="center"/>
+		<mx:Image width="142" height="176" id="bookImage" verticalCenter="-160" horizontalCenter="126" verticalAlign="middle" horizontalAlign="center"/>
 		<s:Button x="307" y="187" label="上传封面" id="uploadCoverBtn"/>
-		<s:Button x="194" y="389" label="保存" id="saveBtn" click="saveBtn_clickHandler(event)"/>
+		<upload:UploadEBook x="205" y="385" height="97" id="bookUploader" visible="false">
+		</upload:UploadEBook>
+		<s:RadioButton x="90" y="405" label="电子书" id="ebook" click="ebook_clickHandler(event)"/>
+		<s:RadioButton x="90" y="435" label="实体书" id="realBook" click="realBook_clickHandler(event)"/>
+		<s:Label x="47" y="425" text="类型:"/>
+		<s:Button x="181" y="485" label="保存" id="saveBtn" click="saveBtn_clickHandler(event)"/>
 	</s:BorderContainer>
 	
 </s:Group>

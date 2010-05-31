@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="448" height="292"  xmlns:services="com.alibaba.intl.goldroom.flex.services.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="448" height="292"  xmlns:services="com.goldroom.services.*">
 
 	<fx:Script>
 		<![CDATA[
-			import com.alibaba.intl.goldroom.flex.dataobject.BookItem;
-			import com.alibaba.intl.goldroom.flex.dataobject.Member;
+			import com.goldroom.dataobject.BookItem;
+			import com.goldroom.dataobject.Member;
 			import com.goldroom.flex.data.RunData;
 			
 			import mx.collections.ArrayCollection;
@@ -20,17 +20,47 @@
 
 			protected function confirmBtn_clickHandler(event:MouseEvent):void
 			{
+				if(ownerDataGrid.selectedItem == null){
+					this.confirmBtn.errorString = "请选择一位拥有者";	
+					return;
+				}
+				if(startDateSelector.selectedDate == null || endDateSelector.selectedDate == null) {
+					this.confirmBtn.errorString = "请选择借阅的开始与结束日期";	
+					return;
+				}
+				var today:Date = new Date();
+				today.setHours(0,0,0,0);
+				if(startDateSelector.selectedDate < today){
+					this.confirmBtn.errorString = "开始日期必须大于等于今天";
+					return;
+				}
+				if(startDateSelector.selectedDate >  endDateSelector.selectedDate){
+					this.confirmBtn.errorString = "开始日期必须小于等于结束日期";
+					return;
+				}
 				
-				if(ownerDataGrid.selectedItem != null){
-					var bookItem:BookItem = BookItem(ownerDataGrid.selectedItem);
-					reserveResult.token = reservationService.reserve(
+				if(startDateSelector.selectedDate >  endDateSelector.selectedDate){
+					this.confirmBtn.errorString = "开始日期必须小于等于结束日期";
+					return;
+				}
+				
+				var startTime:Number = startDateSelector.selectedDate.valueOf();
+				var endTime:Number = endDateSelector.selectedDate.valueOf();
+				
+				var different:Number = endTime-startTime; 
+				var diffDay:int = int(different/24/60/60/1000);
+				
+				if(diffDay > 30) {
+					Alert.show("借阅时间不得超过30天");
+					return;
+				}
+				
+				var bookItem:BookItem = BookItem(ownerDataGrid.selectedItem);
+				reserveResult.token = reservationService.reserve(
 						RunData.getRunData().getLoginUser().loginId, 
 						bookItem.id, 
 						startDateSelector.selectedDate, 
 						endDateSelector.selectedDate);
-				}else{
-					this.confirmBtn.errorString = "请选择一位拥有者";	
-				}
 			}
 			
 			public function initData(bookInfoId:int, bookOwners:String):void 
@@ -38,6 +68,8 @@
 				bookOwners = bookOwners.replace("@",".");
 				var memberLoginIds:ArrayCollection =  new ArrayCollection(bookOwners.split(","));
 				listBookItemsByLoginIdsAndBookInfoId.token = bookItemService.listBookItemsByLoginIdsAndBookInfoId(memberLoginIds, bookInfoId);
+				startDateSelector.selectedDate = null;
+				endDateSelector.selectedDate = null;
 			}
 
 			protected function listMemberByLoginIds_resultHandler(event:ResultEvent):void

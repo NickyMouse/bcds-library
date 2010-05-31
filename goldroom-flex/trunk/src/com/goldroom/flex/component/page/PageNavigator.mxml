@@ -7,14 +7,16 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import com.goldroom.flex.script.page.IPageNavigator
+			import com.goldroom.flex.script.page.IPageNavigator;
+			import com.goldroom.flex.data.RunData;
 			protected var navigator:IPageNavigator;
-			protected var pageSize:int = 8;
+			protected var pageSize:int;
 			protected var totalPage:int = 1;
 			
-			public function setPageNavigator(navigator:IPageNavigator):void
+			public function setPageNavigator(navigator:IPageNavigator, pageSize:int):void
 			{
 				this.navigator = navigator;
+				this.pageSize = pageSize;
 			}
 			
 
@@ -33,7 +35,7 @@
 				}
 			}
 			protected function getTotalPage():int {
-				totalPage = Math.ceil(navigator.getTotalCount()/8);
+				totalPage = Math.ceil(navigator.getTotalCount()/pageSize);
 				return totalPage;
 			}
 			
@@ -54,7 +56,7 @@
 					this.nextPage.visible = true;
 				}
 				
-				totalPage = Math.ceil(navigator.getTotalCount()/8);
+				totalPage = Math.ceil(navigator.getTotalCount()/pageSize);
 				pageInfo.text = navigator.getCurrentPage().toString() + "/" + totalPage.toString();
 			}
 		]]>

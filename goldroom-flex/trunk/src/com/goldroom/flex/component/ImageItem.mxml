@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="130" height="180">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="130" height="180" useHandCursor="true" buttonMode="true">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -9,12 +9,20 @@
 	<fx:Script>
 		<![CDATA[
 			import com.goldroom.flex.data.RunData;
+			import mx.graphics.SolidColor;
+			import mx.events.FlexEvent;
+			
 			private var bookInfoId:int;
 			private var fromSearch:Boolean;
 			private var isMy:Boolean;
 			protected var fullDesc:String;
 			public function createImageItem(imageUrl:String, desc:String, bookInfoId:int, fromSearch:Boolean, isMy:Boolean):void{
-				this.img.source =  RunData.getRunData().getStringData("imgPath") + imageUrl;
+				this.container.createDeferredContent();
+				if(imageUrl == null || imageUrl.length == 0 || imageUrl=="null"){
+					this.img.source = RunData.getRunData().getStringData("noPhoto");					
+				} else {
+					this.img.source =  RunData.getRunData().getStringData("imgPath") + imageUrl;
+				}
 				this.img.toolTip = desc;
 				this.desc.toolTip = desc;
 				this.bookInfoId = bookInfoId;
@@ -33,7 +41,12 @@
 			}
 			
 			public function createImageItemWithoutLabel(imageUrl:String, desc:String, bookInfoId:int, fromSearch:Boolean, isMy:Boolean):void{
-				this.img.source =  RunData.getRunData().getStringData("imgPath") + imageUrl;
+				this.container.createDeferredContent();
+				if(imageUrl == null || imageUrl.length == 0 || imageUrl=="null"){
+					this.img.source = RunData.getRunData().getStringData("noPhoto");
+				} else {
+					this.img.source =  RunData.getRunData().getStringData("imgPath") + imageUrl;
+				}
 				this.img.toolTip = desc;
 				this.bookInfoId = bookInfoId;
 				this.fromSearch = fromSearch;
@@ -41,8 +54,23 @@
 				this.addEventListener(MouseEvent.CLICK,showBookDetail);
 				this.desc.visible = false;	
 			}
+
+			protected function container_mouseOverHandler(event:MouseEvent):void
+			{
+				this.container.backgroundFill = new SolidColor(0X8DBDC7,0.5);
+			}
+			
+			
+			protected function container_mouseOutHandler(event:MouseEvent):void
+			{
+				this.container.backgroundFill = new SolidColor(0XFFFFFF, 1);
+			}
 		]]>
 	</fx:Script>
-	<s:Label x="5" y="160" text="" verticalAlign="middle" textAlign="center" width="120" height="16" id="desc"/>
-	<mx:Image width="120" height="150" id="img" verticalCenter="-10" horizontalCenter="0" verticalAlign="middle" horizontalAlign="center"/>
+	
+	
+	<s:BorderContainer x="0" y="0" width="130" height="180" id="container" mouseOver="container_mouseOverHandler(event)" mouseOut="container_mouseOutHandler(event)" borderColor="#FFFFFF">
+		<s:Label x="5" y="160" text="" verticalAlign="middle" textAlign="center" width="120" height="16" id="desc"/>
+		<mx:Image width="120" height="150" id="img" verticalCenter="-10" horizontalCenter="0" verticalAlign="middle" horizontalAlign="center"/>
+	</s:BorderContainer>
 </s:Group>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="622" height="485" xmlns:component="com.goldroom.flex.component.*" xmlns:page="com.goldroom.flex.component.page.*" xmlns:services="com.alibaba.intl.goldroom.flex.services.*" implements="com.goldroom.flex.script.page.IPageNavigator">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="740" height="550" xmlns:component="com.goldroom.flex.component.*" xmlns:page="com.goldroom.flex.component.page.*" xmlns:services="com.goldroom.services.*" implements="com.goldroom.flex.script.page.IPageNavigator">
 	<fx:Declarations>
 		<s:CallResponder id="listReservatedBooksBySubscriberResult" result="listReservatedBooksBySubscriberResult_resultHandler(event)"/>
 		<services:ReservationService id="reservationService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import com.alibaba.intl.goldroom.flex.dataobject.BookItem;
-			import com.alibaba.intl.goldroom.flex.dataobject.Reservation;
+			import com.goldroom.dataobject.BookItem;
+			import com.goldroom.dataobject.Reservation;
 			import com.goldroom.flex.component.BookDetail;
 			import com.goldroom.flex.data.RunData;
 			import com.goldroom.flex.script.page.IPageNavigator;
@@ -94,10 +94,11 @@
 				}
 				if(gallery != null){
 					gallery.createImagesList(imgUrls, descs, bookInfoIds, false, true);
+					gallery.setSize(740,200);
 				}
 			}
 			
-			public function refresh(){
+			public function refresh():void{
 				var loginId:String = RunData.getRunData().getLoginUser().loginId;
 				listReservatedBooksBySubscriberResult.token = reservationService.listReservatedBooksBySubscriber(loginId, currentPage, RunData.getRunData().getPageSize());
 			}
@@ -109,7 +110,7 @@
 				}
 			}
 			
-			protected function showResult(resultCount:int){
+			protected function showResult(resultCount:int):void{
 				if(resultCount == 0){
 					noResultLabel.visible = true;
 					bookListDataGrid.visible = false;
@@ -125,7 +126,7 @@
 			
 		]]>
 	</fx:Script>
-	<mx:AdvancedDataGrid x="0" y="237" id="bookListDataGrid" designViewDataType="flat" width="622" height="249" creationComplete="bookListDataGrid_creationCompleteHandler(event)" dataProvider="{listReservatedBooksBySubscriberResult.lastResult.reservationList}" click="bookListDataGrid_clickHandler(event)">
+	<mx:AdvancedDataGrid x="0" y="237" id="bookListDataGrid" designViewDataType="flat" width="750" height="300" creationComplete="bookListDataGrid_creationCompleteHandler(event)" dataProvider="{listReservatedBooksBySubscriberResult.lastResult.reservationList}" click="bookListDataGrid_clickHandler(event)">
 		<mx:columns>
 			<mx:AdvancedDataGridColumn headerText="书名" dataField="bookName" labelFunction="getColumnValue" sortable="false"/>
 			<mx:AdvancedDataGridColumn headerText="状态" dataField="state" labelFunction="getColumnValue" width="80"/>
@@ -136,8 +137,8 @@
 	</mx:AdvancedDataGrid>
 	<component:Gallery id="gallery" x="10" y="33" height="200">
 	</component:Gallery>
-	<s:ComboBox x="41" y="4" width="100" dataProvider="{comboBoxItems}" selectedIndex="0" id="bookStateCombobox" visible="false">
-	</s:ComboBox>
+	<mx:ComboBox x="41" y="4" width="100" dataProvider="{comboBoxItems}" selectedIndex="0" id="bookStateCombobox" visible="false">
+	</mx:ComboBox>
 	<s:Label x="10" y="11" text="状态" visible="false"/>
 	<page:PageNavigator x="236" y="4" id="pageNavigator">
 	</page:PageNavigator>
