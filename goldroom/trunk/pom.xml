@@ -30,7 +30,7 @@
 
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.orm</artifactId>
+			<artifactId>spring-orm</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 
@@ -103,7 +103,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.context</artifactId>
+			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
@@ -139,5 +139,10 @@
 		</plugins>
 	</build>
 	<repositories>
+		<repository>
+			<id>bcds-repository</id>
+			<name>bcds-repository</name>
+			<url>http://bcds-library.googlecode.com/svn/repository</url>
+		</repository>
 	</repositories>
 </project>
