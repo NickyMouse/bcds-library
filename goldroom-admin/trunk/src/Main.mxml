@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="960" minHeight="600" xmlns:services="com.goldroom.services.*">
+	<fx:Script>
+		<![CDATA[
+			import com.goldroom.valueObjects.Comment;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.controls.List;
+			import mx.events.FlexEvent;
+			import mx.events.ListEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			
+			private var comboBoxItems:ArrayCollection = new ArrayCollection([
+				{label:"New", value:"new"},
+				{label:"Approved", value:"approve"},
+				{label:"Tbd", value:"tbd"}]);
+			
+			protected function signBtn_clickHandler(event:MouseEvent):void
+			{
+				loginResult.token = memberService.login(loginId.text, password.text);
+			}
+			
+
+			protected function loginResult_resultHandler(event:ResultEvent):void
+			{
+				if(loginResult.lastResult == null) {
+					signBtn.errorString = "account not exists";
+				} else if(loginResult.lastResult.role != "ROLE_ADMIN") {
+					signBtn.errorString = "not the admin account";	
+				} else {
+					signBtn.errorString = "";
+					loginPane.visible = false;
+					manageTabs.visible = true;
+				}
+			}
+
+
+			protected function MemberStateCombobox_changeHandler(event:ListEvent):void
+			{
+				refreshMemberList();
+			}
+
+
+			protected function memberDataGrid_creationCompleteHandler(event:FlexEvent):void
+			{
+				refreshMemberList();
+			}
+
+			
+			protected function approveBtn_clickHandler(event:MouseEvent):void
+			{
+				if(memberDataGrid.selectedItem == null){
+					Alert.show("Select a member to approve");
+					return;
+				}
+				approveMemberResult.token = memberService.approveMember(memberDataGrid.selectedItem.loginId);
+			}
+			
+			
+			protected function tbdBtn_clickHandler(event:MouseEvent):void
+			{
+				if(memberDataGrid.selectedItem == null){
+					Alert.show("Select a member to tbd");
+					return;
+				}
+				tbdMembersResult.token = memberService.tbdMembers(memberDataGrid.selectedItem.loginId);
+			}
+			
+
+			protected function approveMemberResult_resultHandler(event:ResultEvent):void
+			{
+				if(approveMemberResult.lastResult){
+					Alert.show("Approve sucessfully");
+				} else {
+					Alert.show("Approve failed")
+				}
+				refreshMemberList();
+			}
+
+
+			protected function tbdMembersResult_resultHandler(event:ResultEvent):void
+			{
+				if(tbdMembersResult.lastResult){
+					Alert.show("TBD sucessfully");
+				} else {
+					Alert.show("TBD failed")
+				}
+				refreshMemberList();
+			}
+
+			protected function refreshMemberList():void{
+				listMemberByStatusResult.token = memberService.listMemberByStatus(memberStateCombobox.selectedItem.value);
+			}
+			
+			protected var commentPage:int = 1;
+			protected var commentPageSize:int = 20;
+			protected function commentDataGrid_creationCompleteHandler(event:FlexEvent):void
+			{
+				refreshCommentList();
+			}
+			
+			protected function refreshCommentList():void{
+				listAllResult.token = commentService.listAll(commentPage, commentPageSize);
+			}
+			
+
+			protected function preCommentPageBtn_clickHandler(event:MouseEvent):void
+			{
+				if(commentPage > 1){
+					commentPage--;
+					refreshCommentList();
+				}
+					
+			}
+
+
+			protected function nextCommentPageBtn_clickHandler(event:MouseEvent):void
+			{
+				commentPage++;
+				refreshCommentList();
+			}
+
+			
+			protected function delCommentBtn_clickHandler(event:MouseEvent):void
+			{
+				if(commentDataGrid.selectedItem != null){
+					deleteCommentByIdResult.token = commentService.deleteCommentById(commentDataGrid.selectedItem.id);
+				} else {
+					Alert.show("Selete a comment to delete");
+				}
+			}
+			
+
+			protected function deleteCommentByIdResult_resultHandler(event:ResultEvent):void
+			{
+				if(deleteCommentByIdResult.lastResult){
+					Alert.show("Delete comment sucessfully");
+					refreshCommentList();
+				} else {
+					Alert.show("Delete comment failed");
+				}
+			}
+
+			
+			protected function announceTextInput_creationCompleteHandler(event:FlexEvent):void
+			{
+				getAnnouncementResult.token = adminConfigService.getAnnouncement();
+			}
+			
+			
+			protected function saveAnnouncementBtn_clickHandler(event:MouseEvent):void
+			{
+				setAnnouncementResult.token = adminConfigService.setAnnouncement(announceTextInput.text);
+			}
+			
+
+			protected function setAnnouncementResult_resultHandler(event:ResultEvent):void
+			{
+				if(setAnnouncementResult.lastResult){
+					Alert.show("Announcement save sucessfully");
+				} else {
+					Alert.show("Announcement save failed");
+				}
+			}
+			
+			protected function getCommentColumnValue(item:Object, column:DataGridColumn):String{
+				var c:Comment = item as Comment;
+				if(column.dataField == "memberName") {
+					return c.member.name + " / " + c.member.loginId;	
+				} else if(column.dataField == "gmtCreate") {
+					return c.gmtCreate.toDateString();
+				}
+				return "";
+				
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="loginResult" result="loginResult_resultHandler(event)"/>
+		<services:MemberService id="memberService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+		<s:CallResponder id="listMemberByStatusResult"/>
+		<s:CallResponder id="approveMemberResult" result="approveMemberResult_resultHandler(event)"/>
+		<s:CallResponder id="tbdMembersResult" result="tbdMembersResult_resultHandler(event)"/>
+		<s:CallResponder id="listAllResult"/>
+		<services:CommentService id="commentService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+		<s:CallResponder id="deleteCommentByIdResult" result="deleteCommentByIdResult_resultHandler(event)"/>
+		<s:CallResponder id="getAnnouncementResult"/>
+		<services:AdminConfigService id="adminConfigService" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)" showBusyCursor="true"/>
+		<s:CallResponder id="setAnnouncementResult" result="setAnnouncementResult_resultHandler(event)"/>
+	</fx:Declarations>
+
+	<s:Panel  horizontalCenter="0" width="960">	
+		<mx:TabNavigator x="0" y="0" width="960" height="600" id="manageTabs" visible="false">
+			<s:NavigatorContent label="Member Management" width="100%" height="100%">
+				<mx:ComboBox x="0" y="0"  width="100" dataProvider="{comboBoxItems}" selectedIndex="0" id="memberStateCombobox" change="MemberStateCombobox_changeHandler(event)">
+				</mx:ComboBox>
+				<mx:DataGrid x="0" y="25" id="memberDataGrid" dataProvider="{listMemberByStatusResult.lastResult}" height="473" width="958" creationComplete="memberDataGrid_creationCompleteHandler(event)">
+					<mx:columns>
+						<mx:DataGridColumn headerText="id" dataField="id"/>
+						<mx:DataGridColumn headerText="workId" dataField="workId"/>
+						<mx:DataGridColumn headerText="name" dataField="name"/>
+						<mx:DataGridColumn headerText="loginId" dataField="loginId"/>
+						<mx:DataGridColumn headerText="email" dataField="email"/>
+						<mx:DataGridColumn headerText="gmtCreate" dataField="gmtCreate"/>
+						<mx:DataGridColumn headerText="gmtModified" dataField="gmtModified"/>
+						<mx:DataGridColumn headerText="location" dataField="location"/>
+						<mx:DataGridColumn headerText="ext" dataField="ext"/>
+						<mx:DataGridColumn headerText="aliTalkId" dataField="aliTalkId"/>					
+					</mx:columns>
+				</mx:DataGrid>
+				<s:Button x="367" y="518" label="Approve" id="approveBtn" click="approveBtn_clickHandler(event)"/>
+				<s:Button x="542" y="517" label="TBD" id="tbdBtn" click="tbdBtn_clickHandler(event)"/>
+			</s:NavigatorContent>
+			<s:NavigatorContent label="CommentMangement" width="100%" height="100%">
+				<mx:DataGrid x="0" y="-9" id="commentDataGrid" creationComplete="commentDataGrid_creationCompleteHandler(event)" dataProvider="{listAllResult.lastResult}" height="482" width="948">
+					<mx:columns>
+						<mx:DataGridColumn headerText="id" dataField="id" width="30"/>
+						<mx:DataGridColumn headerText="gmtCreate" dataField="gmtCreate"/>
+						<mx:DataGridColumn headerText="content" dataField="content"/>
+						<mx:DataGridColumn headerText="targetId" dataField="targetId"/>
+						<mx:DataGridColumn headerText="targetType" dataField="targetType" />
+						<mx:DataGridColumn headerText="memberName" dataField="memberName" labelFunction="getCommentColumnValue"/>
+					</mx:columns>
+				</mx:DataGrid>
+				<s:Button x="638" y="516" label="Delete" id="delCommentBtn" click="delCommentBtn_clickHandler(event)"/>
+				<s:Button x="283" y="517" label="Pre Page" id="preCommentPageBtn" click="preCommentPageBtn_clickHandler(event)"/>
+				<s:Button x="399" y="517" label="Next Page" id="nextCommentPageBtn" click="nextCommentPageBtn_clickHandler(event)"/>
+			</s:NavigatorContent>
+			<s:NavigatorContent label="Announcement" width="100%" height="100%">
+				<s:TextInput x="28" y="45" width="839" height="39" id="announceTextInput" creationComplete="announceTextInput_creationCompleteHandler(event)" text="{getAnnouncementResult.lastResult}"/>
+				<s:Button x="395" y="98" label="Save" id="saveAnnouncementBtn" click="saveAnnouncementBtn_clickHandler(event)"/>
+				<s:Label x="9" y="15" text="Home Page Announcement:"/>
+			</s:NavigatorContent>
+		</mx:TabNavigator>
+		<s:BorderContainer x="370" y="157" width="244" height="158" id="loginPane" visible="true">
+			<s:TextInput x="86" y="9" id="loginId"/>
+			<s:TextInput x="86" y="57" id="password" displayAsPassword="true"/>
+			<s:Button x="90" y="100" label="sign" id="signBtn" click="signBtn_clickHandler(event)"/>
+			<s:Label x="10" y="15" text="loginId"/>
+			<s:Label x="10" y="64" text="password"/>
+		</s:BorderContainer>
+	</s:Panel>
+</s:Application>

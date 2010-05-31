@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexProperties enableServiceManager="false" flexServerFeatures="4" flexServerType="2" fmlDataModelLocation=".model/goldroom_admin.fml" serverContextRoot="/" serverRoot="F:/work/flex2/goldroom/target/goldroom" serverRootURL="http://athena.hz.ali.com:8080/" toolCompile="true" useServerFlexSDK="false" version="2"/>

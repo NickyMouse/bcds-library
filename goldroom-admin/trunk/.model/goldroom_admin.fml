@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model xmlns="http://ns.adobe.com/Fiber/1.0">
+  <annotation name="ActionScriptGeneration">
+    <item name="FullyQualifyReferences">true</item>
+  </annotation>
+  <service name="MemberService">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">com.goldroom.services</item>
+      <item name="Destination">memberService</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">com.goldroom.valueObjects</item>
+      <item name="contextRoot">/</item>
+      <item name="rootUrl">http://athena.hz.ali.com:8080/</item>
+      <item name="LINKED_FILE"></item>
+      <item name="ABSOLUTE_ENDPOINT">http://athena.hz.ali.com:8080//messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">BlazeDS</item>
+    </annotation>
+    <function name="listMemberByStatus" arguments="arg0:string" return-type="Member[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">Member</item>
+      </annotation>
+    </function>
+    <function name="applyMember" arguments="arg0:Member" return-type="Member">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">Member</item>
+        <item name="returnType">Member</item>
+      </annotation>
+    </function>
+    <function name="tbdMembers" arguments="arg0:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="findMemberByLoginId" arguments="arg0:string" return-type="Member">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">Member</item>
+      </annotation>
+    </function>
+    <function name="isLoginIdExist" arguments="arg0:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="changePassword" arguments="arg0:string,arg1:string,arg2:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string,string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="listMemberByLoginIds" arguments="arg0:string[]" return-type="Member[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">Member</item>
+      </annotation>
+    </function>
+    <function name="approveMember" arguments="arg0:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="login" arguments="arg0:string,arg1:string" return-type="Member">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string</item>
+        <item name="returnType">Member</item>
+      </annotation>
+    </function>
+    <function name="updateMemberByLoginId" arguments="arg0:Member" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">Member</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+  </service>
+  <service name="CommentService">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">com.goldroom.services</item>
+      <item name="Destination">commentService</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">com.goldroom.valueObjects</item>
+      <item name="contextRoot">/</item>
+      <item name="rootUrl">http://athena.hz.ali.com:8080/</item>
+      <item name="LINKED_FILE"></item>
+      <item name="ABSOLUTE_ENDPOINT">http://athena.hz.ali.com:8080//messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">BlazeDS</item>
+    </annotation>
+    <function name="listAll" arguments="arg0:integer,arg1:integer" return-type="Comment[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,integer</item>
+        <item name="returnType">Comment</item>
+      </annotation>
+    </function>
+    <function name="listBookCommentByLoginId" arguments="arg0:string,arg1:integer,arg2:integer" return-type="Comment[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,integer,integer</item>
+        <item name="returnType">Comment</item>
+      </annotation>
+    </function>
+    <function name="deleteCommentById" arguments="arg0:integer" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="postComment" arguments="arg0:Comment" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">Comment</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="listBookCommentByBookInfoId" arguments="arg0:integer,arg1:integer,arg2:integer" return-type="Comment[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,integer,integer</item>
+        <item name="returnType">Comment</item>
+      </annotation>
+    </function>
+  </service>
+  <entity name="Member">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Member</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.alibaba.intl.goldroom.dataobject.Member</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">MemberService,CommentService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">com.goldroom.valueObjects</item>
+    </annotation>
+    <property name="gmtModified" type="date" required="true"/>
+    <property name="loginId" type="string" required="true"/>
+    <property name="gmtCreate" type="date" required="true"/>
+    <property name="location" type="string" required="true"/>
+    <property name="enable" type="integer" required="true"/>
+    <property name="password" type="string" required="true"/>
+    <property name="ext" type="string" required="true"/>
+    <property name="id" type="integer" required="true"/>
+    <property name="aliTalkId" type="string" required="true"/>
+    <property name="email" type="string" required="true"/>
+    <property name="name" type="string" required="true"/>
+    <property name="role" type="string" required="true"/>
+    <property name="workId" type="integer" required="true"/>
+  </entity>
+  <entity name="Comment">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Comment</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.alibaba.intl.goldroom.dataobject.Comment</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">CommentService</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">com.goldroom.valueObjects</item>
+    </annotation>
+    <property name="id" type="integer"/>
+    <property name="member" type="Member"/>
+    <property name="content" type="string"/>
+    <property name="gmtModified" type="date"/>
+    <property name="gmtCreate" type="date"/>
+    <property name="targetId" type="integer"/>
+    <property name="replyId" type="integer"/>
+    <property name="targetType" type="string"/>
+  </entity>
+  <service name="AdminConfigService">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">com.goldroom.services</item>
+      <item name="Destination">adminConfigService</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">com.goldroom.valueObjects</item>
+      <item name="contextRoot">/</item>
+      <item name="rootUrl">http://athena.hz.ali.com:8080/</item>
+      <item name="LINKED_FILE"></item>
+      <item name="ABSOLUTE_ENDPOINT">http://athena.hz.ali.com:8080//messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">BlazeDS</item>
+    </annotation>
+    <function name="getAnnouncement" return-type="string">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">string</item>
+      </annotation>
+    </function>
+    <function name="setAnnouncement" arguments="arg0:string" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+  </service>
+</model>
