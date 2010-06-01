@@ -99,13 +99,15 @@ jdbc.password=<数据库密码>
 
 goldroom.server.name=<运行tomcat机器的ip及端口，如127.0.0.1:8080>
 
-goldroom.fileupload.path=<上传文件的目录>
+goldroom.fileupload.path=<上传图片的目录>
+goldroom.ebook.upload.path=<电子书上传目录>
 goldroom.index.path=<搜索引擎索引存放路径>
 }}}
 详细见:http://code.google.com/p/bcds-library/wiki/goldroomPropertiesExample
 
  * 创建必要的目录(linux)
-  ** 创建 “上传文件的目录”
+  ** 创建 “上传图片的目录”
+  ** 创建 “电子书上传目录”
   ** 创建 “搜索引擎索引存放路径”
   ** 创建 日志存放目录
 {{{
