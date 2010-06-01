@@ -14,17 +14,5 @@ create database goldroom default charset utf8 COLLATE utf8_general_ci;
 exit
 }}}
 
-==创建数据库表==
-{{{
-cd goldroom
-mysql -u root -p goldroom < ./sql/goldroom_create_table.sql
-}}}
-
-==初始化数据==
-{{{
-mysql -u root -p goldroom < ./sql/category_data.sql
-mysql -u root -p goldroom < ./sql/account.sql
-}}}
-category_data.sql 初始化类目信息
-account.sql 初始化帐号信息，其中初始化了一个管理员帐号admin / hello1234
-普通用户帐号，可以通过申请帐号的方式获得。
+==初始化数据库==
+需要初始化脚本的可以找xiaogy1012拿
