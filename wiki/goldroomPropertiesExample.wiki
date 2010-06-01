@@ -7,8 +7,8 @@ jdbc.password=root
 
 goldroom.server.name=127.0.0.1:8080
 
-goldroom.fileupload.path=/home/intlbcds/upload
-
+goldroom.fileupload.path=/home/intlbcds/upload/images
+goldroom.ebook.upload.path=/home/intlbcds/work/upload/ebook
 goldroom.index.path=/home/intlbcds/work/index
 
 }}}
@@ -28,5 +28,7 @@ goldroom.index.path=/home/intlbcds/work/index
 goldroom服务器地址，包括端口
 ===goldroom.fileupload.path===
 用户上传图书封面存放目录
+===goldroom.ebook.upload.path===
+用户上传电子书目录
 ===goldroom.index.path===
 搜索引擎索引存放目录
