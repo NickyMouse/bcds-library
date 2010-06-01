@@ -147,13 +147,14 @@ cd goldroom
 }}}
 
 = 6. 添加flex=
-*下载goldroom-flex 和 goldroom-admin最新版本：
+ （自己编译的可以跳过这个）
+ *下载goldroom-flex 和 goldroom-admin最新版本：
    **http://bcds-library.googlecode.com/files/goldroom-flex.zip
    **http://bcds-library.googlecode.com/files/goldroom-admin.zip
-*解压到goldroom/target/goldroom目录下
-*重启服务
-*访问 http://localhost:8080/goldroom-flex/Home.html
-或者 http://localhost:8080/goldroom-admin/Main.html
+ *解压到goldroom/target/goldroom目录下
+ *重启服务
+ *访问 http://localhost:8080/goldroom-flex/Home.html
+ 或者 http://localhost:8080/goldroom-admin/Main.html
 
 = 7. 如何导入eclipse开发 =
 以goldroom模块为例 
