@@ -1,7 +1,7 @@
 #labels goldroom.properties
 {{{
 jdbc.driver=org.gjt.mm.mysql.Driver                     
-jdbc.url=jdbc:mysql://127.0.0.1:3306/goldroom
+jdbc.url=jdbc:mysql://127.0.0.1:3306/goldroom?useUnicode=true&amp;characterEncoding=utf8
 jdbc.username=root
 jdbc.password=root
 
