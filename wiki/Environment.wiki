@@ -146,9 +146,10 @@ cd goldroom
 ./shutdown.sh
 }}}
 
-然后就可以在 http://127.0.0.1:8080/login.htm 登录系统，如果有build数据的话可以在 http://127.0.0.1:8080/home.htm 看到首页
+= 6. 添加flex=
 
-= 6. 如何导入eclipse开发 =
+
+= 7. 如何导入eclipse开发 =
 以goldroom模块为例 
 最简单的方法是安装m2eclipse插件，在eclipse中file->import->maven project选择goldroom根目录下的pom.xml文件
 或者在goldroom根目录下执行
