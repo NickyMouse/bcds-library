@@ -4,12 +4,10 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.Date;
 
-import jeasy.analysis.MMAnalyzer;
-
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.highlight.Highlighter;
@@ -31,7 +29,7 @@ public class DocumentToDoConvertor {
     private Analyzer      analyzer;                                              // 词法分析器
 
     protected DocumentToDoConvertor(Query query) {
-        this.analyzer = new MMAnalyzer();
+        this.analyzer = new StandardAnalyzer();
         this.highlighter = new Highlighter(new SimpleHTMLFormatter("<font color=\"red\">", "</font>"),
                                            new QueryScorer(query));
     }

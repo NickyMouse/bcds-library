@@ -3,9 +3,8 @@ package com.alibaba.intl.bcds.goldroom.search.commons.queryobject;
 import java.util.ArrayList;
 import java.util.List;
 
-import jeasy.analysis.MMAnalyzer;
-
 import org.apache.log4j.Logger;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.Query;
@@ -112,7 +111,7 @@ public class BookSearchQueryObject extends BaseQueryObject {
 					new IllegalArgumentException());
 			return null;
 		}
-		QueryParser parser = new QueryParser("", new MMAnalyzer());
+		QueryParser parser = new QueryParser("", new StandardAnalyzer());
 		logger.info("[Search Condition]" + this.toString());
 		try {
 			return parser.parse(getSearchConditionBuilder().buildConditions());
