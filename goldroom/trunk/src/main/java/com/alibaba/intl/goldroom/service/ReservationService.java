@@ -63,6 +63,27 @@ public class ReservationService {
         return new ReservationResult(reservationList, totalCount);
     }
 
+    public boolean deleteReservation(Integer reservationId) {
+        Reservation r = reservationDao.findById(reservationId);
+        if (r == null) {
+            return false;
+        }
+        if (Reservation.STATE_REJECT.equals(r.getState())) {
+            reservationDao.deleteReservation(reservationId);
+            return true;
+        } else if (Reservation.STATE_TO_BE_COMFIRM.equals(r.getState())) {
+            BookItem bookItem = r.getBookItem();
+            bookItem.setState(BookItemStateEnum.IDLE.getValue());
+            if (bookItemDao.updateBookItemState(bookItem)) {
+                if (reservationDao.deleteReservation(reservationId)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
     public boolean reserve(String subscriberLoginId, int bookItemId, Date lendTime, Date returnTime) {
         BookItem item = bookItemDao.findById(bookItemId);
         if (item.getMember().getLoginId().equals(subscriberLoginId)) {

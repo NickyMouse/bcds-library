@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.flex.remoting.RemotingDestination;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,15 +22,9 @@ public class EBookUploadService {
 
     private static Logger                     logger    = Logger.getLogger(EBookUploadService.class);
     private Map<String, BufferedOutputStream> fileOsMap = new ConcurrentHashMap<String, BufferedOutputStream>();
+
+    @Autowired
     private String                            eBookUploadPath;
-
-    public String geteBookUploadPath() {
-        return eBookUploadPath;
-    }
-
-    public void seteBookUploadPath(String eBookUploadPath) {
-        this.eBookUploadPath = eBookUploadPath;
-    }
 
     public String uploadEBook(String isbn, String name, byte[] bytes, boolean isEOF) {
         if (StringUtils.isEmpty(isbn)) {

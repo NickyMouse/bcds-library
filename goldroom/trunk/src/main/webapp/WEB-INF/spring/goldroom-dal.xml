@@ -44,5 +44,9 @@
 	<bean id="bookSearchDao"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.BookSearchDaoImpl">
 	</bean>
-
+	<bean id="tagDao"
+		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.TagDaoImpl" init-method="refresh">
+		<property name="refreshInterval" value="${goldroom.tags.refresh.interval}" />
+		<property name="tagXmlPath" value="${goldroom.tags.path}" />
+	</bean>
 </beans>
