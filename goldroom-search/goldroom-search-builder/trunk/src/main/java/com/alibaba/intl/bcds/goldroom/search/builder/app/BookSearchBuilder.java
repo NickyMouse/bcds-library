@@ -45,6 +45,7 @@ public class BookSearchBuilder {
         String mode = args[0];
         // 目标路径
         String targeIndexFolder = getIndexPath();
+        String tagXmlPath = getTagXmlPath();
         // 时间间隔为分钟
         long interval = Long.valueOf(args[1]) * 60000;
         startHour = Integer.valueOf(args[2]);
@@ -58,6 +59,7 @@ public class BookSearchBuilder {
             builder.setIncrementBuild(true);
             builder.setModifiedEndTime(endTime);
         }
+        builder.setTagXmlPath(tagXmlPath);
         builder.setDestination(targeIndexFolder);
         builder.setInterval(interval);
 
@@ -105,14 +107,42 @@ public class BookSearchBuilder {
             Properties goldroomProp = new Properties();
 
             goldroomProp.load(new BufferedInputStream(fis));
-            
+
             indexPath = goldroomProp.getProperty("goldroom.index.path");
             return indexPath;
         } catch (IOException e) {
             logger.error(e);
             return "";
-        } finally{
-            if(fis != null){
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    logger.error(e);
+                }
+            }
+        }
+    }
+
+    private static String getTagXmlPath() {
+        String indexPath = "";
+        FileInputStream fis = null;
+        try {
+            String homePath = System.getProperty("user.home");
+            String propFilePath = homePath + File.separator + "goldroom.properties";
+            fis = new FileInputStream(propFilePath);
+
+            Properties goldroomProp = new Properties();
+
+            goldroomProp.load(new BufferedInputStream(fis));
+
+            indexPath = goldroomProp.getProperty("goldroom.tags.path");
+            return indexPath;
+        } catch (IOException e) {
+            logger.error(e);
+            return "";
+        } finally {
+            if (fis != null) {
                 try {
                     fis.close();
                 } catch (IOException e) {

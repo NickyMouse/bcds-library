@@ -1,14 +1,18 @@
 package com.alibaba.intl.bcds.goldroom.search.builder.builder;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import jeasy.analysis.MMAnalyzer;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
@@ -18,10 +22,13 @@ import org.springframework.context.ApplicationContext;
 import com.alibaba.intl.bcds.goldroom.search.builder.utils.ConvertObjectHandler;
 import com.alibaba.intl.bcds.goldroom.search.builder.utils.DocumentFactory;
 import com.alibaba.intl.bcds.goldroom.search.builder.utils.SearchApplicationContext;
+import com.alibaba.intl.bcds.goldroom.search.builder.utils.TagFactory;
 import com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.BookSearchDatasource;
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearch;
+import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.TagInfo;
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.helper.BookSearchConstrains;
 import com.alibaba.intl.bcds.goldroom.search.commons.service.BookSearchServiceLocator;
+import com.thoughtworks.xstream.XStream;
 
 public class BookInfoBuilder extends BaseBuilder {
 
@@ -30,12 +37,22 @@ public class BookInfoBuilder extends BaseBuilder {
     private Date          modifiedEndTime;
     private long          interval;
 
+    private String        tagXmlPath;
+
     public Date getModifiedEndTime() {
         return modifiedEndTime;
     }
 
     public void setModifiedEndTime(Date modifiedEndTime) {
         this.modifiedEndTime = modifiedEndTime;
+    }
+
+    public String getTagXmlPath() {
+        return tagXmlPath;
+    }
+
+    public void setTagXmlPath(String tagXmlPath) {
+        this.tagXmlPath = tagXmlPath;
     }
 
     @Override
@@ -68,15 +85,18 @@ public class BookInfoBuilder extends BaseBuilder {
         ConvertObjectHandler handler = (ConvertObjectHandler) handlerContext.getBean("bookInfoConvertObjectHandler");
         DocumentFactory factory = DocumentFactory.getInstance(BuildBookSearch.class, handler);
         IndexWriter writer = null;
+        PrintWriter tagXmlWriter = null;
         try {
-            writer = new IndexWriter(this.getDestination(), new MMAnalyzer(), true, IndexWriter.MaxFieldLength.LIMITED);
+            writer = new IndexWriter(this.getDestination(), new StandardAnalyzer(), true,
+                                     IndexWriter.MaxFieldLength.LIMITED);
 
             int page = 1;
-            List<BuildBookSearch> listToProcessed = BookSearchServiceLocator.getBuildBookSearchService().listAllBook(
-                                                                                                                     page);
+            List<BuildBookSearch> listToProcessed = BookSearchServiceLocator.getBuildBookSearchService().listAllBook(page);
             List<BuildBookSearch> bookList = filterBooks(listToProcessed);
+            TagFactory tagFactory = TagFactory.getInstance();
             while (bookList != null && bookList.size() > 0) {
                 List<Document> docList = factory.convertList(bookList);
+                tagFactory.addBooks(bookList);
                 System.out.println("page:" + page + " list:" + bookList.size() + "documentList:" + docList.size());
 
                 for (Document doc : docList) {
@@ -87,6 +107,22 @@ public class BookInfoBuilder extends BaseBuilder {
                 bookList = filterBooks(listToProcessed);
             }
             writer.optimize();
+
+            // write tags info to xml file
+            XStream xs = new XStream();
+
+            Map<String, TagInfo> tagMap = tagFactory.getTagMap();
+            File tagXmlFile = new File(this.getTagXmlPath());
+            logger.info(this.getTagXmlPath());
+            if (!tagXmlFile.exists()) {
+                File tagXmlFileDir = tagXmlFile.getParentFile();
+                if (!tagXmlFileDir.exists()) {
+                    tagXmlFileDir.mkdirs();
+                }
+                tagXmlFile.createNewFile();
+            }
+            tagXmlWriter = new PrintWriter(this.getTagXmlPath(), "UTF-8");
+            xs.toXML(tagMap, tagXmlWriter);
         } catch (IOException e) {
             logger.error(e);
             throw e;
@@ -94,6 +130,9 @@ public class BookInfoBuilder extends BaseBuilder {
             try {
                 if (writer != null) {
                     writer.close();
+                }
+                if (tagXmlWriter != null) {
+                    tagXmlWriter.close();
                 }
             } catch (IOException e) {
                 logger.error(e);
@@ -110,8 +149,7 @@ public class BookInfoBuilder extends BaseBuilder {
         IndexWriter writer = null;
         try {
             Date modifiedStartTime = new Date(modifiedEndTime.getTime() - interval);
-            List<BuildBookSearch> bookList = BookSearchServiceLocator.getBuildBookSearchService().listBookByTime(
-                                                                                                                 modifiedStartTime,
+            List<BuildBookSearch> bookList = BookSearchServiceLocator.getBuildBookSearchService().listBookByTime(modifiedStartTime,
                                                                                                                  modifiedEndTime);
 
             for (BuildBookSearch book : bookList) {
