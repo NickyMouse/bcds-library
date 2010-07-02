@@ -24,4 +24,6 @@ public interface ReservationDao {
     
     List<Reservation> listByBookItemId(Integer bookItemId);
     int countByBookItemId(Integer bookItemId);
+    
+    boolean deleteReservation(Integer id);
 }

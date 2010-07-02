@@ -53,7 +53,7 @@ public class ReservationDaoImpl implements ReservationDao {
         Query q = em.createNamedQuery("findReservationByBookItemId");
         q.setParameter("bookItemId", bookItemId);
         List<Reservation> resultList = q.getResultList();
-        if(resultList != null && resultList.size() > 0){
+        if (resultList != null && resultList.size() > 0) {
             Reservation r = resultList.get(0);
             if (r != null) {
                 r.setState(state);
@@ -87,6 +87,15 @@ public class ReservationDaoImpl implements ReservationDao {
         Query q = em.createNamedQuery("countReservationByBookItemId");
         q.setParameter("bookItemId", bookItemId);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public boolean deleteReservation(Integer id) {
+        if (id == null) {
+            return false;
+        }
+        Query q = em.createNamedQuery("deleteReservationById");
+        q.setParameter("id", id);
+        return q.executeUpdate() > 0;
     }
 
 }
