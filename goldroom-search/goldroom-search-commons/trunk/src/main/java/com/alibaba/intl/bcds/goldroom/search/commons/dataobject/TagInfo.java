@@ -6,7 +6,7 @@ public class TagInfo {
 
     private String       tagName;
     private Set<Integer> ids;
-
+    
     public String getTagName() {
         return tagName;
     }
