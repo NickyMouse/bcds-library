@@ -73,7 +73,7 @@
 			/docs/config/ajp.html APR (HTTP/AJP) Connector: /docs/apr.html Define
 			a non-SSL HTTP/1.1 Connector on port 8080
 		-->
-		<Connector connectionTimeout="20000" port="8080" protocol="HTTP/1.1"
+		<Connector connectionTimeout="20000" port="${goldroom_port}" protocol="HTTP/1.1"
 			redirectPort="8443" URIEncoding="UTF-8" />
 		<!-- A "Connector" using the shared thread pool-->
 		<!--
@@ -164,6 +164,8 @@
 
 				<Context docBase="target/goldroom" path="/"
 					reloadable="true" />
+				<Context docBase="monitor" path="/monitor"
+					reloadable="true" privileged="true"/>
 				<Context docBase="${goldroom_fileupload_path}" path="/upload"
 					reloadable="true" />
 				<Context docBase="${goldroom_ebook_upload_path}" path="/ebook"
