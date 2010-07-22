@@ -1,15 +1,22 @@
 #labels goldroom.properties
 {{{
 jdbc.driver=org.gjt.mm.mysql.Driver                     
-jdbc.url=jdbc:mysql://127.0.0.1:3306/goldroom?useUnicode=true&amp;characterEncoding=utf8
-jdbc.username=root
-jdbc.password=root
+jdbc.url=jdbc:mysql://localhost:3306/goldroom?useUnicode=true&amp;characterEncoding=utf8
+jdbc.username=goldroom
+jdbc.password=goldroom
 
-goldroom.server.name=127.0.0.1:8080
+goldroom.server.name=athena.hz.ali.com:8080
+goldroom.port=8080
 
-goldroom.fileupload.path=/home/intlbcds/upload/images
+goldroom.fileupload.path=/home/intlbcds/work/upload/images
 goldroom.ebook.upload.path=/home/intlbcds/work/upload/ebook
+
 goldroom.index.path=/home/intlbcds/work/index
+goldroom.tags.path=/home/intlbcds/work/tag/tag.xml
+goldroom.tags.refresh.interval=1800000
+
+username=alibaba.library
+password=adminalibaba
 
 }}}
 ===jdbc.driver===
