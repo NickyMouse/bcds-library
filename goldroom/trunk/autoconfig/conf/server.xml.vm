@@ -164,8 +164,6 @@
 
 				<Context docBase="target/goldroom" path="/"
 					reloadable="true" />
-				<Context docBase="monitor" path="/monitor"
-					reloadable="true" privileged="true"/>
 				<Context docBase="${goldroom_fileupload_path}" path="/upload"
 					reloadable="true" />
 				<Context docBase="${goldroom_ebook_upload_path}" path="/ebook"

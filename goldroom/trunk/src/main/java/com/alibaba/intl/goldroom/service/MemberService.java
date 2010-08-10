@@ -6,8 +6,6 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.flex.remoting.RemotingDestination;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.intl.bcds.goldroom.mail.dataobject.EmailInfo;
@@ -22,8 +20,6 @@ import com.alibaba.intl.goldroom.dataobject.Member;
 import com.alibaba.intl.goldroom.util.MD5;
 import com.alibaba.intl.goldroom.util.PasswordGenerator;
 
-@Service
-@RemotingDestination
 @Transactional
 public class MemberService {
 

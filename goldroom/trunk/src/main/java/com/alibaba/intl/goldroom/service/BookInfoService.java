@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.flex.remoting.RemotingDestination;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
@@ -18,8 +16,6 @@ import com.alibaba.intl.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.goldroom.remote.BookInfoFetcher;
 import com.alibaba.intl.goldroom.result.BookSearchResult;
 
-@Service
-@RemotingDestination
 @Transactional
 @SuppressWarnings("unchecked")
 public class BookInfoService {

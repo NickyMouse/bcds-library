@@ -6,16 +6,12 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.flex.remoting.RemotingDestination;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.intl.goldroom.constaints.CommentTargetEnum;
 import com.alibaba.intl.goldroom.dao.CommentDao;
 import com.alibaba.intl.goldroom.dataobject.Comment;
 
-@Service
-@RemotingDestination
 @Transactional
 public class CommentService {
 

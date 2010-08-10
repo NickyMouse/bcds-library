@@ -4,15 +4,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.flex.remoting.RemotingDestination;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.intl.goldroom.dao.IntegralDao;
 import com.alibaba.intl.goldroom.dataobject.Integral;
 
-@Service
-@RemotingDestination
 @Transactional
 public class IntegralService {
 
@@ -20,7 +16,7 @@ public class IntegralService {
 
     @Autowired
     private IntegralDao     integralDao;
-    
+
     public List<Integral> listAll(int page, int pageSize){
         return integralDao.listAllIntegral(page, pageSize);
     }
