@@ -1,0 +1,3 @@
+${server}
+success<br/>
+member name : $member.name
