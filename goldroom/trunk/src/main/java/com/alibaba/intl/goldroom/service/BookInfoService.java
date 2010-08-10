@@ -65,18 +65,16 @@ public class BookInfoService {
     // bookInfoDao.updateCategory(bookInfo);
     // }
 
-    public BookSearchResult searchBookByKeyword(String keyword, String type, int page, int pageSize) {
-        BookSearchQueryObject obj = bookSearchService.searchBookByKeyword(keyword,
-                                                                          SearchBookType.getSearchBookType(type),
-                                                                          (page - 1) * pageSize, pageSize);
+    public BookSearchResult searchBookByKeyword(String keyword, SearchBookType type, int page, int pageSize) {
+        BookSearchQueryObject obj = bookSearchService.searchBookByKeyword(keyword, type, (page - 1) * pageSize,
+                                                                          pageSize);
         return new BookSearchResult(obj.getResultList(), obj.getTotalCount());
 
     }
 
-    public BookSearchResult searchBookByTime(Date startTime, Date endTime, String type, int page, int pageSize) {
-        BookSearchQueryObject obj = bookSearchService.searchBookByTime(startTime, endTime,
-                                                                       SearchBookType.getSearchBookType(type),
-                                                                       (page - 1) * pageSize, pageSize);
+    public BookSearchResult searchBookByTime(Date startTime, Date endTime, SearchBookType type, int page, int pageSize) {
+        BookSearchQueryObject obj = bookSearchService.searchBookByTime(startTime, endTime, type, (page - 1) * pageSize,
+                                                                       pageSize);
         return new BookSearchResult(obj.getResultList(), obj.getTotalCount());
     }
 
@@ -99,10 +97,8 @@ public class BookInfoService {
         return new BookSearchResult(obj.getResultList(), obj.getTotalCount());
     }
 
-    public BookSearchResult listAllBook(String type, int page, int pageSize) {
-        BookSearchQueryObject obj = bookSearchService.listAllBook(SearchBookType.getSearchBookType(type), (page - 1)
-                                                                                                          * pageSize,
-                                                                  pageSize);
+    public BookSearchResult listAllBook(SearchBookType type, int page, int pageSize) {
+        BookSearchQueryObject obj = bookSearchService.listAllBook(type, (page - 1) * pageSize, pageSize);
         return new BookSearchResult(obj.getResultList(), obj.getTotalCount());
     }
 

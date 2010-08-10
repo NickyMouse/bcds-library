@@ -13,5 +13,8 @@
 			<result name="success" type="velocity">/templates/success.vm</result>
 			<result name="failed" type="velocity">/templates/failed.vm</result>
 		</action>
+		<action name="searchTestAction" class="com.alibaba.intl.goldroom.action.test.SearchTestAction">
+			<result name="success" type="velocity">/templates/searchSuccess.vm</result>
+		</action>
 	</package>
 </struts>
