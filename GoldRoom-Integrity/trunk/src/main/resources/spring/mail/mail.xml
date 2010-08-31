@@ -29,4 +29,6 @@
 		<property name="encoding" value="${mail.encoding}" />
 	</bean>
 	
+	<bean id="sendMailService"
+		class="com.alibaba.intl.bcds.goldroom.mail.service.impl.SendMailServiceImpl" />
 </beans>

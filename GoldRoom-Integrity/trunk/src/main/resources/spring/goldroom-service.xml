@@ -30,7 +30,4 @@
 	</bean>
 	<bean id="tagService" class="com.alibaba.intl.bcds.goldroom.service.TagService" />
 
-	<bean id="sendMailService"
-		class="com.alibaba.intl.bcds.goldroom.mail.service.impl.SendMailServiceImpl" />
-
 </beans>
