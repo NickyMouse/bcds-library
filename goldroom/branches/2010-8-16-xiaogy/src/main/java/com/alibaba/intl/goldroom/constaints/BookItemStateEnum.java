@@ -1,0 +1,29 @@
+package com.alibaba.intl.goldroom.constaints;
+
+public enum BookItemStateEnum {
+    /** 空闲 */
+    IDLE("idle"),
+    /** 不可用--下架 */
+    UNAVAILABLE("unavailable"),
+
+    /** 已被借 */
+    LENDED("lended"),
+
+    /** 已被预约 */
+    RESERVATED("reservated");
+
+    private String state;
+
+    BookItemStateEnum(String state) {
+        this.state = state;
+    }
+
+    public String getValue() {
+        return state;
+    }
+
+    public boolean equalsState(String state) {
+        return this.getValue().equals(state);
+    }
+
+}

@@ -1,0 +1,10 @@
+<html>
+<body>
+##图书成功预约后,书主确认借书时,通知成功借阅者去拿书.
+尊敬的$!{info.borrower.name}:<br/>
+     您所预约的书籍《$!{info.bookInfo.name}》，书主$!{info.owner.name}拒绝了您的预约。
+   
+     <br/>
+     <a href="http://goldroom.b2b.alibaba-inc.com/">黄金屋[Gold Room]</a>
+</body>
+</html>

@@ -1,0 +1,3 @@
+DB Test ok <br/>
+Find member successfully<br/>
+member name : $member.name

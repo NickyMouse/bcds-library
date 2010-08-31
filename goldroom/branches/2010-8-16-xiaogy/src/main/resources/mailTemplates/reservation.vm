@@ -1,0 +1,12 @@
+<html>
+<body>
+##有人预约的时候，邮件提醒
+
+尊敬的$!{info.owner.name}:<br/>
+     您的《$!{info.bookInfo.name}》已经被<strong>$!{info.borrower.name}</strong>预约了。<br/>
+     借阅的时间为：$!formatUtils.formatDate($info.reservation.lendTime) ~ $!formatUtils.formatDate($info.reservation.returnTime)
+     
+     <br/>
+     <a href="http://goldroom.b2b.alibaba-inc.com/">黄金屋[Gold Room]</a>
+</body>
+</html>

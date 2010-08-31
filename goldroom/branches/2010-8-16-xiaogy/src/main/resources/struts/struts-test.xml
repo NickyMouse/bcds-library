@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- <bean class="org.apache.struts2.views.velocity.VelocityManager" name="default"
+		optional="true" /> -->
+	<package name="/test" extends="struts-default">
+		<action name="testAction" class="com.alibaba.intl.goldroom.action.test.TestAction">
+			<param name="param1">value1</param>
+			<param name="param2">value2</param>
+
+			<result name="success" type="velocity">/templates/success.vm</result>
+			<result name="failed" type="velocity">/templates/failed.vm</result>
+		</action>
+		<action name="searchTestAction" class="com.alibaba.intl.goldroom.action.test.SearchTestAction">
+			<result name="success" type="velocity">/templates/searchSuccess.vm</result>
+		</action>
+	</package>
+</struts>
