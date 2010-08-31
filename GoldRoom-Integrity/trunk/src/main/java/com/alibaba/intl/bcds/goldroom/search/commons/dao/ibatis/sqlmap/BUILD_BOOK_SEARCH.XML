@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BUILD_BOOK_SEARCH">
+	<typeAlias alias="BuildBookSearch"
+		type="com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearch" />
+	<resultMap class="BuildBookSearch" id="bookSearchResult">
+		<result property="itemAddTime" column="ITEM_ADD_TIME" jdbcType="DATETIME" />
+		<result property="itemFirstAddTime" column="ITEM_FIRST_ADD_TIME"
+			jdbcType="DATETIME" />
+		<result property="bookTags" column="BOOK_TAGS" jdbcType="VARCHAR" />
+		<result property="bookInfoId" column="BOOK_INFO_ID" jdbcType="DECIMAL" />
+		<result property="bookAuthor" column="BOOK_AUTHOR" jdbcType="VARCHAR" />
+		<result property="bookName" column="BOOK_NAME" jdbcType="VARCHAR" />
+		<result property="bookPublisher" column="BOOK_PUBLISHER"
+			jdbcType="VARCHAR" />
+		<result property="bookPublishTime" column="BOOK_PUBLISH_TIME"
+			jdbcType="DATE" />
+		<result property="bookIsbn" column="BOOK_ISBN" jdbcType="VARCHAR" />
+		<result property="bookCategoryId" column="BOOK_CATEGORY_ID"
+			jdbcType="DECIMAL" />
+		<result property="bookImgUrl" column="BOOK_IMG_URL" jdbcType="VARCHAR" />
+		<result property="bookDescription" column="BOOK_DESCRIPTION"
+			jdbcType="VARCHAR" />
+		<result property="bookEdition" column="BOOK_EDITION" jdbcType="VARCHAR" />
+		<result property="bookOwners" column="BOOK_OWNERS" jdbcType="VARCHAR" />
+		<result property="bookPages" column="BOOK_PAGES" jdbcType="DECIMAL" />
+		<result property="bookTranslator" column="BOOK_TRANSLATOR" jdbcType="VARCHAR" />
+		<result property="ebookUrl" column="E_BOOK_URL" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="listAllBook" resultMap="bookSearchResult">
+		SELECT
+		info.GMT_CREATE ITEM_ADD_TIME,
+		info.GMT_CREATE ITEM_FIRST_ADD_TIME,
+		GROUP_CONCAT(item.TAGS) BOOK_TAGS,
+		info.ID BOOK_INFO_ID,
+		info.AUTHOR BOOK_AUTHOR,
+		info.NAME BOOK_NAME,
+		info.PUBLISHER BOOK_PUBLISHER,
+		info.PUBLISH_TIME BOOK_PUBLISH_TIME,
+		info.ISBN BOOK_ISBN,
+		info.CATEGORY_ID BOOK_CATEGORY_ID,
+		info.IMG_URL BOOK_IMG_URL,
+		info.DESCRIPTION BOOK_DESCRIPTION,
+		info.EDITION BOOK_EDITION,
+		GROUP_CONCAT(m.LOGIN_ID) BOOK_OWNERS,
+		info.PAGES BOOK_PAGES,
+		info.TRANSLATOR BOOK_TRANSLATOR,
+		info.E_BOOK_URL E_BOOK_URL
+		FROM  BOOK_INFO info 
+        LEFT  JOIN (BOOK_ITEM item ,MEMBER m) ON (
+        	<![CDATA[
+        		item.BOOK_INFO_ID = info.ID AND item.LOGIN_ID = m.LOGIN_ID AND item.STATE<>'deleted'
+        	]]>
+        )
+		GROUP BY info.ID
+		ORDER BY info.ID DESC
+		LIMIT
+		#skipRow#,#pageSize#
+	</select>
+	
+	<select id="listBookByTime" resultMap="bookSearchResult">
+		SELECT
+		info.GMT_CREATE ITEM_ADD_TIME,
+		info.GMT_CREATE ITEM_FIRST_ADD_TIME,
+		GROUP_CONCAT(item.TAGS) BOOK_TAGS,
+		info.ID BOOK_INFO_ID,
+		info.AUTHOR BOOK_AUTHOR,
+		info.NAME BOOK_NAME,
+		info.PUBLISHER BOOK_PUBLISHER,
+		info.PUBLISH_TIME BOOK_PUBLISH_TIME,
+		info.ISBN BOOK_ISBN,
+		info.CATEGORY_ID BOOK_CATEGORY_ID,
+		info.IMG_URL BOOK_IMG_URL,
+		info.DESCRIPTION BOOK_DESCRIPTION,
+		info.EDITION BOOK_EDITION,
+		GROUP_CONCAT(m.LOGIN_ID) BOOK_OWNERS,
+		info.PAGES BOOK_PAGES,
+		info.TRANSLATOR BOOK_TRANSLATOR,
+		info.E_BOOK_URL E_BOOK_URL
+		FROM  BOOK_INFO info 
+        LEFT  JOIN (BOOK_ITEM item ,MEMBER m) ON (
+        	<![CDATA[
+        	item.BOOK_INFO_ID = info.ID AND item.LOGIN_ID = m.LOGIN_ID AND item.STATE<>'deleted'
+        	AND
+			(	
+				(item.GMT_MODIFIED >= #startTime:DATETIME# AND item.GMT_MODIFIED < #endTime:DATETIME#)
+				OR
+				(info.GMT_MODIFIED >= #startTime:DATETIME# AND info.GMT_MODIFIED < #endTime:DATETIME#)
+			)
+			]]>
+        )
+		GROUP BY info.ID
+		ORDER BY info.ID DESC
+	</select>
+</sqlMap>

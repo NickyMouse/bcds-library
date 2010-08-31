@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName">
+
+	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="classpath:sql-map-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<bean id="searchDatasource"
+		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.BookSearchDatasource">
+		<property name="indexLocation" value="${goldroom.index.path}" />
+	</bean>
+
+
+	<bean id="buildBookSearchDao"
+		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.BuildBookSearchDaoImpl">
+		<property name="pageSize" value="1000" />
+	</bean>
+
+	<bean id="bookSearchDao"
+		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.BookSearchDaoImpl">
+	</bean>
+
+	<bean id="buildBookSearchService"
+		class="com.alibaba.intl.bcds.goldroom.search.commons.service.impl.BuildBookSearchServiceImpl" />
+
+	<bean id="bookSearchService"
+		class="com.alibaba.intl.bcds.goldroom.search.commons.service.impl.BookSearchServiceImpl" />
+</beans>
