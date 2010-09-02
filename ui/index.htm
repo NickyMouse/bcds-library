@@ -1,0 +1,1755 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!-- saved from url=(0024)http://movie.douban.com/ -->
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+	<TITLE>黄金屋</TITLE>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<META content=no-cache http-equiv=Pragma>
+<META content="Sun, 6 Mar 2005 01:00:00 GMT" http-equiv=Expires>
+<META name=description content=来黄金屋，收获更多。>
+<SCRIPT type=text/javascript src="index_files/packed_jquery.min0.js"></SCRIPT>
+<LINK rel="shortcut icon" type=image/x-icon 
+href="http://t.douban.com/favicon.ico"><LINK rel=stylesheet type=text/css 
+href="index_files/packed_douban243.css"><LINK rel=stylesheet type=text/css 
+href="index_files/packed__all68.css">
+<SCRIPT type=text/javascript src="index_files/packed_douban96.js"></SCRIPT>
+
+<SCRIPT type=text/javascript src="index_files/packed__all8.js"></SCRIPT>
+
+<STYLE type=text/css></STYLE>
+
+<SCRIPT type=text/javascript>
+    $(document).ready(function() {
+        $("#menu1 .clearfix").addClass("on");
+        $("#content_menu1").show();
+        $(".movie_new .content").hide();
+        $("#newcontent1").show();
+        $(".movie_review .content").hide();
+        $("#review1").show();
+    })
+
+    $(function() {
+        var hl=$("#hot_movies_menu li"),content=$(".movie_headerline .content");
+        hl.mouseover(function() {
+            $(".menu li .clearfix").removeClass("on");
+            $("#"+this.id+" .clearfix").addClass("on");
+            content.hide();
+            $("#content_"+this.id).show();
+            return false;
+        });
+        $(hl[0]).addClass("on");
+        for(var i=5; i; --i) {
+            tab("#new"+i,".movie_new","#newcontent")
+            if(i<=3) {
+                  tab("#reviewtab"+i,".movie_review","#review")
+            }
+        }
+        bind_movie_x();
+    });
+
+    function bind_movie_x() {
+        var c = arguments.callee;
+        $('.movie_x').click(function() {
+            if(confirm("你确定要" + this.title)) {
+                $("#movie_rec").load_withck(
+                    "/j/movie/j_movie_rec",{s:this.rel},c
+                );
+            }
+        });
+    }
+
+
+    function tab(e,t,c) {
+        $(e).mousedown(function() {
+            $(t+" .green_tab a").removeClass("on");
+            $(this).addClass("on");
+            $(t+" .content").hide();
+            $(c+this.id.slice(-1)).show();             
+            $.get("/j/movie/j_tab_count",{id:this.id})
+        })
+    }
+
+</SCRIPT>
+<META name=GENERATOR content="MSHTML 8.00.7600.16625"></HEAD>
+<BODY>
+<DIV class=top-nav>
+<DIV class=bd>
+<DIV class=top-nav-info>
+	用户名：<input name="username" type="text" maxLength=60 value="用户名" style="color:rgb(212, 212, 212);"/>&nbsp;&nbsp;
+	密码：<input name="password" type="password" maxLength=60 value="密码" style="color:rgb(212, 212, 212);"/>&nbsp;&nbsp;
+	<input type="button" value="登录"/> 
+</DIV>
+<DIV class=top-nav-items>
+<UL>
+  <LI><A href="#">黄金屋</A> </LI>
+  <LI><A href="#">最新上架</A> </LI>
+  <LI class=on><A href="#">热门榜</A> </LI>
+</UL>
+</DIV></DIV></DIV>
+<DIV id=wrapper>
+<DIV id=header>
+<DIV id=db-nav-movie class=site-nav>
+<DIV class=site-nav-logo><A href="http://movie.douban.com/"><IMG alt=黄金屋 width="145px" heigth="35px"
+src="logo.jpg"></A></DIV>
+<DIV class=bd>
+<DIV class=nav-srh>
+<FORM method=get name=ssform action=/subject_search>
+<DIV class=inp><SPAN><INPUT title=电影名称、导演、演员、imdb号 maxLength=60 size=22 
+name=search_text></SPAN> <INPUT value=1002 type=hidden name=cat> <SPAN><INPUT class=bn-srh value=搜索 type=submit></SPAN> </DIV></FORM></DIV>
+<DIV class=site-nav-items>
+<UL>
+  <LI><A href="#">纸质书</A> </LI>
+  <LI><A href="#">电子书</A> </LI>
+  <LI><A href="#">排行榜</A> </LI>
+  <LI><A href="#">分类浏览</A> </LI>
+  <LI><A href="#">热评</A> 
+</LI></UL></DIV></DIV></DIV>
+<SCRIPT>
+$(function(){
+$('#db-nav-movie .nav-srh form').prettyField();
+});
+</SCRIPT>
+</DIV>
+<DIV id=content>
+<DIV class="grid-16-8 clearfix">
+<DIV class=article>
+<H2 class=mb5>热门排行 · · · · · · <SPAN class=pl>( <A 
+href="http://movie.douban.com/nowplaying">更多</A> )</SPAN> </H2>
+<DIV class="movie_headerline clearfix">
+  <DIV class=left_conner>
+    <EM>
+    </EM>
+    <B>
+    </B>
+  </DIV>
+  <DIV id=content_menu1 class="content clearfix">
+    <DIV class=headerline_img>
+      <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/3279080/">
+        <IMG src="index_files/s4387257.jpg">
+      </A>
+    </DIV>
+    <DIV class=headerline_content>
+      <DIV class="title clearfix">
+        <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/3279080/">
+          JAVA编程思想（第四版）
+        </A>
+        <SPAN class=bigstar35>
+        </SPAN>
+        <SPAN class=grade>
+          7.1
+        </SPAN>
+      </DIV>
+      <SPAN class=pl>
+        作者:
+      </SPAN>
+      （美）埃克尔 著，陈昊鹏 译
+      <BR>
+      <SPAN class=pl>
+        出版时间:
+      </SPAN>
+      2007-6-1
+      <BR>
+      <SPAN class=pl>
+        内容简介:
+      </SPAN>
+      本书赢得了全球程序员的广泛赞誉，即使是最晦涩的概念，在Bruce Eckel的文字亲和力和小而直接的编程示例面前也会化解于无形...
+      <BR><BR>
+      <SPAN class="fright color-gray">
+        9038人看过 / 13194人想看
+      </SPAN>
+    </DIV>
+    <DIV style="MARGIN-TOP: -5px; _margin-top: -5px" class=ul>
+    </DIV>
+    <DIV class=headerline_review>
+      <UL>
+        <LI>
+          [书评]
+          <A href="http://movie.douban.com/review/3571158/">
+            非常值得看几遍的一本书！
+          </A>
+          <DIV style="FLOAT: right">
+            &gt;
+            <A href="#">
+              更多书评
+            </A>
+          </DIV>
+          <LI>
+            [书评]
+            <A href="http://movie.douban.com/review/3567168/">
+              大师之作，非同凡响
+            </A>
+          </LI>
+      </UL>
+    </DIV>
+  </DIV>
+  <DIV id=content_menu2 class="content clearfix">
+    <DIV class=headerline_img>
+      <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/2072478/">
+        <IMG src="index_files/s4294116.jpg">
+      </A>
+    </DIV>
+    <DIV class=headerline_content>
+      <DIV class="title clearfix">
+        <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/2072478/">
+          Java网络编程精解
+        </A>
+        <SPAN class=bigstar40>
+        </SPAN>
+        <SPAN class=grade>
+          7.6
+        </SPAN>
+      </DIV>
+      <SPAN class=pl>
+        作者:
+      </SPAN>
+      （美）埃克尔 著，陈昊鹏 译
+      <BR>
+      <SPAN class=pl>
+        出版时间:
+      </SPAN>
+      2007-6-1
+      <BR>
+      <SPAN class=pl>
+        内容简介:
+      </SPAN>
+      本书赢得了全球程序员的广泛赞誉，即使是最晦涩的概念，在Bruce Eckel的文字亲和力和小而直接的编程示例面前也会化解于无形...
+      <BR><BR>
+      <SPAN class="fright color-gray">
+        9038人看过 / 13194人想看
+      </SPAN>
+    </DIV>
+    <DIV style="MARGIN-TOP: -5px; _margin-top: -5px" class=ul>
+    </DIV>
+    <DIV class=headerline_review>
+      <UL>
+        <LI>
+          [书评]
+          <A href="http://movie.douban.com/review/3571158/">
+            网络编程必看的一本书！
+          </A>
+          <DIV style="FLOAT: right">
+            &gt;
+            <A href="#">
+              更多书评
+            </A>
+          </DIV>
+          <LI>
+            [书评]
+            <A href="http://movie.douban.com/review/3567168/">
+              好书！！
+            </A>
+          </LI>
+      </UL>
+    </DIV>
+  </DIV>
+  <DIV id=content_menu3 class="content clearfix">
+    <DIV class=headerline_img>
+      <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/4707230/">
+        <IMG src="index_files/s4402102.jpg">
+      </A>
+    </DIV>
+    <DIV class=headerline_content>
+      <DIV class="title clearfix">
+        <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/4707230/">
+          Java核心技术：卷Ⅰ基础知识
+        </A>
+        <SPAN class=bigstar35>
+        </SPAN>
+        <SPAN class=grade>
+          7.1
+        </SPAN>
+      </DIV>
+      <SPAN class=pl>
+        作者:
+      </SPAN>
+      （美）埃克尔 著，陈昊鹏 译
+      <BR>
+      <SPAN class=pl>
+        出版时间:
+      </SPAN>
+      2007-6-1
+      <BR>
+      <SPAN class=pl>
+        内容简介:
+      </SPAN>
+      本书赢得了全球程序员的广泛赞誉，即使是最晦涩的概念，在Bruce Eckel的文字亲和力和小而直接的编程示例面前也会化解于无形...
+      <BR><BR>
+      <SPAN class="fright color-gray">
+        9038人看过 / 13194人想看
+      </SPAN>
+    </DIV>
+    <DIV style="MARGIN-TOP: -5px; _margin-top: -5px" class=ul>
+    </DIV>
+    <DIV class=headerline_review>
+      <UL>
+        <LI>
+          [书评]
+          <A href="http://movie.douban.com/review/3571158/">
+            网络编程必看的一本书！好书哪好书！
+          </A>
+          <DIV style="FLOAT: right">
+            &gt;
+            <A href="#">
+              更多书评
+            </A>
+          </DIV>
+          <LI>
+            [书评]
+            <A href="http://movie.douban.com/review/3567168/">
+              好书！！
+            </A>
+          </LI>
+      </UL>
+    </DIV>
+  </DIV>
+  <DIV id=content_menu4 class="content clearfix">
+    <DIV class=headerline_img>
+      <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/4735944/">
+        <IMG src="index_files/s4411209.jpg">
+      </A>
+    </DIV>
+    <DIV class=headerline_content>
+      <DIV class="title clearfix">
+        <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/4735944/">
+          JAVA面向对象编程
+        </A>
+        <SPAN class=bigstar30>
+        </SPAN>
+        <SPAN class=grade>
+          5.6
+        </SPAN>
+      </DIV>
+      <SPAN class=pl>
+        作者:
+      </SPAN>
+      （美）埃克尔 著，陈昊鹏 译
+      <BR>
+      <SPAN class=pl>
+        出版时间:
+      </SPAN>
+      2007-6-1
+      <BR>
+      <SPAN class=pl>
+        内容简介:
+      </SPAN>
+      本书赢得了全球程序员的广泛赞誉，即使是最晦涩的概念，在Bruce Eckel的文字亲和力和小而直接的编程示例面前也会化解于无形...
+      <BR><BR>
+      <SPAN class="fright color-gray">
+        9038人看过 / 13194人想看
+      </SPAN>
+    </DIV>
+    <DIV style="MARGIN-TOP: -5px; _margin-top: -5px" class=ul>
+    </DIV>
+    <DIV class=headerline_review>
+      <UL>
+        <LI>
+          [书评]
+          <A href="http://movie.douban.com/review/3571158/">
+            好书！！
+          </A>
+          <DIV style="FLOAT: right">
+            &gt;
+            <A href="#">
+              更多书评
+            </A>
+          </DIV>
+          <LI>
+            [书评]
+            <A href="http://movie.douban.com/review/3567168/">
+              网络编程必看的一本书！
+            </A>
+          </LI>
+      </UL>
+    </DIV>
+  </DIV>
+  <UL id=hot_movies_menu class=menu>
+    <LI id=menu1 class=first>
+      <DIV class=clearfix>
+        <EM>
+        </EM>
+        <DIV class=arrow>
+        </DIV>
+        <DIV class=img>
+          <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/3279080/">
+            <IMG src="index_files/s4387257(1).jpg" height=48>
+          </A>
+        </DIV>
+        <DIV class=intro>
+          <A class=title onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/3279080/">
+            JAVA编程思想（第四版）
+          </A>
+          <SPAN class=allstar35>
+          </SPAN>
+          7.1
+        </DIV>
+      </DIV>
+    </LI>
+    <LI id=menu2>
+      <DIV class=clearfix>
+        <EM>
+        </EM>
+        <DIV class=arrow>
+        </DIV>
+        <DIV class=img>
+          <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/2072478/">
+            <IMG src="index_files/s4294116(1).jpg" height=48>
+          </A>
+        </DIV>
+        <DIV class=intro>
+          <A class=title onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/2072478/">
+            Java网络编程精解
+          </A>
+          <SPAN class=allstar40>
+          </SPAN>
+          7.6
+        </DIV>
+      </DIV>
+    </LI>
+    <LI id=menu3>
+      <DIV class=clearfix>
+        <EM>
+        </EM>
+        <DIV class=arrow>
+        </DIV>
+        <DIV class=img>
+          <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/4707230/">
+            <IMG src="index_files/s4402102(1).jpg" height=48>
+          </A>
+        </DIV>
+        <DIV class=intro>
+          <A class=title onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/4707230/">
+            Java核心技术：卷Ⅰ基础知识
+          </A>
+          <SPAN class=allstar35>
+          </SPAN>
+          7.1
+        </DIV>
+      </DIV>
+    </LI>
+    <LI id=menu4 class=last>
+      <DIV class=clearfix>
+        <EM>
+        </EM>
+        <DIV class=arrow>
+        </DIV>
+        <DIV class=img>
+          <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/4735944/">
+            <IMG src="index_files/s4411209(1).jpg" height=48>
+          </A>
+        </DIV>
+        <DIV class=intro>
+          <A class=title onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/4735944/">
+            JAVA面向对象编程
+          </A>
+          <SPAN class=allstar30>
+          </SPAN>
+          5.6
+        </DIV>
+      </DIV>
+    </LI>
+  </UL>
+</DIV>
+<DIV class=movie_new>
+  <H2 class="green_tab clearfix">
+    <DIV class=ll>
+      黄金屋新书榜· · · · · ·
+    </DIV>
+    <A id=new1 class=on href="javascript:void(0)">
+      <SPAN>
+        全部
+      </SPAN>
+    </A>
+    <A id=new2 href="javascript:void(0)">
+      <SPAN>
+        心理
+      </SPAN>
+    </A>
+    <A id=new3 href="javascript:void(0)">
+      <SPAN>
+        社会
+      </SPAN>
+    </A>
+    <A id=new4 href="javascript:void(0)">
+      <SPAN>
+        育儿
+      </SPAN>
+    </A>
+    <A id=new5 href="javascript:void(0)">
+      <SPAN>
+        技术
+      </SPAN>
+    </A>
+  </H2>
+  <UL id=newcontent1 class="content clearfix">
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4707230/">
+          <IMG src="index_files/s4402102(1).jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            1
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4707230/">
+            恋爱通告
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar35>
+          </SPAN>
+          7.1
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        王力宏
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        王力宏 / 刘亦菲 / 曾轶可
+        <BR>
+        <SPAN class=pl>
+          美籍华裔青年的中国得瑟梦。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3732780/">
+          <IMG src="index_files/s4293844.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            2
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3732780/">
+            第36个故事
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar40>
+          </SPAN>
+          8.0
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        萧雅全
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        桂纶镁 / 林辰唏 / 张翰
+        <BR>
+        <SPAN class=pl>
+          暖暖的文艺片。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3279080/">
+          <IMG src="index_files/s4387257(1).jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            3
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3279080/">
+            敢死队
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar35>
+          </SPAN>
+          7.1
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        Sylvester Stallone
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        Sylvester Stallone
+        <BR>
+        <SPAN class=pl>
+          武打全明星。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3628370/">
+          <IMG src="index_files/s4233097.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            4
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3628370/">
+            阿黛拉的非凡冒险
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar35>
+          </SPAN>
+          7.1
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        Luc Besson
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        Louise Bourgoin
+        <BR>
+        <SPAN class=pl>
+          法国版《古今大战兵马俑》。
+        </SPAN>
+      </DIV>
+    </LI>
+  </UL>
+  <UL id=newcontent2 class="content clearfix">
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3279080/">
+          <IMG src="index_files/s4387257(1).jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            1
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3279080/">
+            敢死队
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar35>
+          </SPAN>
+          7.1
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        Sylvester Stallone
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        Sylvester Stallone
+        <BR>
+        <SPAN class=pl>
+          武打全明星。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3628370/">
+          <IMG src="index_files/s4233097.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            2
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3628370/">
+            阿黛拉的非凡冒险
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar35>
+          </SPAN>
+          7.1
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        Luc Besson
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        Louise Bourgoin
+        <BR>
+        <SPAN class=pl>
+          法国版《古今大战兵马俑》。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/2153526/">
+          <IMG src="index_files/s4063848.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            3
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/2153526/">
+            特工绍特
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar40>
+          </SPAN>
+          7.3
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        Phillip Noyce
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        Angelina Jolie
+        <BR>
+        <SPAN class=pl>
+          一个打不死也摔不死的女金刚的故事。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3874981/">
+          <IMG src="index_files/s4407162.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            4
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3874981/">
+            全城戒备
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar25>
+          </SPAN>
+          4.4
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        陈木胜
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        郭富城 / 舒淇 / 邹兆龙
+        <BR>
+        <SPAN class=pl>
+          做人就像飞刀，一定要有目标。
+        </SPAN>
+      </DIV>
+    </LI>
+  </UL>
+  <UL id=newcontent3 class="content clearfix">
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3732780/">
+          <IMG src="index_files/s4293844.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            1
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3732780/">
+            第36个故事
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar40>
+          </SPAN>
+          8.0
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        萧雅全
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        桂纶镁 / 林辰唏 / 张翰
+        <BR>
+        <SPAN class=pl>
+          暖暖的文艺片。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3596502/">
+          <IMG src="index_files/s4287549.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            2
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3596502/">
+            唐山大地震
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar40>
+          </SPAN>
+          7.5
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        冯小刚
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        徐帆 / 张静初 / 李晨 / 陈道明
+        <BR>
+        <SPAN class=pl>
+          强震23秒，余震32年。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4328444/">
+          <IMG src="index_files/s4404650.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            3
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4328444/">
+            翡翠明珠
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar30>
+          </SPAN>
+          5.9
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        秦小珍
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        林峰 / 蔡卓妍 / 王祖蓝
+        <BR>
+        <SPAN class=pl>
+          一场狂欢似的化妆Party.
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3217122/">
+          <IMG src="index_files/s4204277.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            4
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3217122/">
+            一页台北
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar35>
+          </SPAN>
+          6.5
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        陈骏霖
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        郭采洁 / 姚淳耀 / 张孝全
+        <BR>
+        <SPAN class=pl>
+          一页台北之傻小子、傻姑娘齐欢乐。
+        </SPAN>
+      </DIV>
+    </LI>
+  </UL>
+  <UL id=newcontent4 class="content clearfix">
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4707230/">
+          <IMG src="index_files/s4402102(1).jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            1
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4707230/">
+            恋爱通告
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar35>
+          </SPAN>
+          7.1
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        王力宏
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        王力宏 / 刘亦菲 / 曾轶可
+        <BR>
+        <SPAN class=pl>
+          美籍华裔青年的中国得瑟梦。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/2072478/">
+          <IMG src="index_files/s4294116(1).jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            2
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/2072478/">
+            怪物史瑞克4
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar40>
+          </SPAN>
+          7.6
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        Mike Mitchell
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        Mike Myers / Eddie Murphy
+        <BR>
+        <SPAN class=pl>
+          辛辣不再，笑点犹存。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3003836/">
+          <IMG src="index_files/s4208318.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            3
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3003836/">
+            小屁孩日记
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar35>
+          </SPAN>
+          7.0
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        Thor Freudenthal
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        Zachary Gordon
+        <BR>
+        <SPAN class=pl>
+          那是我们都回不去的童年。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4901335/">
+          <IMG src="index_files/s4430505.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            4
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4901335/">
+            暮色大电影
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar35>
+          </SPAN>
+          6.2
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        Jason Friedberg
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        Ken Jeong / Matt Lanter
+        <BR>
+        <SPAN class=pl>
+          恶搞万岁。
+        </SPAN>
+      </DIV>
+    </LI>
+  </UL>
+  <UL id=newcontent5 class="content clearfix">
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3541415/">
+          <IMG src="index_files/s4356687.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            1
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3541415/">
+            盗梦空间
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar50>
+          </SPAN>
+          9.3
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        Christopher Nolan
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        Leonardo DiCaprio
+        <BR>
+        <SPAN class=pl>
+          匪夷所思却又流连忘返。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3566540/">
+          <IMG src="index_files/s4427674.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            2
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3566540/">
+            荒村公寓
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar20>
+          </SPAN>
+          3.8
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        罗志良
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        余文乐 / 张雨绮 / 岳小军
+        <BR>
+        <SPAN class=pl>
+          悬疑恐怖片包装的青春偶像爱情片。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3267120/">
+          <IMG src="index_files/s4388028.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            3
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3267120/">
+            魔法师的学徒
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar35>
+          </SPAN>
+          6.3
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        Jon Turteltaub
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        Nicolas Cage
+        <BR>
+        <SPAN class=pl>
+          电影毫无新意地讲述了“科学家会武术、流氓也挡不住”的江湖真谛。
+        </SPAN>
+      </DIV>
+    </LI>
+    <LI class=clearfix>
+      <DIV class=img>
+        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3851822/">
+          <IMG src="index_files/s4403012.jpg">
+        </A>
+      </DIV>
+      <DIV class=intro>
+        <H3>
+          <SPAN>
+            4
+          </SPAN>
+          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3851822/">
+            等着你回来
+          </A>
+        </H3>
+        <DIV class="star clearfix">
+          <SPAN class=allstar15>
+          </SPAN>
+          3.2
+        </DIV>
+        <SPAN class=pl>
+          导演:
+        </SPAN>
+        叶永健
+        <BR>
+        <SPAN class=pl>
+          主演:
+        </SPAN>
+        吴建豪 / 李小璐 / 加护亚依
+        <BR>
+        <SPAN class=pl>
+          国内恐怖片再这样下去让人情何以堪。
+        </SPAN>
+      </DIV>
+    </LI>
+  </UL>
+</DIV>
+<DIV class="movie_review clearfix">
+  <H2 class="green_tab clearfix">
+    <DIV class=ll>
+      最受欢迎的书评 · · · · · ·
+    </DIV>
+    <A id=reviewtab1 class=on href="javascript:void(0)">
+      <SPAN>
+        热门评论
+      </SPAN>
+    </A>
+    <A id=reviewtab2 href="javascript:void(0)">
+      <SPAN>
+        新片评论
+      </SPAN>
+    </A>
+  </H2>
+  <DIV id=review1 class=content>
+    <UL style="CLEAR: both" class="tlst clearfix">
+      <LI class=nlst>
+        <H3>
+          <A style="FLOAT: left" title="得閒炒飯:雙情路上遇見愛 攣攣直直又如何" href="http://movie.douban.com/review/3578822/">
+            得閒炒飯:雙情路上遇見愛 攣攣直直又如何
+          </A>
+          <DIV id=tb-3578822 class=rr>
+            <A style="BACKGROUND: none transparent scroll repeat 0% 0%" id=af-3578822
+            class="j a_unfolder" href="http://movie.douban.com/review/3578822/" rel=sw-False>
+              <IMG title=展开全文 alt=">" src="index_files/arrow2.gif">
+            </A>
+            <A style="DISPLAY: none; BACKGROUND: none transparent scroll repeat 0% 0%"
+            id=au-3578822 class="j a_folder" href="javascript:void(0);">
+              <IMG title=缩进全文 alt="<" src="index_files/arrow3.gif">
+            </A>
+          </DIV>
+        </H3>
+      </LI>
+      <LI style="CLEAR: both" class=ilst>
+        <A title=得閒炒飯 href="http://movie.douban.com/subject/4145476/">
+          <IMG class=fil alt=得閒炒飯 src="index_files/s4398293.jpg">
+        </A>
+      </LI>
+      <LI class=clst>
+        <SPAN class="pl ll obss">
+          <SPAN class=starb>
+            <A href="http://movie.douban.com/people/szeman/">
+              Dorothy
+            </A>
+            (夏春秋) &nbsp;评论:
+            <A onclick="moreurl(this, {from:'review'})" href="http://movie.douban.com/subject/4145476/">
+              得閒炒飯 / 得闲炒饭
+            </A>
+          </SPAN>
+          <SPAN class="stars5 stars" title=力荐>
+          </SPAN>
+        </SPAN>
+        <BR>
+        <BR>
+        <DIV id=review_3578822_short>
+          記得去年參與香港同志遊行時,得知作為彩虹大使的許鞍華導演在拍攝同志電影,還知道玉女獎門人周慧敏更為此電影而「復出」,周小姐曾經是筆者小時的偶像,故此從電影的拍攝到上映都很期待。再加上華語電影很少涉及「同性戀」的題材,更何況是少人明白與懂得的......
+          <A class=pl href="http://movie.douban.com/review/3578822/">
+            (8回应)
+          </A>
+        </DIV>
+        <DIV style="DISPLAY: none" id=review_3578822_full>
+        </DIV>
+      </LI>
+    </UL>
+    <DIV class=clear>
+    </DIV>
+    <UL style="CLEAR: both" class="tlst clearfix">
+      <LI class=nlst>
+        <H3>
+          <A style="FLOAT: left" title=片不好看只因【滥】 href="http://movie.douban.com/review/3582895/">
+            片不好看只因【滥】
+          </A>
+          <DIV id=tb-3582895 class=rr>
+            <A style="BACKGROUND: none transparent scroll repeat 0% 0%" id=af-3582895
+            class="j a_unfolder" href="http://movie.douban.com/review/3582895/" rel=sw-False>
+              <IMG title=展开全文 alt=">" src="index_files/arrow2.gif">
+            </A>
+            <A style="DISPLAY: none; BACKGROUND: none transparent scroll repeat 0% 0%"
+            id=au-3582895 class="j a_folder" href="javascript:void(0);">
+              <IMG title=缩进全文 alt="<" src="index_files/arrow3.gif">
+            </A>
+          </DIV>
+        </H3>
+      </LI>
+      <LI style="CLEAR: both" class=ilst>
+        <A title=龙凤店 href="http://movie.douban.com/subject/4735944/">
+          <IMG class=fil alt=龙凤店 src="index_files/s4411209(1).jpg">
+        </A>
+      </LI>
+      <LI class=clst>
+        <SPAN class="pl ll obss">
+          <SPAN class=starb>
+            <A href="http://movie.douban.com/people/naocanqiang/">
+              脑残枪
+            </A>
+            (玩心死四年) &nbsp;评论:
+            <A onclick="moreurl(this, {from:'review'})" href="http://movie.douban.com/subject/4735944/">
+              龙凤店
+            </A>
+          </SPAN>
+          <SPAN class="stars3 stars" title=还行>
+          </SPAN>
+        </SPAN>
+        <BR>
+        <BR>
+        <DIV id=review_3582895_short>
+          其实我还没看这片呢~不过想mark一下~但是不用看大概也能预料一二，港式搞笑加上这个人马，要是放在过去改革开放初期绝对是奔放至极，但是放到现在的大环境，娱乐圈可能还不如观影圈淫乱可笑，自然一切的kuso都显得无趣而做作了~
+          大家都说《......
+          <A class=pl href="http://movie.douban.com/review/3582895/">
+            (4回应)
+          </A>
+        </DIV>
+        <DIV style="DISPLAY: none" id=review_3582895_full>
+        </DIV>
+      </LI>
+    </UL>
+    <DIV class=clear>
+    </DIV>
+    <UL style="CLEAR: both" class="tlst clearfix">
+      <LI class=nlst>
+        <H3>
+          <A style="FLOAT: left" title=小清新都是鹤顶红，爱谁都别爱小清新 href="http://movie.douban.com/review/3579141/">
+            小清新都是鹤顶红，爱谁都别爱小清新
+          </A>
+          <DIV id=tb-3579141 class=rr>
+            <A style="BACKGROUND: none transparent scroll repeat 0% 0%" id=af-3579141
+            class="j a_unfolder" href="http://movie.douban.com/review/3579141/" rel=sw-False>
+              <IMG title=展开全文 alt=">" src="index_files/arrow2.gif">
+            </A>
+            <A style="DISPLAY: none; BACKGROUND: none transparent scroll repeat 0% 0%"
+            id=au-3579141 class="j a_folder" href="javascript:void(0);">
+              <IMG title=缩进全文 alt="<" src="index_files/arrow3.gif">
+            </A>
+          </DIV>
+        </H3>
+      </LI>
+      <LI style="CLEAR: both" class=ilst>
+        <A title=枪王之王 href="http://movie.douban.com/subject/4133988/">
+          <IMG class=fil alt=枪王之王 src="index_files/s4381860.jpg">
+        </A>
+      </LI>
+      <LI class=clst>
+        <SPAN class="pl ll obss">
+          <SPAN class=starb>
+            <A href="http://movie.douban.com/people/jipin1985/">
+              非常严肃
+            </A>
+            (其实很多人早已离开只是没有道别) &nbsp;评论:
+            <A onclick="moreurl(this, {from:'review'})" href="http://movie.douban.com/subject/4133988/">
+              枪王之王
+            </A>
+          </SPAN>
+          <SPAN class="stars3 stars" title=还行>
+          </SPAN>
+        </SPAN>
+        <BR>
+        <BR>
+        <DIV id=review_3579141_short>
+          古天乐这个男人，帅，有钱，孝顺，职业光鲜，最重要的是有房有车。业余爱好打手枪，周旋在两个女人之间，一个小清新，一个熟女。开车五年，没有一次违章记录。
+          我从电影开始就顺着吴彦祖的脑子去思考，他的犯罪动机究竟是什么？苦思不得其解。......
+          <A class=pl href="http://movie.douban.com/review/3579141/">
+            (14回应)
+          </A>
+        </DIV>
+        <DIV style="DISPLAY: none" id=review_3579141_full>
+        </DIV>
+      </LI>
+    </UL>
+    <DIV class=clear>
+    </DIV>
+    <DIV style="FLOAT: right">
+      &gt;
+      <A href="http://movie.douban.com/review/best/">
+        更多书评
+      </A>
+    </DIV>
+  </DIV>
+  <DIV id=review2 class=content>
+    <UL style="CLEAR: both" class="tlst clearfix">
+      <LI class=nlst>
+        <H3>
+          <A style="FLOAT: left" title="Inception 情节逻辑完全解析" href="http://movie.douban.com/review/3447868/">
+            Inception 情节逻辑完全解析
+          </A>
+          <DIV id=tb-3447868 class=rr>
+            <A style="BACKGROUND: none transparent scroll repeat 0% 0%" id=af-3447868
+            class="j a_unfolder" href="http://movie.douban.com/review/3447868/" rel=sw-False>
+              <IMG title=展开全文 alt=">" src="index_files/arrow2.gif">
+            </A>
+            <A style="DISPLAY: none; BACKGROUND: none transparent scroll repeat 0% 0%"
+            id=au-3447868 class="j a_folder" href="javascript:void(0);">
+              <IMG title=缩进全文 alt="<" src="index_files/arrow3.gif">
+            </A>
+          </DIV>
+        </H3>
+      </LI>
+      <LI style="CLEAR: both" class=ilst>
+        <A title=Inception href="http://movie.douban.com/subject/3541415/">
+          <IMG class=fil alt=Inception src="index_files/s4356687.jpg">
+        </A>
+      </LI>
+      <LI class=clst>
+        <SPAN class="pl ll obss">
+          <SPAN class=starb>
+            <A href="http://movie.douban.com/people/36215013/">
+              黑白光影
+            </A>
+            &nbsp;评论:
+            <A onclick="moreurl(this, {from:'review'})" href="http://movie.douban.com/subject/3541415/">
+              Inception / 盗梦空间
+            </A>
+          </SPAN>
+          <SPAN class="stars5 stars" title=力荐>
+          </SPAN>
+        </SPAN>
+        <BR>
+        <BR>
+        <DIV id=review_3447868_short>
+          Inception 情节逻辑完全解析 （有不明白地方的进，没看过的别进） Inception 情节逻辑完全解析 （有不明白地方的进，没看过的别进）
+          Inception就好象是玄幻小说，你必须接受它......
+          <A class=pl href="http://movie.douban.com/review/3447868/">
+            (543回应)
+          </A>
+        </DIV>
+        <DIV style="DISPLAY: none" id=review_3447868_full>
+        </DIV>
+      </LI>
+    </UL>
+    <DIV class=clear>
+    </DIV>
+    <UL style="CLEAR: both" class="tlst clearfix">
+      <LI class=nlst>
+        <H3>
+          <A style="FLOAT: left" title=只有文藝情調，卻沒有生活細節的台北 href="http://movie.douban.com/review/3288950/">
+            只有文藝情調，卻沒有生活細節的台北
+          </A>
+          <DIV id=tb-3288950 class=rr>
+            <A style="BACKGROUND: none transparent scroll repeat 0% 0%" id=af-3288950
+            class="j a_unfolder" href="http://movie.douban.com/review/3288950/" rel=sw-False>
+              <IMG title=展开全文 alt=">" src="index_files/arrow2.gif">
+            </A>
+            <A style="DISPLAY: none; BACKGROUND: none transparent scroll repeat 0% 0%"
+            id=au-3288950 class="j a_folder" href="javascript:void(0);">
+              <IMG title=缩进全文 alt="<" src="index_files/arrow3.gif">
+            </A>
+          </DIV>
+        </H3>
+      </LI>
+      <LI style="CLEAR: both" class=ilst>
+        <A title=第36个故事 href="http://movie.douban.com/subject/3732780/">
+          <IMG class=fil alt=第36个故事 src="index_files/s4293844.jpg">
+        </A>
+      </LI>
+      <LI class=clst>
+        <SPAN class="pl ll obss">
+          <SPAN class=starb>
+            <A href="http://movie.douban.com/people/aiyung/">
+              愛永
+            </A>
+            (因為心裡可惜，我們才學會珍惜。) &nbsp;评论:
+            <A onclick="moreurl(this, {from:'review'})" href="http://movie.douban.com/subject/3732780/">
+              第36个故事
+            </A>
+          </SPAN>
+          <SPAN class="stars3 stars" title=还行>
+          </SPAN>
+        </SPAN>
+        <BR>
+        <BR>
+        <DIV id=review_3288950_short>
+          我對台北一直有種又愛又恨的複雜情愫：它曾是我最想停留的地方，也曾是我最想逃離的所在。我愛它的豐富多元，也愛它的無所不能；我恨它的寂寞疏離，卻也愛它的自由空曠。
+          記憶中所有曾在台北發生的一切，都與夢想和自由緊密連結，它是一個讓人習慣期盼，......
+          <A class=pl href="http://movie.douban.com/review/3288950/">
+            (124回应)
+          </A>
+        </DIV>
+        <DIV style="DISPLAY: none" id=review_3288950_full>
+        </DIV>
+      </LI>
+    </UL>
+    <DIV class=clear>
+    </DIV>
+    <UL style="CLEAR: both" class="tlst clearfix">
+      <LI class=nlst>
+        <H3>
+          <A style="FLOAT: left" title=其实，导演和编剧都是变异人。。。 href="http://movie.douban.com/review/3514061/">
+            其实，导演和编剧都是变异人。。。
+          </A>
+          <DIV id=tb-3514061 class=rr>
+            <A style="BACKGROUND: none transparent scroll repeat 0% 0%" id=af-3514061
+            class="j a_unfolder" href="http://movie.douban.com/review/3514061/" rel=sw-False>
+              <IMG title=展开全文 alt=">" src="index_files/arrow2.gif">
+            </A>
+            <A style="DISPLAY: none; BACKGROUND: none transparent scroll repeat 0% 0%"
+            id=au-3514061 class="j a_folder" href="javascript:void(0);">
+              <IMG title=缩进全文 alt="<" src="index_files/arrow3.gif">
+            </A>
+          </DIV>
+        </H3>
+      </LI>
+      <LI style="CLEAR: both" class=ilst>
+        <A title=全城戒备 href="http://movie.douban.com/subject/3874981/">
+          <IMG class=fil alt=全城戒备 src="index_files/s4407162.jpg">
+        </A>
+      </LI>
+      <LI class=clst>
+        <SPAN class="pl ll obss">
+          <SPAN class=starb>
+            <A href="http://movie.douban.com/people/15465512/">
+              恶魔点
+            </A>
+            &nbsp;评论:
+            <A onclick="moreurl(this, {from:'review'})" href="http://movie.douban.com/subject/3874981/">
+              全城戒备
+            </A>
+          </SPAN>
+          <SPAN class="stars1 stars" title=很差>
+          </SPAN>
+        </SPAN>
+        <BR>
+        <BR>
+        <DIV id=review_3514061_short>
+          深夜党之不吐槽睡不着觉之本年度最JP烂片《全城戒备》，没有之一。 今天是全国首映。。貌似。 然后我们就幸运地踩到了屎。。以身试法。。而后抽搐而回。。三人一路走一路哆嗦。。出了影院偶还面部肌肉抽筋，而后全身肌肉持续颤抖。......
+          <A class=pl href="http://movie.douban.com/review/3514061/">
+            (97回应)
+          </A>
+        </DIV>
+        <DIV style="DISPLAY: none" id=review_3514061_full>
+        </DIV>
+      </LI>
+    </UL>
+    <DIV class=clear>
+    </DIV>
+    <DIV style="FLOAT: right">
+      &gt;
+      <A href="http://movie.douban.com/review/new/">
+        更多书评
+      </A>
+    </DIV>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=aside><!-- douban ad begin -->
+<DIV id=google_ads_slot_movie_home_top_right></DIV><!-- douban ad end -->
+<DIV class=newtags>
+<H2>新闻 ······ </H2>
+<UL class=simple-dashed-list>
+  <LI class=clearfix>
+    <P class="fleft w240">
+      <A href="#">
+        热烈庆祝黄金屋系统启用新页面模板
+      </A>
+    </P>
+    <SPAN class="fright color-gray">
+      2010-8-20
+    </SPAN>
+  </LI>
+  <LI class=clearfix>
+    <P class="fleft w240">
+      <A href="#">
+        黄金屋标签功能上线
+      </A>
+    </P>
+    <SPAN class="fright color-gray">
+      2010-8-12
+    </SPAN>
+  </LI>
+  <LI class=clearfix>
+    <P class="fleft w240">
+      <A href="#">
+        枫林晚即将入驻黄金屋
+      </A>
+    </P>
+    <SPAN class="fright color-gray">
+      2010-8-8
+    </SPAN>
+  </LI>
+  <LI class=clearfix>
+    <P class="fleft w240">
+      <A href="#">
+        黄金屋用户\系统调研活动结束
+      </A>
+    </P>
+    <SPAN class="fright color-gray">
+      2010-7-21
+    </SPAN>
+  </LI>
+  <LI class=clearfix>
+    <P class="fleft w240">
+      <A href="#">
+        黄金屋用户\系统调研活动隆重启动
+      </A>
+    </P>
+    <SPAN class="fright color-gray">
+      2010-7-9
+    </SPAN>
+  </LI>
+</UL>
+<H2>热门标签· · · · <SPAN class=pl>(<A href="http://movie.douban.com/tag/?view=cloud">所有热门标签</A>)</SPAN></H2>
+<UL class="content clearfix">
+  <LI>[类型] </LI>
+  <LI><A href="http://movie.douban.com/tag/爱情">爱情</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/动画">动画</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/喜剧">喜剧</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/经典">经典</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/科幻">科幻</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/动作">动作</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/青春">青春</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/剧情">剧情</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/悬疑">悬疑</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/惊悚">惊悚</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/纪录片">纪录片</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/恐怖">恐怖</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/战争">战争</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/魔幻">魔幻</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/犯罪">犯罪</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/励志">励志</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/搞笑">搞笑</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/情色">情色</A> </LI>
+  <LI><A href="http://movie.douban.com/tag/?view=type#类型">(更多)</A> </LI></UL>
+</DIV>
+<DIV class=movie_top>
+<H2>推荐排行榜· · · · · · </H2>
+<UL class=content>
+  <LI class=clearfix>
+  <DIV class=no>1</DIV>
+  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/3541415/">盗梦空间</A></DIV>
+  <DIV class="fright color-gray">317个推荐</DIV></LI>
+  <LI class=clearfix>
+  <DIV class=no>2</DIV>
+  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/2072478/">怪物史瑞克4</A></DIV>
+  <DIV class="fright color-gray">217个推荐</DIV></LI>
+  <LI class=clearfix>
+  <DIV class=no>3</DIV>
+  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/3279080/">敢死队</A></DIV>
+  <DIV class="fright color-gray">117个推荐</DIV></LI>
+  <LI class=clearfix>
+  <DIV class=no>4</DIV>
+  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/4707230/">恋爱通告</A></DIV>
+  <DIV class="fright color-gray">17个推荐</DIV></LI>
+  <LI class=clearfix>
+  <DIV class=no>5</DIV>
+  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/3287562/">卑鄙的我</A></DIV>
+  <DIV class="fright color-gray">7个推荐</DIV></LI>
+  <LI class=clearfix>
+  <DIV class=no>6</DIV>
+  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/3596502/">唐山大地震</A></DIV>
+  <DIV class="fright color-gray">6个推荐</DIV></LI>
+  <LI class=clearfix>
+  <DIV class=no>7</DIV>
+  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/2153526/">特工绍特</A></DIV>
+  <DIV class="fright color-gray">5个推荐</DIV></LI>
+  <LI class=clearfix>
+  <DIV class=no>8</DIV>
+  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/3003842/">陵园路口</A></DIV>
+  <DIV class="fright color-gray">4个推荐</DIV></LI>
+  <LI class=clearfix>
+  <DIV class=no>9</DIV>
+  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/3236904/">自闭历程</A></DIV>
+  <DIV class="fright color-gray">3个推荐</DIV></LI>
+  <LI class=clearfix>
+  <DIV class=no>10</DIV>
+  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/3793023/">三个傻瓜</A></DIV>
+  <DIV class="fright color-gray">2个推荐</DIV></LI>
+</UL></DIV>
+<DIV class=movie_top>
+<H2>积分排行榜· · · · · · </H2>
+<UL class=content>
+  <LI class=clearfix>
+  <DIV class=no>1</DIV>
+  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/3279080/">谭春梅</A> </DIV><SPAN 
+  class="box_chart_num color-gray">1650</SPAN> </LI>
+  <LI class=clearfix>
+  <DIV class=no>2</DIV>
+  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/4901335/">刘琳</A> <IMG 
+  src="index_files/box_new.png"> </DIV><SPAN 
+  class="box_chart_num color-gray">1220</SPAN> </LI>
+  <LI class=clearfix>
+  <DIV class=no>3</DIV>
+  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/2033822/">胡怀文</A> </DIV><SPAN 
+  class="box_chart_num color-gray">1200</SPAN> </LI>
+  <LI class=clearfix>
+  <DIV class=no>4</DIV>
+  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/3692654/">胡宾</A> <IMG 
+  src="index_files/box_new.png"> </DIV><SPAN 
+  class="box_chart_num color-gray">1112</SPAN> </LI>
+  <LI class=clearfix>
+  <DIV class=no>5</DIV>
+  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/3569915/">肖刚毅</A> </DIV><SPAN 
+  class="box_chart_num color-gray">1010</SPAN> </LI>
+  <LI class=clearfix>
+  <DIV class=no>6</DIV>
+  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/2269893/">苏磊</A> <IMG 
+  src="index_files/box_new.png"> </DIV><SPAN 
+  class="box_chart_num color-gray">1004</SPAN> </LI>
+  <LI class=clearfix>
+  <DIV class=no>7</DIV>
+  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/3671986/">张婉楚</A> <IMG 
+  src="index_files/box_new.png"> </DIV><SPAN 
+  class="box_chart_num color-gray">831</SPAN> </LI>
+  <LI class=clearfix>
+  <DIV class=no>8</DIV>
+  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/3567857/">王国成</A> <IMG 
+  src="index_files/box_new.png"> </DIV><SPAN 
+  class="box_chart_num color-gray">810</SPAN> </LI>
+  <LI class=clearfix>
+  <DIV class=no>9</DIV>
+  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/3541415/">姚罡</A> </DIV><SPAN 
+  class="box_chart_num color-gray">766</SPAN> </LI>
+  <LI class=clearfix>
+  <DIV class=no>10</DIV>
+  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
+  href="http://movie.douban.com/subject/2158222/">林朝森</A> </DIV><SPAN 
+  class="box_chart_num color-gray">503</SPAN> </LI></UL></DIV>
+
+</DIV>
+<DIV class=extra></DIV></DIV></DIV>
+<DIV id=footer>
+	<SPAN id=icp class="fleft gray-link">© 2005－2010 douban.com, all rights reserved </SPAN>
+	<SPAN class=fright>
+	<A href="http://www.douban.com/about">关于黄金屋</A> · 
+	<A href="http://www.douban.com/about?topic=contactus">联系我们</A> · 
+	<A href="http://www.douban.com/about?policy=disclaimer">免责声明</A> · 
+	<A href="http://www.douban.com/help/">帮助中心</A>
+	</SPAN>
+</DIV>
+</DIV><!-- douban ad begin -->
+
+<SCRIPT type=text/javascript>
+        var get = function(id) {
+            return document.getElementById(id);
+        }
+
+
+        $(document).ready(function() {
+          //setTimeout("move('movie_home_top_right')", 0);
+        });
+    </SCRIPT>
+<!-- douban ad end -->
+
+<!-- baggins4--></BODY></HTML>

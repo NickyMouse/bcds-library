@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!-- saved from url=(0024)http://movie.douban.com/ -->
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+	<TITLE>搜索列表 - JAVA - 黄金屋</TITLE>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<META content=no-cache http-equiv=Pragma>
+<META content="Sun, 6 Mar 2005 01:00:00 GMT" http-equiv=Expires>
+<META name=description content=来黄金屋，收获更多。>
+<SCRIPT type=text/javascript src="index_files/packed_jquery.min0.js"></SCRIPT>
+<LINK rel="shortcut icon" type=image/x-icon 
+href="http://t.douban.com/favicon.ico"><LINK rel=stylesheet type=text/css 
+href="index_files/packed_douban243.css"><LINK rel=stylesheet type=text/css 
+href="index_files/packed__all68.css">
+<SCRIPT type=text/javascript src="index_files/packed_douban96.js"></SCRIPT>
+
+<SCRIPT type=text/javascript src="index_files/packed__all8.js"></SCRIPT>
+
+<STYLE type=text/css></STYLE>
+
+<SCRIPT type=text/javascript>
+    $(document).ready(function() {
+        $("#menu1 .clearfix").addClass("on");
+        $("#content_menu1").show();
+        $(".movie_new .content").hide();
+        $("#newcontent1").show();
+        $(".movie_review .content").hide();
+        $("#review1").show();
+    })
+
+    $(function() {
+        var hl=$("#hot_movies_menu li"),content=$(".movie_headerline .content");
+        hl.mouseover(function() {
+            $(".menu li .clearfix").removeClass("on");
+            $("#"+this.id+" .clearfix").addClass("on");
+            content.hide();
+            $("#content_"+this.id).show();
+            return false;
+        });
+        $(hl[0]).addClass("on");
+        for(var i=5; i; --i) {
+            tab("#new"+i,".movie_new","#newcontent")
+            if(i<=3) {
+                  tab("#reviewtab"+i,".movie_review","#review")
+            }
+        }
+    });
+
+
+
+    function tab(e,t,c) {
+        $(e).mousedown(function() {
+            $(t+" .green_tab a").removeClass("on");
+            $(this).addClass("on");
+            $(t+" .content").hide();
+            $(c+this.id.slice(-1)).show();             
+            $.get("/j/movie/j_tab_count",{id:this.id})
+        })
+    }
+
+</SCRIPT>
+
+<META name=GENERATOR content="MSHTML 8.00.7600.16625"></HEAD>
+<BODY>
+<DIV class=top-nav>
+<DIV class=bd>
+<DIV class=top-nav-info>
+	用户名：<input name="username" type="text" maxLength=60 value="用户名" style="color:rgb(212, 212, 212);"/>&nbsp;&nbsp;
+	密码：<input name="password" type="password" maxLength=60 value="密码" style="color:rgb(212, 212, 212);"/>&nbsp;&nbsp;
+	<input type="button" value="登录"/> 
+</DIV>
+<DIV class=top-nav-items>
+<UL>
+  <LI><A href="#">黄金屋</A> </LI>
+  <LI><A href="#">最新上架</A> </LI>
+  <LI class=on><A href="#">热门榜</A> </LI>
+</UL>
+</DIV></DIV></DIV>
+<DIV id=wrapper>
+<DIV id=header>
+<DIV id=db-nav-movie class=site-nav>
+<DIV class=site-nav-logo><A href="http://movie.douban.com/"><IMG alt=黄金屋 width="145px" heigth="35px"
+src="logo.jpg"></A></DIV>
+<DIV class=bd>
+<DIV class=nav-srh>
+<FORM method=get name=ssform action=/subject_search>
+<DIV class=inp><SPAN><INPUT title=电影名称、导演、演员、imdb号 value="JAVA" maxLength=60 size=22 
+name=search_text></SPAN> <INPUT value=1002 type=hidden name=cat> <SPAN><INPUT class=bn-srh value=搜索 type=submit></SPAN> </DIV></FORM></DIV>
+<DIV class=site-nav-items>
+<UL>
+  <LI><A href="#">纸质书</A> </LI>
+  <LI><A href="#">电子书</A> </LI>
+  <LI><A href="#">排行榜</A> </LI>
+  <LI><A href="#">分类浏览</A> </LI>
+  <LI><A href="#">热评</A> 
+</LI></UL></DIV></DIV></DIV>
+<SCRIPT>
+$(function(){
+$('#db-nav-movie .nav-srh form').prettyField();
+});
+</SCRIPT>
+</DIV>
+<style>
+#onebook{
+	height: 180px;
+	border-bottom:1px dashed #DDDDDD;
+	margin-top:10px;
+}	
+</style>
+<DIV id="searchList" style="width:950px;height:800px;">
+	<div id="onebook" style="height: 180px; border-buttom:1px dashed #DDDDDD">
+	<div style="float: left; height: 160px; width: 120px;">
+		<img class="m_sub_img" height=160px; width=120px; src="http://img3.douban.com/spic/s3738321.jpg">
+	</div>
+	<div style="float: right; height: 160px; overflow: hidden; width: 800px;">
+		<div id="up">
+		<h3>图书信息：</h3>
+		作者：ABC   出版时间：2010-01-01
+		</div>
+		<div id="mid">
+		<h3>拥有者信息：</h3>
+		姓名：胡怀文   工号：1001
+		</div>
+		<div id="down">
+		<h3>简介：</h3>
+		单就人物塑造来说，1q84是村上对自己小说生涯的一次总结。1q84里的人物是丰富的，它几乎涵盖了村上在原先小说里众多人物形象并加以全面升级，它让读者既觉得新鲜，又似曾相识。单就人物塑造来说，1q84是村上对自己小说生涯的一次总结。1q84里的人物是丰富的，它几乎涵盖了村上在原先小说里众多人物形象并加以全面升级，它让读者既觉得新鲜，又似曾相识。
+		</div>
+	</div>
+	</div>
+	<div id="onebook" style="">
+	<div style="float: left; height: 160px; width: 120px;">
+		<img class="m_sub_img" height=160px; width=120px; src="http://img3.douban.com/spic/s3738321.jpg">
+	</div>
+	<div style="float: right; height: 160px; overflow: hidden; width: 800px;">
+		<div id="up">
+		<h3>图书信息：</h3>
+		作者：ABC   出版时间：2010-01-01
+		</div>
+		<div id="mid">
+		<h3>拥有者信息：</h3>
+		姓名：胡怀文   工号：1001
+		</div>
+		<div id="down">
+		<h3>简介：</h3>
+		单就人物塑造来说，1q84是村上对自己小说生涯的一次总结。1q84里的人物是丰富的，它几乎涵盖了村上在原先小说里众多人物形象并加以全面升级，它让读者既觉得新鲜，又似曾相识。单就人物塑造来说，1q84是村上对自己小说生涯的一次总结。1q84里的人物是丰富的，它几乎涵盖了村上在原先小说里众多人物形象并加以全面升级，它让读者既觉得新鲜，又似曾相识。
+		</div>
+	</div>
+	</div>
+	
+	<div id="onebook" style="">
+	<div style="float: left; height: 160px; width: 120px;">
+		<img class="m_sub_img" height=160px; width=120px; src="http://img3.douban.com/spic/s3738321.jpg">
+	</div>
+	<div style="float: right; height: 160px; overflow: hidden; width: 800px;">
+		<div id="up">
+		<h3>图书信息：</h3>
+		作者：ABC   出版时间：2010-01-01
+		</div>
+		<div id="mid">
+		<h3>拥有者信息：</h3>
+		姓名：胡怀文   工号：1001
+		</div>
+		<div id="down">
+		<h3>简介：</h3>
+		单就人物塑造来说，1q84是村上对自己小说生涯的一次总结。1q84里的人物是丰富的，它几乎涵盖了村上在原先小说里众多人物形象并加以全面升级，它让读者既觉得新鲜，又似曾相识。单就人物塑造来说，1q84是村上对自己小说生涯的一次总结。1q84里的人物是丰富的，它几乎涵盖了村上在原先小说里众多人物形象并加以全面升级，它让读者既觉得新鲜，又似曾相识。
+		</div>
+	</div>
+	</div>
+	
+	<div id="onebook" style="">
+	<div style="float: left; height: 160px; width: 120px;">
+		<a href="detail.htm"><img class="m_sub_img" height=160px; width=120px; src="http://img3.douban.com/spic/s3738321.jpg"></a>
+	</div>
+	<div style="float: right; height: 160px; overflow: hidden; width: 800px;">
+		<div id="up">
+		<h3>图书信息：</h3>
+		作者：ABC   出版时间：2010-01-01
+		</div>
+		<div id="mid">
+		<h3>拥有者信息：</h3>
+		姓名：胡怀文   工号：1001
+		</div>
+		<div id="down">
+		<h3>简介：</h3>
+		单就人物塑造来说，1q84是村上对自己小说生涯的一次总结。1q84里的人物是丰富的，它几乎涵盖了村上在原先小说里众多人物形象并加以全面升级，它让读者既觉得新鲜，又似曾相识。单就人物塑造来说，1q84是村上对自己小说生涯的一次总结。1q84里的人物是丰富的，它几乎涵盖了村上在原先小说里众多人物形象并加以全面升级，它让读者既觉得新鲜，又似曾相识。
+		</div>
+	</div>
+	</div>
+	
+	<div>
+		<br/>
+		<center><span style="width:100%;font-size:14px;text-align:center;">
+		1 [2] [3] [4] [5] [6] [7] [8] [9] [10] 下一页 	
+		</span></center>
+	</div>
+</DIV>
+
+<DIV id=footer>
+	<SPAN id=icp class="fleft gray-link">© 2005－2010 douban.com, all rights reserved </SPAN>
+	<SPAN class=fright>
+	<A href="http://www.douban.com/about">关于黄金屋</A> · 
+	<A href="http://www.douban.com/about?topic=contactus">联系我们</A> · 
+	<A href="http://www.douban.com/about?policy=disclaimer">免责声明</A> · 
+	<A href="http://www.douban.com/help/">帮助中心</A>
+	</SPAN>
+</DIV>
+
+<SCRIPT type=text/javascript>
+        var get = function(id) {
+            return document.getElementById(id);
+        }
+
+
+        $(document).ready(function() {
+          //setTimeout("move('movie_home_top_right')", 0);
+        });
+</SCRIPT>
+<!-- douban ad end -->
+
+<!-- baggins4--></BODY></HTML>
