@@ -29,5 +29,9 @@
 		<constructor-arg value="{goldroom.ebook.upload.path}"/>
 	</bean>
 	<bean id="tagService" class="com.alibaba.intl.bcds.goldroom.service.TagService" />
+	
+	<bean id="sendMailService" class="com.alibaba.intl.bcds.goldroom.mail.service.impl.SendMailServiceImpl" />
+	<bean id="velocityMailMessage" class="com.alibaba.intl.bcds.goldroom.mail.utils.VelocityTemplateMailMessage" />
+	
 
 </beans>

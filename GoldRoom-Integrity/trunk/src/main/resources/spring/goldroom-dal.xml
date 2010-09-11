@@ -23,7 +23,7 @@
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="persistenceXmlLocation" value="classpath:persistence.xml" />
+		<property name="persistenceXmlLocation" value="classpath:spring/persistence.xml" />
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -57,13 +57,13 @@
 
 	<bean id="bookInfoDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.BookInfoDaoImpl" />
 	<bean id="bookItemDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.BookItemDaoImpl" />
-	<bean id="bookItemLogDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.BookItemLogDaoImpl" />
+	<!-- bean id="bookItemLogDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.BookItemLogDaoImpl" /-->
 	<bean id="categoryDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.CategoryDaoImpl" />
 	<bean id="lendingDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.LendingDaoImpl" />
 	<bean id="reservationDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.ReservationDaoImpl" />
 	<bean id="memberDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.MemberDaoImpl" />
 	<bean id="memberLogDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.MemberLogDaoImpl" />
-	<bean id="integralDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.IntegralDaoImpl" />
+	<!-- bean id="integralDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.IntegralDaoImpl" /-->
 	<bean id="commentDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.CommentDaoImpl" />
 	<bean id="adminConfigDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.AdminConfigDaoImpl" />
 	<bean id="bookSearchDao"

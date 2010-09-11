@@ -3,10 +3,10 @@ package com.alibaba.intl.bcds.goldroom.constaints;
 public enum BookItemStateEnum {
     /** 空闲 */
     IDLE("idle"),
-    /** 不可�?-下架 */
+    /** 不可借-下架 */
     UNAVAILABLE("unavailable"),
 
-    /** 已被�?*/
+    /** 已被借*/
     LENDED("lended"),
 
     /** 已被预约 */

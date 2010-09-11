@@ -6,7 +6,9 @@ import java.security.NoSuchAlgorithmException;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 传入参数：一个字节数�?传出参数：字节数组的 MD5 结果字符�? */
+ * 传入参数：一个字节数<BR>
+ * 传出参数：字节数组的 MD5 结果字符
+ */
 public class MD5 {
 
     public static final String getMD5(String s) {

@@ -1,6 +1,7 @@
 package com.alibaba.intl.bcds.goldroom.dataobject;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,9 +50,9 @@ public class Comment {
     
     @ManyToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="REPLY_ID", nullable=true, referencedColumnName="ID")
-    private Comment replyComment; // 评论本身的回复信息
+    private Set<Comment> replyComment; // 评论本身的回复信息
 
-    @Column(name = "CONTENT")
+	@Column(name = "CONTENT")
     private String  content;
 
     public Integer getId() {
@@ -110,11 +111,11 @@ public class Comment {
         this.member = member;
     }
 
-	public Comment getReplyComment() {
+    public Set<Comment> getReplyComment() {
 		return replyComment;
 	}
 
-	public void setReplyComment(Comment replyComment) {
+	public void setReplyComment(Set<Comment> replyComment) {
 		this.replyComment = replyComment;
 	}
 

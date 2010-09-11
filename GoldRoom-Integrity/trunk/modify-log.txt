@@ -1,0 +1,10 @@
+1.把goldroom.properties复制到resource目录 并改变application.xml
+2.复制log4j.properties到resource目录
+3.修改goldroom-dal.xml  classpath:spring/persistence.xml
+4.修改goldroom-dal.xml注掉几个没了的DAO 修改persistence.xml注掉几个没了的dataobject
+5.修改Comment.java为set
+6.修改BookItem.java里member为owner
+8.添加goldroom-service.xml里两个service
+9.修改pom.xml添加了freemarker的支持
+10.把两个action类从test移到main下 并修改struts-test.xml里的包配置
+11.因为对象里多了score,所以在数据库里执行ALTER TABLE member ADD score int(10);

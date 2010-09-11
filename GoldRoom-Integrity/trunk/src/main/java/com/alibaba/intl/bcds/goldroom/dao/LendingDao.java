@@ -46,7 +46,7 @@ public interface LendingDao {
     public List<Lending> listByLoginId(String loginId, int page, int pageSize);
 
     /**
-     * 根据条件查找出�?阅记�?
+     * 根据条件查找出借阅记录
      * 
      * @param isExpire 借阅是否过期，当isExpire为真，返回的都是过期的记录；否则都是未过期的
      * @param skipResult

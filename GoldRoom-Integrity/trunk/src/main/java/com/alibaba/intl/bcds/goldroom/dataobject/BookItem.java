@@ -19,13 +19,13 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @Table(name = "BOOK_ITEM")
 @NamedQueries({
                @NamedQuery(name = "deleteBookItemById", query = "DELETE FROM BookItem WHERE id = :id"),
-               @NamedQuery(name = "listBookItemsByLoginId", query = "SELECT i FROM BookItem i WHERE i.member.loginId = :loginId ORDER BY i.gmtCreate DESC"),
-               @NamedQuery(name = "countBookItemsByLoginIdAndState", query = "SELECT COUNT(i) FROM BookItem i WHERE i.member.loginId = :loginId AND state = :state"),
-               @NamedQuery(name = "listBookItemsByLoginIdAndState", query = "SELECT i FROM BookItem i WHERE i.member.loginId = :loginId AND state = :state ORDER BY i.gmtCreate DESC"),
-               @NamedQuery(name = "countBookItemsByLoginId", query = "SELECT COUNT(i) FROM BookItem i WHERE i.member.loginId = :loginId"),
+               @NamedQuery(name = "listBookItemsByLoginId", query = "SELECT i FROM BookItem i WHERE i.owner.loginId = :loginId ORDER BY i.gmtCreate DESC"),
+               @NamedQuery(name = "countBookItemsByLoginIdAndState", query = "SELECT COUNT(i) FROM BookItem i WHERE i.owner.loginId = :loginId AND state = :state"),
+               @NamedQuery(name = "listBookItemsByLoginIdAndState", query = "SELECT i FROM BookItem i WHERE i.owner.loginId = :loginId AND state = :state ORDER BY i.gmtCreate DESC"),
+               @NamedQuery(name = "countBookItemsByLoginId", query = "SELECT COUNT(i) FROM BookItem i WHERE i.owner.loginId = :loginId"),
                @NamedQuery(name = "listBookItemByBookInfoId", query = "SELECT i FROM BookItem i WHERE i.bookInfo.id = :bookInfoId ORDER BY i.gmtCreate DESC"),
-               @NamedQuery(name = "listBookItemsByLoginIdAndStateAndBookInfoIds", query = "SELECT i FROM BookItem i WHERE i.bookInfo.id in (:bookInfoIds) AND i.member.loginId = :loginId AND state = :state"),
-               @NamedQuery(name = "listBookItemsByLoginIdsAndBookInfoId", query = "SELECT i FROM BookItem i WHERE i.bookInfo.id = :bookInfoId AND i.member.loginId in (:loginIds)")
+               @NamedQuery(name = "listBookItemsByLoginIdAndStateAndBookInfoIds", query = "SELECT i FROM BookItem i WHERE i.bookInfo.id in (:bookInfoIds) AND i.owner.loginId = :loginId AND state = :state"),
+               @NamedQuery(name = "listBookItemsByLoginIdsAndBookInfoId", query = "SELECT i FROM BookItem i WHERE i.bookInfo.id = :bookInfoId AND i.owner.loginId in (:loginIds)")
 
 })
 public class BookItem {
@@ -157,4 +157,6 @@ public class BookItem {
 	public void setOwner(Member owner) {
 		this.owner = owner;
 	}
+
+
 }

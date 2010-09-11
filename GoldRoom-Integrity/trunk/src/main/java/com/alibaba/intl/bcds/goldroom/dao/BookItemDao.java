@@ -23,7 +23,7 @@ public interface BookItemDao {
 
   
     /**
-     * 通过用户loginId及状态查询书�?
+     * 通过用户loginId及状态查询书籍
      * 
      * @param loginId
      * @param state
@@ -37,7 +37,7 @@ public interface BookItemDao {
     List<BookItem> listBookItemByBookInfoId(int bookInfoId);
 
     /**
-     * 通过book_item_id获取带有bookInfo属�?的bookItem对象
+     * 通过book_item_id获取带有bookInfo属性的bookItem对象
      * 
      * @param id
      * @return
