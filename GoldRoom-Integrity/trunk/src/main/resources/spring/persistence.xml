@@ -9,12 +9,9 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>com.alibaba.intl.bcds.goldroom.dataobject.BookInfo</class>
 		<class>com.alibaba.intl.bcds.goldroom.dataobject.BookItem</class>
-		<!-- class>com.alibaba.intl.bcds.goldroom.dataobject.BookItemLog</class> -->
 		<class>com.alibaba.intl.bcds.goldroom.dataobject.Category</class>
-		<!-- class>com.alibaba.intl.bcds.goldroom.dataobject.Integral</class>  -->
 		<class>com.alibaba.intl.bcds.goldroom.dataobject.Lending</class>
 		<class>com.alibaba.intl.bcds.goldroom.dataobject.Member</class>
-		<class>com.alibaba.intl.bcds.goldroom.dataobject.MemberLog</class>
 		<class>com.alibaba.intl.bcds.goldroom.dataobject.Reservation</class>
 		<class>com.alibaba.intl.bcds.goldroom.dataobject.AdminConfig</class>
 		<class>com.alibaba.intl.bcds.goldroom.dataobject.Comment</class>
