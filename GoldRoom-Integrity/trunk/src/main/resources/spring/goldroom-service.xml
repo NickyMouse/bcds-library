@@ -24,6 +24,8 @@
 	<bean id="commentService" class="com.alibaba.intl.bcds.goldroom.service.CommentService" />
 	<bean id="adminConfigService" class="com.alibaba.intl.bcds.goldroom.service.AdminConfigService" />
 	<bean id="eBookUploadService" class="com.alibaba.intl.bcds.goldroom.service.EBookUploadService" />
+	<bean id="lendService" class="com.alibaba.intl.bcds.goldroom.service.LendService" />
+	<bean id="reservationService" class="com.alibaba.intl.bcds.goldroom.service.ReservationService" />
 
 	<bean id="eBookUploadPath" class="java.lang.String">
 		<constructor-arg value="${goldroom.ebook.upload.path}"/>

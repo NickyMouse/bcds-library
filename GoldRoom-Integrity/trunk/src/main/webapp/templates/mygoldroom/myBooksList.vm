@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+		<title>Goldroom</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+
+		<link type="text/css" href="/css/smoothness/jquery-ui-1.8.4.custom.css" rel="stylesheet" />
+		<script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="/js/jquery-ui-1.8.4.custom.min.js"></script>
+		<script type="text/javascript">
+			jQuery.noConflict();
+			jQuery(document).ready(
+				function (){
+    				jQuery("#bookStateSelector").change(
+    					function(){
+							document.forms['myBookListForm'].submit();
+    					}
+    				);
+
+					jQuery("#accordion").accordion({ header: "h6" });
+				}
+			);
+        </script>
+		<style type="text/css">
+			body{ font: 80% "Trebuchet MS", sans-serif; margin: 50px;}
+			.left {float: left; width: 20%;}
+			.right {float: right; width: 60%;}
+		</style>
+</head>
+<body>
+	<div id="accordion" class="left">
+			<div>
+				<h6><a href="#">书籍管理</a></h6>
+				<div>
+                    <li><a href="/mygoldroom/myBookListAction.action?state=all&loginId=gangyi.xiaogy">我的书籍</a></li>
+					<li><a href="#">我预约的</a></li>
+					<li><a href="#">我借阅的</a></li>
+				</div>
+			</div>
+			<div>
+				<h6><a href="#">用户管理</a></h6>
+				<div>
+                    <li><a href="#">aaa</a></li>
+					<li><a href="#">bbb</a></li>
+				</div>
+			</div>
+	</div>
+	<div class="right">
+    	<form action="myBookListAction.html" name="myBookListForm">
+        	<select id="bookStateSelector" name="state">
+                <option value="all" #if($state=="all") selected #end)>全部</option>
+                <option value="idle" #if($state=="idle") selected #end)>空闲</option>
+        		<option value="lended" #if($state=="lended") selected #end)>被借阅</option>
+        		<option value="reservated" #if($state=="reservated") selected #end)>被预约</option>
+        	</select>
+    		<input type="hidden" name="loginId" value="gangyi.xiaogy"/>
+    		<input type="hidden" name="page" value="1"/>
+    	</form>
+    	<hr/>
+    	#set($bookList = $bookItemResult.itemList)
+    	#foreach($item in $bookList)
+    		$item.bookInfo.name <br/>
+    	#end
+    </div>
+</body>
+</html>

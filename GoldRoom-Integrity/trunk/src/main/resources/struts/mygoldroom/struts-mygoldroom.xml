@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="/mygoldroom" extends="struts-default">
+		<global-results>
+			<result name="error">/templates/common/error404.vm</result>
+		</global-results>
+		<action name="myBooksListAction"
+			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.MyBooksListAction">
+			<param name="pageSize">10</param>
+			<result name="success" type="velocity">/templates/mygoldroom/myBooksList.vm
+			</result>
+		</action>
+
+		<action name="lendingListAction"
+			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.LendingListAction">
+			<param name="pageSize">10</param>
+			<result name="success" type="velocity">/templates/mygoldroom/lendingList.vm
+			</result>
+		</action>
+
+		<action name="reservationListAction"
+			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.ReservationListAction">
+			<param name="pageSize">10</param>
+			<result name="success" type="velocity">/templates/mygoldroom/reservationList.vm
+			</result>
+		</action>
+	</package>
+</struts>
