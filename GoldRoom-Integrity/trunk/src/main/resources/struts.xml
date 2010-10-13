@@ -11,5 +11,7 @@
 	<constant name="struts.velocity.configfile" value="/WEB-INF/classes/velocity.properties" />
 	<constant name="struts.velocity.toolboxlocation" value="/WEB-INF/classes/toolbox.xml" />
 
-	<include file="struts/struts-test.xml" />
+
+	<!-- include all struts dispatch configuration files here -->
+	<include file="struts/temp/struts-test.xml" />
 </struts>
