@@ -1,0 +1,10 @@
+#if($bookSearchResult)
+	Search engine Test ok <br/>
+	found ${bookSearchResult.totalCount} books by keyword: $keyword <br/>
+	#foreach($book in $bookSearchResult.bookList)
+		${velocityCount}. $book.bookName <br/>
+	#end
+#else
+	Search engine Test failed, please check your configuration.
+#end
+
