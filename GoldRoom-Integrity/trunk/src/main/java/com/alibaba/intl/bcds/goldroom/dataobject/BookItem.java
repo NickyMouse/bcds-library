@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -37,9 +36,10 @@ public class BookItem {
     @Column(name = "STATE")
     private String   state;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="LOGIN_ID",nullable=false)
-    private Member owner;
+    @ManyToOne
+    // (fetch=FetchType.LAZY)
+    @JoinColumn(name = "LOGIN_ID", nullable = false)
+    private Member   owner;
 
     @Column(name = "ADD_TIME")
     private Date     addTime;
@@ -150,13 +150,12 @@ public class BookItem {
         return ToStringBuilder.reflectionToString(this);
     }
 
-	public Member getOwner() {
-		return owner;
-	}
+    public Member getOwner() {
+        return owner;
+    }
 
-	public void setOwner(Member owner) {
-		this.owner = owner;
-	}
-
+    public void setOwner(Member owner) {
+        this.owner = owner;
+    }
 
 }

@@ -1,8 +1,10 @@
 <li class="title">书籍管理
 	<ul>
-		<li><a href="/mygoldroom/myBooksListAction.action?state=all&loginId=gangyi.xiaogy">我的书籍</a></li>
-    	<li><a href="/mygoldroom/reservationListAction.action?loginId=gangyi.xiaogy">我预约的</a></li>
-    	<li><a href="/mygoldroom/lendingListAction.action?loginId=gangyi.xiaogy">我借阅的</a></li>
+		<li><a href="/mygoldroom/myBooksListAction.action?state=all&loginId=gangyi.xiaogy" #if($menuIndex==1)class="selected"#end>我的书籍</a></li>
+    	<li><a href="/mygoldroom/reservationListAction.action?state=all&loginId=gangyi.xiaogy" #if($menuIndex==2)class="selected"#end>我预约的</a></li>
+    	<li><a href="/mygoldroom/lendingListAction.action?loginId=gangyi.xiaogy" #if($menuIndex==3)class="selected"#end>我借阅的</a></li>
+		<li><a href="/mygoldroom/uploadPaperBook.action" #if($menuIndex==4)class="selected"#end>分享纸质书</a></li>
+		<li><a href="/mygoldroom/uploadEbook.action" #if($menuIndex==5)class="selected"#end>分享电子书</a></li>
 	</ul>
 </li>
 

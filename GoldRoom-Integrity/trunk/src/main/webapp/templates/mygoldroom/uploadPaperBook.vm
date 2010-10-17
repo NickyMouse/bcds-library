@@ -27,47 +27,17 @@
 		<DIV id=content>
             <h1>我的黄金屋</h1>
        		<div id="leftMenu" class="leftMenu">
-				#set($menuIndex=3)
+				#set($menuIndex=4)
 				#parse("templates/mygoldroom/menu.vm")
        		</div>
         	<div id="right" class="rightContent">
-            	#set($lendingList = $lendingResult.lendingList)
-				#if($lendingResult && $lendingResult.totalCount > 0)
-                	#foreach($lending in $lendingList)
-    					#set($item = $lending.bookItem)
-
-    					<div class="bookItem">
-    						<div class="bookImage">
-    							##<img src="$item.bookInfo.imgUrl"/>
-    							<img src="http://img3.douban.com/mpic/s4478937.jpg" />
-    						</div>
-    						<div class="bookInfo">
-        						<h2 class="title"> $!item.bookInfo.name </h2>
-                                <span>作者: </span> $!item.bookInfo.author  <br/>
-        						<span>出版社: </span> $!item.bookInfo.publisher  <br/>
-        						<span>ISBN: </span> $!item.bookInfo.isbn  <br/>
-    						</div>
-							<div class="column3">
-								 <span>拥有者: </span> $item.owner.name  <br/>
-								 <span>开始时间: </span> $lending.lendTime  <br/>
-								 <span>结束时间: </span> $lending.returnTime <br/>
-								 ##借阅中或者已经过期 <span>状态：</span></br/>
-                            </div>
-    					</div>
-    					<div style="clear:both"></div>
-					#end
-				#else
-					 <h2 style="text-align:center; margin:50px">暂无符合记录</h2>
-				#end
+				分享纸质书
             </div>
 		</DIV>
 		<!-- content end here -->
 		<div style="clear:both"></div>
-		#set($totalCount =$lendingResult.totalCount)
-		#if($totalCount && $totalCount > 0)
-			#parse("templates/common/pageTurn.vm")
-		#end
 		#parse("templates/common/footer.vm")
 	</DIV>
+
 </body>
 </html>

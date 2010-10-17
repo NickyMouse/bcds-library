@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -21,11 +20,16 @@ import javax.persistence.Table;
 @Table(name = "RESERVATION")
 @NamedQueries({
                @NamedQuery(name = "deleteReservationById", query = "DELETE FROM Reservation WHERE id = :id"),
-               @NamedQuery(name = "listReservationByLoginId", query = "SELECT r FROM Reservation r WHERE r.subscriber.loginId = :loginId ORDER BY gmtModified DESC"),
                @NamedQuery(name = "findReservationByBookItemId", query = "SELECT r FROM Reservation r WHERE r.bookItem.id = :bookItemId"),
+
+               @NamedQuery(name = "listReservationByLoginId", query = "SELECT r FROM Reservation r WHERE r.subscriber.loginId = :loginId ORDER BY gmtModified DESC"),
                @NamedQuery(name = "countReservationByLoginId", query = "SELECT COUNT(r) FROM Reservation r WHERE r.subscriber.loginId = :loginId"),
+
                @NamedQuery(name = "listReservationByBookItemId", query = "SELECT r FROM Reservation r WHERE r.bookItem.id = :bookItemId ORDER BY gmtModified DESC"),
-               @NamedQuery(name = "countReservationByBookItemId", query = "SELECT COUNT(r) FROM Reservation r WHERE r.bookItem.id = :bookItemId")
+               @NamedQuery(name = "countReservationByBookItemId", query = "SELECT COUNT(r) FROM Reservation r WHERE r.bookItem.id = :bookItemId"),
+
+               @NamedQuery(name = "listReservationByLoginIdAndState", query = "SELECT r FROM Reservation r WHERE r.subscriber.loginId = :loginId and r.state = :state ORDER BY gmtModified DESC"),
+               @NamedQuery(name = "countReservationByLoginIdAndState", query = "SELECT COUNT(r) FROM Reservation r WHERE r.subscriber.loginId = :loginId and r.state = :state"),
 
 })
 public class Reservation {
@@ -51,10 +55,10 @@ public class Reservation {
     private String       state;
 
     @Column(name = "GMT_CREATE")
-    private Date gmtCreate;
+    private Date         gmtCreate;
 
     @Column(name = "GMT_MODIFIED")
-    private Date gmtModified;
+    private Date         gmtModified;
 
     @ManyToOne
     @JoinColumn(name = "BOOK_ITEM_ID")
@@ -67,7 +71,6 @@ public class Reservation {
     public void setBookItem(BookItem bookItem) {
         this.bookItem = bookItem;
     }
-
 
     public Integer getId() {
         return id;

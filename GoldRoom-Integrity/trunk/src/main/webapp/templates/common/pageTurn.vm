@@ -1,0 +1,46 @@
+#if($totalCount && $totalCount > 0)
+	## get query string
+	#set($qStr = ${request.getQueryString()})
+	#set($start = $qStr.indexOf("&page="))
+	#if($start >= 0 )
+		#set($newQStr = $qStr.substring(0, $start))
+		#set($endStart = $start + 1)
+		#set($end = $qStr.indexOf("&", $endStart))
+		#if($end >= 0 )
+			#set($newQStr = $newQStr + $qStr.substring($end, $qStr.length()))
+		#end
+	#else
+		#set($newQStr = ${request.getQueryString()})
+	#end
+
+
+<div class="paginator">
+	#if($page > 1)
+		#set($prePage = $page - 1)
+		<span class="prev"><a href="$!{request.getRequestURI()}?$!{newQStr}&page=$!{prePage}">&lt;前页</a></span>
+	#else
+		<span class="prev">&lt;前页</span>
+	#end
+
+	#set($totalPage = $totalCount / $pageSize)
+	#if($pageSize * $totalPage < $totalCount)
+		#set($totalPage = $totalPage + 1)
+	#end
+
+	#foreach($index in [1 .. $totalPage])
+		#if($page == $index)
+			<span class="thispage">$page</span>
+		#else
+			<a href="$!{request.getRequestURI()}?$!{newQStr}&page=$!index">$!index</a>
+		#end
+	#end
+
+	##<span class="break">...</span>
+	#if($page < $totalPage)
+		#set($nextPage = $page + 1)
+		<span class="next"><a href="$!{request.getRequestURI()}?$!{newQStr}&page=$!{nextPage}">后页&gt;</a></span>
+	#else
+		<span class="next">后页&gt;</span>
+	#end
+</div>
+#end

@@ -3,20 +3,20 @@
 <HTML xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>黄金屋</title>
-<meta content="text/html; charset=utf-8" http-equiv=Content-Type>
-<meta content=no-cache http-equiv=Pragma>
-<meta content="Sun, 6 Mar 2005 01:00:00 GMT" http-equiv=Expires>
-<meta name=description content=来黄金屋，收获更多。>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="no-cache" http-equiv="Pragma"/>
+<meta content="Sun, 6 Mar 2005 01:00:00 GMT" http-equiv="Expires"/>
+<meta name="description" content="来黄金屋，收获更多。">
 
-<link rel="shortcut icon" type=image/x-icon href="http://t.douban.com/favicon.ico">
-<link rel=stylesheet type=text/css href="..//static/css/packed_douban243.css">
-<link rel=stylesheet type=text/css href="..//static/css/packed__all68.css">
+<link rel="shortcut icon" type=image/x-icon href="http://t.douban.com/favicon.ico"/>
+<link rel=stylesheet type=text/css href="..//static/css/packed_douban243.css"/>
+<link rel=stylesheet type=text/css href="..//static/css/packed__all68.css"/>
 
 <script type=text/javascript src="..//static/js/packed_jquery.min0.js"></script>
 <script type=text/javascript src="..//static/js/packed_douban96.js"></script>
 <script type=text/javascript src="..//static/js/packed__all8.js"></script>
 
-<link rel=stylesheet type=text/css href="..//static/css/mygoldroom.css">
+<link rel=stylesheet type=text/css href="..//static/css/mygoldroom.css" />
 </head>
 <body>
 	#parse("templates/common/header.vm")
@@ -27,34 +27,68 @@
 		<DIV id=content>
             <h1>我的黄金屋</h1>
        		<div id="leftMenu" class="leftMenu">
+				#set($menuIndex=1)
 				#parse("templates/mygoldroom/menu.vm")
        		</div>
         	<div id="right" class="rightContent">
-				<a href="/mygoldroom/myBooksListAction.action?state=all&loginId=gangyi.xiaogy" #if($state=="all") class="seledtedState" #else class="state" #end>全部</a>
-				<a href="/mygoldroom/myBooksListAction.action?state=idle&loginId=gangyi.xiaogy" #if($state=="idle") class="seledtedState" #else class="state" #end>空闲</a>
-				<a href="/mygoldroom/myBooksListAction.action?state=lended&loginId=gangyi.xiaogy" #if($state=="lended") class="seledtedState" #else class="state" #end>被借阅</a>
-				<a href="/mygoldroom/myBooksListAction.action?state=reservated&loginId=gangyi.xiaogy" #if($state=="reservated") class="seledtedState" #else class="state" #end>被预约</a>
-            	#set($bookList = $bookItemResult.itemList)
-            	#foreach($item in $bookList)
-					<div class="bookItem">
-						<div class="bookImage">
-							##<img src="$item.bookInfo.imgUrl"/>
-							<img src="http://img3.douban.com/mpic/s4478937.jpg" />
-						</div>
-						<div class="bookInfo">
-    						<h2 class="title"> $!item.bookInfo.name </h2>
+				<div>
+				<a href="/mygoldroom/myBooksListAction.action?state=all&loginId=gangyi.xiaogy" #if($state=="all") class="seledtedState" #else class="state" #end>
+							全部 #if($state=="all")($!{bookItemResult.totalCount})#end</a>
+				<a href="/mygoldroom/myBooksListAction.action?state=idle&loginId=gangyi.xiaogy" #if($state=="idle") class="seledtedState" #else class="state" #end>
+							空闲 #if($state=="idle")($!{bookItemResult.totalCount})#end</a>
+				<a href="/mygoldroom/myBooksListAction.action?state=reservated&loginId=gangyi.xiaogy" #if($state=="reservated") class="seledtedState" #else class="state" #end>
+							被预约 #if($state=="reservated")($!{bookItemResult.totalCount})#end</a>
+				<a href="/mygoldroom/myBooksListAction.action?state=lended&loginId=gangyi.xiaogy" #if($state=="lended") class="seledtedState" #else class="state" #end>
+							被借阅 #if($state=="lended")($!{bookItemResult.totalCount})#end</a>
+				<a href="/mygoldroom/myBooksListAction.action?state=unavailable&loginId=gangyi.xiaogy" #if($state=="unavailable") class="seledtedState" #else class="state" #end>
+							已下架 #if($state=="unavailable")($!{bookItemResult.totalCount})#end</a>
+				</div>
+				#set($bookList = $bookItemResult.itemList)
+				#if($bookItemResult && $bookItemResult.totalCount > 0)
+                	#foreach($item in $bookList)
+    					<div class="bookItem">
+    						<div class="bookImage">
+    							##<img src="$item.bookInfo.imgUrl"/>
+    							<img src="http://img3.douban.com/mpic/s4478937.jpg" />
+    						</div>
+    						<div class="bookInfo">
+        						<h2 class="title"> $!item.bookInfo.name </h2>
 
-                            <span>作者: </span> $!item.bookInfo.author <br/>
-    						<span>出版社: </span> $!item.bookInfo.publisher <br/>
-    						<span>ISBN: </span> $!item.bookInfo.isbn <br/>
-						</div>
-					</div>
-					<div style="clear:both"></div>
-            	#end
+                                <span>作者: </span> $!item.bookInfo.author <br/>
+        						<span>出版社: </span> $!item.bookInfo.publisher <br/>
+        						<span>ISBN: </span> $!item.bookInfo.isbn <br/>
+    						</div>
+							<div class="column3">
+
+								#if($!item.state == "idle")
+									<span>状态: </span><span style="color:green">空闲 </span><br/>
+									<a href="#">下架</a>
+								#elseif ($!item.state=="lended")
+									<span>状态: </span><span style="color:orange">被借阅 </span><br/>
+									<a href="#">查看借阅信息</a>
+								#elseif ($!item.state=="reservated")
+									<span>状态: </span><span style="color:blue">被预约 </span><br/>
+									<a href="#">查看预约信息</a>
+								#elseif ($!item.state=="unavailable")
+									<span>状态: </span><span style="color:red">已下架 </span><br/>
+									<a href="#">上架</a>
+								#end
+								<br/>
+                            </div>
+    					</div>
+    					<div style="clear:both"></div>
+					#end
+				#else
+					<h2 style="text-align:center; margin:50px">暂无符合记录</h2>
+				#end
             </div>
 		</DIV>
 		<!-- content end here -->
 		<div style="clear:both"></div>
+		#set($totalCount =$bookItemResult.totalCount)
+		#if($totalCount && $totalCount > 0)
+			#parse("templates/common/pageTurn.vm")
+		#end
 		#parse("templates/common/footer.vm")
 	</DIV>
 

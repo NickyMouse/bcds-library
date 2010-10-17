@@ -9,22 +9,37 @@
 		</global-results>
 		<action name="myBooksListAction"
 			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.MyBooksListAction">
-			<param name="pageSize">10</param>
+			<param name="pageSize">5</param>
 			<result name="success" type="velocity">/templates/mygoldroom/myBooksList.vm
 			</result>
 		</action>
 
 		<action name="lendingListAction"
 			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.LendingListAction">
-			<param name="pageSize">10</param>
+			<param name="pageSize">5</param>
 			<result name="success" type="velocity">/templates/mygoldroom/lendingList.vm
 			</result>
 		</action>
 
 		<action name="reservationListAction"
 			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.ReservationListAction">
-			<param name="pageSize">10</param>
+			<param name="pageSize">5</param>
 			<result name="success" type="velocity">/templates/mygoldroom/reservationList.vm
+			</result>
+		</action>
+
+		<action name="uploadPaperBookAction"
+			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.UploadPaperBookAction">
+			<result name="showForm" type="velocity">/templates/mygoldroom/uploadPaperBook.vm
+			</result>
+			<result name="success" type="velocity">/templates/mygoldroom/uploadPaperBook.vm
+			</result>
+		</action>
+		<action name="uploadEBookAction"
+			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.UploadEBookAction">
+			<result name="showForm" type="velocity">/templates/mygoldroom/uploadEBook.vm
+			</result>
+			<result name="success" type="velocity">/templates/mygoldroom/uploadEBook.vm
 			</result>
 		</action>
 	</package>

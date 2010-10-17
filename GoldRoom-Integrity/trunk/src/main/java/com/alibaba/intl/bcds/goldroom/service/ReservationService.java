@@ -1,13 +1,16 @@
 package com.alibaba.intl.bcds.goldroom.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.intl.bcds.goldroom.constaints.BookItemStateEnum;
+import com.alibaba.intl.bcds.goldroom.constaints.ReservationStateEnum;
 import com.alibaba.intl.bcds.goldroom.constaints.RoleEnum;
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
 import com.alibaba.intl.bcds.goldroom.dao.LendingDao;
@@ -48,6 +51,18 @@ public class ReservationService {
         return new ReservationResult(reservationList, totalCount);
     }
 
+    public ReservationResult listReservatedBooksBySubscriberAndState(String loginId, String state, int page,
+                                                                     int pagesize) {
+        if (StringUtils.isBlank(state) || !ReservationStateEnum.isValidState(state)) {
+            return new ReservationResult(new ArrayList<Reservation>(0), 0);
+        } else {
+            // list reservation by loginId and the state
+            int totalCount = reservationDao.countByLogindIdAndState(loginId, state);
+            List<Reservation> reservationList = reservationDao.listByLoginIdAndState(loginId, state, page, pagesize);
+            return new ReservationResult(reservationList, totalCount);
+        }
+    }
+
     public ReservationResult listReservationByBookItemId(Integer bookItemId) {
         int totalCount = reservationDao.countByBookItemId(bookItemId);
         List<Reservation> reservationList = reservationDao.listByBookItemId(bookItemId);
@@ -77,8 +92,8 @@ public class ReservationService {
 
     public boolean reserve(String subscriberLoginId, int bookItemId, Date lendTime, Date returnTime) {
         BookItem item = bookItemDao.findById(bookItemId);
-        Member bookOwner = item != null && item.getOwner() != null ? item.getOwner():null; // by Harrison
-        
+        Member bookOwner = item != null && item.getOwner() != null ? item.getOwner() : null; // by Harrison
+
         if (bookOwner != null && bookOwner.getLoginId().equals(subscriberLoginId)) {
             // 不能预约自已的书
             return false;
@@ -104,7 +119,7 @@ public class ReservationService {
                 emailInfo.setBookInfo(item.getBookInfo());
                 emailInfo.setLending(lending);
                 emailInfo.addReceiverEmail(lending.getSubscriber().getEmail());
-                sendMailService.sendVelocityMail(emailInfo, null, null, null,null);
+                sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
                 logger.info("[Lend book success]" + lending.getId());
                 return true;
             } else {
@@ -129,15 +144,15 @@ public class ReservationService {
                     emailInfo.setBookInfo(item.getBookInfo());
                     emailInfo.setReservation(reservation);
                     emailInfo.addReceiverEmail(bookOwner.getEmail());
-                    sendMailService.sendVelocityMail(emailInfo, null, null, null,null);
+                    sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
                 }
                 // 书籍被预定
-                
+
                 /* -- update the bookItem owner's score , by Harrison -- */
-                bookOwner.setScore(bookOwner.getScore() == null || bookOwner.getScore() == 0 ? 50: bookOwner.getScore() + 50);
-                memberDao.updateMemberByLoginId(bookOwner); 
+                bookOwner.setScore(bookOwner.getScore() == null || bookOwner.getScore() == 0 ? 50 : bookOwner.getScore() + 50);
+                memberDao.updateMemberByLoginId(bookOwner);
                 /* -- end -- */
-                
+
                 item.setState(BookItemStateEnum.RESERVATED.getValue());
                 bookItemDao.updateById(item);
                 return true;

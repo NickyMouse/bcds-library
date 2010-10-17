@@ -1,5 +1,6 @@
 .leftMenu  {float:left; margin:5px 50px 30px 20px;}
 .leftMenu li {font-size:14px; margin:5px}
+.leftMenu li .selected {font-weight:bold}
 .leftMenu .title {border-bottom:1px dashed #D4D4D4;}
 
 .rightContent {float:left; width:80%}
@@ -8,5 +9,8 @@
 
 .bookItem {border-bottom:1px dashed #D4D4D4; font-size:13px}
 .bookItem .bookImage {float:left;max-height: 200px; max-width:150px; margin:10px}
-.bookItem .bookInfo {float:left; margin:10px}
 .bookItem .bookInfo span {color:#777777}
+.bookItem .bookInfo {float:left; margin:10px; width:330px}
+
+.bookItem .column3 {float:right;width:250px; font-size:14px; margin:10px}
+.bookItem .column3 span {color:#777777}
