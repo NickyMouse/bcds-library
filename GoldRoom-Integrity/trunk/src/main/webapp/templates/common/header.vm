@@ -1,0 +1,14 @@
+<DIV class=top-nav>
+<DIV class=bd>
+<DIV class=top-nav-info>
+	用户名：<input name="username" type="text" maxLength=60 value="用户名" style="color:rgb(212, 212, 212);"/>&nbsp;&nbsp;
+	密码：<input name="password" type="password" maxLength=60 value="密码" style="color:rgb(212, 212, 212);"/>&nbsp;&nbsp;
+	<input type="button" value="登录"/>
+</DIV>
+<DIV class=top-nav-items>
+<UL>
+  <LI><A href="#">黄金屋</A> </LI>
+  <LI><A href="#">最新上架</A> </LI>
+  <LI class=on><A href="#">热门榜</A> </LI>
+</UL>
+</DIV></DIV></DIV>

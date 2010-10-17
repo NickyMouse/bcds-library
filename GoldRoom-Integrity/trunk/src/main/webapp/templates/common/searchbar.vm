@@ -1,0 +1,31 @@
+<DIV id="header">
+<DIV id="db-nav-movie" class="site-nav">
+<DIV class="site-nav-logo">
+	<A href="http://movie.douban.com/">
+		<IMG alt="黄金屋" width="145px" heigth="35px" src="http://127.0.0.1:8080//static/images/logo.jpg"></A></DIV>
+    <DIV class="bd">
+        <DIV class="nav-srh">
+        	<FORM method="get" name="ssform" action="/subject_search">
+            <DIV class="inp">
+            	<SPAN>
+            		<INPUT title="电影名称、导演、演员、imdb号" maxLength="60" size="22" name="search_text">
+            	</SPAN>
+            	<INPUT value="1002" type="hidden" name="cat">
+            	<SPAN>
+            		<INPUT class="bn-srh" value="搜索" type="submit">
+            	</SPAN>
+            </DIV>
+        	</FORM>
+        </DIV>
+            <DIV class="site-nav-items">
+            <UL>
+              <LI><A href="#">纸质书</A></LI>
+              <LI><A href="#">电子书</A></LI>
+              <LI><A href="#">排行榜</A></LI>
+              <LI><A href="#">分类浏览</A></LI>
+              <LI><A href="#">热评</A></LI>
+            </UL>
+            </DIV>
+        </DIV>
+    </DIV>
+</DIV>

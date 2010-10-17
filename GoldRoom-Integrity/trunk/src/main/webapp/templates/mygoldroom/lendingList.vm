@@ -1,68 +1,58 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!-- saved from url=(0024)http://movie.douban.com/ -->
+<HTML xmlns="http://www.w3.org/1999/xhtml">
 <head>
-		<title>Goldroom</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-		<meta name="keywords" content="" />
-		<meta name="description" content="" />
+	<title>黄金屋</title>
+<meta content="text/html; charset=utf-8" http-equiv=Content-Type>
+<meta content=no-cache http-equiv=Pragma>
+<meta content="Sun, 6 Mar 2005 01:00:00 GMT" http-equiv=Expires>
+<meta name=description content=来黄金屋，收获更多。>
 
-		<link type="text/css" href="/css/smoothness/jquery-ui-1.8.4.custom.css" rel="stylesheet" />
-		<script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
-		<script type="text/javascript" src="/js/jquery-ui-1.8.4.custom.min.js"></script>
-		<script type="text/javascript">
-			jQuery.noConflict();
-			jQuery(document).ready(
-				function (){
-    				jQuery("#bookStateSelector").change(
-    					function(){
-							document.forms['myBookListForm'].submit();
-    					}
-    				);
+<link rel="shortcut icon" type=image/x-icon href="http://t.douban.com/favicon.ico">
+<link rel=stylesheet type=text/css href="..//static/css/packed_douban243.css">
+<link rel=stylesheet type=text/css href="..//static/css/packed__all68.css">
 
-					jQuery("#accordion").accordion({ header: "h6" });
-				}
-			);
-        </script>
-		<style type="text/css">
-			body{ font: 80% "Trebuchet MS", sans-serif; margin: 50px;}
-			.left {float: left; width: 20%;}
-			.right {float: right; width: 60%;}
-		</style>
+<script type=text/javascript src="..//static/js/packed_jquery.min0.js"></script>
+<script type=text/javascript src="..//static/js/packed_douban96.js"></script>
+<script type=text/javascript src="..//static/js/packed__all8.js"></script>
+
+<link rel=stylesheet type=text/css href="..//static/css/mygoldroom.css">
 </head>
 <body>
-	<div id="accordion" class="left">
-			<div>
-				<h6><a href="#">书籍管理</a></h6>
-				<div>
-                    <li><a href="/mygoldroom/myBookListAction.action?state=all&loginId=gangyi.xiaogy">我的书籍</a></li>
-					<li><a href="#">我预约的</a></li>
-					<li><a href="#">我借阅的</a></li>
-				</div>
-			</div>
-			<div>
-				<h6><a href="#">用户管理</a></h6>
-				<div>
-                    <li><a href="#">aaa</a></li>
-					<li><a href="#">bbb</a></li>
-				</div>
-			</div>
-	</div>
-	<div class="right">
-    	<form action="myBookListAction.html" name="myBookListForm">
-        	<select id="bookStateSelector" name="state">
-                <option value="all" #if($state=="all") selected #end)>全部</option>
-                <option value="idle" #if($state=="idle") selected #end)>空闲</option>
-        		<option value="lended" #if($state=="lended") selected #end)>被借阅</option>
-        		<option value="reservated" #if($state=="reservated") selected #end)>被预约</option>
-        	</select>
-    		<input type="hidden" name="loginId" value="gangyi.xiaogy"/>
-    		<input type="hidden" name="page" value="1"/>
-    	</form>
-    	<hr/>
-    	#set($bookList = $bookItemResult.itemList)
-    	#foreach($item in $bookList)
-    		$item.bookInfo.name <br/>
-    	#end
-    </div>
+	#parse("templates/common/header.vm")
+
+	<DIV id="wrapper">
+		#parse("templates/common/searchbar.vm")
+		<!-- content start here-->
+		<DIV id=content>
+            <h1>我的黄金屋</h1>
+       		<div id="leftMenu" class="leftMenu">
+				#parse("templates/mygoldroom/menu.vm")
+       		</div>
+        	<div id="right" class="rightContent">
+            	#set($lendingList = $lendingResult.lendingList)
+            	#foreach($lending in $lendingList)
+					#set($item = $lending.bookItem)
+
+					<div class="bookItem">
+						<div class="bookImage">
+							##<img src="$item.bookInfo.imgUrl"/>
+							<img src="http://img3.douban.com/mpic/s4478937.jpg" />
+						</div>
+						<div class="bookInfo">
+    						<h2 class="title"> $!item.bookInfo.name </h2>
+                            <span>作者: </span> $!item.bookInfo.author  <br/>
+    						<span>出版社: </span> $!item.bookInfo.publisher  <br/>
+    						<span>ISBN: </span> $!item.bookInfo.isbn  <br/>
+						</div>
+					</div>
+					<div style="clear:both"></div>
+            	#end
+            </div>
+		</DIV>
+		<!-- content end here -->
+		<div style="clear:both"></div>
+		#parse("templates/common/footer.vm")
+	</DIV>
 </body>
 </html>

@@ -19,7 +19,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @Table(name = "BOOK_INFO")
 @NamedQueries({
                @NamedQuery(name = "deleteBookInfoById", query = "DELETE FROM BookInfo WHERE id = :id"),
-               @NamedQuery(name = "findBookInfoByIsbn", query = "SELECT b FROM BookInfo b WHERE b.isbn = :isbn OR b.isbn10 = :isbn OR b.isbn13 = :isbn") })
+               @NamedQuery(name = "findBookInfoByIsbn", query = "SELECT b FROM BookInfo b WHERE b.isbn = :isbn OR b.isbn10 = :isbn OR b.isbn13 = :isbn"),
+               @NamedQuery(name = "listBookInfoByIds", query = "SELECT b FROM BookInfo b where b.id in (:bookInfoIds)") })
 public class BookInfo {
 
     @Id
@@ -76,8 +77,8 @@ public class BookInfo {
 
     @Column(name = "GMT_MODIFIED")
     private Date    gmtModified;
-    
-    @ManyToOne(fetch=FetchType.LAZY)  
+
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="CATEGORY_ID",nullable=false,referencedColumnName="ID")
     private Category category;
 

@@ -1,0 +1,14 @@
+<li class="title">书籍管理
+	<ul>
+		<li><a href="/mygoldroom/myBooksListAction.action?state=all&loginId=gangyi.xiaogy">我的书籍</a></li>
+    	<li><a href="/mygoldroom/reservationListAction.action?loginId=gangyi.xiaogy">我预约的</a></li>
+    	<li><a href="/mygoldroom/lendingListAction.action?loginId=gangyi.xiaogy">我借阅的</a></li>
+	</ul>
+</li>
+
+<li class="title">个人信息
+	<ul>
+		<li><a href="#">修改密码</a></li>
+    	<li><a href="#">修改信息</a></li>
+	</ul>
+</li>

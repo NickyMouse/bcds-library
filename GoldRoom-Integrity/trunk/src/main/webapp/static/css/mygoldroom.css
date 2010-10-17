@@ -1,0 +1,12 @@
+.leftMenu  {float:left; margin:5px 50px 30px 20px;}
+.leftMenu li {font-size:14px; margin:5px}
+.leftMenu .title {border-bottom:1px dashed #D4D4D4;}
+
+.rightContent {float:left; width:80%}
+.rightContent .state {font-size:14px; margin:15px;}
+.rightContent .seledtedState {font-size:14px; font-weight:bold; margin:15px;}
+
+.bookItem {border-bottom:1px dashed #D4D4D4; font-size:13px}
+.bookItem .bookImage {float:left;max-height: 200px; max-width:150px; margin:10px}
+.bookItem .bookInfo {float:left; margin:10px}
+.bookItem .bookInfo span {color:#777777}

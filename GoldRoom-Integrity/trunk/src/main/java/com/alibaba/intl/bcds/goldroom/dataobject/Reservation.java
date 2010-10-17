@@ -52,11 +52,11 @@ public class Reservation {
 
     @Column(name = "GMT_CREATE")
     private Date gmtCreate;
-    
+
     @Column(name = "GMT_MODIFIED")
     private Date gmtModified;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "BOOK_ITEM_ID")
     private BookItem     bookItem;
 
