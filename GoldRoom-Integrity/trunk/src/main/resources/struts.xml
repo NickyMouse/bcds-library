@@ -7,7 +7,7 @@
 		name="default" optional="true" />
 	<constant name="struts.objectFactory"
 		value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
-	<constant name="struts.action.extension" value="do,html,action" />
+	<constant name="struts.action.extension" value="do,action" />
 	<constant name="struts.velocity.configfile" value="/WEB-INF/classes/velocity.properties" />
 	<constant name="struts.velocity.toolboxlocation" value="/WEB-INF/classes/toolbox.xml" />
 

@@ -1,0 +1,31 @@
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN"
+    "http://getahead.org/dwr/dwr20.dtd">
+
+<dwr>
+	<allow>
+		<create creator="new" javascript="JDate">
+			<param name="class" value="java.util.Date" />
+		</create>
+
+		<!-- initialize service -->
+		<create creator="spring" javascript="MemberService">
+			<param name="beanName" value="memberService"></param>
+			<param name="class"
+				value="com.alibaba.intl.bcds.goldroom.service.MemberService" />
+			<include method="findMemberByLoginId" />
+			<include method="isLoginIdExist" />
+		</create>
+		<!-- service end -->
+
+		<!-- convert start -->
+
+		<!-- Member java bean -->
+		<convert converter="bean" javascript="Member"
+			match="com.alibaba.intl.bcds.goldroom.dataobject.Member">
+			<param name="exclude" value="books,gmtModified,gmtCreate" />
+		</convert>
+
+		<!-- convert end -->
+	</allow>
+</dwr>

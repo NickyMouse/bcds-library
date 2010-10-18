@@ -1,0 +1,10 @@
+<style>
+	#memberInfo {display:none}
+</style>
+<div id="memberInfo">
+    <span>name:</span><span id="name"></span>
+	<span>aliTalkId:</span><span id="aliTalkId"></span>
+	<span>ext:</span><span id="ext"></span>
+	<span>email:</span><span id="email"></span>
+	<span>location:</span><span id="location"></span>
+</div>

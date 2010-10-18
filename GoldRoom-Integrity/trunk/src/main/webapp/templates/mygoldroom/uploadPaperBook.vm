@@ -31,7 +31,11 @@
 				#parse("templates/mygoldroom/menu.vm")
        		</div>
         	<div id="right" class="rightContent">
-				分享纸质书
+				分享纸质书<br/>
+				<form name="getBookInfoForm" method="post">
+					请输入ISBN：<input name="isbn" />
+					<input type="button" value="确定" />
+				</form>
             </div>
 		</DIV>
 		<!-- content end here -->

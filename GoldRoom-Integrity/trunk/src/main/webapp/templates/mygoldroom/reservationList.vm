@@ -12,11 +12,27 @@
 <link rel=stylesheet type=text/css href="..//static/css/packed_douban243.css"/>
 <link rel=stylesheet type=text/css href="..//static/css/packed__all68.css"/>
 
-<script type=text/javascript src="..//static/js/packed_jquery.min0.js"></script>
-<script type=text/javascript src="..//static/js/packed_douban96.js"></script>
-<script type=text/javascript src="..//static/js/packed__all8.js"></script>
-<script type=text/javascript src="..//static/js/aliww.js"></script>
 <link rel=stylesheet type=text/css href="..//static/css/mygoldroom.css" />
+
+<script type='text/javascript' src='/dwr/interface/MemberService.js'></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type=text/javascript src="..//static/js/jquery-1.4.2.min.js"></script>
+<script type='text/javascript'>
+    var reply3 = function(data)
+    {
+     	if (data != null && typeof data == 'object'){
+			var str = "name:" + data.name + "\n";
+			str += "workId:" + data.workId + "\n";
+			str += "loginId:" + data.loginId + "\n";
+			str += "email:" + data.email + "\n";
+			str += "aliTalkId:" + data.aliTalkId + "\n";
+			str += "location:" + data.location+ "\n";
+			str += "ext:" + data.ext+ "\n";
+			str += "score:" + data.score+ "\n";
+			alert(str);
+		}
+    }
+</script>
 </head>
 <body>
 	#parse("templates/common/header.vm")
@@ -56,7 +72,9 @@
         						<span>ISBN: </span> $!item.bookInfo.isbn  <br/>
     						</div>
 							<div class="column3">
-								 <span>拥有者: </span> $item.owner.name  <br/>
+								 <input type="hidden" id="bookItem${item.id}" value="$!item.owner.loginId"/>
+
+								 <span>拥有者: </span> <a href="javascript:MemberService.findMemberByLoginId(document.getElementById('bookItem$!{item.id}').value, reply3);">$!{item.owner.name}</a>  <br/>
 								 <span>开始时间: </span> $reservation.lendTime  <br/>
 								 <span>结束时间: </span> $reservation.returnTime <br/>
 								 #if($reservation.state == "reject")
@@ -74,6 +92,7 @@
 				#end
             </div>
 		</DIV>
+
 		<!-- content end here -->
 		<div style="clear:both"></div>
 		#set($totalCount =$reservationResult.totalCount)
@@ -82,5 +101,6 @@
 		#end
 		#parse("templates/common/footer.vm")
 	</DIV>
+	#parse("templates/common/memberInfo.vm")
 </body>
 </html>

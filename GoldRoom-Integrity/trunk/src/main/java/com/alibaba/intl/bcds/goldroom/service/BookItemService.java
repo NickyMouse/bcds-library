@@ -1,6 +1,5 @@
 package com.alibaba.intl.bcds.goldroom.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -30,15 +29,15 @@ public class BookItemService {
         bookItem.setState(BookItemStateEnum.IDLE.getValue());
 
         bookItemDao.save(bookItem);
-        
-        //TODO update bookItem Owner's Score 
+
+        //TODO update bookItem Owner's Score
 
         logger.info("[Add new book item] bookItem.id:" + bookItem.getId());
     }
 
     public BookItemResult listBookItemsByLoginIdAndState(String loginId, String state, int page, int pagesize) {
         int totalCount = 0;
-        List<BookItem> itemList = new ArrayList<BookItem>();
+        List<BookItem> itemList;
         if (StringUtils.isEmpty(state) || "all".equalsIgnoreCase(state)) {
             totalCount = bookItemDao.countBookItemsByLoginId(loginId);
             itemList = bookItemDao.listBookItemsByLoginId(loginId, page, pagesize);

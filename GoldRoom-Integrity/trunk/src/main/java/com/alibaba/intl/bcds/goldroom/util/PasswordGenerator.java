@@ -1,13 +1,14 @@
 package com.alibaba.intl.bcds.goldroom.util;
 
+import java.util.Random;
 
 public class PasswordGenerator {
 
     public static String getRandomPassword() {
-        int c1 = (int) (Math.random() * 100);
-        int c2 = (int) (Math.random() * 100);
-        int c3 = (int) (Math.random() * 100);
-        return "" + c1 + "" + c2 + "" + c3;
+        Random r = new Random();
+        int c1 = r.nextInt() % 1000;
+        int c2 = r.nextInt() % 1000;
+        return "" + c1 + "" + c2;
     }
 
     public static void main(String[] argv) {

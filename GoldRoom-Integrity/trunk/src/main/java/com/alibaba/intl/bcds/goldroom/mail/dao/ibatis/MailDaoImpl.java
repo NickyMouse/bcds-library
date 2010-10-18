@@ -22,13 +22,12 @@ public class MailDaoImpl implements MailDao {
 
 	@PersistenceContext(unitName = "goldroomPU")
     private EntityManager em;
-	
+
     @SuppressWarnings("unchecked")
     @Override
     public List<LendingWithExpireDays> listLendingWithExpireDays(boolean isExpire, int skipResult, int pageSize) {
-    	StringBuffer querySB = new StringBuffer("");
-    	//TODO enable the LendingWithExpireDays entity and obtained the data 
-        Map param = new Hashtable();
+    	//TODO enable the LendingWithExpireDays entity and obtained the data
+        Map param = new Hashtable<String,Object>();
         if (!isExpire) {
             param.put("littleThan0", true);
         }

@@ -12,9 +12,9 @@
 <link rel=stylesheet type=text/css href="..//static/css/packed_douban243.css"/>
 <link rel=stylesheet type=text/css href="..//static/css/packed__all68.css"/>
 
-<script type=text/javascript src="..//static/js/packed_jquery.min0.js"></script>
-<script type=text/javascript src="..//static/js/packed_douban96.js"></script>
-<script type=text/javascript src="..//static/js/packed__all8.js"></script>
+<link rel=stylesheet type=text/css href="..//static/css/packed_douban243.css"/>
+<link rel=stylesheet type=text/css href="..//static/css/packed__all68.css"/>
+<script type=text/javascript src="..//static/js/jquery-1.4.2.min.js"></script>
 
 <link rel=stylesheet type=text/css href="..//static/css/mygoldroom.css" />
 </head>

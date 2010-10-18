@@ -41,7 +41,7 @@ public class Category {
     @Column(name = "GMT_MODIFIED")
     private Date    gmtModified;
 
-    @Column(name = "LEAF")
+    @Column(name = "IS_LEAF")
     private boolean leaf;
 
     @Column(name = "LEVEL")
