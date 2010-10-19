@@ -16,6 +16,19 @@
 			<include method="findMemberByLoginId" />
 			<include method="isLoginIdExist" />
 		</create>
+		<create creator="spring" javascript="ReservationService">
+			<param name="beanName" value="reservationService"></param>
+			<param name="class"
+				value="com.alibaba.intl.bcds.goldroom.service.ReservationService" />
+			<include method="listReservationByBookItemId" />
+		</create>
+
+		<create creator="spring" javascript="LendService">
+			<param name="beanName" value="lendService"></param>
+			<param name="class"
+				value="com.alibaba.intl.bcds.goldroom.service.LendService" />
+			<include method="listLendingByBookItemId" />
+		</create>
 		<!-- service end -->
 
 		<!-- convert start -->
@@ -24,6 +37,26 @@
 		<convert converter="bean" javascript="Member"
 			match="com.alibaba.intl.bcds.goldroom.dataobject.Member">
 			<param name="exclude" value="books,gmtModified,gmtCreate" />
+		</convert>
+
+		<!-- Reservation java bean -->
+		<convert converter="bean" javascript="Reservation"
+			match="com.alibaba.intl.bcds.goldroom.dataobject.Reservation">
+			<param name="exclude" value="bookItem,gmtModified,gmtCreate" />
+		</convert>
+
+		<convert converter="bean" javascript="ReservationResult"
+			match="com.alibaba.intl.bcds.goldroom.result.ReservationResult">
+		</convert>
+
+		<!-- Lending java bean -->
+		<convert converter="bean" javascript="Lending"
+			match="com.alibaba.intl.bcds.goldroom.dataobject.Lending">
+			<param name="exclude" value="bookItem,gmtModified,gmtCreate" />
+		</convert>
+
+		<convert converter="bean" javascript="LendingResult"
+			match="com.alibaba.intl.bcds.goldroom.result.LendingResult">
 		</convert>
 
 		<!-- convert end -->

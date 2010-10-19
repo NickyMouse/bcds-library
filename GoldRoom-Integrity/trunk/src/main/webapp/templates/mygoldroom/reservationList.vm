@@ -15,10 +15,11 @@
 <link rel=stylesheet type=text/css href="..//static/css/mygoldroom.css" />
 
 <script type='text/javascript' src='/dwr/interface/MemberService.js'></script>
+
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type=text/javascript src="..//static/js/jquery-1.4.2.min.js"></script>
 <script type='text/javascript'>
-    var reply3 = function(data)
+    var showContact = function(data)
     {
      	if (data != null && typeof data == 'object'){
 			var str = "name:" + data.name + "\n";
@@ -32,6 +33,7 @@
 			alert(str);
 		}
     }
+
 </script>
 </head>
 <body>
@@ -74,7 +76,7 @@
 							<div class="column3">
 								 <input type="hidden" id="bookItem${item.id}" value="$!item.owner.loginId"/>
 
-								 <span>拥有者: </span> <a href="javascript:MemberService.findMemberByLoginId(document.getElementById('bookItem$!{item.id}').value, reply3);">$!{item.owner.name}</a>  <br/>
+								 <span>拥有者: </span> <a href="javascript:MemberService.findMemberByLoginId(document.getElementById('bookItem$!{item.id}').value, showContact);">$!{item.owner.name}</a>  <br/>
 								 <span>开始时间: </span> $reservation.lendTime  <br/>
 								 <span>结束时间: </span> $reservation.returnTime <br/>
 								 #if($reservation.state == "reject")

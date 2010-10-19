@@ -17,6 +17,44 @@
 <script type=text/javascript src="..//static/js/jquery-1.4.2.min.js"></script>
 
 <link rel=stylesheet type=text/css href="..//static/css/mygoldroom.css" />
+
+<script type='text/javascript' src='/dwr/interface/ReservationService.js'></script>
+<script type='text/javascript' src='/dwr/interface/LendService.js'></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script>
+	var showReservation = function(data)
+	{
+		//data.totalCount
+		//data.reservationList
+		if (data != null && typeof data == 'object'){
+			var reservationList = data.reservationList;
+			for(var i = 0; i <  reservationList.length; i++) {
+				var r = reservationList[i];
+				var str = "Id:" + r.id+ "\n";
+    			str += "subcriber:" + r.subscriber.name + "\n";
+    			str += "lendTime:" + r.lendTime + "\n";
+    			str += "returnTime:" + r.returnTime + "\n";
+    			str += "state:" + r.state + "\n";
+    			alert(str);
+			}
+		}
+	}
+	var showLending = function(data)
+	{
+		if (data != null && typeof data == 'object'){
+			var lendingList = data.lendingList;
+			for(var i = 0; i <  lendingList.length; i++) {
+				var r = lendingList[i];
+				var str = "Id:" + r.id+ "\n";
+    			str += "subcriber:" + r.subscriber.name + "\n";
+    			str += "lendTime:" + r.lendTime + "\n";
+    			str += "returnTime:" + r.returnTime + "\n";
+    			str += "state:" + r.state + "\n";
+    			alert(str);
+			}
+		}
+	}
+</script>
 </head>
 <body>
 	#parse("templates/common/header.vm")
@@ -65,10 +103,10 @@
 									<a href="#">下架</a>
 								#elseif ($!item.state=="lended")
 									<span>状态: </span><span style="color:orange">被借阅 </span><br/>
-									<a href="#">查看借阅信息</a>
+									<a href="javascript:LendService.listLendingByBookItemId($!item.id, showLending);">查看借阅信息</a>
 								#elseif ($!item.state=="reservated")
 									<span>状态: </span><span style="color:blue">被预约 </span><br/>
-									<a href="#">查看预约信息</a>
+									<a href="javascript:ReservationService.listReservationByBookItemId($!item.id, showReservation);">查看预约信息</a>
 								#elseif ($!item.state=="unavailable")
 									<span>状态: </span><span style="color:red">已下架 </span><br/>
 									<a href="#">上架</a>
