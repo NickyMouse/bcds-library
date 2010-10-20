@@ -29,7 +29,7 @@ import javax.persistence.Table;
                @NamedQuery(name = "countReservationByBookItemId", query = "SELECT COUNT(r) FROM Reservation r WHERE r.bookItem.id = :bookItemId"),
 
                @NamedQuery(name = "listReservationByLoginIdAndState", query = "SELECT r FROM Reservation r WHERE r.subscriber.loginId = :loginId and r.state = :state ORDER BY gmtModified DESC"),
-               @NamedQuery(name = "countReservationByLoginIdAndState", query = "SELECT COUNT(r) FROM Reservation r WHERE r.subscriber.loginId = :loginId and r.state = :state"),
+               @NamedQuery(name = "countReservationByLoginIdAndState", query = "SELECT COUNT(r) FROM Reservation r WHERE r.subscriber.loginId = :loginId and r.state = :state")
 
 })
 public class Reservation {
