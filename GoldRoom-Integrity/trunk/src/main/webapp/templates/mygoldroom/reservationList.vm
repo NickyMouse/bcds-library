@@ -18,7 +18,20 @@
 
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type=text/javascript src="/static/js/jquery-1.4.2.min.js"></script>
+<style>
+	#contactInfo{
+			position:absolute;
+			width:200px;
+			height:200px;
+			background:red;
+			color:#fff;
+			left:50%;
+			margin-top:-100px;
+			margin-left:-100px;
+	}
+</style>
 <script type='text/javascript'>
+	jQuery.noConflict();
     var showContact = function(data)
     {
      	if (data != null && typeof data == 'object'){
@@ -31,6 +44,9 @@
 			str += "ext:" + data.ext+ "\n";
 			str += "score:" + data.score+ "\n";
 			alert(str);
+			var contactInfo = jQuery("#contactInfo").show();
+			contactInfo.html(str);
+			contactInfo.css("top", jQuery(document).scrollTop() + 300);
 		}
     }
 
@@ -103,6 +119,9 @@
 		#end
 		#parse("templates/common/footer.vm")
 	</DIV>
-	#parse("templates/common/memberInfo.vm")
+	##parse("templates/common/memberInfo.vm")
+	<div id="contactInfo" style="display:none">
+		info info
+	</div>
 </body>
 </html>

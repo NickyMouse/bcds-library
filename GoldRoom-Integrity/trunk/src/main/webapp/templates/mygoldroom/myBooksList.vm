@@ -22,7 +22,19 @@
 <script type='text/javascript' src='/dwr/interface/ReservationService.js'></script>
 <script type='text/javascript' src='/dwr/interface/LendService.js'></script>
 <script type='text/javascript' src='/dwr/engine.js'></script>
+
+<style>
+	#contactInfo{
+			position:absolute;
+			width:200px;
+			height:200px;
+			background:red;
+			color:#fff;
+			left:50%;top:50%;margin-top:-100px;margin-left:-100px;
+	}
+</style>
 <script>
+	jQuery.noConflict();
 	var showReservation = function(data)
 	{
 		//data.totalCount
@@ -52,6 +64,9 @@
     			str += "returnTime:" + r.returnTime + "\n";
     			str += "state:" + r.state + "\n";
     			alert(str);
+				var contactInfo = jQuery("#contactInfo").show();
+				contactInfo.html(str);
+				contactInfo.css("margin-top", jQuery(document).scrollTop() - contactInfo.css("height") / 2);
 			}
 		}
 	}
@@ -131,6 +146,8 @@
 		#end
 		#parse("templates/common/footer.vm")
 	</DIV>
-
+	<div id="contactInfo" style="display:none">
+		info info
+	</div>
 </body>
 </html>
