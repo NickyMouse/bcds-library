@@ -17,10 +17,11 @@
 			<result name="error">/templates/common/error404.vm</result>
 		</global-results>
 		<action name="indexAction" class="com.alibaba.intl.bcds.goldroom.action.IndexAction" >
-			<result name="success" type="velocity">/template/index.html</result>
+			<result name="success" type="velocity">/templates/index.vm</result>
 		</action>
     </package>
 
 	<include file="struts/temp/struts-test.xml" />
 	<include file="struts/mygoldroom/struts-mygoldroom.xml" />
+	<include file="struts/books/struts-book.xml" />
 </struts>
