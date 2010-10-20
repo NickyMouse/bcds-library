@@ -5,14 +5,19 @@
 <struts>
 	<bean class="org.apache.struts2.views.velocity.VelocityManager"
 		name="default" optional="true" />
+	<constant name="struts.serve.static" value="false"/>
 	<constant name="struts.objectFactory"
 		value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
 	<constant name="struts.action.extension" value="do,action" />
 	<constant name="struts.velocity.configfile" value="/WEB-INF/classes/velocity.properties" />
 	<constant name="struts.velocity.toolboxlocation" value="/WEB-INF/classes/toolbox.xml" />
 
+	<package name="default"  namespace="/" extends="struts-default">
+		<action name="indexAction" class="com.alibaba.intl.bcds.goldroom.action.IndexAction" >
+			<result name="success" type="velocity">/template/index.html</result>
+		</action>
+    </package>
 
-	<!-- include all struts dispatch configuration files here -->
 	<include file="struts/temp/struts-test.xml" />
 	<include file="struts/mygoldroom/struts-mygoldroom.xml" />
 </struts>
