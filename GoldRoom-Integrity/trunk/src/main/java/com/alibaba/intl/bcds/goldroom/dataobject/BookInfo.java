@@ -79,7 +79,7 @@ public class BookInfo {
     private Date    gmtModified;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="CATEGORY_ID",nullable=false,referencedColumnName="ID")
+    @JoinColumn(name="CATEGORY_ID",nullable=true,referencedColumnName="ID")
     private Category category;
 
     public Integer getId() {

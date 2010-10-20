@@ -12,11 +12,47 @@
 <link rel=stylesheet type=text/css href="..//static/css/packed_douban243.css"/>
 <link rel=stylesheet type=text/css href="..//static/css/packed__all68.css"/>
 
-<script type=text/javascript src="..//static/js/packed_jquery.min0.js"></script>
-<script type=text/javascript src="..//static/js/packed_douban96.js"></script>
-<script type=text/javascript src="..//static/js/packed__all8.js"></script>
+<script type=text/javascript src="..//static/js/jquery-1.4.2.min.js"></script>
+<script type='text/javascript' src='/dwr/interface/BookInfoService.js'></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
 
 <link rel=stylesheet type=text/css href="..//static/css/mygoldroom.css" />
+<style>
+	.uploadDiv {text-align:center; margin:10px 20px 0px 20px; font-size:14px}
+	##.uploadBookInfo .first{text-align:right; width:100px; color:#006600;}
+</style>
+<script>
+	var dealWithBookInfo = function(data)
+	{
+		if (data != null && typeof data == 'object'){
+			document.getElementById("name").innerHTML = data.name;
+			document.getElementById("author").innerHTML = data.author;
+			document.getElementById("publisher").innerHTML = data.publisher;
+			document.getElementById("publishTime").innerHTML = data.publishTime;
+			document.getElementById("edition").innerHTML = data.edition;
+			document.getElementById("pages").innerHTML = data.pages;
+			document.getElementById("translator").innerHTML = data.translator;
+			document.getElementById("description").innerHTML = data.description;
+			document.getElementById("imgUrl").innerHTML = data.imgUrl;
+
+			document.getElementById("isbn").value = data.isbn;
+			document.getElementById("bookInfoId").value = data.id;
+			document.getElementById("uploadBookInfo").style.display = "";
+
+		} else{
+			alert ("error");
+		}
+	}
+	function getBookInfo(isbnObj) {
+		var isbn = isbnObj.value;
+		isbn = isbn.trim();
+		if(isbn.length == 0) {
+			isbnObj.value = "";
+		}
+		BookInfoService.getBookInfoFromDbAndNetWork(isbn, dealWithBookInfo);
+		isbnObj.value = isbn;
+	}
+</script>
 </head>
 <body>
 	#parse("templates/common/header.vm")
@@ -31,11 +67,60 @@
 				#parse("templates/mygoldroom/menu.vm")
        		</div>
         	<div id="right" class="rightContent">
-				分享纸质书<br/>
-				<form name="getBookInfoForm" method="post">
-					请输入ISBN：<input name="isbn" />
-					<input type="button" value="确定" />
-				</form>
+				<div class="uploadDiv">
+    				<h2>分享纸质书</h2>
+    				<span>请输入ISBN：</span><input name="first_isbn" id="first_isbn"/><input type="button" value="确定" onclick="javascript:getBookInfo(document.getElementById('first_isbn'))"/>
+
+					<div class="uploadBookInfo" id="uploadBookInfo" style="display:none">
+    					<table>
+    						<tr>
+    							<td class="first">名称</td>
+    							<td id="name"></td>
+    						</tr>
+    						<tr>
+    							<td class="first">作者</td>
+    							<td id="author"></td>
+    						</tr>
+    						<tr>
+    							<td class="first">出版社</td>
+    							<td id="publisher"></td>
+    						</tr>
+    						<tr>
+    							<td class="first">出版时间</td>
+    							<td id="publishTime"></td>
+    						</tr>
+    						<tr>
+    							<td class="first">版本</td>
+    							<td id="edition"></td>
+    						</tr>
+    						<tr>
+    							<td class="first">页数</td>
+    							<td id="pages"></td>
+    						</tr>
+    						<tr>
+    							<td class="first">译者</td>
+    							<td id="translator"></td>
+    						</tr>
+    						<tr>
+    							<td class="first">简介</td>
+    							<td id="description"></td>
+    						</tr>
+    						<tr>
+    							<td class="first">imgURL</td>
+    							<td id="imgUrl"></td>
+    						</tr>
+                        </table>
+
+    					<form name="uploadBookForm" action="/mygoldroom/uploadPaperBookAction.action">
+							<input type="hidden" name="bookInfoId" id="bookInfoId" />
+    						<input type="hidden" name="isbn" id="isbn"/>
+							loginId:<input type="text" name="loginId" id="loginId"/> <br/>
+							remark:<input type="text" name="remark" id="remark"/> <br/>
+    						tags:<input type="text" name="tags" id="tags"/> <br/>
+    						<input type="submit" value="分享" />
+    					</form>
+					</div>
+				</div>
             </div>
 		</DIV>
 		<!-- content end here -->

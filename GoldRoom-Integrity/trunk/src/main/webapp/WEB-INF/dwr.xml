@@ -1,7 +1,4 @@
-<!DOCTYPE dwr PUBLIC
-    "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN"
-    "http://getahead.org/dwr/dwr20.dtd">
-
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" "http://getahead.org/dwr//dwr30.dtd">
 <dwr>
 	<allow>
 		<create creator="new" javascript="JDate">
@@ -29,6 +26,14 @@
 				value="com.alibaba.intl.bcds.goldroom.service.LendService" />
 			<include method="listLendingByBookItemId" />
 		</create>
+
+		<create creator="spring" javascript="BookInfoService">
+			<param name="beanName" value="bookInfoService"></param>
+			<param name="class"
+				value="com.alibaba.intl.bcds.goldroom.service.BookInfoService" />
+			<include method="getBookInfoFromDbAndNetWork" />
+		</create>
+
 		<!-- service end -->
 
 		<!-- convert start -->
@@ -57,6 +62,11 @@
 
 		<convert converter="bean" javascript="LendingResult"
 			match="com.alibaba.intl.bcds.goldroom.result.LendingResult">
+		</convert>
+
+		<convert converter="bean" javascript="BookInfo"
+			match="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo">
+			<param name="exclude" value="category,gmtModified,gmtCreate" />
 		</convert>
 
 		<!-- convert end -->

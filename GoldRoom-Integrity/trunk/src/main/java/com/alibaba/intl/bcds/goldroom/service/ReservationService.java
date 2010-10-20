@@ -137,7 +137,7 @@ public class ReservationService {
 
                     logger.info("[Reservation success]" + reservation.getId());
 
-                    // 发�?邮件
+                    // 发送邮件
                     EmailInfo emailInfo = new EmailInfo(ServiceType.RESERVATION);
                     emailInfo.setOwner(bookOwner);
                     emailInfo.setBorrower(subcriber);

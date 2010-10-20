@@ -1,31 +1,104 @@
 package com.alibaba.intl.bcds.goldroom.action.mygoldroom;
 
+import java.util.Date;
+
 import org.apache.commons.lang.xwork.StringUtils;
 
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
+import com.alibaba.intl.bcds.goldroom.constaints.BookItemStateEnum;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
+import com.alibaba.intl.bcds.goldroom.dataobject.Member;
+import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 
 public class UploadPaperBookAction extends BaseAction {
 
-	/**
+    /**
 	 *
 	 */
-	private static final long serialVersionUID = 8866434764023038616L;
+    private static final long serialVersionUID = 8866434764023038616L;
 
-	private String isbn;
+    private String            isbn;
 
-	public String execute() throws Exception {
-		if (StringUtils.isBlank(isbn)) {
-			return "showForm";
-		}
-		return "showForm";
-//		return SUCCESS;
-	}
+    private Integer           bookInfoId;
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
+    private String            tags;
 
-	public String getIsbn() {
-		return isbn;
-	}
+    private String            remark;
+
+    private String            loginId;
+
+    private BookItemService   bookItemService;
+
+    public String execute() throws Exception {
+        if (StringUtils.isBlank(isbn)) {
+            return "showForm";
+        }
+        Member currentMember = new Member();
+        currentMember.setLoginId(loginId);
+
+        BookInfo currentBookInfo = new BookInfo();
+        currentBookInfo.setId(bookInfoId);
+
+        BookItem bookItem = new BookItem();
+        bookItem.setFirstAddTime(new Date());
+        bookItem.setAddTime(bookItem.getFirstAddTime());
+
+        bookItem.setState(BookItemStateEnum.IDLE.getValue());
+        bookItem.setRemark(remark);
+        bookItem.setTags(tags);
+        bookItem.setOwner(currentMember);
+        bookItem.setBookInfo(currentBookInfo);
+
+        bookItemService.addBookItem(bookItem);
+        return SUCCESS;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setBookInfoId(Integer bookInfoId) {
+        this.bookInfoId = bookInfoId;
+    }
+
+    public Integer getBookInfoId() {
+        return bookInfoId;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setBookItemService(BookItemService bookItemService) {
+        this.bookItemService = bookItemService;
+    }
+
+    public BookItemService getBookItemService() {
+        return bookItemService;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
+
+    public String getLoginId() {
+        return loginId;
+    }
 }
