@@ -12,7 +12,10 @@
 	<constant name="struts.velocity.configfile" value="/WEB-INF/classes/velocity.properties" />
 	<constant name="struts.velocity.toolboxlocation" value="/WEB-INF/classes/toolbox.xml" />
 
-	<package name="default"  namespace="/" extends="struts-default">
+	<package name="default" namespace="/" extends="struts-default">
+		<global-results>
+			<result name="error">/templates/common/error404.vm</result>
+		</global-results>
 		<action name="indexAction" class="com.alibaba.intl.bcds.goldroom.action.IndexAction" >
 			<result name="success" type="velocity">/template/index.html</result>
 		</action>
