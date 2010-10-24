@@ -1,1 +1,144 @@
-aaa
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>黄金屋</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="no-cache" http-equiv="Pragma"/>
+<meta content="Sun, 6 Mar 2005 01:00:00 GMT" http-equiv="Expires"/>
+<meta name="description" content="来黄金屋，收获更多。">
+
+<link rel="shortcut icon" type=image/x-icon href="http://t.douban.com/favicon.ico"/>
+<link rel=stylesheet type=text/css href="/static/css/packed_douban243.css"/>
+<link rel=stylesheet type=text/css href="/static/css/packed__all68.css"/>
+
+<link rel=stylesheet type=text/css href="/static/css/packed_douban243.css"/>
+<link rel=stylesheet type=text/css href="/static/css/packed__all68.css"/>
+
+<script type=text/javascript src="/static/js/jquery-1.4.2.min.js"></script>
+
+<STYLE type=text/css></STYLE>
+
+<SCRIPT type=text/javascript>
+    jQuery(document).ready(function() {
+        jQuery("#menu1 .clearfix").addClass("on");
+        jQuery("#content_menu1").show();
+        jQuery(".movie_new .content").hide();
+        jQuery("#newcontent1").show();
+        jQuery(".movie_review .content").hide();
+        jQuery("#review1").show();
+    })
+
+    jQuery(function() {
+        var hl=jQuery("#hot_movies_menu li"),content=$(".movie_headerline .content");
+        hl.mouseover(function() {
+            jQuery(".menu li .clearfix").removeClass("on");
+            jQuery("#"+this.id+" .clearfix").addClass("on");
+            content.hide();
+            jQuery("#content_"+this.id).show();
+            return false;
+        });
+        jQuery(hl[0]).addClass("on");
+        for(var i=5; i; --i) {
+            tab("#new"+i,".movie_new","#newcontent")
+            if(i<=3) {
+                  tab("#reviewtab"+i,".movie_review","#review")
+            }
+        }
+    });
+
+
+
+    function tab(e,t,c) {
+        jQuery(e).mousedown(function() {
+            jQuery(t+" .green_tab a").removeClass("on");
+            jQuery(this).addClass("on");
+            jQuery(t+" .content").hide();
+            jQuery(c+this.id.slice(-1)).show();             
+            jQuery.get("/j/movie/j_tab_count",{id:this.id})
+        })
+    }
+
+</SCRIPT>
+
+<META name=GENERATOR content="MSHTML 8.00.7600.16625"></HEAD>
+<BODY>
+<DIV class=top-nav>
+<DIV class=bd>
+<DIV class=top-nav-info>
+	用户名：<input name="username" type="text" maxLength=60 value="用户名" style="color:rgb(212, 212, 212);"/>&nbsp;&nbsp;
+	密码：<input name="password" type="password" maxLength=60 value="密码" style="color:rgb(212, 212, 212);"/>&nbsp;&nbsp;
+	<input type="button" value="登录"/> 
+</DIV>
+<DIV class=top-nav-items>
+<UL>
+  <LI><A href="#">黄金屋</A> </LI>
+  <LI><A href="#">最新上架</A> </LI>
+  <LI class=on><A href="#">热门榜</A> </LI>
+</UL>
+</DIV></DIV></DIV>
+<DIV id=wrapper>
+<DIV id=header>
+<DIV id=db-nav-movie class=site-nav>
+<DIV class=site-nav-logo><A href="http://movie.douban.com/"><IMG alt=黄金屋 width="145px" heigth="35px"
+src="/static/images/logo.jpg"></A></DIV>
+<DIV class=bd>
+<DIV class=nav-srh>
+<FORM method=get name=ssform action=/subject_search>
+<DIV class=inp><SPAN><INPUT title=电影名称、导演、演员、imdb号 value="JAVA" maxLength=60 size=22 
+name=search_text></SPAN> <INPUT value=1002 type=hidden name=cat> <SPAN><INPUT class=bn-srh value=搜索 type=submit></SPAN> </DIV></FORM></DIV>
+<DIV class=site-nav-items>
+<UL>
+  <LI><A href="#">纸质书</A> </LI>
+  <LI><A href="#">电子书</A> </LI>
+  <LI><A href="#">排行榜</A> </LI>
+  <LI><A href="#">分类浏览</A> </LI>
+  <LI><A href="#">热评</A> 
+</LI></UL></DIV></DIV></DIV>
+</DIV>
+<style>
+#onebook{
+	height: 180px;
+	border-bottom:1px dashed #DDDDDD;
+	margin-top:10px;
+}	
+</style>
+<DIV id="searchList" style="width:950px;">
+	#if($bookSearchResult)
+		#foreach($book in $bookSearchResult.bookList)
+	<div id="onebook" style="">
+	<div style="float: left; height: 160px; width: 120px;">
+		<a href="detail.htm"><img class="m_sub_img" height=160px; width=120px; src="$book.bookImgUrl"></a>
+	</div>
+	<div style="float: right; height: 160px; overflow: hidden; width: 800px;">
+		<div id="up">
+		<h3>图书信息：$book.bookName</h3>
+		作者：$book.bookAuthor   出版时间：$book.bookPublishTime
+		</div>
+		<div id="mid">
+		<h3>拥有者信息：</h3>
+		姓名：$book.bookOwners
+		</div>
+		<div id="down">
+		<h3>简介：</h3>
+		$book.bookDescription
+		</div>
+	</div>
+	</div>
+		#end
+	#else
+		Search engine Test failed, please check your configuration.
+	#end
+	
+	<div>
+		#set($totalCount = $bookSearchResult.totalCount)
+		#if($totalCount && $totalCount > 0)
+			#parse("templates/common/pageTurn.vm")
+		#end
+	</div>
+</DIV>
+
+#parse("templates/common/footer.vm")
+
+<!-- douban ad end -->
+
+<!-- baggins4--></BODY></HTML>
