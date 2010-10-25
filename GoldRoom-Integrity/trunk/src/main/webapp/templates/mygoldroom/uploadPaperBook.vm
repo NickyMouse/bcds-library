@@ -111,7 +111,7 @@
     						</tr>
                         </table>
 
-    					<form name="uploadBookForm" action="/mygoldroom/uploadPaperBookAction.action">
+    					<form name="uploadBookForm" action="/mygoldroom/uploadPaperBook.action">
 							<input type="hidden" name="bookInfoId" id="bookInfoId" />
     						<input type="hidden" name="isbn" id="isbn"/>
 							loginId:<input type="text" name="loginId" id="loginId"/> <br/>

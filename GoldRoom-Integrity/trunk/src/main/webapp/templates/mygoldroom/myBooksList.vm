@@ -34,7 +34,6 @@
 	}
 </style>
 <script>
-	jQuery.noConflict();
 	var showReservation = function(data)
 	{
 		//data.totalCount
@@ -86,15 +85,15 @@
        		</div>
         	<div id="right" class="rightContent">
 				<div>
-				<a href="/mygoldroom/myBooksListAction.action?state=all&loginId=gangyi.xiaogy" #if($state=="all") class="seledtedState" #else class="state" #end>
+				<a href="/mygoldroom/myBooksList.action?state=all&loginId=gangyi.xiaogy" #if($state=="all") class="seledtedState" #else class="state" #end>
 							全部 #if($state=="all")($!{bookItemResult.totalCount})#end</a>
-				<a href="/mygoldroom/myBooksListAction.action?state=idle&loginId=gangyi.xiaogy" #if($state=="idle") class="seledtedState" #else class="state" #end>
+				<a href="/mygoldroom/myBooksList.action?state=idle&loginId=gangyi.xiaogy" #if($state=="idle") class="seledtedState" #else class="state" #end>
 							空闲 #if($state=="idle")($!{bookItemResult.totalCount})#end</a>
-				<a href="/mygoldroom/myBooksListAction.action?state=reservated&loginId=gangyi.xiaogy" #if($state=="reservated") class="seledtedState" #else class="state" #end>
+				<a href="/mygoldroom/myBooksList.action?state=reservated&loginId=gangyi.xiaogy" #if($state=="reservated") class="seledtedState" #else class="state" #end>
 							被预约 #if($state=="reservated")($!{bookItemResult.totalCount})#end</a>
-				<a href="/mygoldroom/myBooksListAction.action?state=lended&loginId=gangyi.xiaogy" #if($state=="lended") class="seledtedState" #else class="state" #end>
+				<a href="/mygoldroom/myBooksList.action?state=lended&loginId=gangyi.xiaogy" #if($state=="lended") class="seledtedState" #else class="state" #end>
 							被借阅 #if($state=="lended")($!{bookItemResult.totalCount})#end</a>
-				<a href="/mygoldroom/myBooksListAction.action?state=unavailable&loginId=gangyi.xiaogy" #if($state=="unavailable") class="seledtedState" #else class="state" #end>
+				<a href="/mygoldroom/myBooksList.action?state=unavailable&loginId=gangyi.xiaogy" #if($state=="unavailable") class="seledtedState" #else class="state" #end>
 							已下架 #if($state=="unavailable")($!{bookItemResult.totalCount})#end</a>
 				</div>
 				#set($bookList = $bookItemResult.itemList)
@@ -103,10 +102,12 @@
     					<div class="bookItem">
     						<div class="bookImage">
     							##<img src="$item.bookInfo.imgUrl"/>
-    							<img src="http://img3.douban.com/mpic/s4478937.jpg" />
+								<a href="/detail/bookDetail.action?bookInfoId=$!item.bookInfo.id" target="_blank">
+									<img src="http://img3.douban.com/mpic/s4478937.jpg" />
+								</a>
     						</div>
     						<div class="bookInfo">
-        						<h2 class="title"> $!item.bookInfo.name </h2>
+        						<h2 class="title"> <a href="/detail/bookDetail.action?bookInfoId=$!item.bookInfo.id" target="_blank"> $!item.bookInfo.name </a></h2>
 
                                 <span>作者: </span> $!item.bookInfo.author <br/>
         						<span>出版社: </span> $!item.bookInfo.publisher <br/>

@@ -42,5 +42,6 @@
 	#else
 		<span class="next">后页&gt;</span>
 	#end
+	<span class="count">(共$!totalCount条)</span>
 </div>
 #end

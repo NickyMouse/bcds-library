@@ -1,7 +1,7 @@
 ﻿<DIV id="header">
 <DIV id="db-nav-movie" class="site-nav">
 <DIV class="site-nav-logo">
-	<A href="http://movie.douban.com/">
+	<A href="/index.action">
 		<IMG alt="黄金屋" width="145px" heigth="35px" src="/static/images/logo.jpg"></A></DIV>
     <DIV class="bd">
         <DIV class="nav-srh">

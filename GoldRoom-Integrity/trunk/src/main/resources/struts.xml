@@ -19,7 +19,7 @@
 		<global-exception-mappings>
 			<exception-mapping result="error" exception="java.lang.Exception"/>
 		</global-exception-mappings>
-		<action name="indexAction" class="com.alibaba.intl.bcds.goldroom.action.IndexAction" >
+		<action name="index" class="com.alibaba.intl.bcds.goldroom.action.IndexAction" >
 			<result name="success" type="velocity">/templates/index.vm</result>
 		</action>
     </package>
@@ -27,4 +27,5 @@
 	<include file="struts/temp/struts-test.xml" />
 	<include file="struts/mygoldroom/struts-mygoldroom.xml" />
 	<include file="struts/books/struts-book.xml" />
+	<include file="struts/detail/struts-detail.xml" />
 </struts>
