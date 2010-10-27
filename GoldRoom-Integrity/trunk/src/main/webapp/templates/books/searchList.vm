@@ -15,7 +15,7 @@
 	</div>
 	<div style="float: right; height: 160px; overflow: hidden; width: 800px;">
 		<div id="up">
-		<h3>图书信息：$book.bookName</h3>
+		<h3>图书信息：<a href="/detail/bookDetail.do?bookInfoId=$book.bookInfoId">$book.bookName</a></h3>
 		作者：$book.bookAuthor   出版时间：$book.bookPublishTime
 		</div>
 		<div id="mid">
