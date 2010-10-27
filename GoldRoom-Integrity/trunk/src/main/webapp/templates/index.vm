@@ -42,8 +42,6 @@
 		}
 	}
 </script>
-<DIV id="wrapper">
-	#parse("templates/common/searchbar.vm")
 	<!-- content start here-->
 	这是首页
 	<!-- content end here -->

@@ -6,13 +6,11 @@
 		</create>
 
 		<!-- initialize service -->
-		<create creator="spring" javascript="MemberService">
-			<param name="beanName" value="memberService"></param>
-			<param name="class"
-				value="com.alibaba.intl.bcds.goldroom.service.MemberService" />
-			<include method="findMemberByLoginId" />
-			<include method="isLoginIdExist" />
+		<create javascript="MemberService" creator="spring" >
+			<param name="beanName" value="memberService"/>
+			<include method="doLogin,findMemberByLoginId,isLoginIdExist"/>
 		</create>
+		
 		<create creator="spring" javascript="ReservationService">
 			<param name="beanName" value="reservationService"></param>
 			<param name="class"

@@ -142,7 +142,23 @@ public class MemberService {
             return null;
         }
     }
-
+    
+    /**
+     * 用户前台JS登录
+     * @author Harrison
+     * @param loginId
+     * @param password
+     * @return
+     */
+    public String doLogin(String loginId, String password){
+    	Member member = login(loginId, password);
+    	if(member != null){
+    		return "{'result':'success','name':'" + member.getName() + "','score':"+ member.getScore() +"}";
+    	}else{
+    		return "{'result':'failure'}";
+    	}
+    }
+    
     public List<Member> listMemberByStatus(String status) {
         if (StringUtils.isEmpty(status)) {
             return null;

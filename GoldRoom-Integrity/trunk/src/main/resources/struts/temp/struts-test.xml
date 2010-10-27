@@ -5,7 +5,7 @@
 <struts>
 	<!-- <bean class="org.apache.struts2.views.velocity.VelocityManager" name="default"
 		optional="true" /> -->
-	<package name="/test" extends="struts-default">
+	<package name="test" namespace="/test" extends="default" >
 		<action name="testAction" class="com.alibaba.intl.bcds.goldroom.action.test.TestAction">
 			<param name="param1">value1</param>
 			<param name="param2">value2</param>
