@@ -6,10 +6,10 @@
 		<IMG alt="黄金屋" width="145px" heigth="35px" src="$base/static/images/logo.jpg"></A></DIV>
     <DIV class="bd">
         <DIV class="nav-srh">
-        	<FORM method="get" name="ssform" action="/subject_search">
+        	<FORM method="get" name="ssform" action="$base/book/search.do">
             <DIV class="inp">
             	<SPAN>
-            		<INPUT title="书籍名称/ISBN号" maxLength="60" size="22" name="search_text">
+            		<INPUT title="书籍名称/ISBN号" value="$!{keyword}" maxLength="60" size="22" name="keyword">
             	</SPAN>
             	<SPAN>
             		<INPUT class="bn-srh" value="搜索" type="submit">

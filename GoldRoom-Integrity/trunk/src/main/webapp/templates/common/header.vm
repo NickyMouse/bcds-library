@@ -18,7 +18,7 @@
 		#parse("/templates/common/memberInfo.vm")
 		<DIV class=top-nav-items>
 		<UL>
-		  <LI><A href="#">黄金屋</A> </LI>
+		  <LI><A href="/">黄金屋</A> </LI>
 		  <LI><A href="#">最新上架</A> </LI>
 		  <LI class=on><A href="#">热门榜</A> </LI>
 		</UL>
