@@ -1,14 +1,15 @@
-<DIV class=top-nav>
-<DIV class=bd>
-<DIV class=top-nav-info>
-	用户名：<input name="username" type="text" maxLength=60 value="用户名" style="color:rgb(212, 212, 212);"/>&nbsp;&nbsp;
-	密码：<input name="password" type="password" maxLength=60 value="密码" style="color:rgb(212, 212, 212);"/>&nbsp;&nbsp;
-	<input type="button" value="登录"/>
-</DIV>
-<DIV class=top-nav-items>
-<UL>
-  <LI><A href="http://127.0.0.1:8080/mygoldroom/myBooksList.action?loginId=gangyi.xiaogy">我的黄金屋</A> </LI>
-  <LI><A href="#">最新上架</A> </LI>
-  <LI class=on><A href="#">热门榜</A> </LI>
-</UL>
-</DIV></DIV></DIV>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<HTML>
+	<head>
+		<title>黄金屋--阿里人的图书分享平台</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+		<meta name="description" content="黄金屋，益多多">
+		
+		<link rel="shortcut icon" type=image/x-icon href="http://t.douban.com/favicon.ico"/>
+		<link rel=stylesheet type=text/css href="$base/static/css/packed_douban243.css"/>
+		<link rel=stylesheet type=text/css href="$base/static/css/packed__all68.css"/>
+		
+		<script type=text/javascript src="$base/static/js/jquery-1.4.2.min.js"></script>
+		<script type='text/javascript' src='$base/dwr/engine.js'></script>
+	</head>
+	<body>

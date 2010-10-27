@@ -2,7 +2,7 @@
 <DIV id="db-nav-movie" class="site-nav">
 <DIV class="site-nav-logo">
 	<A href="/index.action">
-		<IMG alt="黄金屋" width="145px" heigth="35px" src="/static/images/logo.jpg"></A></DIV>
+		<IMG alt="黄金屋" width="145px" heigth="35px" src="$base/static/images/logo.jpg"></A></DIV>
     <DIV class="bd">
         <DIV class="nav-srh">
         	<FORM method="get" name="ssform" action="/subject_search">

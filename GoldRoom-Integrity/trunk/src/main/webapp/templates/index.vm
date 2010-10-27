@@ -1,25 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<!-- saved from url=(0024)http://movie.douban.com/ -->
-<HTML xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title>黄金屋</title>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<meta content="no-cache" http-equiv="Pragma"/>
-<meta content="Sun, 6 Mar 2005 01:00:00 GMT" http-equiv="Expires"/>
-<meta name="description" content="来黄金屋，收获更多。">
+#parse("/templates/common/header.vm")
 
-<link rel="shortcut icon" type=image/x-icon href="http://t.douban.com/favicon.ico"/>
-<link rel=stylesheet type=text/css href="/static/css/packed_douban243.css"/>
-<link rel=stylesheet type=text/css href="/static/css/packed__all68.css"/>
-
-<link rel=stylesheet type=text/css href="/static/css/packed_douban243.css"/>
-<link rel=stylesheet type=text/css href="/static/css/packed__all68.css"/>
-
-<script type=text/javascript src="/static/js/jquery-1.4.2.min.js"></script>
-
-
-<script type='text/javascript' src='/dwr/interface/ReservationService.js'></script>
-<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='$base/dwr/interface/ReservationService.js'></script>
 <style>
 	.ownerInfo li {float: left; border-bottom: 1px dashed rgb(221, 221, 221); margin-left:10%; width: 80%; margin-bottom: 4px; padding-bottom: 5px; padding-left: 5px;}
 </style>
@@ -61,21 +42,13 @@
 		}
 	}
 </script>
-</head>
-<body>
-	#parse("templates/common/header.vm")
+<DIV id="wrapper">
+	#parse("templates/common/searchbar.vm")
+	<!-- content start here-->
+	这是首页
+	<!-- content end here -->
+	<div style="clear:both"></div>
 
-	<DIV id="wrapper">
-		#parse("templates/common/searchbar.vm")
-		<!-- content start here-->
-		这是首页
-		<!-- content end here -->
-		<div style="clear:both"></div>
-
-		#parse("templates/common/footer.vm")
-	</DIV>
-	<div id="contactInfo" style="display:none">
-		info info
-	</div>
-</body>
-</html>
+</DIV>
+	
+#parse("templates/common/footer.vm")
