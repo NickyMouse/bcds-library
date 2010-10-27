@@ -39,9 +39,6 @@
 	}
 </script>
 
-
-	<DIV id="wrapper">
-		#parse("templates/common/searchbar.vm")
 		<!-- content start here-->
 		<DIV id=content>
             <h1>我的黄金屋</h1>

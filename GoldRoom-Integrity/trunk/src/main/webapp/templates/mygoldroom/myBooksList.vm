@@ -80,12 +80,12 @@
     					<div class="bookItem">
     						<div class="bookImage">
     							##<img src="$item.bookInfo.imgUrl"/>
-								<a href="/detail/bookDetail.action?bookInfoId=$!item.bookInfo.id" target="_blank">
+								<a href="$base/detail/bookDetail.action?bookInfoId=$!item.bookInfo.id" target="_blank">
 									<img src="http://img3.douban.com/mpic/s4478937.jpg" />
 								</a>
     						</div>
     						<div class="bookInfo">
-        						<h2 class="title"> <a href="/detail/bookDetail.action?bookInfoId=$!item.bookInfo.id" target="_blank"> $!item.bookInfo.name </a></h2>
+        						<h2 class="title"> <a href="$base/detail/bookDetail.action?bookInfoId=$!item.bookInfo.id" target="_blank"> $!item.bookInfo.name </a></h2>
 
                                 <span>作者: </span> $!item.bookInfo.author <br/>
         						<span>出版社: </span> $!item.bookInfo.publisher <br/>
