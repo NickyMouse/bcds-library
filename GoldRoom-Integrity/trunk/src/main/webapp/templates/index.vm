@@ -309,6 +309,7 @@ href="http://movie.douban.com/nowplaying">更多</A> )</SPAN> </H2>
       </UL>
     </DIV>
   </DIV>
+  <!-- list-->
   <UL id=hot_movies_menu class=menu>
     <LI id=menu1 class=first>
       <DIV class=clearfix>
@@ -346,56 +347,17 @@ href="http://movie.douban.com/nowplaying">更多</A> )</SPAN> </H2>
           <A class=title onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/2072478/">
             Java网络编程精解
           </A>
-          <SPAN class=allstar40>
+          <SPAN class=allstar50>
           </SPAN>
           7.6
         </DIV>
       </DIV>
     </LI>
-    <LI id=menu3>
-      <DIV class=clearfix>
-        <EM>
-        </EM>
-        <DIV class=arrow>
-        </DIV>
-        <DIV class=img>
-          <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/4707230/">
-            <IMG src="index_files/s4402102(1).jpg" height=48>
-          </A>
-        </DIV>
-        <DIV class=intro>
-          <A class=title onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/4707230/">
-            Java核心技术：卷Ⅰ基础知识
-          </A>
-          <SPAN class=allstar35>
-          </SPAN>
-          7.1
-        </DIV>
-      </DIV>
-    </LI>
-    <LI id=menu4 class=last>
-      <DIV class=clearfix>
-        <EM>
-        </EM>
-        <DIV class=arrow>
-        </DIV>
-        <DIV class=img>
-          <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/4735944/">
-            <IMG src="index_files/s4411209(1).jpg" height=48>
-          </A>
-        </DIV>
-        <DIV class=intro>
-          <A class=title onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/4735944/">
-            JAVA面向对象编程
-          </A>
-          <SPAN class=allstar30>
-          </SPAN>
-          5.6
-        </DIV>
-      </DIV>
-    </LI>
+
   </UL>
 </DIV>
+
+<!--热门排行list结束-->
 <DIV class=movie_new>
   <H2 class="green_tab clearfix">
     <DIV class=ll>
@@ -1676,19 +1638,7 @@ href="http://movie.douban.com/nowplaying">更多</A> )</SPAN> </H2>
 
 </DIV>
 <DIV class=extra></DIV></DIV></DIV>
-<DIV id=footer>
-	<SPAN id=icp class="fleft gray-link">© 2005－2010 douban.com, all rights reserved </SPAN>
-	<SPAN class=fright>
-	<A href="http://www.douban.com/about">关于黄金屋</A> · 
-	<A href="http://www.douban.com/about?topic=contactus">联系我们</A> · 
-	<A href="http://www.douban.com/about?policy=disclaimer">免责声明</A> · 
-	<A href="http://www.douban.com/help/">帮助中心</A>
-	</SPAN>
-</DIV>
-</DIV>
-	<!-- content end here -->
-	<div style="clear:both"></div>
 #parse("templates/common/footer.vm")
-</DIV>
+
 
 
