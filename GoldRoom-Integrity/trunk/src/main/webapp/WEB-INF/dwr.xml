@@ -8,7 +8,10 @@
 		<!-- initialize service -->
 		<create javascript="MemberService" creator="spring" >
 			<param name="beanName" value="memberService"/>
-			<include method="doLogin,findMemberByLoginId,isLoginIdExist"/>
+
+			<include method="findMemberByLoginId"/>
+			<include method="isLoginIdExist"/>
+			<include method="login"/>
 		</create>
 		
 		<create creator="spring" javascript="ReservationService">

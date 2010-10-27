@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="$base/dwr/interface/MemberService.js"></script>
 	<script type="text/javascript">
 		function userLogon(){
-			MemberService.doLogin(jQuery("#username").val(), jQuery("#password").val(),function(resp){
+			MemberService.login(jQuery("#username").val(), jQuery("#password").val(),function(resp){
 				if(resp != null){
 					if(resp.result == "success"){
 						var userInfoStr = "<label>欢迎您：</label>"+resp.name+"，<label>您当前积分：</label>" + resp.score;

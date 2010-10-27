@@ -128,7 +128,7 @@ public class MemberService {
         }
     }
 
-    public Member login(String loginId, String password) {
+    private Member memberLogin(String loginId, String password) {
         if (StringUtils.isEmpty(loginId) || StringUtils.isEmpty(password)) {
             return null;
         }
@@ -148,10 +148,10 @@ public class MemberService {
      * @author Harrison
      * @param loginId
      * @param password
-     * @return
+     * @return JSON String
      */
-    public String doLogin(String loginId, String password){
-    	Member member = login(loginId, password);
+    public String login(String loginId, String password){
+    	Member member = memberLogin(loginId, password);
     	if(member != null){
     		return "{'result':'success','name':'" + member.getName() + "','score':"+ member.getScore() +"}";
     	}else{
