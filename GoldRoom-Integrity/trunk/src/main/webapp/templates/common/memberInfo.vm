@@ -1,15 +1,23 @@
 	<DIV class="top-nav-info" id="member_login_id">
 		<label>用户名：</label>
-		<input name="username" type="text" maxLength=60 value="用户名" style="color:rgb(212, 212, 212);" onfocusin="javascript:this.value = ''"/>&nbsp;&nbsp;
+		<input id="username" name="username" title="请输入用户名" type="text" maxLength=60 value="用户名" onfocus="javascript:jQuery(this).val('');"/>&nbsp;&nbsp;
 		<label>密码：</label>
-		<input name="password" type="password" maxLength=60 value="密码" style="color:rgb(212, 212, 212);" onfocusin="javascript:this.value = ''"/>&nbsp;&nbsp;
-		<input type="button" value="登录"/> 
+		<input id="password" name="password" title="请输入登录口令" type="password" maxLength=60 value="密码" onfocus="javascript:jQuery(this).val('');"/>&nbsp;&nbsp;
+		<input type="button" value="登录" onclick="javascript:userLogon();"/> 
 	</div>
 	
-	<div id="member_info_div" class="top-nav-info" style="display:none">
-		欢迎您：$name
-		<span>aliTalkId:</span><span id="aliTalkId"></span>
-		<span>ext:</span><span id="ext"></span>
-		<span>email:</span><span id="email"></span>
-		<span>location:</span><span id="location"></span>
-	</div>
+	<script type="text/javascript" src="$base/dwr/interface/MemberService.js"></script>
+	<script type="text/javascript">
+		function userLogon(){
+			MemberService.doLogin(jQuery("#username").val(), jQuery("#password").val(),function(resp){
+				if(resp != null){
+					if(resp.result == "success"){
+						var userInfoStr = "<label>欢迎您：</label>"+resp.name+"，<label>您当前积分：</label>" + resp.score;
+						jQuery("#member_login_id").html(userInfoStr);
+					}else{
+						alert("登录失败：用户名或密码错～！");
+					}
+				}
+			});
+		}
+	</script>
