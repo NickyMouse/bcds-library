@@ -6,7 +6,7 @@
 		</create>
 
 		<!-- initialize service -->
-		<create javascript="MemberService" creator="spring" >
+		<create javascript="MemberService" creator="spring">
 			<param name="beanName" value="memberService"/>
 			
 			<include method="findMemberByLoginId"/>

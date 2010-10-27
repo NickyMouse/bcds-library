@@ -128,7 +128,13 @@ public class MemberService {
         }
     }
 
-    private Member memberLogin(String loginId, String password) {
+    /**
+     * 用户登录
+     * @param loginId
+     * @param password
+     * @return member 对象
+     */
+    public Member doLogin(String loginId, String password) {
         if (StringUtils.isEmpty(loginId) || StringUtils.isEmpty(password)) {
             return null;
         }
@@ -141,22 +147,6 @@ public class MemberService {
         } else {
             return null;
         }
-    }
-    
-    /**
-     * 用户前台JS登录
-     * @author Harrison
-     * @param loginId
-     * @param password
-     * @return JSON String
-     */
-    public String login(String loginId, String password){
-    	Member member = memberLogin(loginId, password);
-    	if(member != null){
-    		return "{'result':'success','name':'" + member.getName() + "','score':"+ member.getScore() +"}";
-    	}else{
-    		return "{'result':'failure'}";
-    	}
     }
     
     public List<Member> listMemberByStatus(String status) {
