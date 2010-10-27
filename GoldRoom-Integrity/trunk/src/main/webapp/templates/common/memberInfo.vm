@@ -11,7 +11,7 @@
 		function userLogon(){
 			MemberService.doLogin(jQuery("#username").val(), jQuery("#password").val(), function(resp){
 				if(resp != null){
-					var userInfoStr = "<label>欢迎您：</label>"+resp.name+"，<label>您当前积分：</label>" + (resp.score == null)? 0:resp.score;
+					var userInfoStr = "<label>欢迎您：</label>" + resp.name + " ，您当前积分：" + (resp.score == null?0:resp.score);
 					jQuery("#member_login_id").html(userInfoStr);
 				}else{
 					alert("登录失败：用户名或密码错～！");
