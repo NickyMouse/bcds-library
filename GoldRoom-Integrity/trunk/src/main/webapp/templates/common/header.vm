@@ -15,19 +15,12 @@
 	<body>
 	<DIV class=top-nav>
 	<DIV class=bd>
-	<DIV class=top-nav-info>
-		<div id="member_login_div">
-		<label>用户名：</label>
-		<input name="username" type="text" maxLength=60 value="用户名" style="color:rgb(212, 212, 212);" onfocusin="javascript:this.value = ''"/>&nbsp;&nbsp;
-		<label>密码：</label>
-		<input name="password" type="password" maxLength=60 value="密码" style="color:rgb(212, 212, 212);" onfocusin="javascript:this.value = ''"/>&nbsp;&nbsp;
-		<input type="button" value="登录"/> 
-	</div>
-	</DIV>
-	<DIV class=top-nav-items>
-	<UL>
-	  <LI><A href="#">黄金屋</A> </LI>
-	  <LI><A href="#">最新上架</A> </LI>
-	  <LI class=on><A href="#">热门榜</A> </LI>
-	</UL>
+		#parse("/templates/common/memberInfo.vm")
+		<DIV class=top-nav-items>
+		<UL>
+		  <LI><A href="#">黄金屋</A> </LI>
+		  <LI><A href="#">最新上架</A> </LI>
+		  <LI class=on><A href="#">热门榜</A> </LI>
+		</UL>
 	</DIV></DIV></DIV>
+	#parse("/templates/common/searchbar.vm")

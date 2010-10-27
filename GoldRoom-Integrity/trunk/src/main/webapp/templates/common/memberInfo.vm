@@ -1,11 +1,13 @@
-	<div id="memberInfo">
-		<DIV class=top-nav-info>
-			用户名：<input name="username" type="text" maxLength=60 value="用户名" style="color:rgb(212, 212, 212);"/>&nbsp;&nbsp;
-			密码：<input name="password" type="password" maxLength=60 value="密码" style="color:rgb(212, 212, 212);"/>&nbsp;&nbsp;
-			<input type="button" value="登录"/>
-		</DIV>
+	<DIV class="top-nav-info" id="member_login_id">
+		<label>用户名：</label>
+		<input name="username" type="text" maxLength=60 value="用户名" style="color:rgb(212, 212, 212);" onfocusin="javascript:this.value = ''"/>&nbsp;&nbsp;
+		<label>密码：</label>
+		<input name="password" type="password" maxLength=60 value="密码" style="color:rgb(212, 212, 212);" onfocusin="javascript:this.value = ''"/>&nbsp;&nbsp;
+		<input type="button" value="登录"/> 
+	</div>
 	
-	    <span>name:</span><span id="name"></span>
+	<div id="member_info_div" class="top-nav-info" style="display:none">
+		欢迎您：$name
 		<span>aliTalkId:</span><span id="aliTalkId"></span>
 		<span>ext:</span><span id="ext"></span>
 		<span>email:</span><span id="email"></span>

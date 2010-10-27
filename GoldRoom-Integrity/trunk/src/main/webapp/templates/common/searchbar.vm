@@ -1,4 +1,5 @@
-﻿<DIV id="header">
+﻿<DIV id="wrapper">
+<DIV id="header">
 <DIV id="db-nav-movie" class="site-nav">
 <DIV class="site-nav-logo">
 	<A href="/index.action">
@@ -8,7 +9,7 @@
         	<FORM method="get" name="ssform" action="/subject_search">
             <DIV class="inp">
             	<SPAN>
-            		<INPUT title="电影名称、导演、演员、imdb号" maxLength="60" size="22" name="search_text">
+            		<INPUT title="书籍名称/ISBN号" maxLength="60" size="22" name="search_text">
             	</SPAN>
             	<INPUT value="1002" type="hidden" name="cat">
             	<SPAN>
