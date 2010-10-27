@@ -1624,7 +1624,7 @@ href="http://movie.douban.com/nowplaying">更多</A> )</SPAN> </H2>
   href="http://movie.douban.com/subject/3279080/">谭春梅</A> </DIV><SPAN 
   class="box_chart_num color-gray">1650</SPAN> </LI>
   <LI class=clearfix>
-  <DIV class=no>2</DIV>
+  <DIV class=no>2 </DIV>
   <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
   href="http://movie.douban.com/subject/4901335/">刘琳</A> <IMG 
   src="index_files/box_new.png"> </DIV><SPAN 
