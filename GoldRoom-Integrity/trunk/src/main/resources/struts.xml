@@ -27,5 +27,5 @@
 	<include file="struts/temp/struts-test.xml" />
 	<include file="struts/mygoldroom/struts-mygoldroom.xml" />
 	<include file="struts/books/struts-book.xml" />
-	<include file="struts/detail/struts-detail.xml" />
+	<include file="struts/books/struts-detail.xml" />
 </struts>
