@@ -11,7 +11,7 @@
 		#foreach($book in $bookSearchResult.bookList)
 	<div id="onebook" style="">
 	<div style="float: left; height: 160px; width: 120px;">
-		<a href="detail.htm"><img class="m_sub_img" height=160px; width=120px; src="$book.bookImgUrl"></a>
+		<a href="/detail/bookDetail.do?bookInfoId=$book.bookInfoId" target="_blank"><img class="m_sub_img" height=160px; width=120px; src="$book.bookImgUrl"></a>
 	</div>
 	<div style="float: right; height: 160px; overflow: hidden; width: 800px;">
 		<div id="up">
