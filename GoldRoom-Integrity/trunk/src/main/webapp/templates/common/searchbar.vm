@@ -19,8 +19,8 @@
         </DIV>
             <DIV class="site-nav-items">
             <UL>
-              <LI><A href="#">纸质书</A></LI>
-              <LI><A href="#">电子书</A></LI>
+              <LI><A href="/book/search.do?bookType=pbook">纸质书</A></LI>
+              <LI><A href="/book/search.do?bookType=ebook">电子书</A></LI>
               <LI><A href="#">排行榜</A></LI>
               <LI><A href="#">分类浏览</A></LI>
               <LI><A href="#">热评</A></LI>
