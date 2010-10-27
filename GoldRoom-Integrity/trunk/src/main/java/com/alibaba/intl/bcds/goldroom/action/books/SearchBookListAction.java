@@ -11,12 +11,20 @@ public class SearchBookListAction extends BaseAction {
 
     private BookInfoService   bookInfoService;
     private String            keyword;
+    private String            bookType;
     private BookSearchResult  bookSearchResult;
 
     private int               page;
     private int               pageSize;
     
-    
+    public String getBookType() {
+        return bookType;
+    }
+
+    public void setBookType(String bookType) {
+        this.bookType = bookType;
+    }
+
     public int getPage() {
         return page;
     }
@@ -59,10 +67,23 @@ public class SearchBookListAction extends BaseAction {
     }
 
     public String execute() throws Exception {
+        SearchBookType bt = null;
         if (page <= 0) {
             page = 1;
         }
-        bookSearchResult = bookInfoService.searchBookByKeyword(keyword, SearchBookType.ALL, page, pageSize);
+        if(bookType == null || "all".equals(bookType)){
+            bt = SearchBookType.ALL;
+        }else if("ebook".equals(bookType)){
+            bt = SearchBookType.EBOOK;
+        }else{
+            bt = SearchBookType.PAPER_BOOK;
+        }
+        if(keyword == null || "".equals(keyword.trim())){
+            bookSearchResult = bookInfoService.listAllBook(bt, page, pageSize);
+        }else{
+            System.out.println("keyword:" + keyword +",bt:" + bt);
+            bookSearchResult = bookInfoService.searchBookByKeyword(keyword, bt, page, pageSize);
+        }
         return SUCCESS;
     }
 
