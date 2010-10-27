@@ -11,7 +11,6 @@
             	<SPAN>
             		<INPUT title="书籍名称/ISBN号" maxLength="60" size="22" name="search_text">
             	</SPAN>
-            	<INPUT value="1002" type="hidden" name="cat">
             	<SPAN>
             		<INPUT class="bn-srh" value="搜索" type="submit">
             	</SPAN>
