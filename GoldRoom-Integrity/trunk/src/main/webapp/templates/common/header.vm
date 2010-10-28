@@ -24,3 +24,5 @@
 		</UL>
 	</DIV></DIV></DIV>
 	#parse("/templates/common/searchbar.vm")
+	##纸质书封面图片地址
+	#set ($imageServer='http://goldroom.b2b.alibaba-inc.com/upload')
