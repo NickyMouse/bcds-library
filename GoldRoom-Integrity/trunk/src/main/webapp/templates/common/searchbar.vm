@@ -1,4 +1,4 @@
-﻿<DIV id="wrapper">
+<DIV id="wrapper">
 <DIV id="header">
 <DIV id="db-nav-movie" class="site-nav">
 <DIV class="site-nav-logo">
@@ -21,9 +21,6 @@
             <UL>
               <LI><A href="/book/search.do?bookType=pbook">纸质书</A></LI>
               <LI><A href="/book/search.do?bookType=ebook">电子书</A></LI>
-              <LI><A href="#">排行榜</A></LI>
-              <LI><A href="#">分类浏览</A></LI>
-              <LI><A href="#">热评</A></LI>
             </UL>
             </DIV>
         </DIV>

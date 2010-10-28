@@ -341,7 +341,7 @@ BODY {
 	DISPLAY: block; HEIGHT: 0px; CLEAR: both; CONTENT: ' '
 }
 .top-nav {
-	BORDER-BOTTOM: #d4d4d4 1px dashed; WIDTH: 100%; HEIGHT: 30px; COLOR: black; CLEAR: both; margin-bottom: -10px;
+	BORDER-BOTTOM: #d4d4d4 1px dashed; WIDTH: 100%; HEIGHT: 30px; COLOR: black; CLEAR: both; margin-bottom: 5px;
 }
 .top-nav .bd {
 	MARGIN: 0px auto; WIDTH: 950px
