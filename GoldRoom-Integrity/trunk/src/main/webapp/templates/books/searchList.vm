@@ -6,33 +6,113 @@
 	margin-top:10px;
 }	
 </style>
+
 <DIV id="searchList" style="width:950px;">
+	
+	<style>
+		.imageBorder {
+			-moz-border-radius:3px 3px 3px 3px;
+			-moz-box-shadow:1px 1px 1px 1px #999999;
+			float:left;
+			padding: 2px; 
+			margin-top: 9px;
+			height:160px;
+			margin-left: -3px;
+		}
+		.book-search-info{
+			margin-top: 5px;
+		}
+		.book-search-info LI {
+			BORDER-BOTTOM: #ddd 1px dashed; PADDING-BOTTOM: 5px; WIDTH: 305px; MARGIN-BOTTOM: 4px
+		}
+		.book-search-list{
+			margin-right: 10px;
+			float:left;
+			width:446px; 
+			border: 1px solid rgb(228, 228, 228); 
+			padding: 0px 8px; 
+			margin-bottom: 5px;
+		}
+	</style>
+<SCRIPT type=text/javascript>
+jQuery(function () {
+  	var t;
+	jQuery('.imageBorder').hover(
+        function () {
+            if (t) {
+                window.clearTimeout(t);
+            }
+            var that = this;
+            t = window.setTimeout(function () {
+                var detailFrame = jQuery('.detail-frame', that).html();
+                var thisX = jQuery('img', that).offset().left;
+                var thisY = jQuery('img', that).offset().top;
+
+                if (jQuery(that).width() == 104) {
+                    var ml = 114;
+                } else {
+                    var ml = jQuery('img', that).width() + 10;
+                }
+
+                jQuery('body').append('<div class="detail-tip shadow-right"></div>');
+                jQuery('.detail-tip').html(detailFrame)
+                .append('<span class="arrow-left"></span>')
+                .css('left', thisX + ml)
+                .css('top', thisY);
+            }, 200);
+        },
+        function () {
+            if (t) {
+                window.clearTimeout(t);
+            }
+            jQuery('.detail-tip').remove();
+        }
+    );
+  });
+</script>
+	<div>
 	#if($bookSearchResult)
 		#foreach($book in $bookSearchResult.bookList)
-	<div id="onebook" style="">
-	<div style="float: left; height: 160px; width: 120px;">
-		<a href="/detail/bookDetail.do?bookInfoId=$book.bookInfoId" target="_blank"><img class="m_sub_img" height=160px; width=120px; src="$imageServer$book.bookImgUrl"></a>
-	</div>
-	<div style="float: right; height: 160px; overflow: hidden; width: 800px;">
-		<div id="up">
-		<h3>图书信息：<a href="/detail/bookDetail.do?bookInfoId=$book.bookInfoId" target="_blank">$book.bookName</a></h3>
-		作者：$book.bookAuthor   出版时间：$book.bookPublishTime
+			#set($bgColor = "")
+			#if($velocityCount=="2" || $velocityCount=="3" || $velocityCount=="6" || $velocityCount=="7" || $velocityCount=="10" )
+				#set($bgColor = "#E7F5F6")
+			#end
+		<div class="aside movie_headerline book-search-list" style="background:$bgColor">
+            <div class="left_conner"><em> </em> <b> </b></div>
+            <div class="first"><em> </em> <b> </b></div>
+            <div class="last"><em> </em> <b> </b></div>
+            <div class="imageBorder">
+            	<img width="120px;" height="160px;" src="$imageServer$book.bookImgUrl" class="m_sub_img">
+				<DIV class="detail-frame">
+					<H3><B>书籍简介$book.bookDescription.length():</B></H3>
+					<P>
+					    #if($book.bookDescription.length() > 200)
+						   $book.bookDescription.substring(0,200) ．．．
+   						#else
+						   $book.bookDescription
+   						#end
+					</P>
+				</DIV>
+            </div>
+            <div class="newtags" style="float:right">
+                <ul class="book-search-info">
+                	<div style="height: 150px;" class="ownerInfo">
+                    	<li><b>书名：</b><a href="/detail/bookDetail.do?bookInfoId=$book.bookInfoId" target="_blank">$book.bookName</a></li>
+                    	<li><b>作者：</b>$book.bookAuthor</li>
+                    	<li><b>ISBN：</b>$book.bookIsbn</li>
+						<li><b>出版时间：</b>$book.bookPublishTime</li>
+                    	<li><b>邮箱：</b><a href="mailto:chaosen.lincs@alibaba-inc.com">chaosen.lincs@alibaba-inc.com</a></li>
+                    	<li><b>&nbsp;</b></li>
+					</div>
+                </ul>
+			</div>
 		</div>
-		<div id="mid">
-		<h3>拥有者信息：</h3>
-		姓名：$book.bookOwners
-		</div>
-		<div id="down">
-		<h3>简介：</h3>
-		$book.bookDescription
-		</div>
-	</div>
-	</div>
-		#end
+			#end
 	#else
 		Search engine Test failed, please check your configuration.
 	#end
-	
+	</div>
+	<div class="CLEAR: both;">&nbsp;</div>
 	<div>
 		#set($totalCount = $bookSearchResult.totalCount)
 		#if($totalCount && $totalCount > 0)
