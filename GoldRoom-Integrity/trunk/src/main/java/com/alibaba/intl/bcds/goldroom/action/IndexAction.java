@@ -56,6 +56,16 @@ public class IndexAction extends BaseAction {
 
 		// 获取热评记录
 		List<BookItem> hotBooks1 = creatHotBooks();
+		
+		//新书榜 按照 标签来获取不同的新书 TODO
+		
+		//最受欢迎的书评 TODO
+		
+		//热门标签  TODO
+		
+		//推荐排行榜 TODO
+		
+		//积分排行榜 TODO
 
 		hotBooks = hotBooks1;
 
