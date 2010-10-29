@@ -1,6 +1,7 @@
 package com.alibaba.intl.bcds.goldroom.dataobject;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
                @NamedQuery(name = "countBookItemsByLoginId", query = "SELECT COUNT(i) FROM BookItem i WHERE i.owner.loginId = :loginId"),
                @NamedQuery(name = "listBookItemByBookInfoId", query = "SELECT i FROM BookItem i WHERE i.bookInfo.id = :bookInfoId ORDER BY i.gmtCreate DESC"),
                @NamedQuery(name = "listBookItemsByLoginIdAndStateAndBookInfoIds", query = "SELECT i FROM BookItem i WHERE i.bookInfo.id in (:bookInfoIds) AND i.owner.loginId = :loginId AND state = :state"),
-               @NamedQuery(name = "listBookItemsByLoginIdsAndBookInfoId", query = "SELECT i FROM BookItem i WHERE i.bookInfo.id = :bookInfoId AND i.owner.loginId in (:loginIds)")
+               @NamedQuery(name = "listBookItemsByLoginIdsAndBookInfoId", query = "SELECT i FROM BookItem i WHERE i.bookInfo.id = :bookInfoId AND i.owner.loginId in (:loginIds)"),
+               @NamedQuery(name = "getBookItemsByAddtime", query = "SELECT i FROM BookItem i  ORDER BY i.addTime DESC")
 
 })
 public class BookItem {
@@ -65,8 +67,8 @@ public class BookItem {
     @ManyToOne
     @JoinColumn(name = "BOOK_INFO_ID")
     private BookInfo bookInfo;
-
-    public Integer getId() {
+ 
+	public Integer getId() {
         return id;
     }
 

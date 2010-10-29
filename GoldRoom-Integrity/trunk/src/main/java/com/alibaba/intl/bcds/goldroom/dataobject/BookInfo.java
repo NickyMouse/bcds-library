@@ -1,6 +1,7 @@
 package com.alibaba.intl.bcds.goldroom.dataobject;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +13,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.hibernate.annotations.Any;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.opensymphony.xwork2.util.Element;
 
 @Entity
 @Table(name = "BOOK_INFO")
@@ -81,8 +87,23 @@ public class BookInfo {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="CATEGORY_ID",nullable=true,referencedColumnName="ID")
     private Category category;
+    
+    /**
+     * 有关书的评论信息
+     */
+    @Transient
+    private List<Comment> comments;
 
-    public Integer getId() {
+	
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -118,4 +118,13 @@ public class BookItemService {
         return bookItemDao.listBookItemsByLoginIdsAndBookInfoId(loginIds, bookInfoId);
 
     }
+    
+    /**
+     * 按时间排序取count条记录
+     * @param count取数据的数量
+     * @return
+     */
+    public List<BookItem> getBookItemsByAddtime(int count){
+		return bookItemDao.getBookItemsByAddtime(count);
+	}
 }

@@ -135,4 +135,11 @@ public class BookItemDaoImpl implements BookItemDao {
         return q.getResultList();
     }
 
+	public List<BookItem> getBookItemsByAddtime(int count) {
+		Query q = em.createNamedQuery("getBookItemsByAddtime");
+		q.setFirstResult(0);
+		q.setMaxResults(count);
+		return q.getResultList();
+	}
+
 }

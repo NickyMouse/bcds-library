@@ -21,6 +21,7 @@
             return false;
         });
         jQuery(hl[0]).addClass("on");
+		
         for(var i=5; i; --i) {
             tab("#new"+i,".movie_new","#newcontent")
             if(i<=3) {
@@ -61,7 +62,7 @@
 <DIV class="grid-16-8 clearfix">
 <DIV class=article>
 <H2 class=mb5>热门排行 · · · · · · <SPAN class=pl>( <A 
-href="http://movie.douban.com/nowplaying">更多</A> )</SPAN> </H2>
+href="/list">更多</A> )</SPAN> </H2>
 <DIV class="movie_headerline clearfix">
   <DIV class=left_conner>
     <EM>
@@ -69,111 +70,55 @@ href="http://movie.douban.com/nowplaying">更多</A> )</SPAN> </H2>
     <B>
     </B>
   </DIV>
-  
-  <DIV id=content_menu1 class="content clearfix">
+ 	#foreach($bookinfo in $hotBooks)
+    #set($item = $bookinfo.bookInfo)
+	#set($commons = $item.comments)
+  <DIV id=content_menu$!velocityCount class="content clearfix">
     <DIV class=headerline_img>
-      <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/3279080/">
-        <IMG src="index_files/s4387257.jpg">
-      </A>
-    </DIV>
-    <DIV class=headerline_content>
-      <DIV class="title clearfix">
-        <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/3279080/">
-          JAVA编程思想（第四版）
-        </A>
-        <SPAN class=bigstar35>
-        </SPAN>
-        <SPAN class=grade>
-          7.1
-        </SPAN>
-      </DIV>
-      <SPAN class=pl>
-        作者:
-      </SPAN>
-      （美）埃克尔 著，陈昊鹏 译
-      <BR>
-      <SPAN class=pl>
-        出版时间:
-      </SPAN>
-      2007-6-1
-      <BR>
-      <SPAN class=pl>
-        内容简介:
-      </SPAN>
-      本书赢得了全球程序员的广泛赞誉，即使是最晦涩的概念，在Bruce Eckel的文字亲和力和小而直接的编程示例面前也会化解于无形...
-      <BR><BR>
-      <SPAN class="fright color-gray">
-        9038人看过 / 13194人想看
-      </SPAN>
-    </DIV>
-    <DIV style="MARGIN-TOP: -5px; _margin-top: -5px" class=ul>
-    </DIV>
-    <DIV class=headerline_review>
-      <UL>
-        <LI>
-          [书评]
-          <A href="http://movie.douban.com/review/3571158/">
-            非常值得看几遍的一本书！
-          </A>
-          <DIV style="FLOAT: right">
-            &gt;
-            <A href="#">
-              更多书评
-            </A>
-          </DIV>
-          <LI>
-            [书评]
-            <A href="http://movie.douban.com/review/3567168/">
-              大师之作，非同凡响
-            </A>
-          </LI>
-      </UL>
-    </DIV>
-  </DIV>
-  <DIV id=content_menu2 class="content clearfix">
-    <DIV class=headerline_img>
-      <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/2072478/">
+      <A onclick="moreurl(this, {from:'cinema'})" href="detail">
         <IMG src="index_files/s4294116.jpg">
       </A>
     </DIV>
     <DIV class=headerline_content>
       <DIV class="title clearfix">
-        <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/2072478/">
-          Java网络编程精解
+        <A onclick="moreurl(this, {from:'cinema'})" href="detail">
+          $!item.name
         </A>
         <SPAN class=bigstar40>
         </SPAN>
         <SPAN class=grade>
-          7.6
+         
         </SPAN>
       </DIV>
       <SPAN class=pl>
         作者:
       </SPAN>
-      （美）埃克尔 著，陈昊鹏 译
+       $!item.author 
       <BR>
       <SPAN class=pl>
         出版时间:
       </SPAN>
-      2007-6-1
+       $!item.publishTime
       <BR>
       <SPAN class=pl>
         内容简介:
       </SPAN>
-      本书赢得了全球程序员的广泛赞誉，即使是最晦涩的概念，在Bruce Eckel的文字亲和力和小而直接的编程示例面前也会化解于无形...
-      <BR><BR>
+     $!item.description
+      <BR>
       <SPAN class="fright color-gray">
-        9038人看过 / 13194人想看
+       
       </SPAN>
     </DIV>
     <DIV style="MARGIN-TOP: -5px; _margin-top: -5px" class=ul>
     </DIV>
     <DIV class=headerline_review>
       <UL>
+		<!--书评-->
+		#foreach($common in $commons)
         <LI>
           [书评]
-          <A href="http://movie.douban.com/review/3571158/">
-            网络编程必看的一本书！
+          <A href="qqq">
+            $!common.content
           </A>
           <DIV style="FLOAT: right">
             &gt;
@@ -181,61 +126,38 @@ href="http://movie.douban.com/nowplaying">更多</A> )</SPAN> </H2>
               更多书评
             </A>
           </DIV>
-          <LI>
-            [书评]
-            <A href="http://movie.douban.com/review/3567168/">
-              好书！！
-            </A>
-          </LI>
+		</LI>
+		#end
       </UL>
     </DIV>
   </DIV>
-  
+  	#end
   <!-- list-->
+  #foreach($bookinfo in $hotBooks)
+  #set($item = $bookinfo.bookInfo)
   <UL id=hot_movies_menu class=menu>
-    <LI id=menu1 class=first>
+    <LI id=menu$!velocityCount class=first>
       <DIV class=clearfix>
         <EM>
         </EM>
         <DIV class=arrow>
         </DIV>
         <DIV class=img>
-          <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/3279080/">
-            <IMG src="index_files/s4387257(1).jpg" height=48>
+          <A onclick="moreurl(this, {from:'cinema'})" href="">
+            <IMG src="item.imgUrl" height=48>
           </A>
         </DIV>
         <DIV class=intro>
-          <A class=title onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/3279080/">
-            JAVA编程思想（第四版）
+          <A class=title onclick="moreurl(this, {from:'cinema'})" href="">
+            $item.name
           </A>
           <SPAN class=allstar35>
           </SPAN>
-          7.1
+        
         </DIV>
       </DIV>
     </LI>
-    <LI id=menu2>
-      <DIV class=clearfix>
-        <EM>
-        </EM>
-        <DIV class=arrow>
-        </DIV>
-        <DIV class=img>
-          <A onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/2072478/">
-            <IMG src="index_files/s4294116(1).jpg" height=48>
-          </A>
-        </DIV>
-        <DIV class=intro>
-          <A class=title onclick="moreurl(this, {from:'cinema'})" href="http://movie.douban.com/subject/2072478/">
-            Java网络编程精解
-          </A>
-          <SPAN class=allstar50>
-          </SPAN>
-          7.6
-        </DIV>
-      </DIV>
-    </LI>
-
+#end
   </UL>
 </DIV>
 
