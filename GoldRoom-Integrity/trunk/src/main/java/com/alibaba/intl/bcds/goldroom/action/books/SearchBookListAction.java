@@ -71,6 +71,9 @@ public class SearchBookListAction extends BaseAction {
         if (page <= 0) {
             page = 1;
         }
+        if (pageSize <= 0) {
+            pageSize = 10;
+        }
         if(bookType == null || "all".equals(bookType)){
             bt = SearchBookType.ALL;
         }else if("ebook".equals(bookType)){
@@ -81,8 +84,8 @@ public class SearchBookListAction extends BaseAction {
         if(keyword == null || "".equals(keyword.trim())){
             bookSearchResult = bookInfoService.listAllBook(bt, page, pageSize);
         }else{
-            System.out.println("keyword:" + keyword +",bt:" + bt);
-            bookSearchResult = bookInfoService.searchBookByKeyword(keyword, bt, page, pageSize);
+            System.out.println("keyword:" + keyword +",bt:" + bt +",pageSize:" + pageSize);
+            bookSearchResult = bookInfoService.searchBookByKeyword(keyword, bt, page, 10);
         }
         return SUCCESS;
     }
