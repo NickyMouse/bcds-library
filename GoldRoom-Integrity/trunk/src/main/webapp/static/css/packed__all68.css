@@ -317,7 +317,7 @@ BODY {
 	MARGIN-TOP: 0px
 }
 #header {
-	MARGIN: 0px 0px 4px; WIDTH: 100%; BACKGROUND: none transparent scroll repeat 0% 0%
+	MARGIN: 0px 0px 10px; WIDTH: 100%; BACKGROUND: none transparent scroll repeat 0% 0%
 }
 #searbar {
 	MARGIN: 0px
@@ -341,7 +341,7 @@ BODY {
 	DISPLAY: block; HEIGHT: 0px; CLEAR: both; CONTENT: ' '
 }
 .top-nav {
-	BORDER-BOTTOM: #d4d4d4 1px dashed; WIDTH: 100%; HEIGHT: 30px; COLOR: black; CLEAR: both; margin-bottom: 5px;
+	BORDER-BOTTOM: #d4d4d4 1px dashed; WIDTH: 100%; HEIGHT: 30px; COLOR: black; CLEAR: both; margin-bottom: 10px;
 }
 .top-nav .bd {
 	MARGIN: 0px auto; WIDTH: 950px
