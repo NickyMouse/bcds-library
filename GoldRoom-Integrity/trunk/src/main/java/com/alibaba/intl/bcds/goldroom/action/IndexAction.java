@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
+import com.alibaba.intl.bcds.goldroom.dataobject.Comment;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 import com.alibaba.intl.bcds.goldroom.service.CommentService;
 
@@ -54,39 +55,55 @@ public class IndexAction extends BaseAction {
 	public String execute() throws Exception {
 
 		// 获取热评记录
+		List<BookItem> hotBooks1 = creatHotBooks();
+
+		hotBooks = hotBooks1;
+
+		return SUCCESS;
+	}
+
+	private List<BookItem> creatHotBooks() {
 		List<BookItem> hotBooks1 = bookItemService.getBookItemsByAddtime(4);
 
 		for (BookItem hotBooks : hotBooks1) {
-			
-			hotBooks.getBookInfo().setComments(
-					commentService.listBookCommentByBookInfoId(
-							hotBooks.getId(), 1, 2));
-			
+
+			List<Comment> CommentList = commentService
+					.listBookCommentByBookInfoId(hotBooks.getId(), 1, 2);
+			// 截取评论的长度
+			for (Comment comment : CommentList) {
+
+				if (comment.getContent() != null
+						&& comment.getContent().length() > 20) {
+
+					comment.setContent(comment.getContent().substring(0, 20)
+							+ "...");
+
+				}
+			}
+			hotBooks.getBookInfo().setComments(CommentList);
+
 			if (hotBooks.getBookInfo().getDescription() != null) {
 
 				String descriptions = hotBooks.getBookInfo().getDescription();
-				if(hotBooks.getBookInfo().getComments().size()>1){
+				if (hotBooks.getBookInfo().getComments().size() > 1) {
 
 					if (descriptions.length() > 120) {
 						descriptions = descriptions.substring(0, 120) + "...";
-						
+
 					}
-					
-				}else{				
-			
-				if (descriptions.length() > 160) {
+
+				} else {
+
+					if (descriptions.length() > 160) {
 						descriptions = descriptions.substring(0, 160) + "...";
-					
-				}
+
+					}
 				}
 				hotBooks.getBookInfo().setDescription(descriptions);
 			}
 			// 查找书评信息
 
 		}
-		hotBooks = hotBooks1;
-
-		return SUCCESS;
+		return hotBooks1;
 	}
-
 }
