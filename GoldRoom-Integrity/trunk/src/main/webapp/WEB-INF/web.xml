@@ -13,11 +13,16 @@
 	
 	<filter>
 		<filter-name>struts</filter-name>
+		<!--
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+		-->
 		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+		<!--
 		<init-param>
 			<param-name>actionPackages</param-name>
 			<param-value>com.alibaba.intl.bcds.goldroom.action</param-value>
 		</init-param>
+		-->
 	</filter>
 	
 	<filter>
@@ -102,6 +107,7 @@
     <session-config>
         <session-timeout>60</session-timeout>
     </session-config>
+    
     <welcome-file-list>
     	<welcome-file>index.html</welcome-file>
     	<welcome-file>index.htm</welcome-file>

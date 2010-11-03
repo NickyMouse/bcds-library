@@ -1,0 +1,16 @@
+一、调整系统运行环境
+1. 在你的工程中，add extra library，选择jetty/lib下的jetty-XXX.jar、jetty-util-XXX.jar、jsp-XXX.jar、jsp-api-XXX.jar四个jar包，以及\lib\ext目录下的jetty-ajp-6.1.3-XXX.jar，如果自己工程中没有增加servlet的jar，也请一并添加。
+2.在Eclipse中，创建一个java application，选择project为你当前的project，mainClass 设定为：org.mortbay.xml.XmlConfiguration，一定要勾选“include system libraries.....”选项
+3.在Arguments标签页中，设定Program Arguments内容为你自己工程启动Jetty时使用的配置文件路径，如“D:/alibaba/workspace/Goldroom-Full/src/main/config/GoldRoom-Jetty.xml”。在working directory中，选择other，并设定内容为你本地jetty的路径，如：“D:\development\jetty-6.1.3”。
+4. 修改工程中的GoldRoom-Jetty.xml中“org.mortbay.jetty.webapp.WebAppContext”中对应的webContextPath，以及对应工程的文件目录，如“D:/alibaba/workspace/Goldroom-Full/src/main/webapp”
+
+二、安装apache、mod-jk等
+1. 安装apache，略
+2. 安装openssl，windows用户请到http://www.slproweb.com/products/Win32OpenSSL.html下载对应的内容，ubuntu用户请自行升级使用（用yum类似的工具会比较容易的哦）
+
+三、配置
+1. 证书处理：
+ i. 进入命令窗口，执行：openssl req -new -x509 -nodes -config ../conf/openssl.cnf -out ../conf/server.crt  -keyout  ../conf/server.key  -days  3600
+ ii. 再把提供的intranet-ca.crt拷贝到$APACHE_HOME/conf目录下
+
+2.
