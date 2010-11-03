@@ -38,6 +38,13 @@ public class MemberService {
     public Member findMemberByLoginId(String loginId) {
         return memberDao.findByLoginId(loginId);
     }
+    
+    public Member findMemberByEmail(String email){
+    	if(StringUtils.isNotBlank(email)){
+    		return memberDao.findByEmail(email);
+    	}else
+    		return null;
+    }
 
     public boolean isLoginIdExist(String loginId) {
         if (StringUtils.isBlank(loginId)) {

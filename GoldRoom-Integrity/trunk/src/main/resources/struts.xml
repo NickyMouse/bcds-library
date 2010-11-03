@@ -11,6 +11,16 @@
 	<constant name="struts.velocity.toolboxlocation" value="/WEB-INF/classes/toolbox.xml" />
 
 	<package name="default" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name ="userCAPI" class="com.alibaba.intl.bcds.goldroom.util.web.UserCAProcessInterceptor" />
+			
+			<interceptor-stack name="gr-default-stack">
+		        <interceptor-ref name="userCAPI"/>
+		       <interceptor-ref name="defaultStack"/>
+		    </interceptor-stack>  	
+	    </interceptors>
+	    <default-interceptor-ref name="gr-default-stack"/>
+		
 		<global-results>
 			<result name="error">/templates/common/error404.vm</result>
 		</global-results>

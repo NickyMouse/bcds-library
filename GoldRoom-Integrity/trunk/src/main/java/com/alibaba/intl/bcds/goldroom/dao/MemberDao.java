@@ -20,4 +20,6 @@ public interface MemberDao {
 
     Member findByNameAndEmail(String name, String email);
     
+    Member findByEmail(String email);
+    
 }

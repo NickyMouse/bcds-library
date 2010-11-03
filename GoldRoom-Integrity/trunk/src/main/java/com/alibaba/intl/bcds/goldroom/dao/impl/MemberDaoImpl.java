@@ -15,7 +15,18 @@ import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 @SuppressWarnings("unchecked")
 public class MemberDaoImpl implements MemberDao {
 
-    @PersistenceContext(unitName = "goldroomPU")
+    @Override
+	public Member findByEmail(String email) {
+    	Query q = em.createNamedQuery("findMemberByEmail");
+    	q.setParameter("email", email);
+    	List<Member> mList = q.getResultList();
+    	if(mList != null && mList.size() > 0){
+    		return mList.get(0);
+    	}else
+    		return null;
+	}
+
+	@PersistenceContext(unitName = "goldroomPU")
     private EntityManager em;
 
     public Member save(Member member) {

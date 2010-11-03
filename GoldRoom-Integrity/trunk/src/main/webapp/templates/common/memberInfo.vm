@@ -1,3 +1,14 @@
+	#if($session && $session.getAttribute("LOGGED_USER"))
+	
+	#set( $userDto = $session.getAttribute("LOGGED_USER") ) 
+	<DIV class="top-nav-info" id="member_login_id">	
+		欢迎您：$userDto.userName ， 您当前积分：#if($userDto && $userDto.score) $userDto.score #else 0 #end 
+		&nbsp;&nbsp; 
+		<a href="$base/mygoldroom/myBooksList.action">查看我的黄金屋</a>
+	</div>
+	
+	#else
+	
 	<DIV class="top-nav-info" id="member_login_id">
 		<label>用户名：</label>
 		<input id="username" name="username" title="请输入用户名" type="text" maxLength=60 value="用户名" onfocus="javascript:jQuery(this).val('');"/>&nbsp;&nbsp;
@@ -11,7 +22,8 @@
 		function userLogon(){
 			MemberService.doLogin(jQuery("#username").val(), jQuery("#password").val(), function(resp){
 				if(resp != null){
-					var userInfoStr = "<label>欢迎您：</label>" + resp.name + " ，您当前积分：" + (resp.score == null?0:resp.score);
+					var userInfoStr = "<label>欢迎您：</label>" + resp.name + " ，您当前积分：" + (resp.score == null?0:resp.score) 
+					+ "&nbsp;&nbsp; <a href='$base/mygoldroom/myBooksList.action'>查看我的黄金屋</a>";
 					jQuery("#member_login_id").html(userInfoStr);
 				}else{
 					alert("登录失败：用户名或密码错～！");
@@ -19,3 +31,4 @@
 			});
 		}
 	</script>
+	#end
