@@ -11,6 +11,12 @@
 三、配置
 1. 证书处理：
  i. 进入命令窗口，执行：openssl req -new -x509 -nodes -config ../conf/openssl.cnf -out ../conf/server.crt  -keyout  ../conf/server.key  -days  3600
- ii. 再把提供的intranet-ca.crt拷贝到$APACHE_HOME/conf目录下
+ 	特别提醒：在处理此步骤时，一定要注意common name的内容必须与你自己机器的hostname保持一致，如：我的机器名：harrison-x200.hz.ali.com那么此处就填写相应内容，将来也是按照对应内容来访问。
+ ii. 再把提供的intranet-ca.crt、httpd.conf、workers.properties拷贝到$APACHE_HOME/conf目录下
 
-2.
+2.修改httpd.conf
+ i. 修改所有目录文件地址为本地合适的内容，如：d:\development\apache2.2需要改为自己apache对应目录
+ ii. 搜索“Config Mapping”，替换合适的context路径名
+
+四、启动
+分别启动jetty和apache，访问自己的应用，能够看到页面，就表明OK了。
