@@ -16,7 +16,16 @@ public class SearchBookListAction extends BaseAction {
 
     private int               page;
     private int               pageSize;
+    private int               pageSize1;
     
+    public int getPageSize1() {
+        return pageSize1;
+    }
+    
+    public void setPageSize1(int pageSize1) {
+        this.pageSize1 = pageSize1;
+    }
+
     public String getBookType() {
         return bookType;
     }
@@ -71,8 +80,8 @@ public class SearchBookListAction extends BaseAction {
         if (page <= 0) {
             page = 1;
         }
-        if (pageSize <= 0) {
-            pageSize = 10;
+        if (pageSize1 <= 0) {
+            pageSize1 = 10;
         }
         if(bookType == null || "all".equals(bookType)){
             bt = SearchBookType.ALL;
@@ -82,10 +91,10 @@ public class SearchBookListAction extends BaseAction {
             bt = SearchBookType.PAPER_BOOK;
         }
         if(keyword == null || "".equals(keyword.trim())){
-            bookSearchResult = bookInfoService.listAllBook(bt, page, pageSize);
+            bookSearchResult = bookInfoService.listAllBook(bt, page, pageSize1);
         }else{
-            System.out.println("keyword:" + keyword +",bt:" + bt +",pageSize:" + pageSize);
-            bookSearchResult = bookInfoService.searchBookByKeyword(keyword, bt, page, 10);
+            System.out.println("keyword:" + keyword +",bt:" + bt +",pageSize1:" + pageSize1);
+            bookSearchResult = bookInfoService.searchBookByKeyword(keyword, bt, page, pageSize1);
         }
         return SUCCESS;
     }
