@@ -1137,7 +1137,7 @@ TEXTAREA.readonly {
 	DISPLAY: block; FONT: 12px/150% Arial, Helvetica, sans-serif; FLOAT: left; COLOR: #666666
 }
 .paginator {
-	TEXT-ALIGN: center; MARGIN: 20px 0px; FONT: 14px/150% Arial, Helvetica, sans-serif; COLOR: #aaa;margin-bottom:5px; padding-top:5px;
+	clear:both;TEXT-ALIGN: center; MARGIN: 20px 0px; FONT: 14px/150% Arial, Helvetica, sans-serif; COLOR: #aaa;margin-bottom:5px; padding-top:5px;
 }
 .paginator A {
 	PADDING-BOTTOM: 0px; MARGIN: 2px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; PADDING-TOP: 0px
@@ -3291,7 +3291,7 @@ TABLE.olt THEAD TH {
 	COLOR: #ff5138; MARGIN-LEFT: 10px; FONT-SIZE: 12px; FONT-WEIGHT: bold
 }
 .movie_headerline UL.menu {
-	BORDER-LEFT: #e4e4e4 1px solid; WIDTH: 175px; FLOAT: right; HEIGHT: 235px
+	BORDER-LEFT: #e4e4e4 1px solid; WIDTH: 175px; FLOAT: right; 
 }
 .movie_headerline UL.menu LI {
 	BORDER-BOTTOM: #e4e4e4 1px solid; HEIGHT: 58px
