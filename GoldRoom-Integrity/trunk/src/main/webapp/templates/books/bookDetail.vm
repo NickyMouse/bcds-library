@@ -1,9 +1,9 @@
 #parse("/templates/common/header.vm")
 <script type='text/javascript' src='/dwr/interface/ReservationService.js'></script>
 <style>
-	.ownerInfo li {float: left; border-bottom: 1px dashed rgb(221, 221, 221); margin-left:10%; width: 80%; margin-bottom: 4px; padding-bottom: 5px; padding-left: 5px;}
+	.ownerInfo li {float: left; border-bottom: 1px dashed rgb(221, 221, 221);  width: 80%; margin-bottom: 4px; padding-bottom: 5px; padding-left: 5px;}
 </style>
-<script>
+<script type='text/javascript'>
 	jQuery(document).ready(function() {
 		for(var i = 3; i >0; i--) {
 			jQuery("#new" + i).mousedown(function() {
@@ -79,31 +79,84 @@ width:0;
 			</div>
 		</div>
 
+		
+		<!-- 图书拥有者信息 -->
+		<!--
 		<div style="height: 258px; border: 1px solid rgb(228, 228, 228); padding: 0px 8px; margin-bottom: 0px;"	class="aside movie_headerline">
-            <div class="left_conner"><em> </em> <b> </b></div>
-            <div class="first"><em> </em> <b> </b></div>
-            <div class="last"><em> </em> <b> </b></div>
-            <div class="newtags">
-                <h2>&nbsp;</h2>
-                <ul class="simple-dashed-list">
-                	<div style="height: 150px;" class="ownerInfo">
-                    	<li><h2>图书拥有者信息:</h2></li>
-                    	<li><b>姓名：</b>胡怀文</li>
-						<li><b>工号：</b>36634</li>
-                    	<li><b>座位：</b>滨江园区2-4-B12</li>
-                    	<li><b>分机：</b>31720</li>
-                    	<li><b>旺旺：</b>   	</li>
-                    	<li><b>邮箱：</b><a href="mailto:chaosen.lincs@alibaba-inc.com">chaosen.lincs@alibaba-inc.com</a></li>
-					</div>
-                </ul>
-			</div>
 		</div>
+		-->
+		<style>
+        #sidebar-tab{border:1px solid #ccf;margin-bottom:1.5em;overflow:hidden;width:350px;float:right;}
+        #tab-title {margin-left:-5px;}
+        #tab-title h3{color:#666;font-size:12px;font-weight:400;}
+        #tab-title .selected{color:#356aa0;border-bottom:0px;} /*标题被选中时的样式*/
+        #tab-title span{padding:5px 9px 5px 10px;border:1px solid #ccf;border-right:0px;margin-left:-1px;cursor:pointer; }
+        #tab-content .hide{display:none;} /*默认让第一块内容显示，其余隐藏*/
+        #tab-content ul{padding:5px 10px;overflow:hidden;height:163px;}
+        #tab-content ul li{height:15px;}
+        </style>
+        <div id="sidebar-tab">
+           <div id="tab-title">
+              <h3><span class="selected">胡怀文</span><span>近期评</span><span>随机文</span></h3>
+           </div>
+           <div id="tab-content">
+              <ul>
+                <div class="newtags">
+                    <ul class="simple-dashed-list">
+                    	<div style="height: 50px;" class="ownerInfo">
+                        	<li><b>姓名：</b>胡怀文1</li>
+    						<li><b>工号：</b>36634</li>
+                        	<li><b>座位：</b>滨江园区2-4-B12</li>
+                        	<li><b>分机：</b>31720</li>
+                        	<li><b>旺旺：</b>   	</li>
+                        	<li><b>邮箱：</b><a href="mailto:chaosen.lincs@alibaba-inc.com">chaosen.lincs@alibaba-inc.com</a></li>
+    					</div>
+                    </ul>
+    			</div>
+			  </ul>
+              <ul class="hide">
+				<div class="newtags">
+                    <ul class="simple-dashed-list">
+                    	<div style="height: 50px;" class="ownerInfo">
+                        	<!--<li><h2>图书拥有者信息:</h2></li>-->
+                        	<li><b>姓名：</b>胡怀文2</li>
+    						<li><b>工号：</b>36634</li>
+                        	<li><b>座位：</b>滨江园区2-4-B12</li>
+                        	<li><b>分机：</b>31720</li>
+                        	<li><b>旺旺：</b>   	</li>
+                        	<li><b>邮箱：</b><a href="mailto:chaosen.lincs@alibaba-inc.com">chaosen.lincs@alibaba-inc.com</a></li>
+    					</div>
+                    </ul>
+    			</div>
+			  </ul>
+              <ul class="hide">
+				<div class="newtags">
+                    <ul class="simple-dashed-list">
+                    	<div style="height: 50px;" class="ownerInfo">
+                        	<!--<li><h2>图书拥有者信息:</h2></li>-->
+                        	<li><b>姓名：</b>胡怀文3</li>
+    						<li><b>工号：</b>36634</li>
+                        	<li><b>座位：</b>滨江园区2-4-B12</li>
+                        	<li><b>分机：</b>31720</li>
+                        	<li><b>旺旺：</b>   	</li>
+                        	<li><b>邮箱：</b><a href="mailto:chaosen.lincs@alibaba-inc.com">chaosen.lincs@alibaba-inc.com</a></li>
+    					</div>
+                    </ul>
+    			</div>
+			  </ul>
+           </div>
+        </div>
+        <script type='text/javascript'>
+        jQuery('#tab-title span').click(function(){
+           jQuery(this).addClass("selected").siblings().removeClass();
+           jQuery("#tab-content > ul").slideUp('1500').eq(jQuery('#tab-title span').index(this)).slideDown('1500');
+        });
+        </script>
 
 		<div style="float: left; width: 950px; padding-top: 5px;" class="movie_new">
 			<h2 class="green_tab clearfix">
 				<a href="javascript:void(0)" class="on" id="new1"><span> 内容简介 </span> </a>
 				<a href="javascript:void(0)" id="new2"> <span> 书评 </span> </a>
-				<a href="javascript:void(0)" id="new3"> <span> 同类书籍 </span> </a>
 			</h2>
 
 			<ul id="newcontent1" class="content clearfix" style="text-indent: 2em; display: block;">
@@ -124,138 +177,136 @@ width:0;
 						<div style="float: left; width: 60px; height: 30px;" id="left_down">2010-8-23</div>
 				</li>
 			</ul>
-
-			<div id="newcontent3" class="content clearfix" style="display: none;">
-				<!--<li style="width: 900px; padding-left: 0px;">同类书籍</li>-->
-				<div class="bookscontents" style="padding-left: 10px;">
-                  <dl>
-                    <dt>
-                      <a href="http://book.douban.com/subject/4199431/">
-                        <img  src="http://img5.douban.com/spic/s4112705.jpg" class="m_sub_img">
-                      </a>
-                    </dt>
-                    <dd>
-                      <a href="http://book.douban.com/subject/4199431/">
-                        天帝妖狐
-                      </a>
-                    </dd>
-                  </dl>
-                  <dl>
-                    <dt>
-                      <a href="http://book.douban.com/subject/3801097/">
-                        <img src="http://img3.douban.com/spic/s3840924.jpg" class="m_sub_img">
-                      </a>
-                    </dt>
-                    <dd>
-                      <a href="http://book.douban.com/subject/3801097/">
-                        夏天·烟火·我的尸体
-                      </a>
-                    </dd>
-                  </dl>
-                  <dl>
-                    <dt>
-                      <a href="http://book.douban.com/subject/4187219/">
-                        <img src="http://img3.douban.com/spic/s4100902.jpg" class="m_sub_img">
-                      </a>
-                    </dt>
-                    <dd>
-                      <a href="http://book.douban.com/subject/4187219/">
-                        眩晕
-                      </a>
-                    </dd>
-                  </dl>
-                  <dl>
-                    <dt>
-                      <a href="http://book.douban.com/subject/2297697/">
-                        <img src="http://img3.douban.com/spic/s2927230.jpg" class="m_sub_img">
-                      </a>
-                    </dt>
-                    <dd>
-                      <a href="http://book.douban.com/subject/2297697/">
-                        ZOO
-                      </a>
-                    </dd>
-                  </dl>
-                  <dl>
-                    <dt>
-                      <a href="http://book.douban.com/subject/4151180/">
-                        <img src="http://img3.douban.com/spic/s4080068.jpg" class="m_sub_img">
-                      </a>
-                    </dt>
-                    <dd>
-                      <a href="http://book.douban.com/subject/4151180/">
-                        巷说百物语
-                      </a>
-                    </dd>
-                  </dl>
-                  <dl class="clear">
-                  </dl>
-                  <dl>
-                    <dt>
-                      <a href="http://book.douban.com/subject/3683898/">
-                        <img src="http://img3.douban.com/spic/s3738321.jpg" class="m_sub_img">
-                      </a>
-                    </dt>
-                    <dd>
-                      <a href="http://book.douban.com/subject/3683898/">
-                        向日葵不开的夏天
-                      </a>
-                    </dd>
-                  </dl>
-                  <dl>
-                    <dt>
-                      <a href="http://book.douban.com/subject/3615041/">
-                        <img src="http://img3.douban.com/spic/s3683784.jpg" class="m_sub_img">
-                      </a>
-                    </dt>
-                    <dd>
-                      <a href="http://book.douban.com/subject/3615041/">
-                        御手洗洁的问候
-                      </a>
-                    </dd>
-                  </dl>
-                  <dl>
-                    <dt>
-                      <a href="http://book.douban.com/subject/3286829/">
-                        <img src="http://img3.douban.com/spic/s4006054.jpg" class="m_sub_img">
-                      </a>
-                    </dt>
-                    <dd>
-                      <a href="http://book.douban.com/subject/3286829/">
-                        脑髓地狱
-                      </a>
-                    </dd>
-                  </dl>
-                  <dl>
-                    <dt>
-                      <a href="http://book.douban.com/subject/4152750/">
-                        <img src="http://img3.douban.com/spic/s4100893.jpg" class="m_sub_img">
-                      </a>
-                    </dt>
-                    <dd>
-                      <a href="http://book.douban.com/subject/4152750/">
-                        杀戮之病
-                      </a>
-                    </dd>
-                  </dl>
-                  <dl>
-                    <dt>
-                      <a href="http://book.douban.com/subject/4067626/">
-                        <img src="http://img3.douban.com/spic/s4158578.jpg" class="m_sub_img">
-                      </a>
-                    </dt>
-                    <dd>
-                      <a href="http://book.douban.com/subject/4067626/">
-                        重力小丑
-                      </a>
-                    </dd>
-                  </dl>
-                  <dl class="clear">
-                  </dl>
-                </div>
-			</div>
 		</div>
 	</div>
+	<div class="bookscontents" style="padding-left: 8px; BORDER-BOTTOM: #e4e4e4 1px solid; POSITION: relative; BORDER-LEFT: #e4e4e4 1px solid; MARGIN-BOTTOM: 10px; BACKGROUND: #fff; BORDER-TOP: #e4e4e4 1px solid; BORDER-RIGHT: #e4e4e4 1px solid">
+		<h3 style="margin-left:-8px;padding-left: 8px;">同类书籍</h3>
+          <dl>
+            <dt>
+              <a href="http://book.douban.com/subject/4199431/">
+                <img  src="http://img5.douban.com/spic/s4112705.jpg" class="m_sub_img">
+              </a>
+            </dt>
+            <dd>
+              <a href="http://book.douban.com/subject/4199431/">
+                天帝妖狐
+              </a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <a href="http://book.douban.com/subject/3801097/">
+                <img src="http://img3.douban.com/spic/s3840924.jpg" class="m_sub_img">
+              </a>
+            </dt>
+            <dd>
+              <a href="http://book.douban.com/subject/3801097/">
+                夏天·烟火·我的尸体
+              </a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <a href="http://book.douban.com/subject/4187219/">
+                <img src="http://img3.douban.com/spic/s4100902.jpg" class="m_sub_img">
+              </a>
+            </dt>
+            <dd>
+              <a href="http://book.douban.com/subject/4187219/">
+                眩晕
+              </a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <a href="http://book.douban.com/subject/2297697/">
+                <img src="http://img3.douban.com/spic/s2927230.jpg" class="m_sub_img">
+              </a>
+            </dt>
+            <dd>
+              <a href="http://book.douban.com/subject/2297697/">
+                ZOO
+              </a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <a href="http://book.douban.com/subject/4151180/">
+                <img src="http://img3.douban.com/spic/s4080068.jpg" class="m_sub_img">
+              </a>
+            </dt>
+            <dd>
+              <a href="http://book.douban.com/subject/4151180/">
+                巷说百物语
+              </a>
+            </dd>
+          </dl>
+          <dl class="clear">
+          </dl>
+          <dl>
+            <dt>
+              <a href="http://book.douban.com/subject/3683898/">
+                <img src="http://img3.douban.com/spic/s3738321.jpg" class="m_sub_img">
+              </a>
+            </dt>
+            <dd>
+              <a href="http://book.douban.com/subject/3683898/">
+                向日葵不开的夏天
+              </a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <a href="http://book.douban.com/subject/3615041/">
+                <img src="http://img3.douban.com/spic/s3683784.jpg" class="m_sub_img">
+              </a>
+            </dt>
+            <dd>
+              <a href="http://book.douban.com/subject/3615041/">
+                御手洗洁的问候
+              </a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <a href="http://book.douban.com/subject/3286829/">
+                <img src="http://img3.douban.com/spic/s4006054.jpg" class="m_sub_img">
+              </a>
+            </dt>
+            <dd>
+              <a href="http://book.douban.com/subject/3286829/">
+                脑髓地狱
+              </a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <a href="http://book.douban.com/subject/4152750/">
+                <img src="http://img3.douban.com/spic/s4100893.jpg" class="m_sub_img">
+              </a>
+            </dt>
+            <dd>
+              <a href="http://book.douban.com/subject/4152750/">
+                杀戮之病
+              </a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>
+              <a href="http://book.douban.com/subject/4067626/">
+                <img src="http://img3.douban.com/spic/s4158578.jpg" class="m_sub_img">
+              </a>
+            </dt>
+            <dd>
+              <a href="http://book.douban.com/subject/4067626/">
+                重力小丑
+              </a>
+            </dd>
+          </dl>
+          <dl class="clear">
+          </dl>
+        </div>
+		<!-- 同类书（完） -->
 	<!-- content end here -->
 	<div style="clear:both"></div>
 	

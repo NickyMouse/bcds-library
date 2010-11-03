@@ -233,10 +233,10 @@ BODY {
 	MARGIN-TOP: 10px; ZOOM: 1; COLOR: #999; OVERFLOW: auto; BORDER-TOP: #ddd 1px dashed; PADDING-TOP: 6px;float:right;width:950px
 }
 .grid-16-8 .article {
-	WIDTH: 590px; PADDING-RIGHT: 40px; FLOAT: left
+	WIDTH: 560px; PADDING-RIGHT: 40px; FLOAT: left
 }
 .grid-16-8 .aside {
-	WIDTH: 310px; FLOAT: right
+	WIDTH: 330px; FLOAT: right
 }
 .grid-4-14-6 .nav {
 	WIDTH: 150px; FLOAT: left; MARGIN-RIGHT: 10px
@@ -3483,7 +3483,7 @@ TABLE.olt THEAD TH {
 	MARGIN-LEFT: 3px
 }
 .newtags {
-	MARGIN-BOTTOM: 30px
+	MARGIN-BOTTOM: 3px
 }
 .newtags H2 {
 	MARGIN-BOTTOM: 0px
