@@ -1,4 +1,4 @@
-#parse("/templates/common/header.vm")
+﻿#parse("/templates/common/header.vm")
 <script type='text/javascript' src='/dwr/interface/ReservationService.js'></script>
 <style>
 	.ownerInfo li {float: left; border-bottom: 1px dashed rgb(221, 221, 221);  width: 80%; margin-bottom: 4px; padding-bottom: 5px; padding-left: 5px;}
@@ -86,7 +86,7 @@ width:0;
 		</div>
 		-->
 		<style>
-        #sidebar-tab{border:1px solid #ccf;margin-bottom:1.5em;overflow:hidden;width:350px;float:right;}
+        #sidebar-tab{border:1px solid #ccf;margin-bottom:1.5em;overflow:hidden;width:330px;float:right;}
         #tab-title {margin-left:-5px;}
         #tab-title h3{color:#666;font-size:12px;font-weight:400;}
         #tab-title .selected{color:#356aa0;border-bottom:0px;} /*标题被选中时的样式*/
