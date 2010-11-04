@@ -233,7 +233,7 @@ BODY {
 	MARGIN-TOP: 10px; ZOOM: 1; COLOR: #999; OVERFLOW: auto; BORDER-TOP: #ddd 1px dashed; PADDING-TOP: 6px;float:right;width:950px
 }
 .grid-16-8 .article {
-	WIDTH: 590px; PADDING-RIGHT: 40px; FLOAT: left
+	WIDTH: 590px; PADDING-RIGHT: 20px; FLOAT: left
 }
 .grid-16-8 .aside {
 	WIDTH: 330px; FLOAT: right
