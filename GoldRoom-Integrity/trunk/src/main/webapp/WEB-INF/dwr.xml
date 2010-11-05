@@ -8,30 +8,23 @@
 		<!-- initialize service -->
 		<create javascript="MemberService" creator="spring">
 			<param name="beanName" value="memberService"/>
-			
 			<include method="findMemberByLoginId"/>
 			<include method="isLoginIdExist"/>
 			<include method="doLogin"/>
 		</create>
-		
+
 		<create creator="spring" javascript="ReservationService">
 			<param name="beanName" value="reservationService"></param>
-			<param name="class"
-				value="com.alibaba.intl.bcds.goldroom.service.ReservationService" />
 			<include method="listReservationByBookItemId" />
 		</create>
 
 		<create creator="spring" javascript="LendService">
 			<param name="beanName" value="lendService"></param>
-			<param name="class"
-				value="com.alibaba.intl.bcds.goldroom.service.LendService" />
 			<include method="listLendingByBookItemId" />
 		</create>
 
 		<create creator="spring" javascript="BookInfoService">
 			<param name="beanName" value="bookInfoService"></param>
-			<param name="class"
-				value="com.alibaba.intl.bcds.goldroom.service.BookInfoService" />
 			<include method="getBookInfoFromDbAndNetWork" />
 		</create>
 

@@ -1,7 +1,6 @@
 package com.alibaba.intl.bcds.goldroom.dataobject;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,13 +12,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.hibernate.annotations.Any;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.opensymphony.xwork2.util.Element;
+import org.compass.annotations.Index;
+import org.compass.annotations.Searchable;
+import org.compass.annotations.SearchableId;
+import org.compass.annotations.SearchableProperty;
+import org.compass.annotations.Store;
 
 @Entity
 @Table(name = "BOOK_INFO")
@@ -27,81 +26,87 @@ import com.opensymphony.xwork2.util.Element;
                @NamedQuery(name = "deleteBookInfoById", query = "DELETE FROM BookInfo WHERE id = :id"),
                @NamedQuery(name = "findBookInfoByIsbn", query = "SELECT b FROM BookInfo b WHERE b.isbn = :isbn OR b.isbn10 = :isbn OR b.isbn13 = :isbn"),
                @NamedQuery(name = "listBookInfoByIds", query = "SELECT b FROM BookInfo b where b.id in (:bookInfoIds)") })
+@Searchable(alias = "bookInfo")
 public class BookInfo {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    @SearchableId
+    private Integer  id;
 
     @Column(name = "AUTHOR")
-    private String  author;
+    @SearchableProperty(index = Index.ANALYZED, store = Store.YES)
+    private String   author;
 
     @Column(name = "NAME")
-    private String  name;
+    @SearchableProperty(index = Index.ANALYZED, store = Store.YES)
+    private String   name;
 
     @Column(name = "PUBLISHER")
-    private String  publisher;
+    @SearchableProperty(index = Index.ANALYZED, store = Store.YES)
+    private String   publisher;
 
     @Column(name = "PUBLISH_TIME")
-    private Date    publishTime;
+    @SearchableProperty(index = Index.NOT_ANALYZED, store = Store.YES)
+    private Date     publishTime;
 
     @Column(name = "ISBN")
-    private String  isbn;
+    @SearchableProperty(index = Index.NOT_ANALYZED, store = Store.YES)
+    private String   isbn;
 
     @Column(name = "CATEGORY_NAME")
-    private String  categoryName;
+    private String   categoryName;
 
     @Column(name = "IMG_URL")
-    private String  imgUrl;
+    @SearchableProperty(index = Index.NO, store = Store.YES)
+    private String   imgUrl;
 
     @Column(name = "E_BOOK_URL")
-    private String  eBookUrl;
+    @SearchableProperty(index = Index.NO, store = Store.YES)
+    private String   eBookUrl;
 
     @Column(name = "DESCRIPTION")
-    private String  description;
+    @SearchableProperty(index = Index.ANALYZED, store = Store.YES)
+    private String   description;
 
     @Column(name = "EDITION")
-    private String  edition;
+    @SearchableProperty(index = Index.NO, store = Store.YES)
+    private String   edition;
 
     @Column(name = "PAGES")
-    private int     pages;
+    @SearchableProperty(index = Index.NO, store = Store.YES)
+    private int      pages;
 
     @Column(name = "TRANSLATOR")
-    private String  translator;
+    @SearchableProperty(index = Index.ANALYZED, store = Store.YES)
+    private String   translator;
 
     @Column(name = "SOURCE")
-    private String  source;
+    @SearchableProperty(index = Index.NO, store = Store.YES)
+    private String   source;
 
     @Column(name = "ISBN_10")
-    private String  isbn10;
+    @SearchableProperty(index = Index.NOT_ANALYZED, store = Store.YES)
+    private String   isbn10;
 
     @Column(name = "ISBN_13")
-    private String  isbn13;
+    @SearchableProperty(index = Index.NOT_ANALYZED, store = Store.YES)
+    private String   isbn13;
 
     @Column(name = "GMT_CREATE")
-    private Date    gmtCreate;
+    @SearchableProperty(index = Index.NOT_ANALYZED, store = Store.YES)
+    private Date     gmtCreate;
 
     @Column(name = "GMT_MODIFIED")
-    private Date    gmtModified;
+    private Date     gmtModified;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="CATEGORY_ID",nullable=true,referencedColumnName="ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CATEGORY_ID", nullable = true, referencedColumnName = "ID")
     private Category category;
-    
-    /**
-     * 有关书的评论信息
-     */
-    @Transient
-    private List<Comment> comments;
 
-	
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
+    @Column(name = "TAGS")
+    @SearchableProperty(index = Index.ANALYZED, store = Store.YES)
+    private String   tags;
 
 	public Integer getId() {
         return id;
@@ -278,19 +283,27 @@ public class BookInfo {
         return isbn13;
     }
 
-	public Category getCategory() {
-		return category;
-	}
+    public Category getCategory() {
+        return category;
+    }
 
-	public void setCategory(Category category) {
-		this.category = category;
-	}
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
-	public String getEBookUrl() {
-		return eBookUrl;
-	}
+    public String getEBookUrl() {
+        return eBookUrl;
+    }
 
-	public void setEBookUrl(String bookUrl) {
-		eBookUrl = bookUrl;
-	}
+    public void setEBookUrl(String bookUrl) {
+        eBookUrl = bookUrl;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getTags() {
+        return tags;
+    }
 }

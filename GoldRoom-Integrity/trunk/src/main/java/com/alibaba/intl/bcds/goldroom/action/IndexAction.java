@@ -10,10 +10,10 @@ import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.dataobject.Comment;
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
+import com.alibaba.intl.bcds.goldroom.dataobject.TagInfo;
+import com.alibaba.intl.bcds.goldroom.dataobject.TagInfoBooksDTO;
 import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.TagInfo;
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.TagInfoBooks;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 import com.alibaba.intl.bcds.goldroom.service.CommentService;
@@ -22,7 +22,7 @@ import com.alibaba.intl.bcds.goldroom.service.TagService;
 
 /**
  * @author Harrison
- * 
+ *
  */
 public class IndexAction extends BaseAction {
 
@@ -44,13 +44,13 @@ public class IndexAction extends BaseAction {
 	private List<BookItem> hotBooks;
 	private List<Member> scoremembers;
 	private List<TagInfo> tagInfos;
-	private List<TagInfoBooks> tagInfoBooks=new ArrayList<TagInfoBooks>();
+	private List<TagInfoBooksDTO> tagInfoBooks=new ArrayList<TagInfoBooksDTO>();
 
-	public List<TagInfoBooks> getTagInfoBooks() {
+	public List<TagInfoBooksDTO> getTagInfoBooks() {
 		return tagInfoBooks;
 	}
 
-	public void setTagInfoBooks(List<TagInfoBooks> tagInfoBooks) {
+	public void setTagInfoBooks(List<TagInfoBooksDTO> tagInfoBooks) {
 		this.tagInfoBooks = tagInfoBooks;
 	}
 
@@ -127,7 +127,7 @@ public class IndexAction extends BaseAction {
 		// 新书榜 按照 标签来获取不同的新书 TODO
 		/**
 		 * 取标签后 按照标签去查找4本书
-		 * 
+		 *
 		 */
 
 		int i = 0;
@@ -136,14 +136,14 @@ public class IndexAction extends BaseAction {
 
 			i++;
 
-			TagInfoBooks tagbooks = new TagInfoBooks();
+			TagInfoBooksDTO tagbooks = new TagInfoBooksDTO();
 			// 获取书籍
 			BookSearchResult bookSearchResult = bookInfoService
 					.searchBookByKeyword(tagInfo.getTagName(),
 							SearchBookType.ALL, 1, 4);
 
 			tagbooks.setTagInfo(tagInfo);
-			tagbooks.setBookinfos(bookSearchResult.getBookList());
+			tagbooks.setBookInfoList(bookSearchResult.getBookList());
 
 			this.getTagInfoBooks().add(tagbooks);
 
@@ -158,7 +158,7 @@ public class IndexAction extends BaseAction {
 		// 推荐排行榜 TODO
 
 		// 积分排行榜
-		List<Member> memebers = memberService.listMemberByScore(10);
+        List<Member> memebers = memberService.listMemberByScore(10);
 
 		setScoremembers(memebers);
 
@@ -185,27 +185,28 @@ public class IndexAction extends BaseAction {
 
 				}
 			}
-			hotBooks.getBookInfo().setComments(CommentList);
+//			hotBooks.getBookInfo().setComments(CommentList);
 
 			if (hotBooks.getBookInfo().getDescription() != null) {
 
 				String descriptions = hotBooks.getBookInfo().getDescription();
-				if (hotBooks.getBookInfo().getComments().size() > 1) {
-
-					if (descriptions.length() > 120) {
-						descriptions = descriptions.substring(0, 120) + "...";
-
-					}
-
-				} else {
+//				if (hotBooks.getBookInfo().getComments().size() > 1) {
+//
+//					if (descriptions.length() > 120) {
+//						descriptions = descriptions.substring(0, 120) + "...";
+//
+//					}
+//
+//				} else {
 
 					if (descriptions.length() > 160) {
 						descriptions = descriptions.substring(0, 160) + "...";
 
 					}
-				}
+//				}
 				hotBooks.getBookInfo().setDescription(descriptions);
 			}
+
 			// 查找书评信息
 
 		}

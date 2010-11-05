@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.alibaba.intl.bcds.goldroom.dao.TagDao;
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.TagInfo;
+import com.alibaba.intl.bcds.goldroom.dataobject.TagInfo;
 
 public class TagDaoImpl implements TagDao {
 

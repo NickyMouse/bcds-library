@@ -1,4 +1,4 @@
-package com.alibaba.intl.bcds.goldroom.search.commons.queryobject;
+package com.alibaba.intl.bcds.goldroom.search.commons.constrans;
 
 /**
  * advanced search book option

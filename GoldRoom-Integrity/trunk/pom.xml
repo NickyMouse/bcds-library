@@ -133,8 +133,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.freemarker</groupId>
-			  <artifactId>freemarker</artifactId>
-			  <version>2.3.15</version>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.15</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.struts</groupId>
@@ -183,30 +183,16 @@
 			<artifactId>cglib</artifactId>
 			<version>2.2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>com.springsource.org.apache.commons.collections</artifactId>
-			<version>3.2.1</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-core</artifactId>
 			<version>2.4.1</version>
 		</dependency>
 		<dependency>
-			<groupId>jeasy.analysis</groupId>
-			<artifactId>je-analysis</artifactId>
-			<version>1.5.1</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-highlighter</artifactId>
 			<version>2.4.1</version>
-		</dependency>
-		<dependency>
-			<groupId>xstream</groupId>
-			<artifactId>xstream</artifactId>
-			<version>1.2.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.directwebremoting</groupId>
@@ -243,6 +229,16 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.compass-project</groupId>
+			<artifactId>compass</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>1.8.4</version>
 		</dependency>
 	</dependencies>
 </project>

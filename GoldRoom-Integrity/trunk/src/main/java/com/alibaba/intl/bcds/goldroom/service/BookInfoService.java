@@ -10,11 +10,10 @@ import com.alibaba.intl.bcds.goldroom.dao.BookInfoDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.remote.BookInfoFetcher;
 import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
+import com.alibaba.intl.bcds.goldroom.search.commons.constrans.BookSearchOption;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
-import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchOption;
 
 @Transactional
-@SuppressWarnings("unchecked")
 public class BookInfoService {
 
     @Autowired

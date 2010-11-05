@@ -8,7 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.TagInfo;
+import com.alibaba.intl.bcds.goldroom.dataobject.TagInfo;
 
 public class TagFactory {
 

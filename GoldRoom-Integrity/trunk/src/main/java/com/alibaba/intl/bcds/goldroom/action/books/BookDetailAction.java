@@ -1,7 +1,7 @@
 package com.alibaba.intl.bcds.goldroom.action.books;
 
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearch;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
 import com.alibaba.intl.bcds.goldroom.service.MemberService;
 
@@ -14,14 +14,14 @@ public class BookDetailAction extends BaseAction {
 
     private Integer           bookInfoId;
     private BookInfoService   bookInfoService;
-    private BookSearch        bookSearch;
+    private BookInfo          bookInfo;
     private MemberService     memberService;
 
     // private Member owner;
     public String execute() throws Exception {
-        bookSearch = bookInfoService.searchBookByInfoId(bookInfoId);
+        setBookInfo(bookInfoService.searchBookByInfoId(bookInfoId));
         // owner = memberService.findMemberByLoginId(loginId);
-        if (bookSearch == null) {
+        if (getBookInfo() == null) {
             return ERROR;
         }
         return SUCCESS;
@@ -43,11 +43,12 @@ public class BookDetailAction extends BaseAction {
         return bookInfoService;
     }
 
-    public void setBookSearch(BookSearch bookSearch) {
-        this.bookSearch = bookSearch;
+    public void setBookInfo(BookInfo bookInfo) {
+        this.bookInfo = bookInfo;
     }
 
-    public BookSearch getBookSearch() {
-        return bookSearch;
+    public BookInfo getBookInfo() {
+        return bookInfo;
     }
+
 }

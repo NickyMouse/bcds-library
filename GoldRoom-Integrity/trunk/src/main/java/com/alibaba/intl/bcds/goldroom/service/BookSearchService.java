@@ -17,8 +17,8 @@ import org.compass.core.CompassTemplate;
 
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
+import com.alibaba.intl.bcds.goldroom.search.commons.constrans.BookSearchOption;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
-import com.alibaba.intl.bcds.goldroom.search.commons.queryobject.BookSearchOption;
 
 public class BookSearchService {
 

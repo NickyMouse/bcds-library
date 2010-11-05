@@ -1,4 +1,4 @@
-package com.alibaba.intl.bcds.goldroom.search.commons.dataobject;
+package com.alibaba.intl.bcds.goldroom.dataobject;
 
 import java.util.Set;
 

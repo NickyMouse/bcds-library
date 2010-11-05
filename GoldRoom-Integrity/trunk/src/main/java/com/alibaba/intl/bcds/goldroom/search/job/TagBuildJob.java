@@ -10,10 +10,10 @@ import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.alibaba.intl.bcds.goldroom.dao.TagDao;
+import com.alibaba.intl.bcds.goldroom.dataobject.TagInfo;
 import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
 import com.alibaba.intl.bcds.goldroom.search.commons.TagFactory;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.TagInfo;
 import com.alibaba.intl.bcds.goldroom.service.BookSearchService;
 
 public class TagBuildJob extends QuartzJobBean {

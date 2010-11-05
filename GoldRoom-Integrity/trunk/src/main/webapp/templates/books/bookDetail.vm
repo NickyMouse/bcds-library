@@ -23,7 +23,7 @@
 	overflow:hidden;
 	text-align:center;
 	width:155px;
-}	
+}
 .bookscontents DL.clear  {
 clear:both;
 float:none;
@@ -41,37 +41,37 @@ width:0;
             <div class="left_conner"><em> </em> <b> </b></div>
             <div class="first"><em> </em> <b> </b></div>
             <div class="last"><em> </em> <b> </b></div>
-			<h2>$!bookSearch.bookName</h2>
+			<h2>$!bookInfo.name</h2>
 			<div class="subjectwrap clearfix">
 				<div class="subject clearfix">
 					<div id="mainpic">
-						<a	href="http://img3.douban.com/mpic/s4478937.jpg" title="$!bookSearch.bookName" target="_blank">
-							<img src="http://img3.douban.com/mpic/s4478937.jpg" title="点击看大图" alt="$!bookSearch.bookName">
+						<a	href="http://img3.douban.com/mpic/s4478937.jpg" title="$!bookInfo.name" target="_blank">
+							<img src="http://img3.douban.com/mpic/s4478937.jpg" title="点击看大图" alt="$!bookInfo.name">
 						</a>
 					</div>
 					<div id="info">
-						#if($bookSearch.bookAuthor)
+						#if($bookInfo.author)
 							<span class="pl"> 作者 </span> :
-							<a href="http://book.douban.com/subject_search?search_text=$!bookSearch.bookAuthor" target="_blank">$!bookSearch.bookAuthor </a> <br>
+							<a href="http://book.douban.com/subject_search?search_text=$!bookInfo.author" target="_blank">$!bookInfo.author </a> <br>
 						#end
-						#if($bookSearch.bookTranslator)
+						#if($bookInfo.translator)
 							<span class="pl"> 译者 </span> :
-							<a href="http://book.douban.com/subject_search?search_text=$!bookSearch.bookTranslator">$!bookSearch.bookTranslator</a> </span> <br>
+							<a href="http://book.douban.com/subject_search?search_text=$!bookInfo.translator">$!bookInfo.translator</a> </span> <br>
 						#end
-						#if($bookSearch.bookIsbn)
-							<span class="pl"> ISBN: </span>$!bookSearch.bookIsbn <br>
+						#if($bookInfo.isbn)
+							<span class="pl"> ISBN: </span>$!bookInfo.isbn <br>
 						#end
-						#if($bookSearch.bookPublisher)
-							<span class="pl"> 出版社: </span>$!bookSearch.bookPublisher <br>
+						#if($bookInfo.publisher)
+							<span class="pl"> 出版社: </span>$!bookInfo.publisher <br>
 						#end
-						#if($bookSearch.bookPublishTime)
-							<span class="pl"> 出版时间: </span>$!bookSearch.bookPublishTime <br>
+						#if($bookInfo.publishTime)
+							<span class="pl"> 出版时间: </span>$!bookInfo.publishTime <br>
 						#end
-						#if($bookSearch.bookEdition)
-							<span class="pl"> 版本: </span>$!bookSearch.bookEdition<br>
+						#if($bookInfo.edition)
+							<span class="pl"> 版本: </span>$!bookInfo.edition<br>
 						#end
-						#if($bookSearch.bookPages)
-							<span class="pl"> 页数: </span>$!bookSearch.bookPages<br>
+						#if($bookInfo.pages)
+							<span class="pl"> 页数: </span>$!bookInfo.pages<br>
 						#end
 					</div>
 				</div>
@@ -160,7 +160,7 @@ width:0;
 			</h2>
 
 			<ul id="newcontent1" class="content clearfix" style="text-indent: 2em; display: block;">
-				$bookSearch.bookDescription
+				$bookInfo.description
 			</ul>
 
 			<ul id="newcontent2" class="content clearfix" style="display: none;">
@@ -309,7 +309,6 @@ width:0;
 		<!-- 同类书（完） -->
 	<!-- content end here -->
 	<div style="clear:both"></div>
-	
+
 #parse("templates/common/footer.vm")
 
-	
