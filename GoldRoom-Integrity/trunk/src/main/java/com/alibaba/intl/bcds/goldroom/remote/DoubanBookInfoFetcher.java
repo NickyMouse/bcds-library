@@ -6,7 +6,9 @@
  */
 package com.alibaba.intl.bcds.goldroom.remote;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -29,7 +31,7 @@ import com.alibaba.intl.bcds.goldroom.util.ImageUtil;
 
 /**
  * TODO Comment of DoubanBookInfoFetcher
- * 
+ *
  * @author Zimmem
  */
 public class DoubanBookInfoFetcher implements BookInfoFetcher, InitializingBean {
@@ -86,6 +88,8 @@ public class DoubanBookInfoFetcher implements BookInfoFetcher, InitializingBean 
 
             info.setPublishTime(dateConverter.conver(queryByXpath("/entry/db:attribute[@name='pubdate']", document)));
 
+            info.setTags(formatTag(queryByXpathForList("/entry/db:tag", "@name", document)));
+
             String imageUrl = createXpath("/entry/s:link[@rel='image']").selectSingleNode(document).valueOf("@href");
             info.setImgUrl(saveImage(info.getIsbn(), imageUrl));
             return info;
@@ -93,6 +97,17 @@ public class DoubanBookInfoFetcher implements BookInfoFetcher, InitializingBean 
             logger.error("parse bookinfo from xml{" + xml + "} error", e);
         }
         return null;
+    }
+
+    private String formatTag(List<String> tagList) {
+        if (tagList == null || tagList.isEmpty()) {
+            return StringUtils.EMPTY;
+        }
+        StringBuffer sb = new StringBuffer();
+        for (String tag : tagList) {
+            sb.append(tag).append(",");
+        }
+        return sb.toString();
     }
 
     /**
@@ -145,6 +160,23 @@ public class DoubanBookInfoFetcher implements BookInfoFetcher, InitializingBean 
             return null;
         } catch (RuntimeException e) {
             return null;
+        }
+    }
+
+    private List<String> queryByXpathForList(String xpathExpression, String valueExpresssion, Document document) {
+        try {
+            XPath xPath = createXpath(xpathExpression);
+            List<Node> nodes = xPath.selectNodes(document);
+            if (nodes != null && nodes.size() > 0) {
+                List<String> returnValue = new ArrayList<String>();
+                for (Node n : nodes) {
+                    returnValue.add(n.valueOf(valueExpresssion));
+                }
+                return returnValue;
+            }
+            return new ArrayList<String>(0);
+        } catch (RuntimeException e) {
+            return new ArrayList<String>(0);
         }
     }
 

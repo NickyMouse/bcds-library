@@ -19,11 +19,12 @@
 			document.getElementById("translator").innerHTML = data.translator;
 			document.getElementById("description").innerHTML = data.description;
 			document.getElementById("imgUrl").innerHTML = data.imgUrl;
+			document.getElementById("tags").innerHTML = data.tags;
 
 			document.getElementById("isbn").value = data.isbn;
 			document.getElementById("bookInfoId").value = data.id;
-			document.getElementById("uploadBookInfo").style.display = "";
 
+			document.getElementById("uploadBookInfo").style.display = "";
 		} else{
 			alert ("error");
 		}
@@ -88,6 +89,10 @@
     						<tr>
     							<td class="first">imgURL</td>
     							<td id="imgUrl"></td>
+    						</tr>
+							<tr>
+    							<td class="first">Tags</td>
+    							<td id="tags"></td>
     						</tr>
                         </table>
 

@@ -2,22 +2,22 @@ package com.alibaba.intl.bcds.goldroom.result;
 
 import java.util.List;
 
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BookSearch;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 
 public class BookSearchResult extends Result {
 
-    private List<BookSearch> bookList;
+    private List<BookInfo> bookList;
 
-    public BookSearchResult(List<BookSearch> bookList, int totalCount) {
+    public BookSearchResult(List<BookInfo> bookList, int totalCount) {
         this.totalCount = totalCount;
         this.setBookList(bookList);
     }
 
-    public void setBookList(List<BookSearch> bookList) {
+    public void setBookList(List<BookInfo> bookList) {
         this.bookList = bookList;
     }
 
-    public List<BookSearch> getBookList() {
+    public List<BookInfo> getBookList() {
         return bookList;
     }
 }

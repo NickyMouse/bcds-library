@@ -1,7 +1,19 @@
 package com.alibaba.intl.bcds.goldroom.search.commons.constrans;
 
+/**
+ * Search book type
+ *
+ * @author Giraffe
+ */
 public enum SearchBookType {
-    ALL("all"), EBOOK("ebook"), PAPER_BOOK("pbook");
+    /** all the book, including e-books and paper books */
+    ALL("all"),
+
+    /** e-books */
+    EBOOK("ebook"),
+
+    /** paper books */
+    PAPER_BOOK("pbook");
 
     private String value;
 

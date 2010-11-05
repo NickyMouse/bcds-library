@@ -50,10 +50,6 @@
 	<bean
 		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
-	<bean id="searchDatasource"
-		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.datasource.BookSearchDatasource">
-		<property name="indexLocation" value="${goldroom.index.path}" />
-	</bean>
 
 	<bean id="bookInfoDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.BookInfoDaoImpl" />
 	<bean id="bookItemDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.BookItemDaoImpl" />
@@ -63,13 +59,5 @@
 	<bean id="memberDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.MemberDaoImpl" />
 	<bean id="commentDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.CommentDaoImpl" />
 	<bean id="adminConfigDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.AdminConfigDaoImpl" />
-	<bean id="bookSearchDao"
-		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.BookSearchDaoImpl">
-	</bean>
-	<bean id="tagDao"
-		class="com.alibaba.intl.bcds.goldroom.search.commons.dao.ibatis.TagDaoImpl"
-		init-method="refresh">
-		<property name="refreshInterval" value="${goldroom.tags.refresh.interval}" />
-		<property name="tagXmlPath" value="${goldroom.tags.path}" />
-	</bean>
+	<bean id="tagDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.TagDaoImpl" />
 </beans>

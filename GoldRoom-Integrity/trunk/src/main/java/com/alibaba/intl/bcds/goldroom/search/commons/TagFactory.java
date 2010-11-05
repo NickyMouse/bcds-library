@@ -1,4 +1,4 @@
-package com.alibaba.intl.bcds.goldroom.search.builder.utils;
+package com.alibaba.intl.bcds.goldroom.search.commons;
 
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.BuildBookSearch;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.TagInfo;
 
 public class TagFactory {
@@ -24,15 +24,15 @@ public class TagFactory {
         return tagFactory;
     }
 
-    public void addBooks(List<BuildBookSearch> bookList) {
-        for (BuildBookSearch b : bookList) {
-            String tags = b.getBookTags();
+    public void addBooks(List<BookInfo> bookList) {
+        for (BookInfo b : bookList) {
+            String tags = b.getTags();
             if (StringUtils.isNotEmpty(tags)) {
                 String[] tagArray = tags.split(SPILT_TAG_MARK);
                 for (String tag : tagArray) {
                     tag = tag.trim();
                     if (StringUtils.isNotEmpty(tag)) {
-                        putToMap(tag, b.getBookInfoId());
+                        putToMap(tag, b.getId());
                     }
                 }
             }

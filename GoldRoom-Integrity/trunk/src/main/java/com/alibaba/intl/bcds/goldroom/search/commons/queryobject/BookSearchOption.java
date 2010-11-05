@@ -1,50 +1,65 @@
 package com.alibaba.intl.bcds.goldroom.search.commons.queryobject;
 
+/**
+ * advanced search book option
+ *
+ * @author Giraffe
+ */
 public class BookSearchOption {
-	String bookName;
-	String publisher;
-	String isbn;
-	String description;
-	String daysBefore;
 
-	public String getBookName() {
-		return bookName;
-	}
+    /** book name */
+    String bookName;
 
-	public void setBookName(String bookName) {
-		this.bookName = bookName;
-	}
+    /** the publisher of the book */
+    String publisher;
 
-	public String getPublisher() {
-		return publisher;
-	}
+    /** the ISBN of the book */
+    String isbn;
 
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
+    /** the description of the book */
+    String description;
 
-	public String getIsbn() {
-		return isbn;
-	}
+    /** the time of the book on shelf */
+    String daysBefore;
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
+    public String getBookName() {
+        return bookName;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getPublisher() {
+        return publisher;
+    }
 
-	public String getDaysBefore() {
-		return daysBefore;
-	}
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
 
-	public void setDaysBefore(String daysBefore) {
-		this.daysBefore = daysBefore;
-	}
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDaysBefore() {
+        return daysBefore;
+    }
+
+    public void setDaysBefore(String daysBefore) {
+        this.daysBefore = daysBefore;
+    }
 
 }

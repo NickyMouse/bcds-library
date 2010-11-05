@@ -1,4 +1,4 @@
-#if($totalCount && $totalCount > 0)
+#if($totalCount && $totalCount > 0 && $pageSize && $pageSize > 0)
 	## get query string
 	#set($qStr = ${request.getQueryString()})
 	#set($start = $qStr.indexOf("&page="))
@@ -14,6 +14,7 @@
 	#end
 
 
+
 <div class="paginator">
 	#if($page > 1)
 		#set($prePage = $page - 1)
@@ -26,6 +27,9 @@
 	#if($pageSize * $totalPage < $totalCount)
 		#set($totalPage = $totalPage + 1)
 	#end
+
+	#set($startPn = 0)
+	#set($endPn = 0)
 
 	#foreach($index in [1 .. $totalPage])
 		#if($page == $index)

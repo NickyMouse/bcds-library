@@ -14,7 +14,7 @@
 
 
 	<bean id="bookSearchService"
-		class="com.alibaba.intl.bcds.goldroom.search.commons.service.impl.BookSearchServiceImpl" />
+		class="com.alibaba.intl.bcds.goldroom.service.BookSearchService" />
 	<bean id="bookInfoFetcher" class="com.alibaba.intl.bcds.goldroom.remote.DoubanBookInfoFetcher">
 		<property name="fetchUrl" value="http://api.douban.com/book/subject/isbn/" />
 	</bean>
