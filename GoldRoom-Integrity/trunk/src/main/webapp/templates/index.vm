@@ -75,13 +75,13 @@ href="/list">更多</A> )</SPAN> </H2>
 	#set($commons = $item.comments)
   <DIV id=content_menu$!velocityCount class="content clearfix">
     <DIV class=headerline_img>
-      <A onclick="moreurl(this, {from:'cinema'})" href="detail">
-        <IMG src="index_files/s4294116.jpg">
+      <A onclick="moreurl(this, {from:'cinema'})" href="detail/bookDetail.do?bookInfoId=$!item.id">
+        <IMG src="$imageServer$!item.imgUrl">
       </A>
     </DIV>
     <DIV class=headerline_content>
       <DIV class="title clearfix">
-        <A onclick="moreurl(this, {from:'cinema'})" href="detail">
+        <A onclick="moreurl(this, {from:'cinema'})" href="detail/bookDetail.do?bookInfoId=$!item.id">
           $!item.name
         </A>
         <SPAN class=bigstar40>
@@ -115,19 +115,24 @@ href="/list">更多</A> )</SPAN> </H2>
       <UL>
 		<!--书评-->
 		#foreach($common in $commons)
+	   	#set($commonscount = $!velocityCount+1)
         <LI>
           [书评]
-          <A href="qqq">
+          <A href="#">
             $!common.content
           </A>
-          <DIV style="FLOAT: right">
-            &gt;
+		</LI>
+	
+		#if($commons.size()==$!commonscount)
+			更多书评
+			<DIV style="FLOAT: right">
             <A href="#">
               更多书评
             </A>
           </DIV>
-		</LI>
+		  #end
 		#end
+		
       </UL>
     </DIV>
   </DIV>
@@ -143,8 +148,8 @@ href="/list">更多</A> )</SPAN> </H2>
         <DIV class=arrow>
         </DIV>
         <DIV class=img>
-          <A onclick="moreurl(this, {from:'cinema'})" href="">
-            <IMG src="item.imgUrl" height=48>
+          <A onclick="moreurl(this, {from:'cinema'})" href="detail/bookDetail.do?bookInfoId=$!item.id">
+            <IMG src="$imageServer$!item.imgUrl" height=48>
           </A>
         </DIV>
         <DIV class=intro>
@@ -162,51 +167,48 @@ href="/list">更多</A> )</SPAN> </H2>
 </DIV>
 
 <!--热门排行list结束-->
+
 <DIV class=movie_new>
   <H2 class="green_tab clearfix">
     <DIV class=ll>
       黄金屋新书榜· · · · · ·
     </DIV>
-    <A id=new1 class=on href="javascript:void(0)">
+	<!--tags-->
+	#foreach($tagInfoBook in $!tagInfoBooks)
+		#set($booktag_count = $!velocityCount+1)
+		#set($tagInfo = $tagInfoBook.tagInfo)
+    <A id=new$!booktag_count #if($!booktag_count==1)class=on#end href="javascript:void(0)">
       <SPAN>
-        全部
+      $tagInfo.tagName
       </SPAN>
     </A>
-    <A id=new2 href="javascript:void(0)">
-      <SPAN>
-        心理
-      </SPAN>
-    </A>
-    <A id=new3 href="javascript:void(0)">
-      <SPAN>
-        社会
-      </SPAN>
-    </A>
-    <A id=new4 href="javascript:void(0)">
-      <SPAN>
-        育儿
-      </SPAN>
-    </A>
-    <A id=new5 href="javascript:void(0)">
-      <SPAN>
-        技术
-      </SPAN>
-    </A>
+	#end
+	
   </H2>
-  <UL id=newcontent1 class="content clearfix">
-    <LI class=clearfix>
+  	<!--tagbooks-->
+  #foreach($tagInfoBook in $!tagInfoBooks)
+	#set($bookcontent_count = $!velocityCount+1)
+	#set($bookinfos = $tagInfoBook.bookinfos)
+	
+  <UL id=newcontent$!bookcontent_count   class="content clearfix">
+  
+		
+    #foreach($bookinfo in $!bookinfos)
+			
+	 <LI class=clearfix>
       <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4707230/">
-          <IMG src="index_files/s4402102(1).jpg">
+        <A  href="detail/bookDetail.do?bookInfoId=$!bookinfo.bookInfoId">
+          <IMG src="$imageServer$!bookinfo.bookImgUrl" height="100px">
         </A>
       </DIV>
       <DIV class=intro>
         <H3>
           <SPAN>
-            1
+			#set($bookcount = $!velocityCount+1)
+            $!bookcount
           </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4707230/">
-            恋爱通告
+          <A onclick="moreurl(this, {from:'new'})" href="detail/bookDetail.do?bookInfoId=$!bookinfo.bookInfoId">
+           $bookinfo.bookName
           </A>
         </H3>
         <DIV class="star clearfix">
@@ -215,695 +217,26 @@ href="/list">更多</A> )</SPAN> </H2>
           7.1
         </DIV>
         <SPAN class=pl>
-          导演:
+          作者:
         </SPAN>
-        王力宏
+       $bookinfo.bookAuthor
         <BR>
         <SPAN class=pl>
-          主演:
+          出版社:
         </SPAN>
-        王力宏 / 刘亦菲 / 曾轶可
+       $bookinfo.bookPublisher
         <BR>
         <SPAN class=pl>
-          美籍华裔青年的中国得瑟梦。
+          出版时间：$bookinfo.bookPublishTime 
         </SPAN>
       </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3732780/">
-          <IMG src="index_files/s4293844.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            2
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3732780/">
-            第36个故事
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar40>
-          </SPAN>
-          8.0
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        萧雅全
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        桂纶镁 / 林辰唏 / 张翰
-        <BR>
-        <SPAN class=pl>
-          暖暖的文艺片。
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3279080/">
-          <IMG src="index_files/s4387257(1).jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            3
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3279080/">
-            敢死队
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar35>
-          </SPAN>
-          7.1
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        Sylvester Stallone
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        Sylvester Stallone
-        <BR>
-        <SPAN class=pl>
-          武打全明星。
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3628370/">
-          <IMG src="index_files/s4233097.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            4
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3628370/">
-            阿黛拉的非凡冒险
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar35>
-          </SPAN>
-          7.1
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        Luc Besson
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        Louise Bourgoin
-        <BR>
-        <SPAN class=pl>
-          法国版《古今大战兵马俑》。
-        </SPAN>
-      </DIV>
-    </LI>
+    </LI>	
+		 #end
+		
   </UL>
-  <UL id=newcontent2 class="content clearfix">
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3279080/">
-          <IMG src="index_files/s4387257(1).jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            1
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3279080/">
-            敢死队
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar35>
-          </SPAN>
-          7.1
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        Sylvester Stallone
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        Sylvester Stallone
-        <BR>
-        <SPAN class=pl>
-          武打全明星。
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3628370/">
-          <IMG src="index_files/s4233097.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            2
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3628370/">
-            阿黛拉的非凡冒险
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar35>
-          </SPAN>
-          7.1
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        Luc Besson
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        Louise Bourgoin
-        <BR>
-        <SPAN class=pl>
-          法国版《古今大战兵马俑》。
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/2153526/">
-          <IMG src="index_files/s4063848.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            3
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/2153526/">
-            特工绍特
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar40>
-          </SPAN>
-          7.3
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        Phillip Noyce
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        Angelina Jolie
-        <BR>
-        <SPAN class=pl>
-          一个打不死也摔不死的女金刚的故事。
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3874981/">
-          <IMG src="index_files/s4407162.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            4
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3874981/">
-            全城戒备
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar25>
-          </SPAN>
-          4.4
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        陈木胜
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        郭富城 / 舒淇 / 邹兆龙
-        <BR>
-        <SPAN class=pl>
-          做人就像飞刀，一定要有目标。
-        </SPAN>
-      </DIV>
-    </LI>
-  </UL>
-  <UL id=newcontent3 class="content clearfix">
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3732780/">
-          <IMG src="index_files/s4293844.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            1
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3732780/">
-            第36个故事
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar40>
-          </SPAN>
-          8.0
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        萧雅全
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        桂纶镁 / 林辰唏 / 张翰
-        <BR>
-        <SPAN class=pl>
-          暖暖的文艺片。
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3596502/">
-          <IMG src="index_files/s4287549.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            2
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3596502/">
-            唐山大地震
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar40>
-          </SPAN>
-          7.5
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        冯小刚
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        徐帆 / 张静初 / 李晨 / 陈道明
-        <BR>
-        <SPAN class=pl>
-          强震23秒，余震32年。
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4328444/">
-          <IMG src="index_files/s4404650.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            3
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4328444/">
-            翡翠明珠
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar30>
-          </SPAN>
-          5.9
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        秦小珍
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        林峰 / 蔡卓妍 / 王祖蓝
-        <BR>
-        <SPAN class=pl>
-          一场狂欢似的化妆Party.
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3217122/">
-          <IMG src="index_files/s4204277.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            4
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3217122/">
-            一页台北
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar35>
-          </SPAN>
-          6.5
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        陈骏霖
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        郭采洁 / 姚淳耀 / 张孝全
-        <BR>
-        <SPAN class=pl>
-          一页台北之傻小子、傻姑娘齐欢乐。
-        </SPAN>
-      </DIV>
-    </LI>
-  </UL>
-  <UL id=newcontent4 class="content clearfix">
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4707230/">
-          <IMG src="index_files/s4402102(1).jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            1
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4707230/">
-            恋爱通告
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar35>
-          </SPAN>
-          7.1
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        王力宏
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        王力宏 / 刘亦菲 / 曾轶可
-        <BR>
-        <SPAN class=pl>
-          美籍华裔青年的中国得瑟梦。
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/2072478/">
-          <IMG src="index_files/s4294116(1).jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            2
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/2072478/">
-            怪物史瑞克4
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar40>
-          </SPAN>
-          7.6
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        Mike Mitchell
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        Mike Myers / Eddie Murphy
-        <BR>
-        <SPAN class=pl>
-          辛辣不再，笑点犹存。
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3003836/">
-          <IMG src="index_files/s4208318.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            3
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3003836/">
-            小屁孩日记
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar35>
-          </SPAN>
-          7.0
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        Thor Freudenthal
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        Zachary Gordon
-        <BR>
-        <SPAN class=pl>
-          那是我们都回不去的童年。
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4901335/">
-          <IMG src="index_files/s4430505.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            4
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/4901335/">
-            暮色大电影
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar35>
-          </SPAN>
-          6.2
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        Jason Friedberg
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        Ken Jeong / Matt Lanter
-        <BR>
-        <SPAN class=pl>
-          恶搞万岁。
-        </SPAN>
-      </DIV>
-    </LI>
-  </UL>
-  <UL id=newcontent5 class="content clearfix">
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3541415/">
-          <IMG src="index_files/s4356687.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            1
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3541415/">
-            盗梦空间
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar50>
-          </SPAN>
-          9.3
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        Christopher Nolan
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        Leonardo DiCaprio
-        <BR>
-        <SPAN class=pl>
-          匪夷所思却又流连忘返。
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3566540/">
-          <IMG src="index_files/s4427674.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            2
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3566540/">
-            荒村公寓
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar20>
-          </SPAN>
-          3.8
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        罗志良
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        余文乐 / 张雨绮 / 岳小军
-        <BR>
-        <SPAN class=pl>
-          悬疑恐怖片包装的青春偶像爱情片。
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3267120/">
-          <IMG src="index_files/s4388028.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            3
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3267120/">
-            魔法师的学徒
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar35>
-          </SPAN>
-          6.3
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        Jon Turteltaub
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        Nicolas Cage
-        <BR>
-        <SPAN class=pl>
-          电影毫无新意地讲述了“科学家会武术、流氓也挡不住”的江湖真谛。
-        </SPAN>
-      </DIV>
-    </LI>
-    <LI class=clearfix>
-      <DIV class=img>
-        <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3851822/">
-          <IMG src="index_files/s4403012.jpg">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-            4
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="http://movie.douban.com/subject/3851822/">
-            等着你回来
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar15>
-          </SPAN>
-          3.2
-        </DIV>
-        <SPAN class=pl>
-          导演:
-        </SPAN>
-        叶永健
-        <BR>
-        <SPAN class=pl>
-          主演:
-        </SPAN>
-        吴建豪 / 李小璐 / 加护亚依
-        <BR>
-        <SPAN class=pl>
-          国内恐怖片再这样下去让人情何以堪。
-        </SPAN>
-      </DIV>
-    </LI>
-  </UL>
+  	#end
 </DIV>
+
 <DIV class="movie_review clearfix">
   <H2 class="green_tab clearfix">
     <DIV class=ll>
@@ -1304,141 +637,46 @@ href="/list">更多</A> )</SPAN> </H2>
     </SPAN>
   </LI>
 </UL>
-<H2>热门标签· · · · <SPAN class=pl>(<A href="http://movie.douban.com/tag/?view=cloud">所有热门标签</A>)</SPAN></H2>
+
+<H2>热门标签· · · · </SPAN></H2>
 <UL class="content clearfix">
   <LI>[类型] </LI>
-  <LI><A href="http://movie.douban.com/tag/爱情">爱情</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/动画">动画</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/喜剧">喜剧</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/经典">经典</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/科幻">科幻</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/动作">动作</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/青春">青春</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/剧情">剧情</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/悬疑">悬疑</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/惊悚">惊悚</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/纪录片">纪录片</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/恐怖">恐怖</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/战争">战争</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/魔幻">魔幻</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/犯罪">犯罪</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/励志">励志</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/搞笑">搞笑</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/情色">情色</A> </LI>
-  <LI><A href="http://movie.douban.com/tag/?view=type#类型">(更多)</A> </LI></UL>
+  <!--热门标签-->
+  #foreach($tagInfo in $tagInfos)
+	<LI><A href="book/search.do?keyword=$!tagInfo.tagName">$!tagInfo.tagName</A></LI>
+  #end
+  
+  <!--
+  <LI><A href="">(更多)</A> </LI>
+  -->
+</UL>
 </DIV>
+
+<!-- 以后作推荐排行榜
 <DIV class=movie_top>
 <H2>推荐排行榜· · · · · · </H2>
 <UL class=content>
-  <LI class=clearfix>
-  <DIV class=no>1</DIV>
-  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/3541415/">盗梦空间</A></DIV>
-  <DIV class="fright color-gray">317个推荐</DIV></LI>
-  <LI class=clearfix>
-  <DIV class=no>2</DIV>
-  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/2072478/">怪物史瑞克4</A></DIV>
-  <DIV class="fright color-gray">217个推荐</DIV></LI>
-  <LI class=clearfix>
-  <DIV class=no>3</DIV>
-  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/3279080/">敢死队</A></DIV>
-  <DIV class="fright color-gray">117个推荐</DIV></LI>
-  <LI class=clearfix>
-  <DIV class=no>4</DIV>
-  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/4707230/">恋爱通告</A></DIV>
-  <DIV class="fright color-gray">17个推荐</DIV></LI>
-  <LI class=clearfix>
-  <DIV class=no>5</DIV>
-  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/3287562/">卑鄙的我</A></DIV>
-  <DIV class="fright color-gray">7个推荐</DIV></LI>
-  <LI class=clearfix>
-  <DIV class=no>6</DIV>
-  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/3596502/">唐山大地震</A></DIV>
-  <DIV class="fright color-gray">6个推荐</DIV></LI>
-  <LI class=clearfix>
-  <DIV class=no>7</DIV>
-  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/2153526/">特工绍特</A></DIV>
-  <DIV class="fright color-gray">5个推荐</DIV></LI>
-  <LI class=clearfix>
-  <DIV class=no>8</DIV>
-  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/3003842/">陵园路口</A></DIV>
-  <DIV class="fright color-gray">4个推荐</DIV></LI>
-  <LI class=clearfix>
-  <DIV class=no>9</DIV>
-  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/3236904/">自闭历程</A></DIV>
-  <DIV class="fright color-gray">3个推荐</DIV></LI>
-  <LI class=clearfix>
+   <LI class=clearfix>
   <DIV class=no>10</DIV>
   <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/3793023/">三个傻瓜</A></DIV>
-  <DIV class="fright color-gray">2个推荐</DIV></LI>
+  href="">三个傻瓜</A></DIV>
+  <DIV class="fright color-gray">2个推荐</DIV>
+   </LI>
+
 </UL></DIV>
+-->
 <DIV class=movie_top>
 <H2>积分排行榜· · · · · · </H2>
 <UL class=content>
+  #foreach($member in $scoremembers)
   <LI class=clearfix>
-  <DIV class=no>1</DIV>
-  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/3279080/">谭春梅</A> </DIV><SPAN 
-  class="box_chart_num color-gray">1650</SPAN> </LI>
-  <LI class=clearfix>
-  <DIV class=no>2 </DIV>
-  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/4901335/">刘琳</A> <IMG 
-  src="index_files/box_new.png"> </DIV><SPAN 
-  class="box_chart_num color-gray">1220</SPAN> </LI>
-  <LI class=clearfix>
-  <DIV class=no>3</DIV>
-  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/2033822/">胡怀文</A> </DIV><SPAN 
-  class="box_chart_num color-gray">1200</SPAN> </LI>
-  <LI class=clearfix>
-  <DIV class=no>4</DIV>
-  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/3692654/">胡宾</A> <IMG 
-  src="index_files/box_new.png"> </DIV><SPAN 
-  class="box_chart_num color-gray">1112</SPAN> </LI>
-  <LI class=clearfix>
-  <DIV class=no>5</DIV>
-  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/3569915/">肖刚毅</A> </DIV><SPAN 
-  class="box_chart_num color-gray">1010</SPAN> </LI>
-  <LI class=clearfix>
-  <DIV class=no>6</DIV>
-  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/2269893/">苏磊</A> <IMG 
-  src="index_files/box_new.png"> </DIV><SPAN 
-  class="box_chart_num color-gray">1004</SPAN> </LI>
-  <LI class=clearfix>
-  <DIV class=no>7</DIV>
-  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/3671986/">张婉楚</A> <IMG 
-  src="index_files/box_new.png"> </DIV><SPAN 
-  class="box_chart_num color-gray">831</SPAN> </LI>
-  <LI class=clearfix>
-  <DIV class=no>8</DIV>
-  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/3567857/">王国成</A> <IMG 
-  src="index_files/box_new.png"> </DIV><SPAN 
-  class="box_chart_num color-gray">810</SPAN> </LI>
-  <LI class=clearfix>
-  <DIV class=no>9</DIV>
-  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/3541415/">姚罡</A> </DIV><SPAN 
-  class="box_chart_num color-gray">766</SPAN> </LI>
-  <LI class=clearfix>
-  <DIV class=no>10</DIV>
-  <DIV class=box_chart><A onclick="moreurl(this, {from:'week'})" 
-  href="http://movie.douban.com/subject/2158222/">林朝森</A> </DIV><SPAN 
-  class="box_chart_num color-gray">503</SPAN> </LI></UL></DIV>
+  <DIV class=no>$!velocityCount </DIV>
+  <DIV class=box_chart>$!member.name</DIV>
+  <SPAN class="box_chart_num color-gray">$!member.score</SPAN> 
+  </LI>
+  #end
+</UL>
+</DIV>
 
 </DIV>
 <DIV class=extra></DIV></DIV></DIV>
