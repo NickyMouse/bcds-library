@@ -3,13 +3,22 @@
  */
 package com.alibaba.intl.bcds.goldroom.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.dataobject.Comment;
+import com.alibaba.intl.bcds.goldroom.dataobject.Member;
+import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
+import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
+import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.TagInfo;
+import com.alibaba.intl.bcds.goldroom.search.commons.dataobject.TagInfoBooks;
+import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 import com.alibaba.intl.bcds.goldroom.service.CommentService;
+import com.alibaba.intl.bcds.goldroom.service.MemberService;
+import com.alibaba.intl.bcds.goldroom.service.TagService;
 
 /**
  * @author Harrison
@@ -18,13 +27,56 @@ import com.alibaba.intl.bcds.goldroom.service.CommentService;
 public class IndexAction extends BaseAction {
 
 	/**
-	 *
+	 *service
 	 */
 
 	private BookItemService bookItemService;
+
 	private CommentService commentService;
+	private MemberService memberService;
+	private TagService tagService;
+	private BookInfoService bookInfoService;
+
+	/**
+	 * 页面获取的属性
+	 */
 
 	private List<BookItem> hotBooks;
+	private List<Member> scoremembers;
+	private List<TagInfo> tagInfos;
+	private List<TagInfoBooks> tagInfoBooks=new ArrayList<TagInfoBooks>();
+
+	public List<TagInfoBooks> getTagInfoBooks() {
+		return tagInfoBooks;
+	}
+
+	public void setTagInfoBooks(List<TagInfoBooks> tagInfoBooks) {
+		this.tagInfoBooks = tagInfoBooks;
+	}
+
+	public List<TagInfo> getTagInfos() {
+		return tagInfos;
+	}
+
+	public void setTagInfos(List<TagInfo> tagInfos) {
+		this.tagInfos = tagInfos;
+	}
+
+	public TagService getTagService() {
+		return tagService;
+	}
+
+	public void setTagService(TagService tagService) {
+		this.tagService = tagService;
+	}
+
+	public List<Member> getScoremembers() {
+		return scoremembers;
+	}
+
+	public void setScoremembers(List<Member> scoremembers) {
+		this.scoremembers = scoremembers;
+	}
 
 	public List<BookItem> getHotBooks() {
 		return hotBooks;
@@ -50,22 +102,65 @@ public class IndexAction extends BaseAction {
 		this.commentService = commentService;
 	}
 
+	public BookInfoService getBookInfoService() {
+		return bookInfoService;
+	}
+
+	public void setBookInfoService(BookInfoService bookInfoService) {
+		this.bookInfoService = bookInfoService;
+	}
+
 	private static final long serialVersionUID = -2235532196343484766L;
 
 	public String execute() throws Exception {
 
 		// 获取热评记录
 		List<BookItem> hotBooks1 = creatHotBooks();
-		
-		//新书榜 按照 标签来获取不同的新书 TODO
-		
-		//最受欢迎的书评 TODO
-		
-		//热门标签  TODO
-		
-		//推荐排行榜 TODO
-		
-		//积分排行榜 TODO
+
+		// 最受欢迎的书评 TODO
+
+		// 热门标签 TODO
+
+		List<TagInfo> tagInfos = tagService.listTag(19);
+		setTagInfos(tagInfos);
+
+		// 新书榜 按照 标签来获取不同的新书 TODO
+		/**
+		 * 取标签后 按照标签去查找4本书
+		 * 
+		 */
+
+		int i = 0;
+
+		for (TagInfo tagInfo : tagInfos) {
+
+			i++;
+
+			TagInfoBooks tagbooks = new TagInfoBooks();
+			// 获取书籍
+			BookSearchResult bookSearchResult = bookInfoService
+					.searchBookByKeyword(tagInfo.getTagName(),
+							SearchBookType.ALL, 1, 4);
+
+			tagbooks.setTagInfo(tagInfo);
+			tagbooks.setBookinfos(bookSearchResult.getBookList());
+
+			this.getTagInfoBooks().add(tagbooks);
+
+			if (i >= 5) {
+
+				break;
+
+			}
+
+		}
+
+		// 推荐排行榜 TODO
+
+		// 积分排行榜
+		List<Member> memebers = memberService.listMemberByScore(10);
+
+		setScoremembers(memebers);
 
 		hotBooks = hotBooks1;
 
@@ -115,5 +210,13 @@ public class IndexAction extends BaseAction {
 
 		}
 		return hotBooks1;
+	}
+
+	public MemberService getMemberService() {
+		return memberService;
+	}
+
+	public void setMemberService(MemberService memberService) {
+		this.memberService = memberService;
 	}
 }

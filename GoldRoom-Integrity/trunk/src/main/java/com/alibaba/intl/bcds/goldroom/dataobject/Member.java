@@ -19,8 +19,10 @@ import javax.persistence.Table;
                @NamedQuery(name = "findByLoginId", query = "SELECT m FROM Member m WHERE loginId = :loginId"),
                @NamedQuery(name = "listMemberByLoginIds", query = "SELECT m from Member m where loginId in (:loginIds)"),
                @NamedQuery(name = "listMemberByStatus", query = "SELECT m from Member m where enable = :status"),
+	           @NamedQuery(name = "listMemberByScore", query = "SELECT m from Member m order by m.score desc"),
                @NamedQuery(name = "findMemberByNameAndEmail", query = "SELECT m from Member m where name = :name and email = :email"),
                @NamedQuery(name = "findMemberByEmail", query = "SELECT m FROM Member m WHERE email = :email")
+
 
 })
 public class Member {

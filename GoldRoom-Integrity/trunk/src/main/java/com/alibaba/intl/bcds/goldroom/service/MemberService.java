@@ -178,4 +178,14 @@ public class MemberService {
         memberDao.updatePasswordByLoginId(m.getLoginId(), MD5.getMD5(password));
         return true;
     }
+    
+    /**
+     * 按照积分排行获取用户列表
+     * @param count 数量
+     * @return
+     */
+    public List<Member> listMemberByScore(int count) {
+    	
+    	return memberDao.listMemberByScore(count);
+    }
 }
