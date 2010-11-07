@@ -1,0 +1,39 @@
+<DIV class=movie_new>
+	<H2 class="green_tab clearfix">
+		<DIV class=ll>黄金屋新书榜· · · · · · </DIV>
+		<!--tags-->
+		#foreach($tagInfoBook in $!tagInfoBooks)
+			<A id="new$!velocityCount" #if($!velocityCount==1) class="on" #end href="javascript:void(0)">
+					<SPAN>$tagInfoBook.tagInfo.tagName</SPAN>
+			</A>
+		#end
+	</H2>
+	<!--tagbooks-->
+	#foreach($tagInfoBook in $!tagInfoBooks)
+		#set($bookInfoList = $tagInfoBook.bookInfoList)
+
+		<UL id="newcontent$!velocityCount" class="content clearfix">
+			#foreach($bookinfo in $!bookInfoList)
+				<LI class="clearfix">
+					<DIV class="img">
+						<A  href="$!base/detail/bookDetail.do?bookInfoId=$!bookinfo.id">
+							<IMG src="$imageServer$!bookinfo.bookImgUrl" height="100px">
+        				</A>
+      				</DIV>
+					<DIV class=intro>
+						<H3>
+							##<SPAN>$!velocityCount</SPAN>
+							<A onclick="moreurl(this, {from:'new'})" href="$!base/detail/bookDetail.do?bookInfoId=$!bookinfo.id">
+								$!bookinfo.name
+							</A>
+						</H3>
+						<SPAN class="pl">作者:</SPAN>$!bookinfo.author<BR/>
+						<SPAN class="pl">出版社:</SPAN>$!bookinfo.publisher<BR/>
+						<SPAN class="pl">出版时间：$bookinfo.publishTime</SPAN>
+					</DIV>
+    			</LI>
+		 #end
+
+  </UL>
+  	#end
+</DIV>

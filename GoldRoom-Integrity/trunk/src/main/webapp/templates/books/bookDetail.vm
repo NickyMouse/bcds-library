@@ -79,7 +79,7 @@ width:0;
 			</div>
 		</div>
 
-		
+
 		<!-- 图书拥有者信息 -->
 		<!--
 		<div style="height: 258px; border: 1px solid rgb(228, 228, 228); padding: 0px 8px; margin-bottom: 0px;"	class="aside movie_headerline">
@@ -160,7 +160,7 @@ width:0;
 			</h2>
 
 			<ul id="newcontent1" class="content clearfix" style="text-indent: 2em; display: block;">
-				$bookInfo.description
+				$!bookInfo.description
 			</ul>
 
 			<ul id="newcontent2" class="content clearfix" style="display: none;">

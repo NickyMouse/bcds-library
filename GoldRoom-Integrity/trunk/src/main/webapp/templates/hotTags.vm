@@ -1,0 +1,12 @@
+<H2>热门标签· · · · </SPAN></H2>
+<UL class="content clearfix">
+  <LI>[类型] </LI>
+  <!--热门标签-->
+  #foreach($tag in $tags)
+	<LI><A href="book/search.do?keyword=$!tag.tagName">$!tag.tagName</A></LI>
+  #end
+
+  <!--
+  <LI><A href="">(更多)</A> </LI>
+  -->
+</UL>

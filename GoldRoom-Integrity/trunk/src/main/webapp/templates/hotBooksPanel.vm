@@ -1,0 +1,76 @@
+<DIV class="movie_headerline clearfix">
+  <DIV class=left_conner>
+    <EM></EM>
+    <B></B>
+  </DIV>
+ 	#foreach($bookInfo in $hotBookList)
+	<DIV id="content_menu$!{velocityCount}" class="content clearfix">
+    <DIV class="headerline_img">
+      <A onclick="moreurl(this, {from:'cinema'})" href="$!base/detail/bookDetail.do?bookInfoId=$!bookInfo.id">
+        <IMG src="$imageServer$!item.imgUrl">
+      </A>
+    </DIV>
+    <DIV class=headerline_content>
+      <DIV class="title clearfix">
+        <A onclick="moreurl(this, {from:'cinema'})" href="$!base/detail/bookDetail.do?bookInfoId=$!bookInfo.id">
+          $!bookInfo.name
+        </A>
+      </DIV>
+      <SPAN class=pl>作者:</SPAN>$!bookInfo.author<BR>
+      <SPAN class=pl>出版时间:</SPAN>$!bookInfo.publishTime<BR>
+      <SPAN class=pl>内容简介:</SPAN>
+		#if($!bookInfo.description.length() > 150)
+			$!bookInfo.description.substring(0,150)...
+   		#else
+		   $!bookInfo.description
+   		#end
+		<BR/>
+      <SPAN class="fright color-gray"></SPAN>
+    </DIV>
+    <DIV style="MARGIN-TOP: -5px; _margin-top: -5px" class=ul>
+    </DIV>
+    <DIV class=headerline_review>
+      <UL>
+		<!--书评-->
+		#if(false)
+    		#foreach($common in $commons)
+    	   	#set($commonscount = $!velocityCount+1)
+            <LI>[书评]
+				<A href="#">$!common.content</A>
+    		</LI>
+
+    		#if($commons.size()==$!commonscount)
+    			更多书评
+			   <DIV style="FLOAT: right">
+                <A href="#">更多书评</A>
+              </DIV>
+    		  #end
+    		#end
+		#end
+      </UL>
+    </DIV>
+  </DIV>
+  	#end
+  <!-- list-->
+  #foreach($bookinfo in $hotBookList)
+  <UL id="hot_movies_menu" class="menu">
+    <LI id="menu$!velocityCount" class="first">
+      <DIV class="clearfix">
+        <EM></EM>
+		<DIV class="arrow"></DIV>
+        <DIV class="img">
+          <A onclick="moreurl(this, {from:'cinema'})" href="$!base/detail/bookDetail.do?bookInfoId=$!bookinfo.id">
+            <IMG src="$imageServer$!item.imgUrl" height="48">
+          </A>
+        </DIV>
+        <DIV class="intro">
+          <A class=title onclick="moreurl(this, {from:'cinema'})" href="$!base/detail/bookDetail.do?bookInfoId=$!bookinfo.id">
+            $bookinfo.name
+          </A>
+          <SPAN class="allstar35"></SPAN>
+        </DIV>
+      </DIV>
+    </LI>
+  #end
+  </UL>
+</DIV>

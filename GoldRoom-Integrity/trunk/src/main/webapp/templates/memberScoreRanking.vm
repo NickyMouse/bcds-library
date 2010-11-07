@@ -1,0 +1,12 @@
+<DIV class=movie_top>
+<H2>积分排行榜· · · · · · </H2>
+<UL class=content>
+  #foreach($member in $memberScores)
+  <LI class=clearfix>
+  <DIV class=no>$!velocityCount </DIV>
+  <DIV class=box_chart>$!member.name</DIV>
+  <SPAN class="box_chart_num color-gray">$!member.score</SPAN>
+  </LI>
+  #end
+</UL>
+</DIV>

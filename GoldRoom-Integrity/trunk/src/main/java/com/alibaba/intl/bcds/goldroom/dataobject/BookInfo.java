@@ -62,7 +62,7 @@ public class BookInfo {
     private String   imgUrl;
 
     @Column(name = "E_BOOK_URL")
-    @SearchableProperty(index = Index.NO, store = Store.YES)
+    @SearchableProperty(index = Index.NOT_ANALYZED, store = Store.YES)
     private String   eBookUrl;
 
     @Column(name = "DESCRIPTION")
@@ -108,7 +108,11 @@ public class BookInfo {
     @SearchableProperty(index = Index.ANALYZED, store = Store.YES)
     private String   tags;
 
-	public Integer getId() {
+    @Column(name = "STORE_STATE")
+    @SearchableProperty(index = Index.NOT_ANALYZED, store = Store.YES)
+    private String   storeState;
+
+    public Integer getId() {
         return id;
     }
 
@@ -305,5 +309,13 @@ public class BookInfo {
 
     public String getTags() {
         return tags;
+    }
+
+    public void setStoreState(String storeState) {
+        this.storeState = storeState;
+    }
+
+    public String getStoreState() {
+        return storeState;
     }
 }

@@ -11,22 +11,30 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
+
+import com.alibaba.intl.bcds.goldroom.mail.service.impl.SendMailServiceImpl;
 
 /**
  * TODO Comment of ImageUtilImpl
- * 
+ *
  * @author Zimmem
  */
 public class ImageUtilImpl implements ImageUtil, InitializingBean {
 
+    private static Logger      logger         = Logger.getLogger(ImageUtilImpl.class);
     public static final String HTTP_SEPARATOR = "/";
     private String             uploadPath;
 
     public String save(String isbn, String suffix, byte[] body) {
         String dirPath = uploadPath + isbnTopath(isbn);
         File dir = new File(dirPath);
-        if (!dir.exists()) dir.mkdirs();
+        if (!dir.exists()) {
+            if (!dir.mkdirs()) {
+                logger.error("mkdirs failed: " + dirPath);
+            }
+        }
         StringBuilder imgPath = new StringBuilder(dirPath);
         imgPath.append(isbn).append(suffix);
         File imageFile = new File(imgPath.toString());
@@ -36,11 +44,13 @@ public class ImageUtilImpl implements ImageUtil, InitializingBean {
             fos.write(body);
             fos.flush();
         } catch (IOException e) {
+            logger.error(e);
             return null;
         } finally {
             try {
                 if (fos != null) fos.close();
             } catch (IOException e) {
+                logger.error(e);
             }
         }
 

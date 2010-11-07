@@ -21,7 +21,7 @@
             return false;
         });
         jQuery(hl[0]).addClass("on");
-		
+
         for(var i=5; i; --i) {
             tab("#new"+i,".movie_new","#newcontent")
             if(i<=3) {
@@ -48,7 +48,7 @@
             jQuery(t+" .green_tab a").removeClass("on");
             jQuery(this).addClass("on");
             jQuery(t+" .content").hide();
-            jQuery(c+this.id.slice(-1)).show();             
+            jQuery(c+this.id.slice(-1)).show();
             jQuery.get("/j/movie/j_tab_count",{id:this.id})
         })
     }
@@ -61,181 +61,12 @@
 <DIV id=content>
 <DIV class="grid-16-8 clearfix">
 <DIV class=article>
-<H2 class=mb5>热门排行 · · · · · · <SPAN class=pl>( <A 
-href="/list">更多</A> )</SPAN> </H2>
-<DIV class="movie_headerline clearfix">
-  <DIV class=left_conner>
-    <EM>
-    </EM>
-    <B>
-    </B>
-  </DIV>
- 	#foreach($bookinfo in $hotBooks)
-    #set($item = $bookinfo.bookInfo)
-	#set($commons = $item.comments)
-  <DIV id=content_menu$!velocityCount class="content clearfix">
-    <DIV class=headerline_img>
-      <A onclick="moreurl(this, {from:'cinema'})" href="detail/bookDetail.do?bookInfoId=$!item.id">
-        <IMG src="$imageServer$!item.imgUrl">
-      </A>
-    </DIV>
-    <DIV class=headerline_content>
-      <DIV class="title clearfix">
-        <A onclick="moreurl(this, {from:'cinema'})" href="detail/bookDetail.do?bookInfoId=$!item.id">
-          $!item.name
-        </A>
-        <SPAN class=bigstar40>
-        </SPAN>
-        <SPAN class=grade>
-         
-        </SPAN>
-      </DIV>
-      <SPAN class=pl>
-        作者:
-      </SPAN>
-       $!item.author 
-      <BR>
-      <SPAN class=pl>
-        出版时间:
-      </SPAN>
-       $!item.publishTime
-      <BR>
-      <SPAN class=pl>
-        内容简介:
-      </SPAN>
-     $!item.description
-      <BR>
-      <SPAN class="fright color-gray">
-       
-      </SPAN>
-    </DIV>
-    <DIV style="MARGIN-TOP: -5px; _margin-top: -5px" class=ul>
-    </DIV>
-    <DIV class=headerline_review>
-      <UL>
-		<!--书评-->
-		#foreach($common in $commons)
-	   	#set($commonscount = $!velocityCount+1)
-        <LI>
-          [书评]
-          <A href="#">
-            $!common.content
-          </A>
-		</LI>
-	
-		#if($commons.size()==$!commonscount)
-			更多书评
-			<DIV style="FLOAT: right">
-            <A href="#">
-              更多书评
-            </A>
-          </DIV>
-		  #end
-		#end
-		
-      </UL>
-    </DIV>
-  </DIV>
-  	#end
-  <!-- list-->
-  #foreach($bookinfo in $hotBooks)
-  #set($item = $bookinfo.bookInfo)
-  <UL id=hot_movies_menu class=menu>
-    <LI id=menu$!velocityCount class=first>
-      <DIV class=clearfix>
-        <EM>
-        </EM>
-        <DIV class=arrow>
-        </DIV>
-        <DIV class=img>
-          <A onclick="moreurl(this, {from:'cinema'})" href="detail/bookDetail.do?bookInfoId=$!item.id">
-            <IMG src="$imageServer$!item.imgUrl" height=48>
-          </A>
-        </DIV>
-        <DIV class=intro>
-          <A class=title onclick="moreurl(this, {from:'cinema'})" href="">
-            $item.name
-          </A>
-          <SPAN class=allstar35>
-          </SPAN>
-        
-        </DIV>
-      </DIV>
-    </LI>
-#end
-  </UL>
-</DIV>
+<H2 class=mb5>热门排行 · · · · · · <SPAN class=pl>( <A href="/list">更多</A> )</SPAN> </H2>
 
+#parse("/templates/hotBooksPanel.vm")
 <!--热门排行list结束-->
+#parse("/templates/newBooksPanel.vm")
 
-<DIV class=movie_new>
-  <H2 class="green_tab clearfix">
-    <DIV class=ll>
-      黄金屋新书榜· · · · · ·
-    </DIV>
-	<!--tags-->
-	#foreach($tagInfoBook in $!tagInfoBooks)
-		#set($booktag_count = $!velocityCount+1)
-		#set($tagInfo = $tagInfoBook.tagInfo)
-    <A id=new$!booktag_count #if($!booktag_count==1)class=on#end href="javascript:void(0)">
-      <SPAN>
-      $tagInfo.tagName
-      </SPAN>
-    </A>
-	#end
-	
-  </H2>
-  	<!--tagbooks-->
-  #foreach($tagInfoBook in $!tagInfoBooks)
-	#set($bookcontent_count = $!velocityCount+1)
-	#set($bookinfos = $tagInfoBook.bookinfos)
-	
-  <UL id=newcontent$!bookcontent_count   class="content clearfix">
-  
-		
-    #foreach($bookinfo in $!bookinfos)
-			
-	 <LI class=clearfix>
-      <DIV class=img>
-        <A  href="detail/bookDetail.do?bookInfoId=$!bookinfo.bookInfoId">
-          <IMG src="$imageServer$!bookinfo.bookImgUrl" height="100px">
-        </A>
-      </DIV>
-      <DIV class=intro>
-        <H3>
-          <SPAN>
-			#set($bookcount = $!velocityCount+1)
-            $!bookcount
-          </SPAN>
-          <A onclick="moreurl(this, {from:'new'})" href="detail/bookDetail.do?bookInfoId=$!bookinfo.bookInfoId">
-           $bookinfo.bookName
-          </A>
-        </H3>
-        <DIV class="star clearfix">
-          <SPAN class=allstar35>
-          </SPAN>
-          7.1
-        </DIV>
-        <SPAN class=pl>
-          作者:
-        </SPAN>
-       $bookinfo.bookAuthor
-        <BR>
-        <SPAN class=pl>
-          出版社:
-        </SPAN>
-       $bookinfo.bookPublisher
-        <BR>
-        <SPAN class=pl>
-          出版时间：$bookinfo.bookPublishTime 
-        </SPAN>
-      </DIV>
-    </LI>	
-		 #end
-		
-  </UL>
-  	#end
-</DIV>
 
 <DIV class="movie_review clearfix">
   <H2 class="green_tab clearfix">
@@ -583,73 +414,10 @@ href="/list">更多</A> )</SPAN> </H2>
 </DIV>
 <DIV class=aside><!-- douban ad begin -->
 <DIV id=google_ads_slot_movie_home_top_right></DIV><!-- douban ad end -->
-<DIV class=newtags>
-<H2>新闻 ······ </H2>
-<UL class=simple-dashed-list>
-  <LI class=clearfix>
-    <P class="fleft w240">
-      <A href="#">
-        热烈庆祝黄金屋系统启用新页面模板
-      </A>
-    </P>
-    <SPAN class="fright color-gray">
-      2010-8-20
-    </SPAN>
-  </LI>
-  <LI class=clearfix>
-    <P class="fleft w240">
-      <A href="#">
-        黄金屋标签功能上线
-      </A>
-    </P>
-    <SPAN class="fright color-gray">
-      2010-8-12
-    </SPAN>
-  </LI>
-  <LI class=clearfix>
-    <P class="fleft w240">
-      <A href="#">
-        枫林晚即将入驻黄金屋
-      </A>
-    </P>
-    <SPAN class="fright color-gray">
-      2010-8-8
-    </SPAN>
-  </LI>
-  <LI class=clearfix>
-    <P class="fleft w240">
-      <A href="#">
-        黄金屋用户\系统调研活动结束
-      </A>
-    </P>
-    <SPAN class="fright color-gray">
-      2010-7-21
-    </SPAN>
-  </LI>
-  <LI class=clearfix>
-    <P class="fleft w240">
-      <A href="#">
-        黄金屋用户\系统调研活动隆重启动
-      </A>
-    </P>
-    <SPAN class="fright color-gray">
-      2010-7-9
-    </SPAN>
-  </LI>
-</UL>
-
-<H2>热门标签· · · · </SPAN></H2>
-<UL class="content clearfix">
-  <LI>[类型] </LI>
-  <!--热门标签-->
-  #foreach($tagInfo in $tagInfos)
-	<LI><A href="book/search.do?keyword=$!tagInfo.tagName">$!tagInfo.tagName</A></LI>
-  #end
-  
-  <!--
-  <LI><A href="">(更多)</A> </LI>
-  -->
-</UL>
+<DIV class="newtags">
+	#parse("templates/bulletinBoard.vm")
+	#parse("templates/hotTags.vm")
+	<br/>
 </DIV>
 
 <!-- 以后作推荐排行榜
@@ -658,25 +426,15 @@ href="/list">更多</A> )</SPAN> </H2>
 <UL class=content>
    <LI class=clearfix>
   <DIV class=no>10</DIV>
-  <DIV class=name><A onclick="moreurl(this, {from:'week'})" 
+  <DIV class=name><A onclick="moreurl(this, {from:'week'})"
   href="">三个傻瓜</A></DIV>
   <DIV class="fright color-gray">2个推荐</DIV>
    </LI>
 
 </UL></DIV>
 -->
-<DIV class=movie_top>
-<H2>积分排行榜· · · · · · </H2>
-<UL class=content>
-  #foreach($member in $scoremembers)
-  <LI class=clearfix>
-  <DIV class=no>$!velocityCount </DIV>
-  <DIV class=box_chart>$!member.name</DIV>
-  <SPAN class="box_chart_num color-gray">$!member.score</SPAN> 
-  </LI>
-  #end
-</UL>
-</DIV>
+
+#parse("/templates/memberScoreRanking.vm")
 
 </DIV>
 <DIV class=extra></DIV></DIV></DIV>

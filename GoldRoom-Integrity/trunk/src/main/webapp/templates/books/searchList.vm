@@ -126,7 +126,7 @@ a.ww-mobile{background-position:0 -40px;}
 							  </a>
 							</span>
 						</li>
-                    	<li><b>&nbsp;</b></li>
+                    	<li>$book.eBookUrl<b>&nbsp;</b></li>
 					</div>
                 </ul>
 			</div>

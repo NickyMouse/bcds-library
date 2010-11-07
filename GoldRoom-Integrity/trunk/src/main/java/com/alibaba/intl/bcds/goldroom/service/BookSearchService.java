@@ -15,6 +15,7 @@ import org.compass.core.CompassQueryBuilder.CompassBooleanQueryBuilder;
 import org.compass.core.CompassSession;
 import org.compass.core.CompassTemplate;
 
+import com.alibaba.intl.bcds.goldroom.constaints.BookStoreState;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.BookSearchOption;
@@ -36,11 +37,11 @@ public class BookSearchService {
                 CompassQuery query = null;
                 CompassHit[] hits = null;
                 if (SearchBookType.EBOOK.equals(type)) {
-                    query = queryBuilder.bool().addMust(queryBuilder.queryString(keyword).toQuery()).addMustNot(queryBuilder.spanEq("bookInfo.eBookUrl",
-                                                                                                                                    "")).toQuery();
+                    query = queryBuilder.bool().addMust(queryBuilder.queryString(keyword).toQuery()).addMustNot(queryBuilder.spanEq("bookInfo.storeState",
+                                                                                                                                    BookStoreState.PAPER_BOOK.getValue())).toQuery();
                 } else if (SearchBookType.PAPER_BOOK.equals(type)) {
-                    query = queryBuilder.bool().addMust(queryBuilder.queryString(keyword).toQuery()).addMust(queryBuilder.spanEq("bookInfo.eBookUrl",
-                                                                                                                                 "")).toQuery();
+                    query = queryBuilder.bool().addMust(queryBuilder.queryString(keyword).toQuery()).addMustNot(queryBuilder.spanEq("bookInfo.storeState",
+                                                                                                                                    BookStoreState.EBOOK.getValue())).toQuery();
                 } else {
                     query = queryBuilder.queryString(keyword).toQuery();
                 }
@@ -49,7 +50,7 @@ public class BookSearchService {
                 for (int i = 0; i < length; i++) {
                     results.add((BookInfo) hits[i].data());
                 }
-                return new BookSearchResult(results, length);
+                return new BookSearchResult(results, query.hits().getLength());
             }
         });
     }
@@ -65,12 +66,12 @@ public class BookSearchService {
                 CompassHit[] hits = null;
                 if (SearchBookType.EBOOK.equals(type)) {
                     query = queryBuilder.bool().addMust(queryBuilder.ge("bookInfo.gmtCreate", startTime)).addMust(queryBuilder.le("bookInfo.gmtCreate",
-                                                                                                                                  endTime)).addMustNot(queryBuilder.spanEq("bookInfo.eBookUrl",
-                                                                                                                                                                           "")).toQuery();
+                                                                                                                                  endTime)).addMustNot(queryBuilder.spanEq("bookInfo.storeState",
+                                                                                                                                                                           BookStoreState.PAPER_BOOK.getValue())).toQuery();
                 } else if (SearchBookType.PAPER_BOOK.equals(type)) {
                     query = queryBuilder.bool().addMust(queryBuilder.ge("bookInfo.gmtCreate", startTime)).addMust(queryBuilder.le("bookInfo.gmtCreate",
-                                                                                                                                  endTime)).addMust(queryBuilder.spanEq("bookInfo.eBookUrl",
-                                                                                                                                                                        "")).toQuery();
+                                                                                                                                  endTime)).addMustNot(queryBuilder.spanEq("bookInfo.storeState",
+                                                                                                                                                                           BookStoreState.EBOOK.getValue())).toQuery();
                 } else {
                     query = queryBuilder.bool().addMust(queryBuilder.ge("bookInfo.gmtCreate", startTime)).addMust(queryBuilder.le("bookInfo.gmtCreate",
                                                                                                                                   endTime)).toQuery();
@@ -80,7 +81,7 @@ public class BookSearchService {
                 for (int i = 0; i < length; i++) {
                     results.add((BookInfo) hits[i].data());
                 }
-                return new BookSearchResult(results, length);
+                return new BookSearchResult(results, query.hits().getLength());
             }
         });
     }
@@ -122,12 +123,12 @@ public class BookSearchService {
                 CompassHit[] hits = null;
                 if (SearchBookType.EBOOK.equals(type)) {
                     query = queryBuilder.bool().addMust(queryBuilder.ge("bookInfo.gmtCreate", startTime)).addMust(queryBuilder.le("bookInfo.gmtCreate",
-                                                                                                                                  endTime)).addMustNot(queryBuilder.spanEq("bookInfo.eBookUrl",
-                                                                                                                                                                           "")).toQuery();
+                                                                                                                                  endTime)).addMustNot(queryBuilder.spanEq("bookInfo.storeState",
+                                                                                                                                                                           BookStoreState.PAPER_BOOK.getValue())).toQuery();
                 } else if (SearchBookType.PAPER_BOOK.equals(type)) {
                     query = queryBuilder.bool().addMust(queryBuilder.ge("bookInfo.gmtCreate", startTime)).addMust(queryBuilder.le("bookInfo.gmtCreate",
-                                                                                                                                  endTime)).addMust(queryBuilder.spanEq("bookInfo.eBookUrl",
-                                                                                                                                                                        "")).toQuery();
+                                                                                                                                  endTime)).addMustNot(queryBuilder.spanEq("bookInfo.storeState",
+                                                                                                                                                                           BookStoreState.EBOOK.getValue())).toQuery();
                 } else {
                     query = queryBuilder.bool().addMust(queryBuilder.ge("bookInfo.gmtCreate", startTime)).addMust(queryBuilder.le("bookInfo.gmtCreate",
                                                                                                                                   endTime)).toQuery();
@@ -137,7 +138,7 @@ public class BookSearchService {
                 for (int i = 0; i < length; i++) {
                     results.add((BookInfo) hits[i].data());
                 }
-                return new BookSearchResult(results, length);
+                return new BookSearchResult(results, query.hits().getLength());
             }
         });
     }

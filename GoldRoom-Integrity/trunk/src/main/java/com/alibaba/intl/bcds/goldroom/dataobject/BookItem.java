@@ -58,17 +58,14 @@ public class BookItem {
     @Column(name = "GMT_MODIFIED")
     private Date     gmtModified;
 
-    @Column(name = "TAGS")
-    private String   tags;
-
     @Column(name = "REMARK")
     private String   remark;
 
     @ManyToOne
     @JoinColumn(name = "BOOK_INFO_ID")
     private BookInfo bookInfo;
- 
-	public Integer getId() {
+
+    public Integer getId() {
         return id;
     }
 
@@ -122,14 +119,6 @@ public class BookItem {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
     }
 
     public void setRemark(String remark) {

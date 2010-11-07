@@ -25,6 +25,7 @@ public class TagDaoImpl implements TagDao {
         Map<String, TagInfo> newTagMap = tagMap;
         if (newTagMap == null) {
             logger.error("tagDaoImpl: refresh newTagMap is null");
+            return;
         }
 
         List<TagInfo> newSortedTagInfoList = new ArrayList<TagInfo>();
@@ -41,12 +42,12 @@ public class TagDaoImpl implements TagDao {
             }
 
         });
-        if (tagMap != null) {
-            synchronized (tagMap) {
-                tagMap = newTagMap;
+        if (this.tagMap != null) {
+            synchronized (this.tagMap) {
+                this.tagMap = newTagMap;
             }
         } else {
-            tagMap = newTagMap;
+            this.tagMap = newTagMap;
         }
 
         if (sortedTagInfoList != null) {

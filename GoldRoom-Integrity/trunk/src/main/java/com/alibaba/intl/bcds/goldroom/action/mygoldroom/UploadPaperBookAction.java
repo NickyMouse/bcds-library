@@ -46,7 +46,6 @@ public class UploadPaperBookAction extends BaseAction {
 
         bookItem.setState(BookItemStateEnum.IDLE.getValue());
         bookItem.setRemark(remark);
-        bookItem.setTags(tags);
         bookItem.setOwner(currentMember);
         bookItem.setBookInfo(currentBookInfo);
 

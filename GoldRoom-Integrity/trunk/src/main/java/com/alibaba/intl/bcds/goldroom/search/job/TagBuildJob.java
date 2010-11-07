@@ -34,7 +34,7 @@ public class TagBuildJob extends QuartzJobBean {
 
         BookSearchResult result = bookSearchService.listAllBook(SearchBookType.ALL, 0, pageSize);
         int page = 0;
-        while (result.getTotalCount() > 0) {
+        while (result.getBookList().size() > 0) {
             tagFactory.addBooks(result.getBookList());
             page++;
             result = bookSearchService.listAllBook(SearchBookType.ALL, page * pageSize, pageSize);
