@@ -433,6 +433,8 @@ update MEMBER m
 set m.SCORE=0
 where m.SCORE is null;
 
+update BOOK_INFO info, (select BOOK_INFO_ID, GROUP_CONCAT(TAGS) TAGS from BOOK_ITEM GROUP BY BOOK_INFO_ID) item set info.TAGS=item.TAGS where info.ID = item.BOOK_INFO_ID and info.TAGS is null;
+
 ALTER TABLE BOOK_ITEM DROP COLUMN TAGS;
 
 
