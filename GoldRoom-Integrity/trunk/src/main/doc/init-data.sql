@@ -437,7 +437,7 @@ ALTER TABLE BOOK_ITEM DROP COLUMN TAGS;
 
 
 ALTER TABLE BOOK_INFO ADD COLUMN STORE_STATE VARCHAR(10) NULL;
-update BOOK_INFO SET STORE_STATE='ebook' where E_BOOK_URL is not null and E_BOOK_URL <> ''
-update BOOK_INFO info, BOOK_ITEM item SET STORE_STATE='paper' where info.ID = item.BOOK_INFO_ID
-update BOOK_INFO SET STORE_STATE='both' where (E_BOOK_URL is not null and E_BOOK_URL <> '') and STORE_STATE='paper'
+update BOOK_INFO SET STORE_STATE='ebook' where E_BOOK_URL is not null and E_BOOK_URL <> '';
+update BOOK_INFO info, BOOK_ITEM item SET STORE_STATE='paper' where info.ID = item.BOOK_INFO_ID;
+update BOOK_INFO SET STORE_STATE='both' where (E_BOOK_URL is not null and E_BOOK_URL <> '') and STORE_STATE='paper';
 
