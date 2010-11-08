@@ -5,7 +5,7 @@
 <struts>
 	<package name="/book" extends="default">
 		<action name="search" class="com.alibaba.intl.bcds.goldroom.action.books.SearchBookListAction">
-			<param name="pageSize">5</param>
+			<param name="pageSize">10</param>
 			<result name="success" type="velocity">/templates/books/searchList.vm</result>
 		</action>
 	</package>
