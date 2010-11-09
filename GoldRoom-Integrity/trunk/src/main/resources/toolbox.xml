@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <toolbox>
-	<data type="string">
-		<key>server</key>
-		<scope>application</scope>
-		<value>goldroom.b2b.alibaba-inc.com</value>
-	</data>
-
 	<tool>
 		<key>link</key>
 		<scope>request</scope>
@@ -22,12 +16,6 @@
 		<key>errors</key>
 		<scope>request</scope>
 		<class>org.apache.velocity.tools.struts.ErrorsTool</class>
-	</tool>
-
-	<tool>
-		<key>form</key>
-		<scope>request</scope>
-		<class>org.apache.velocity.tools.struts.FormTool</class>
 	</tool>
 
 	<tool>
@@ -48,5 +36,12 @@
         <scope>application</scope>  
         <class>org.apache.velocity.tools.generic.DateTool</class>  
         <parameter name="format" value="yyyy-MM-dd" />  
-     </tool>  
+     </tool>
+     
+     <data type="string">
+		<key>server</key>
+		<scope>application</scope>
+		<value>goldroom.b2b.alibaba-inc.com</value>
+	</data>
+	
 </toolbox>
