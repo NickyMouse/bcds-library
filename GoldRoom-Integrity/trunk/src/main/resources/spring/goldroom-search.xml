@@ -82,19 +82,16 @@
 	<bean id="compassTemplate" class="org.compass.core.CompassTemplate" />
 
 	<!-- index builder job -->
-	<bean id="indexBuildJobBean" class="com.alibaba.intl.bcds.goldroom.search.job.IndexBuildJob" init-method="init">
+	<bean id="indexBuildJobBean" class="com.alibaba.intl.bcds.goldroom.search.job.IndexBuildJob"
+		init-method="init">
 		<property name="buildOnStart" value="${goldroom.index.buildOnStart}" />
 	</bean>
 
-	<bean name="indexBuildJob" class="org.springframework.scheduling.quartz.JobDetailBean">
-		<property name="beanName" value="indexBuildJobBean" />
-		<property name="jobDataAsMap">
-			<map>
-				<entry key="timeout">
-					<value>5</value>
-				</entry>
-			</map>
-		</property>
+	<bean name="indexBuildJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="indexBuildJobBean" />
+		<property name="targetMethod" value="fullBuild" />
+		<property name="concurrent" value="false" />
 	</bean>
 
 
@@ -104,7 +101,8 @@
 			<ref bean="indexBuildJob" />
 		</property>
 		<property name="cronExpression">
-			<value>0 0 23 ? * *</value>
+			<!-- <value>0 0 23 * * ?</value> -->
+			<value>0 * * * * ?</value>
 		</property>
 	</bean>
 
@@ -113,34 +111,28 @@
 		<property name="pageSize" value="20" />
 	</bean>
 
-	<bean name="tagBuildJob" class="org.springframework.scheduling.quartz.JobDetailBean">
-		<property name="beanName" value="tagBuildJobBean" />
-		<property name="jobDataAsMap">
-			<map>
-				<entry key="timeout">
-					<value>5</value>
-				</entry>
-			</map>
-		</property>
+	<bean name="tagBuildJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="tagBuildJobBean" />
+		<property name="targetMethod" value="build" />
+		<property name="concurrent" value="false" />
 	</bean>
 
 
 	<!-- the job will run every hour -->
-	<bean id="tagCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-		<property name="jobDetail">
-			<ref bean="indexBuildJob" />
-		</property>
-		<property name="cronExpression">
-			<value>0 0 * ? * *</value>
-		</property>
+	<bean id="tagSimpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="tagBuildJob" />
+		<property name="startDelay" value="0" />
+		<property name="repeatInterval" value="50000" />
 	</bean>
+
 
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
 		autowire="no">
 		<property name="triggers">
 			<list>
 				<ref local="indexCronTrigger" />
-				<ref local="tagCronTrigger" />
+				<ref local="tagSimpleTrigger" />
 			</list>
 		</property>
 	</bean>

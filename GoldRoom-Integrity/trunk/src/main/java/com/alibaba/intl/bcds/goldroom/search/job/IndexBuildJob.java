@@ -13,7 +13,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  *
  * @author Giraffe
  */
-public class IndexBuildJob extends QuartzJobBean {
+public class IndexBuildJob {
 
     private static Logger logger       = Logger.getLogger(IndexBuildJob.class);
 
@@ -39,11 +39,6 @@ public class IndexBuildJob extends QuartzJobBean {
         compassGps.index();
         Date end = new Date();
         logger.info("index builder full index cost time :" + (end.getTime() - start.getTime()));
-    }
-
-    @Override
-    protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-        fullBuild();
     }
 
     public void setBuildOnStart(boolean buildOnStart) {

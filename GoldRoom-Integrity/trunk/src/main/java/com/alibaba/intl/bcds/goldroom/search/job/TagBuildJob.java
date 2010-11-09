@@ -16,7 +16,7 @@ import com.alibaba.intl.bcds.goldroom.search.commons.TagFactory;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
 import com.alibaba.intl.bcds.goldroom.service.BookSearchService;
 
-public class TagBuildJob extends QuartzJobBean {
+public class TagBuildJob {
 
     private static Logger     logger = Logger.getLogger(TagBuildJob.class);
     private BookSearchService bookSearchService;
@@ -29,6 +29,9 @@ public class TagBuildJob extends QuartzJobBean {
      * @throws IOException
      */
     public void build() {
+        if (pageSize == 0) {
+            pageSize = 50;
+        }
         Date start = new Date();
         TagFactory tagFactory = TagFactory.getInstance();
 
@@ -44,11 +47,6 @@ public class TagBuildJob extends QuartzJobBean {
         Date end = new Date();
         logger.info("Tag build finish in " + (end.getTime() - start.getTime()) + "ms");
         tagDao.refresh(tagMap);
-    }
-
-    @Override
-    protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-        build();
     }
 
     public void setBookSearchService(BookSearchService bookSearchService) {
