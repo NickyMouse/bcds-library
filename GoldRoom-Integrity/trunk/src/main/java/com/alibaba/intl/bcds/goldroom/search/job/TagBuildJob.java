@@ -5,9 +5,6 @@ import java.util.Date;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.alibaba.intl.bcds.goldroom.dao.TagDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.TagInfo;

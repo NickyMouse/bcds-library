@@ -9,6 +9,7 @@ import com.alibaba.intl.bcds.goldroom.constaints.BookItemStateEnum;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
+import com.alibaba.intl.bcds.goldroom.dataobject.UserDTO;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 
 public class UploadEBookAction extends BaseAction {
@@ -26,16 +27,18 @@ public class UploadEBookAction extends BaseAction {
 
     private String            remark;
 
-    private String            loginId;
-
     private BookItemService   bookItemService;
 
     public String execute() throws Exception {
+        UserDTO user = this.getUserDTO();
+        if (user == null) {
+            return ERROR;
+        }
         if (StringUtils.isBlank(isbn)) {
             return "showForm";
         }
         Member currentMember = new Member();
-        currentMember.setLoginId(loginId);
+        currentMember.setLoginId(user.getLoginId());
 
         BookInfo currentBookInfo = new BookInfo();
         currentBookInfo.setId(bookInfoId);
@@ -93,11 +96,4 @@ public class UploadEBookAction extends BaseAction {
         return remark;
     }
 
-    public void setLoginId(String loginId) {
-        this.loginId = loginId;
-    }
-
-    public String getLoginId() {
-        return loginId;
-    }
 }

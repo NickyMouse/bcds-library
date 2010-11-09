@@ -1,8 +1,8 @@
 <li class="title">书籍管理
 	<ul>
-		<li><a href="$base/mygoldroom/myBooksList.action?state=all&loginId=gangyi.xiaogy" #if($menuIndex==1)class="selected"#end>我的书籍</a></li>
-    	<li><a href="$base/mygoldroom/reservationList.action?state=all&loginId=gangyi.xiaogy" #if($menuIndex==2)class="selected"#end>我预约的</a></li>
-    	<li><a href="$base/mygoldroom/lendingList.action?loginId=gangyi.xiaogy" #if($menuIndex==3)class="selected"#end>我借阅的</a></li>
+		<li><a href="$base/mygoldroom/myBooksList.action?state=all" #if($menuIndex==1)class="selected"#end>我的书籍</a></li>
+    	<li><a href="$base/mygoldroom/reservationList.action?state=all" #if($menuIndex==2)class="selected"#end>我预约的</a></li>
+    	<li><a href="$base/mygoldroom/lendingList.action" #if($menuIndex==3)class="selected"#end>我借阅的</a></li>
 		<li><a href="$base/mygoldroom/uploadPaperBook.action" #if($menuIndex==4)class="selected"#end>分享纸质书</a></li>
 		<li><a href="$base/mygoldroom/uploadEBook.action" #if($menuIndex==5)class="selected"#end>分享电子书</a></li>
 	</ul>
@@ -10,7 +10,6 @@
 
 <li class="title">个人信息
 	<ul>
-		<li><a href="#">修改密码</a></li>
-    	<li><a href="#">修改信息</a></li>
+    	<li><a href="$base/mygoldroom/editProfile.action" #if($menuIndex==6)class="selected"#end>修改信息</a></li>
 	</ul>
 </li>

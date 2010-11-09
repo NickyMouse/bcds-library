@@ -31,7 +31,7 @@ public enum BookItemStateEnum {
 
     public static boolean isValidState(String state) {
         if (IDLE.getValue().equals(state) || UNAVAILABLE.getValue().equals(state) || LENDED.getValue().equals(state)
-            || RESERVATED.getValue().equals(state)) {
+            || RESERVATED.getValue().equals(state) || EBOOK.getValue().equals(state)) {
             return true;
         } else {
             return false;

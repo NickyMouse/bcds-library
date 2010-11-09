@@ -40,5 +40,12 @@
 			<result name="success" type="velocity">/templates/mygoldroom/uploadEBook.vm
 			</result>
 		</action>
+		<action name="editProfile"
+			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.EditProfileAction">
+			<result name="showForm" type="velocity">/templates/mygoldroom/editProfile.vm
+			</result>
+			<result name="success" type="velocity">/templates/mygoldroom/editProfile.vm
+			</result>
+		</action>
 	</package>
 </struts>

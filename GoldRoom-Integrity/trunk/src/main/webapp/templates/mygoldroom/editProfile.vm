@@ -1,0 +1,38 @@
+#parse("templates/common/header.vm")
+
+<link rel=stylesheet type=text/css href="$base/static/css/mygoldroom.css" />
+
+
+
+		<!-- content start here-->
+		<DIV id="content">
+            <h1>我的黄金屋</h1>
+       		<div id="leftMenu" class="leftMenu">
+				#set($menuIndex=6)
+				#parse("templates/mygoldroom/menu.vm")
+       		</div>
+        	<div id="right" class="rightContent">
+				<div class="uploadDiv">
+    				<h2>修改个人信息</h2>
+					<form name="editProfileForm" action="$base/mygoldroom/editProfile.action">
+                        <label for="aliTalkId">贸易通</label><input name="aliTalkId" value="$!aliTalkId" id="aliTalkId"/><br/>
+						<label for="location">位置</label><input name="location" value="$!location" id="location"/><br/>
+						<label for="ext">分机</label><input name="ext" value="$!ext" id="ext"/>
+						<input name="submitFlag" value="y" type="hidden"/>
+						<input type="submit" value="修改"/>
+						<input type="reset" value="重置"/>
+                    </form>
+					<h2>#if($result && $result=="true")
+							修改成功
+						#elseif($result && $result=="false")
+							修改失败
+						#end
+					</h2>
+				</div>
+            </div>
+		</DIV>
+		<!-- content end here -->
+		<div style="clear:both"></div>
+
+#parse("templates/common/footer.vm")
+

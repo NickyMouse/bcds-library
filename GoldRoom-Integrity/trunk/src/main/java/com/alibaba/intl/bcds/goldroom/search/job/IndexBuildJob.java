@@ -4,9 +4,6 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.compass.gps.CompassGps;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.springframework.scheduling.quartz.QuartzJobBean;
 
 /**
  * search engine full build job

@@ -63,16 +63,18 @@
        		</div>
         	<div id="right" class="rightContent">
 				<div>
-				<a href="$base/mygoldroom/myBooksList.action?state=all&loginId=gangyi.xiaogy" #if($state=="all") class="seledtedState" #else class="state" #end>
+				<a href="$base/mygoldroom/myBooksList.action?state=all" #if($state=="all") class="seledtedState" #else class="state" #end>
 							全部 #if($state=="all")($!{bookItemResult.totalCount})#end</a>
-				<a href="$base/mygoldroom/myBooksList.action?state=idle&loginId=gangyi.xiaogy" #if($state=="idle") class="seledtedState" #else class="state" #end>
+				<a href="$base/mygoldroom/myBooksList.action?state=idle" #if($state=="idle") class="seledtedState" #else class="state" #end>
 							空闲 #if($state=="idle")($!{bookItemResult.totalCount})#end</a>
-				<a href="$base/mygoldroom/myBooksList.action?state=reservated&loginId=gangyi.xiaogy" #if($state=="reservated") class="seledtedState" #else class="state" #end>
+				<a href="$base/mygoldroom/myBooksList.action?state=reservated" #if($state=="reservated") class="seledtedState" #else class="state" #end>
 							被预约 #if($state=="reservated")($!{bookItemResult.totalCount})#end</a>
-				<a href="$base/mygoldroom/myBooksList.action?state=lended&loginId=gangyi.xiaogy" #if($state=="lended") class="seledtedState" #else class="state" #end>
+				<a href="$base/mygoldroom/myBooksList.action?state=lended" #if($state=="lended") class="seledtedState" #else class="state" #end>
 							被借阅 #if($state=="lended")($!{bookItemResult.totalCount})#end</a>
-				<a href="$base/mygoldroom/myBooksList.action?state=unavailable&loginId=gangyi.xiaogy" #if($state=="unavailable") class="seledtedState" #else class="state" #end>
+				<a href="$base/mygoldroom/myBooksList.action?state=unavailable" #if($state=="unavailable") class="seledtedState" #else class="state" #end>
 							已下架 #if($state=="unavailable")($!{bookItemResult.totalCount})#end</a>
+				<a href="$base/mygoldroom/myBooksList.action?state=ebook" #if($state=="ebook") class="seledtedState" #else class="state" #end>
+							电子书 #if($state=="ebook")($!{bookItemResult.totalCount})#end</a>
 				</div>
 				#set($bookList = $bookItemResult.itemList)
 				#if($bookItemResult && $bookItemResult.totalCount > 0)

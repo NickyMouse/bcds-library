@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
 import com.alibaba.intl.bcds.goldroom.constaints.ReservationStateEnum;
+import com.alibaba.intl.bcds.goldroom.dataobject.UserDTO;
 import com.alibaba.intl.bcds.goldroom.result.ReservationResult;
 import com.alibaba.intl.bcds.goldroom.service.ReservationService;
 
@@ -17,19 +18,10 @@ public class ReservationListAction extends BaseAction {
     private ReservationService reservationService;
 
     // FIXME LOGIN ID 要换成真正的loginId 不是表单传过来的
-    private String             loginId;
     private int                page;
     private int                pageSize;
     private ReservationResult  reservationResult;
     private String             state;
-
-    public String getLoginId() {
-        return loginId;
-    }
-
-    public void setLoginId(String loginId) {
-        this.loginId = loginId;
-    }
 
     public int getPage() {
         return page;
@@ -48,14 +40,18 @@ public class ReservationListAction extends BaseAction {
     }
 
     public String execute() throws Exception {
+        UserDTO user = this.getUserDTO();
+        if (user == null) {
+            return ERROR;
+        }
         if (page <= 0) {
             page = 1;
         }
         if (StringUtils.isBlank(state) || !ReservationStateEnum.isValidState(state)) {
-            reservationResult = reservationService.listReservatedBooksBySubscriber(loginId, page, pageSize);
+            reservationResult = reservationService.listReservatedBooksBySubscriber(user.getLoginId(), page, pageSize);
         } else {
-            reservationResult = reservationService.listReservatedBooksBySubscriberAndState(loginId, state, page,
-                                                                                           pageSize);
+            reservationResult = reservationService.listReservatedBooksBySubscriberAndState(user.getLoginId(), state,
+                                                                                           page, pageSize);
         }
         return SUCCESS;
     }

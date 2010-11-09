@@ -44,12 +44,12 @@
 		<DIV id=content>
             <h1>我的黄金屋</h1>
        		<div id="leftMenu" class="leftMenu">
-				#set($menuIndex=4)
+				#set($menuIndex=5)
 				#parse("templates/mygoldroom/menu.vm")
        		</div>
         	<div id="right" class="rightContent">
 				<div class="uploadDiv">
-    				<h2>分享纸质书</h2>
+    				<h2>分享电子书</h2>
     				<span>请输入ISBN：</span><input name="first_isbn" id="first_isbn"/><input type="button" value="确定" onclick="javascript:getBookInfo(document.getElementById('first_isbn'))"/>
 
 					<div class="uploadBookInfo" id="uploadBookInfo" style="display:none">
