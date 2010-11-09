@@ -1,0 +1,39 @@
+
+<DIV class="movie_review clearfix">
+  <H2 class="green_tab clearfix">
+    <DIV class=ll>
+      最受新书评 · · · · · ·
+    </DIV>
+  </H2>
+  <DIV id=review1 class=content>
+	  #foreach($commentbookinfo in $commentBookInfoDtoList)
+      <UL style="CLEAR: both" class="tlst clearfix">
+      <LI class=clst>
+        <SPAN class="pl ll obss">
+          <SPAN class=starb>
+            $!commentbookinfo.commnet.member.name &nbsp;评论:
+            <A onclick="moreurl(this, {from:'review'})" href="/detail/bookDetail.do?bookInfoId=$!commentbookinfo.bookinfo.id">
+               $commentbookinfo.bookinfo.name
+            </A>
+          </SPAN>
+		  
+          <SPAN class="stars5 stars1" title=力荐>
+          </SPAN>
+        </SPAN>
+        <BR>
+        <DIV id=review_3578822_short>
+             $commentbookinfo.commnet.content
+        </DIV>
+      </LI>
+    </UL>
+	 #end
+	<!--
+    <DIV style="FLOAT: right">
+      &gt;
+      <A href="#">
+        更多书评
+      </A>
+    </DIV>
+	-->
+  </DIV>
+</DIV>
