@@ -2,8 +2,9 @@
 <H2>积分排行榜· · · · · · </H2>
 <UL class=content>
   #foreach($member in $memberScores)
+	#set($count=$!velocityCount+1)
   <LI class=clearfix>
-  <DIV class=no>$!velocityCount </DIV>
+  <DIV class=no>$!count </DIV>
   <DIV class=box_chart>$!member.name</DIV>
   <SPAN class="box_chart_num color-gray">$!member.score</SPAN>
   </LI>

@@ -3,7 +3,8 @@
 		<DIV class=ll>黄金屋新书榜· · · · · · </DIV>
 		<!--tags-->
 		#foreach($tagInfoBook in $!tagInfoBooks)
-			<A id="new$!velocityCount" #if($!velocityCount==1) class="on" #end href="javascript:void(0)">
+			#set($tagcount=$velocityCount+1)
+			<A id="new$!tagcount" #if($!tagcount==1) class="on" #end href="javascript:void(0)">
 					<SPAN>$tagInfoBook.tagInfo.tagName</SPAN>
 			</A>
 		#end
@@ -11,8 +12,8 @@
 	<!--tagbooks-->
 	#foreach($tagInfoBook in $!tagInfoBooks)
 		#set($bookInfoList = $tagInfoBook.bookInfoList)
-
-		<UL id="newcontent$!velocityCount" class="content clearfix">
+        #set($bookinfocount=$velocityCount+1)
+		<UL id="newcontent$!bookinfocount" class="content clearfix">
 			#foreach($bookinfo in $!bookInfoList)
 				<LI class="clearfix">
 					<DIV class="img">
