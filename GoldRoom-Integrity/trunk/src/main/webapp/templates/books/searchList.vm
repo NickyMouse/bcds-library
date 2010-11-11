@@ -1,4 +1,5 @@
-#parse("/templates/common/header.vm")
+﻿#parse("/templates/common/header.vm")
+
 <style>
 #onebook{
 	height: 180px;
@@ -15,7 +16,7 @@
 			-moz-box-shadow:1px 1px 1px 1px #999999;
 			float:left;
 			padding: 2px;
-			margin-top: 9px;
+			margin-top: 3px;
 			height:160px;
 			width:120px;
 			margin-left: -3px;
@@ -24,12 +25,13 @@
 			margin-top: 5px;
 		}
 		.book-search-info LI {
-			BORDER-BOTTOM: #ddd 1px dashed; PADDING-BOTTOM: 5px; WIDTH: 305px; MARGIN-BOTTOM: 4px
+			BORDER-BOTTOM: #ddd 1px dashed; PADDING-BOTTOM: 5px; height:19px; WIDTH: 305px; MARGIN-BOTTOM: 4px;overflow:hidden;
 		}
 		.book-search-list{
 			margin-right: 10px;
 			float:left;
 			width:446px;
+			height:172px;
 			border: 1px solid rgb(228, 228, 228);
 			padding: 0px 8px;
 			margin-bottom: 5px;
@@ -75,7 +77,7 @@ jQuery(function () {
 .ww-light{overflow:hidden;}
 .ww-block{display:block;margin-top:3px;}
 .ww-inline{display:inline-block;vertical-align:text-bottom;}
-.ww-light a{background:url(http://img04.taobaocdn.com/tps/i4/T1UPFAXnNfXXXXXXXX-130-60.gif) no-repeat 0 0;text-decoration:none!important;width:20px;height:20px;zoom:1;}
+.ww-light a{background:url(/static/images/wangwang.gif) no-repeat 0 0;text-decoration:none!important;width:20px;height:20px;zoom:1;}
 .ww-large a{width:67px;}
 a.ww-offline{background-position:0 -20px;}
 a.ww-mobile{background-position:0 -40px;}
@@ -85,12 +87,23 @@ a.ww-mobile{background-position:0 -40px;}
 .ww-static .ww-online{background-position:-110px 0;}
 .ww-static .ww-offline{background-position:-110px -20px;}
 .ww-static .ww-mobile{background-position:-110px -40px;}
-.ww-light a span{display:none;}
+.ww-light a span{display:block; padding-left: 23px; padding-top: 3px;}
 
             </style>
 	<div>
-	#if($bookSearchResult)
-		#foreach($book in $bookSearchResult.bookList)
+
+#macro( fixUserNameStrLength $name $state)
+	#if($name.length() ==2)
+		&nbsp;$name.substring(0,1)&nbsp;&nbsp;&nbsp;$name.substring(1,2)
+	#elseif($name.length() > 3)
+		<span style="padding-left: 0px; padding-top: 0px;" title="$name[当前状态：$state]">$name.substring(0,3)..</span>
+	#else
+		$name
+	#end
+#end
+
+	#if($bigObjectPage)
+		#foreach($book in $bigObjectPage.bigObjects)
 			#set($bgColor = "")
 			#if($velocityCount=="2" || $velocityCount=="3" || $velocityCount=="6" || $velocityCount=="7" || $velocityCount=="10" )
 				#set($bgColor = "#E7F5F6")
@@ -100,14 +113,14 @@ a.ww-mobile{background-position:0 -40px;}
             <div class="first"><em> </em> <b> </b></div>
             <div class="last"><em> </em> <b> </b></div>
             <div class="imageBorder">
-            	<img width="120px;" height="160px;" src="$imageServer/$book.imgUrl" class="m_sub_img">
+            	<img width="120px;" height="160px;" src="$imageServer/$book.info.imgUrl" class="m_sub_img">
 				<DIV class="detail-frame">
 					<H3><B>书籍简介:</B></H3>
 					<P>
 					    #if($!book.description.length() > 200)
-						   $!book.description.substring(0,200) ．．．
+						   $!book.info.description.substring(0,200)...
    						#else
-						   $!book.description
+						   $!book.info.description
    						#end
 					</P>
 				</DIV>
@@ -115,18 +128,36 @@ a.ww-mobile{background-position:0 -40px;}
             <div class="newtags" style="float:right">
                 <ul class="book-search-info">
                 	<div style="height: 150px;" class="ownerInfo">
-                    	<li><b>书名：</b><a href="/detail/bookDetail.do?bookInfoId=$book.id" target="_blank">$book.name</a></li>
-                    	<li><b>作者：</b>$!book.author</li>
-                    	<li><b>ISBN：</b>$!book.isbn</li>
-						<li><b>出版时间：</b>$!book.publishTime</li>
+                    	<li><b>书名：</b><a href="/detail/bookDetail.do?bookInfoId=$book.info.id" title="$book.info.name" target="_blank">$book.info.name</a></li>
+                    	<li title="$!book.info.author"><b>作者：</b>$!book.info.author</li>
+                    	<li><b>ISBN：</b>$!book.info.isbn</li>
+						<li><b>出版时间：</b>#if($book.info.publishTime)$date.format("yyyy-MM-dd",$!book.info.publishTime)#end</li>
                     	<li><b>拥有者：</b>
+                    		#set($canLend = "1")
+				            #foreach($bookItem in $book.item)
+	                    		#set($state = "不可借")
+				            	#if($bookItem.state == 'idle' && ($!book.info.storeState =='both' || $!book.info.storeState == 'paper'))
+				            		#set($canLend = "2")##设置总的可借状态
+		                    		#set($state = "可借")##设置单个人的可借状态
+	            				#end
 							<span class="ww-light ww-large">
-							  <a target="_blank" href="#" class="ww-inline ww-online" title="还支持语音视频噢。">
-							    <span>旺旺在线</span>
+							  <a target="_blank" href="#" class="ww-inline ww-online" title="[当前状态：$state]">
+							    <span>#fixUserNameStrLength($!bookItem.owner.name $state)</span>
 							  </a>
 							</span>
+							#end
 						</li>
-                    	<li>$book.eBookUrl<b>&nbsp;</b></li>
+                    	<li>
+                    		<b>是否可借：</b>
+                    		#if($canLend == "1")
+                    			不可借
+                    		#else
+                    			可借
+		                    #end
+		                    #if($!book.info.eBookUrl)
+		                    	<a href="$ebookServer$!book.info.eBookUrl">下载</a>
+                    		#end
+                    	</li>
 					</div>
                 </ul>
 			</div>
@@ -138,9 +169,8 @@ a.ww-mobile{background-position:0 -40px;}
 	</div>
 	<div class="CLEAR: both;">&nbsp;</div>
 	<div>
-		#set($totalCount = $bookSearchResult.totalCount)
+		#set($totalCount = $bigObjectPage.totalCount)
 		#if($totalCount && $totalCount > 0)
-			#set($pageSize = 10)
 			#parse("templates/common/pageTurn.vm")
 		#end
 	</div>
