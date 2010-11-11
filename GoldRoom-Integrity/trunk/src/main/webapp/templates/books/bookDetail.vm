@@ -1,7 +1,7 @@
 ﻿#parse("/templates/common/header.vm")
 <script type='text/javascript' src='/dwr/interface/ReservationService.js'></script>
 <style>
-	.ownerInfo li {float: left; border-bottom: 1px dashed rgb(221, 221, 221);  width: 80%; margin-bottom: 4px; padding-bottom: 5px; padding-left: 5px;}
+	.ownerInfo li {float: left; border-bottom: 1px dashed rgb(221, 221, 221);  width: 95%; margin-bottom: 4px; padding-bottom: 5px; padding-left: 5px;}
 </style>
 <script type='text/javascript'>
 	jQuery(document).ready(function() {
@@ -65,7 +65,7 @@ width:0;
 							<span class="pl"> 出版社: </span>$!bookInfo.publisher <br>
 						#end
 						#if($bookInfo.publishTime)
-							<span class="pl"> 出版时间: </span>$!bookInfo.publishTime <br>
+							<span class="pl"> 出版时间: </span>$date.format("yyyy-MM-dd", $!bookInfo.publishTime) <br>
 						#end
 						#if($bookInfo.edition)
 							<span class="pl"> 版本: </span>$!bookInfo.edition<br>
@@ -86,7 +86,7 @@ width:0;
 		</div>
 		-->
 		<style>
-        #sidebar-tab{border:1px solid #ccf;margin-bottom:1.5em;overflow:hidden;width:330px;float:right;}
+        #sidebar-tab{border:1px solid #ccf;margin-bottom:1.5em;overflow:hidden;width:320px;float:right;}
         #tab-title {margin-left:-5px;}
         #tab-title h3{color:#666;font-size:12px;font-weight:400;}
         #tab-title .selected{color:#356aa0;border-bottom:0px;} /*标题被选中时的样式*/
@@ -97,53 +97,27 @@ width:0;
         </style>
         <div id="sidebar-tab">
            <div id="tab-title">
-              <h3><span class="selected">胡怀文</span><span>近期评</span><span>随机文</span></h3>
+              <h3>
+				#foreach($bookItem in $bookItemList)<span #if($velocityCount==0)class="selected" #end>$!{bookItem.owner.name}</span>#end
+			  </h3>
            </div>
            <div id="tab-content">
-              <ul>
+			#foreach($bookItem in $bookItemList)
+              <ul #if($velocityCount!=0)class="hide"#end>
                 <div class="newtags">
                     <ul class="simple-dashed-list">
                     	<div style="height: 50px;" class="ownerInfo">
-                        	<li><b>姓名：</b>胡怀文1</li>
-    						<li><b>工号：</b>36634</li>
-                        	<li><b>座位：</b>滨江园区2-4-B12</li>
-                        	<li><b>分机：</b>31720</li>
+                        	<li><b>姓名：</b>$!{bookItem.owner.name}</li>
+    						<li><b>工号：</b>$!{bookItem.owner.workId}</li>
+                        	<li><b>座位：</b>$!{bookItem.owner.aliTalkId}</li>
+                        	<li><b>分机：</b>$!{bookItem.owner.ext}</li>
                         	<li><b>旺旺：</b>   	</li>
-                        	<li><b>邮箱：</b><a href="mailto:chaosen.lincs@alibaba-inc.com">chaosen.lincs@alibaba-inc.com</a></li>
+                        	<li><b>邮箱：</b><a href="mailto:$!{bookItem.owner.email}">$!{bookItem.owner.email}</a></li>
     					</div>
                     </ul>
     			</div>
 			  </ul>
-              <ul class="hide">
-				<div class="newtags">
-                    <ul class="simple-dashed-list">
-                    	<div style="height: 50px;" class="ownerInfo">
-                        	<!--<li><h2>图书拥有者信息:</h2></li>-->
-                        	<li><b>姓名：</b>胡怀文2</li>
-    						<li><b>工号：</b>36634</li>
-                        	<li><b>座位：</b>滨江园区2-4-B12</li>
-                        	<li><b>分机：</b>31720</li>
-                        	<li><b>旺旺：</b>   	</li>
-                        	<li><b>邮箱：</b><a href="mailto:chaosen.lincs@alibaba-inc.com">chaosen.lincs@alibaba-inc.com</a></li>
-    					</div>
-                    </ul>
-    			</div>
-			  </ul>
-              <ul class="hide">
-				<div class="newtags">
-                    <ul class="simple-dashed-list">
-                    	<div style="height: 50px;" class="ownerInfo">
-                        	<!--<li><h2>图书拥有者信息:</h2></li>-->
-                        	<li><b>姓名：</b>胡怀文3</li>
-    						<li><b>工号：</b>36634</li>
-                        	<li><b>座位：</b>滨江园区2-4-B12</li>
-                        	<li><b>分机：</b>31720</li>
-                        	<li><b>旺旺：</b>   	</li>
-                        	<li><b>邮箱：</b><a href="mailto:chaosen.lincs@alibaba-inc.com">chaosen.lincs@alibaba-inc.com</a></li>
-    					</div>
-                    </ul>
-    			</div>
-			  </ul>
+			#end
            </div>
         </div>
         <script type='text/javascript'>
@@ -164,145 +138,39 @@ width:0;
 			</ul>
 
 			<ul id="newcontent2" class="content clearfix" style="display: none;">
+				#foreach($comment in $commentList)
 				<li style="width: 900px; padding-left: 30px;">
 					<div style="float: left; width: 60px; height: 60px;" id="left_up">
 						<img class="pil" src="http://t.douban.com/icon/u1461597-10.jpg" alt="门牙猫咪咪♨下前下后拳"></div>
 						<div style="float: right; width: 800px; height: 100px;" id="right">
-							<h3>胡怀文</h3>
+							<h3>$!{comment.member.name}</h3>
 							<div style="padding-right: 3px; padding-left: 3px;">
-    看完后对某些概念总觉得很模糊，于是汇总了下。大家互相补充。 以下解释均来自网络： 1.玫瑰十字：
-    玫瑰十字会（Rosenkreutzer，Rosicrucians）为近代欧洲宗教秘密会社。17世纪，开始出现于德意志。会名可能得自该会的标记即十字架上一朵玫瑰花，或来自该会传说中15世纪创建者之名基督徒罗......
+								$!{comment.content}
 							</div>
 						</div>
-						<div style="float: left; width: 60px; height: 30px;" id="left_down">2010-8-23</div>
+						<div style="float: left; width: 60px; height: 30px;" id="left_down">$!{comment.gmtCreate}</div>
 				</li>
+				#end
 			</ul>
 		</div>
 	</div>
 	<div class="bookscontents" style="padding-left: 8px; BORDER-BOTTOM: #e4e4e4 1px solid; POSITION: relative; BORDER-LEFT: #e4e4e4 1px solid; MARGIN-BOTTOM: 10px; BACKGROUND: #fff; BORDER-TOP: #e4e4e4 1px solid; BORDER-RIGHT: #e4e4e4 1px solid">
 		<h3 style="margin-left:-8px;padding-left: 8px;">同类书籍</h3>
+		#foreach($relatedBookInfo in $relatedBookInfoList)
           <dl>
             <dt>
               <a href="http://book.douban.com/subject/4199431/">
-                <img  src="http://img5.douban.com/spic/s4112705.jpg" class="m_sub_img">
+                <img  src="$!relatedBookInfo.imgUrl" class="m_sub_img">
               </a>
             </dt>
             <dd>
-              <a href="http://book.douban.com/subject/4199431/">
-                天帝妖狐
+              <a href="bookDetail.do?bookInfoId=$!relatedBookInfo.id">
+               $!relatedBookInfo.name
               </a>
             </dd>
           </dl>
-          <dl>
-            <dt>
-              <a href="http://book.douban.com/subject/3801097/">
-                <img src="http://img3.douban.com/spic/s3840924.jpg" class="m_sub_img">
-              </a>
-            </dt>
-            <dd>
-              <a href="http://book.douban.com/subject/3801097/">
-                夏天·烟火·我的尸体
-              </a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="http://book.douban.com/subject/4187219/">
-                <img src="http://img3.douban.com/spic/s4100902.jpg" class="m_sub_img">
-              </a>
-            </dt>
-            <dd>
-              <a href="http://book.douban.com/subject/4187219/">
-                眩晕
-              </a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="http://book.douban.com/subject/2297697/">
-                <img src="http://img3.douban.com/spic/s2927230.jpg" class="m_sub_img">
-              </a>
-            </dt>
-            <dd>
-              <a href="http://book.douban.com/subject/2297697/">
-                ZOO
-              </a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="http://book.douban.com/subject/4151180/">
-                <img src="http://img3.douban.com/spic/s4080068.jpg" class="m_sub_img">
-              </a>
-            </dt>
-            <dd>
-              <a href="http://book.douban.com/subject/4151180/">
-                巷说百物语
-              </a>
-            </dd>
-          </dl>
-          <dl class="clear">
-          </dl>
-          <dl>
-            <dt>
-              <a href="http://book.douban.com/subject/3683898/">
-                <img src="http://img3.douban.com/spic/s3738321.jpg" class="m_sub_img">
-              </a>
-            </dt>
-            <dd>
-              <a href="http://book.douban.com/subject/3683898/">
-                向日葵不开的夏天
-              </a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="http://book.douban.com/subject/3615041/">
-                <img src="http://img3.douban.com/spic/s3683784.jpg" class="m_sub_img">
-              </a>
-            </dt>
-            <dd>
-              <a href="http://book.douban.com/subject/3615041/">
-                御手洗洁的问候
-              </a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="http://book.douban.com/subject/3286829/">
-                <img src="http://img3.douban.com/spic/s4006054.jpg" class="m_sub_img">
-              </a>
-            </dt>
-            <dd>
-              <a href="http://book.douban.com/subject/3286829/">
-                脑髓地狱
-              </a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="http://book.douban.com/subject/4152750/">
-                <img src="http://img3.douban.com/spic/s4100893.jpg" class="m_sub_img">
-              </a>
-            </dt>
-            <dd>
-              <a href="http://book.douban.com/subject/4152750/">
-                杀戮之病
-              </a>
-            </dd>
-          </dl>
-          <dl>
-            <dt>
-              <a href="http://book.douban.com/subject/4067626/">
-                <img src="http://img3.douban.com/spic/s4158578.jpg" class="m_sub_img">
-              </a>
-            </dt>
-            <dd>
-              <a href="http://book.douban.com/subject/4067626/">
-                重力小丑
-              </a>
-            </dd>
-          </dl>
+		#end
+          
           <dl class="clear">
           </dl>
         </div>

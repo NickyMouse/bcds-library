@@ -1,9 +1,16 @@
 package com.alibaba.intl.bcds.goldroom.action.books;
 
+import java.util.List;
+
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
+import com.alibaba.intl.bcds.goldroom.dataobject.Comment;
+import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
+import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
-import com.alibaba.intl.bcds.goldroom.service.MemberService;
+import com.alibaba.intl.bcds.goldroom.service.BookItemService;
+import com.alibaba.intl.bcds.goldroom.service.CommentService;
 
 public class BookDetailAction extends BaseAction {
 
@@ -15,7 +22,12 @@ public class BookDetailAction extends BaseAction {
     private Integer           bookInfoId;
     private BookInfoService   bookInfoService;
     private BookInfo          bookInfo;
-    private MemberService     memberService;
+    private BookItemService   bookItemService;
+    private CommentService    commentService;
+
+    private List<BookItem>    bookItemList;
+    private List<Comment>     commentList;
+    private List<BookInfo>    relatedBookInfoList;
 
     // private Member owner;
     public String execute() throws Exception {
@@ -24,9 +36,54 @@ public class BookDetailAction extends BaseAction {
         if (getBookInfo() == null) {
             return ERROR;
         }
+
+        bookItemList = bookItemService.listBookItemByBookInfoId(bookInfoId);
+        commentList = commentService.listBookCommentByBookInfoId(bookInfoId, 1, 100);
+        BookSearchResult bookSearchResult = bookInfoService.searchBookByKeyword(bookInfo.getName(), SearchBookType.ALL,
+                                                                                1, 10);
+        relatedBookInfoList = bookSearchResult.getBookList();
         return SUCCESS;
     }
 
+    public List<BookInfo> getRelatedBookInfoList() {
+        return relatedBookInfoList;
+    }
+
+    public void setRelatedBookInfoList(List<BookInfo> relatedBookInfoList) {
+        this.relatedBookInfoList = relatedBookInfoList;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
+    public CommentService getCommentService() {
+        return commentService;
+    }
+
+    public void setCommentService(CommentService commentService) {
+        this.commentService = commentService;
+    }
+
+    public List<BookItem> getBookItemList() {
+        return bookItemList;
+    }
+
+    public void setBookItemList(List<BookItem> bookItemList) {
+        this.bookItemList = bookItemList;
+    }
+
+    public BookItemService getBookItemService() {
+        return bookItemService;
+    }
+
+    public void setBookItemService(BookItemService bookItemService) {
+        this.bookItemService = bookItemService;
+    }
     public void setBookInfoId(Integer bookInfoId) {
         this.bookInfoId = bookInfoId;
     }
