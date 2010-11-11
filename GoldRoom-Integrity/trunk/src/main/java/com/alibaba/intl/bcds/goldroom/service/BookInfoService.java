@@ -3,9 +3,6 @@ package com.alibaba.intl.bcds.goldroom.service;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.alibaba.intl.bcds.goldroom.dao.BookInfoDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.remote.BookInfoFetcher;
@@ -14,16 +11,12 @@ import com.alibaba.intl.bcds.goldroom.search.commons.constrans.BookSearchOption;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
 import com.alibaba.intl.bcds.goldroom.util.BookSearchHelper;
 
-@Transactional
 public class BookInfoService {
 
-    @Autowired
-    private BookInfoDao      bookInfoDao;
+    private BookInfoDao       bookInfoDao;
 
-    @Autowired
-    private BookInfoFetcher  bookInfoFetcher;
+    private BookInfoFetcher   bookInfoFetcher;
 
-    @Autowired
     private BookSearchHelper bookSearchHelper;
 
     public BookInfo findBookInfoByIsbn(String isbn) {
@@ -101,5 +94,47 @@ public class BookInfoService {
     public BookSearchResult searchBookByOwnersAndKeyword(String loginId, String keyword, int page, int pageSize) {
         return bookSearchHelper.searchBookByOwnersAndKeyword(loginId, keyword, (page - 1) * pageSize, pageSize);
     }
+
+	/**
+	 * @return the bookInfoDao
+	 */
+	public BookInfoDao getBookInfoDao() {
+		return bookInfoDao;
+	}
+
+	/**
+	 * @param bookInfoDao the bookInfoDao to set
+	 */
+	public void setBookInfoDao(BookInfoDao bookInfoDao) {
+		this.bookInfoDao = bookInfoDao;
+	}
+
+	/**
+	 * @return the bookInfoFetcher
+	 */
+	public BookInfoFetcher getBookInfoFetcher() {
+		return bookInfoFetcher;
+	}
+
+	/**
+	 * @param bookInfoFetcher the bookInfoFetcher to set
+	 */
+	public void setBookInfoFetcher(BookInfoFetcher bookInfoFetcher) {
+		this.bookInfoFetcher = bookInfoFetcher;
+	}
+
+	/**
+	 * @return the bookSearchHelper
+	 */
+	public BookSearchHelper getBookSearchHelper() {
+		return bookSearchHelper;
+	}
+
+	/**
+	 * @param bookSearchHelper the bookSearchHelper to set
+	 */
+	public void setBookSearchHelper(BookSearchHelper bookSearchHelper) {
+		this.bookSearchHelper = bookSearchHelper;
+	}
 
 }

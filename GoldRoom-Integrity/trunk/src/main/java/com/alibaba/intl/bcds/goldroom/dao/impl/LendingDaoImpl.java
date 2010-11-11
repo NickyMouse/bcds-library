@@ -10,16 +10,16 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.alibaba.intl.bcds.goldroom.dao.BaseDao;
 import com.alibaba.intl.bcds.goldroom.dao.LendingDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.Lending;
 
 @SuppressWarnings("unchecked")
-public class LendingDaoImpl implements LendingDao {
+public class LendingDaoImpl extends BaseDao implements LendingDao {
 
-    @PersistenceContext(unitName = "goldroomPU")
+//    @PersistenceContext(unitName = "goldroomPU")
     private EntityManager em;
 
     public Lending save(Lending lending) {

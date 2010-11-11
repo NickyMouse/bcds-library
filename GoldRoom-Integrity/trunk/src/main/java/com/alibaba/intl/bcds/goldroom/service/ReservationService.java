@@ -162,4 +162,74 @@ public class ReservationService {
             return false;
         }
     }
+
+	/**
+	 * @return the bookItemDao
+	 */
+	public BookItemDao getBookItemDao() {
+		return bookItemDao;
+	}
+
+	/**
+	 * @param bookItemDao the bookItemDao to set
+	 */
+	public void setBookItemDao(BookItemDao bookItemDao) {
+		this.bookItemDao = bookItemDao;
+	}
+
+	/**
+	 * @return the reservationDao
+	 */
+	public ReservationDao getReservationDao() {
+		return reservationDao;
+	}
+
+	/**
+	 * @param reservationDao the reservationDao to set
+	 */
+	public void setReservationDao(ReservationDao reservationDao) {
+		this.reservationDao = reservationDao;
+	}
+
+	/**
+	 * @return the memberDao
+	 */
+	public MemberDao getMemberDao() {
+		return memberDao;
+	}
+
+	/**
+	 * @param memberDao the memberDao to set
+	 */
+	public void setMemberDao(MemberDao memberDao) {
+		this.memberDao = memberDao;
+	}
+
+	/**
+	 * @return the sendMailService
+	 */
+	public SendMailService getSendMailService() {
+		return sendMailService;
+	}
+
+	/**
+	 * @param sendMailService the sendMailService to set
+	 */
+	public void setSendMailService(SendMailService sendMailService) {
+		this.sendMailService = sendMailService;
+	}
+
+	/**
+	 * @return the lendingDao
+	 */
+	public LendingDao getLendingDao() {
+		return lendingDao;
+	}
+
+	/**
+	 * @param lendingDao the lendingDao to set
+	 */
+	public void setLendingDao(LendingDao lendingDao) {
+		this.lendingDao = lendingDao;
+	}
 }

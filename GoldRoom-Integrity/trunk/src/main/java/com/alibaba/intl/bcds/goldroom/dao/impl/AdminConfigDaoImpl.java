@@ -4,16 +4,16 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.alibaba.intl.bcds.goldroom.dao.AdminConfigDao;
+import com.alibaba.intl.bcds.goldroom.dao.BaseDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.AdminConfig;
 
 @SuppressWarnings("unchecked")
-public class AdminConfigDaoImpl implements AdminConfigDao {
+public class AdminConfigDaoImpl extends BaseDao implements AdminConfigDao {
 
-    @PersistenceContext(unitName = "goldroomPU")
+//    @PersistenceContext(unitName = "goldroomPU")
     private EntityManager em;
 
     public List<AdminConfig> listByType(String type) {

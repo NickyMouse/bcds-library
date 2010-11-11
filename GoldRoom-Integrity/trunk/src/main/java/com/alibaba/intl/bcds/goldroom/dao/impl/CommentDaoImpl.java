@@ -4,16 +4,18 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.hibernate.Criteria;
+
+import com.alibaba.intl.bcds.goldroom.dao.BaseDao;
 import com.alibaba.intl.bcds.goldroom.dao.CommentDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.Comment;
 
 @SuppressWarnings("unchecked")
-public class CommentDaoImpl implements CommentDao {
+public class CommentDaoImpl extends BaseDao implements CommentDao {
 
-    @PersistenceContext(unitName = "goldroomPU")
+//    @PersistenceContext(unitName = "goldroomPU")
     private EntityManager em;
 
     public void save(Comment comment) {
@@ -25,8 +27,10 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     public List<Comment> listAllComment(int page, int pageSize) {
-        Query q = em.createNamedQuery("listAllComment");
-        return q.setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).getResultList();
+//        Query q = em.createNamedQuery("listAllComment");
+//    	return q.setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).getResultList();
+        org.hibernate.Query query = createNamedQuery("listAllComment");
+        return query.setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).list();
     }
 
     public List<Comment> listByTargetTypeAndTargetId(String targetType, Integer targetId, int page, int pageSize) {

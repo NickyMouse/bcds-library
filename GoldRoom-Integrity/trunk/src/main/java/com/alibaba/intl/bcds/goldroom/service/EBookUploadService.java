@@ -40,4 +40,18 @@ public class EBookUploadService {
         }
         return sb.toString();
     }
+
+	/**
+	 * @return the eBookUploadPath
+	 */
+	public String getEBookUploadPath() {
+		return eBookUploadPath;
+	}
+
+	/**
+	 * @param bookUploadPath the eBookUploadPath to set
+	 */
+	public void setEBookUploadPath(String bookUploadPath) {
+		eBookUploadPath = bookUploadPath;
+	}
 }

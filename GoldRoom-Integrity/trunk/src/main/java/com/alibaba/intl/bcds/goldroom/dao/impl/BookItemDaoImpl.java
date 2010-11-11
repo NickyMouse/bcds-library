@@ -4,18 +4,18 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.BeanUtils;
 
+import com.alibaba.intl.bcds.goldroom.dao.BaseDao;
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 
 @SuppressWarnings("unchecked")
-public class BookItemDaoImpl implements BookItemDao {
+public class BookItemDaoImpl extends BaseDao implements BookItemDao {
 
-    @PersistenceContext(unitName = "goldroomPU")
+//    @PersistenceContext(unitName = "goldroomPU")
     private EntityManager em;
 
     public BookItem save(BookItem bookItem) {

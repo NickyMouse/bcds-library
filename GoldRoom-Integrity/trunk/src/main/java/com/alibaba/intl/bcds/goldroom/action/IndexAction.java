@@ -57,13 +57,13 @@ public class IndexAction extends BaseAction {
 
 	public String execute() throws Exception {
 
-		this.hotBookList = createHotBooks();
+		//this.hotBookList = createHotBooks();
 		this.tagInfoBooks = createTagInfo();
 
 		// 积分排行榜
 		this.memberScores = createMemberScoreList();
 
-		this.commentBookInfoDtoList = creatCommentBookInfoList();
+//		this.commentBookInfoDtoList = creatCommentBookInfoList();
 
 		return SUCCESS;
 	}
@@ -203,5 +203,47 @@ public class IndexAction extends BaseAction {
 
 	public void setTagService(TagService tagService) {
 		this.tagService = tagService;
+	}
+
+	/**
+	 * @return the memberService
+	 */
+	public MemberService getMemberService() {
+		return memberService;
+	}
+
+	/**
+	 * @return the tagService
+	 */
+	public TagService getTagService() {
+		return tagService;
+	}
+
+	/**
+	 * @return the bookInfoService
+	 */
+	public BookInfoService getBookInfoService() {
+		return bookInfoService;
+	}
+
+	/**
+	 * @param hotBookList the hotBookList to set
+	 */
+	public void setHotBookList(List<BookInfo> hotBookList) {
+		this.hotBookList = hotBookList;
+	}
+
+	/**
+	 * @param tagInfoBooks the tagInfoBooks to set
+	 */
+	public void setTagInfoBooks(List<TagInfoBooksDTO> tagInfoBooks) {
+		this.tagInfoBooks = tagInfoBooks;
+	}
+
+	/**
+	 * @param tags the tags to set
+	 */
+	public void setTags(List<TagInfo> tags) {
+		this.tags = tags;
 	}
 }

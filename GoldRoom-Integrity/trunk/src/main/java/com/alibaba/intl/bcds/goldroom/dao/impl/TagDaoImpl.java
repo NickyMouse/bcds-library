@@ -11,10 +11,11 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import com.alibaba.intl.bcds.goldroom.dao.BaseDao;
 import com.alibaba.intl.bcds.goldroom.dao.TagDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.TagInfo;
 
-public class TagDaoImpl implements TagDao {
+public class TagDaoImpl extends BaseDao implements TagDao {
 
     private Map<String, TagInfo> tagMap            = new Hashtable<String, TagInfo>();
     private List<TagInfo>        sortedTagInfoList = new ArrayList<TagInfo>();

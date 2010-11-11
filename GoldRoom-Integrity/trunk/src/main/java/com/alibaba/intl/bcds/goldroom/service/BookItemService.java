@@ -21,7 +21,7 @@ public class BookItemService {
     private BookItemDao    bookItemDao;
 
     @Autowired
-    private ReservationDao reservationDAO;
+    private ReservationDao reservationDao;
 
     private static Logger  logger = Logger.getLogger(BookItemService.class);
 
@@ -65,7 +65,7 @@ public class BookItemService {
                 bookItemDao.updateBookItemState(bookItem);
 
                 // 拒绝�?��预约
-                reservationDAO.updateStateByBookItemId(bookItem.getId(), Reservation.STATE_REJECT);
+                reservationDao.updateStateByBookItemId(bookItem.getId(), Reservation.STATE_REJECT);
 
                 return true;
             } else {
@@ -127,4 +127,33 @@ public class BookItemService {
     public List<BookItem> getBookItemsByAddtime(int count){
 		return bookItemDao.getBookItemsByAddtime(count);
 	}
+
+	/**
+	 * @return the bookItemDao
+	 */
+	public BookItemDao getBookItemDao() {
+		return bookItemDao;
+	}
+
+	/**
+	 * @param bookItemDao the bookItemDao to set
+	 */
+	public void setBookItemDao(BookItemDao bookItemDao) {
+		this.bookItemDao = bookItemDao;
+	}
+
+	/**
+	 * @return the reservationDao
+	 */
+	public ReservationDao getReservationDao() {
+		return reservationDao;
+	}
+
+	/**
+	 * @param reservationDao the reservationDao to set
+	 */
+	public void setReservationDao(ReservationDao reservationDao) {
+		this.reservationDao = reservationDao;
+	}
+
 }

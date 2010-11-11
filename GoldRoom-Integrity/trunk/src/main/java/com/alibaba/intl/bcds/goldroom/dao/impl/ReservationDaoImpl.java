@@ -4,18 +4,18 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.BeanUtils;
 
+import com.alibaba.intl.bcds.goldroom.dao.BaseDao;
 import com.alibaba.intl.bcds.goldroom.dao.ReservationDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.Reservation;
 
 @SuppressWarnings("unchecked")
-public class ReservationDaoImpl implements ReservationDao {
+public class ReservationDaoImpl extends BaseDao implements ReservationDao {
 
-	@PersistenceContext(unitName = "goldroomPU")
+//	@PersistenceContext(unitName = "goldroomPU")
 	private EntityManager em;
 
 	public Reservation save(Reservation reservation) {

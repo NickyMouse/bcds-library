@@ -188,4 +188,32 @@ public class MemberService {
     	
     	return memberDao.listMemberByScore(count);
     }
+
+	/**
+	 * @return the memberDao
+	 */
+	public MemberDao getMemberDao() {
+		return memberDao;
+	}
+
+	/**
+	 * @param memberDao the memberDao to set
+	 */
+	public void setMemberDao(MemberDao memberDao) {
+		this.memberDao = memberDao;
+	}
+
+	/**
+	 * @return the sendMailService
+	 */
+	public SendMailService getSendMailService() {
+		return sendMailService;
+	}
+
+	/**
+	 * @param sendMailService the sendMailService to set
+	 */
+	public void setSendMailService(SendMailService sendMailService) {
+		this.sendMailService = sendMailService;
+	}
 }

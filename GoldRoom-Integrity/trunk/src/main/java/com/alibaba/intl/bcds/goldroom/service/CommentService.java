@@ -50,4 +50,18 @@ public class CommentService {
     public boolean deleteCommentById(Integer commentId) {
         return commentDao.deleteById(commentId);
     }
+
+	/**
+	 * @return the commentDao
+	 */
+	public CommentDao getCommentDao() {
+		return commentDao;
+	}
+
+	/**
+	 * @param commentDao the commentDao to set
+	 */
+	public void setCommentDao(CommentDao commentDao) {
+		this.commentDao = commentDao;
+	}
 }

@@ -29,14 +29,7 @@
 		<scope>request</scope>
 		<class>org.apache.velocity.tools.struts.ValidatorTool</class>
 	</tool>
-	
-	<!-- $date.format("yyyy-MM-dd", $myDate) -->
-	 <tool>  
-        <key>date</key>  
-        <scope>application</scope>  
-        <class>org.apache.velocity.tools.generic.DateTool</class>  
-        <parameter name="format" value="yyyy-MM-dd" />  
-     </tool>
+
      
      <data type="string">
 		<key>server</key>
@@ -44,4 +37,11 @@
 		<value>goldroom.b2b.alibaba-inc.com</value>
 	</data>
 	
+	<!-- $date.format("yyyy-MM-dd", $myDate) -->
+	 <tool>  
+        <key>date</key>  
+        <scope>application</scope>  
+        <class>org.apache.velocity.tools.generic.DateTool</class>  
+        <parameter name="format" value="yyyy-MM-dd" />  
+     </tool>  
 </toolbox>

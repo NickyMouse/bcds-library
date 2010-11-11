@@ -23,4 +23,18 @@ public class TagService {
     public TagInfo findTagInfoByTag(String tag) {
         return tagDao.findTagInfoByTag(tag);
     }
+
+	/**
+	 * @return the tagDao
+	 */
+	public TagDao getTagDao() {
+		return tagDao;
+	}
+
+	/**
+	 * @param tagDao the tagDao to set
+	 */
+	public void setTagDao(TagDao tagDao) {
+		this.tagDao = tagDao;
+	}
 }

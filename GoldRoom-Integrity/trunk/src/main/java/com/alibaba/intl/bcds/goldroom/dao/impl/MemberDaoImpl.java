@@ -4,26 +4,27 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.BeanUtils;
 
+import com.alibaba.intl.bcds.goldroom.dao.BaseDao;
 import com.alibaba.intl.bcds.goldroom.dao.MemberDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 
 @SuppressWarnings("unchecked")
-public class MemberDaoImpl implements MemberDao {
+public class MemberDaoImpl extends BaseDao implements MemberDao {
 
 
-	@PersistenceContext(unitName = "goldroomPU")
+//	@PersistenceContext(unitName = "goldroomPU")
 	private EntityManager em;
 
     @Override
 	public Member findByEmail(String email) {
-    	Query q = em.createNamedQuery("findMemberByEmail");
-    	q.setParameter("email", email);
-    	List<Member> mList = q.getResultList();
+//    	Query q = em.createNamedQuery("findMemberByEmail");
+//    	q.setParameter("email", email);
+//    	List<Member> mList = q.getResultList();
+    	List<Member> mList = getHibernateTemplate().findByNamedQueryAndNamedParam("findMemberByEmail", "email", email);
     	if(mList != null && mList.size() > 0){
     		return mList.get(0);
     	}else
@@ -98,11 +99,14 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public List<Member> listMemberByScore(int count) {
-
-		Query q = em.createNamedQuery("listMemberByScore");
-		q.setFirstResult(0);
-		q.setMaxResults(count);
-		return q.getResultList();
+		
+//		Query q = em.createNamedQuery("listMemberByScore");
+//		q.setFirstResult(0);
+//		q.setMaxResults(count);
+//		return q.getResultList();
+		
+		org.hibernate.Query query = createNamedQuery("listMemberByScore");
+		return query.setFirstResult(0).setMaxResults(count).list();
 	}
 
 	// public Map<String, Member> listMemberInfo() {

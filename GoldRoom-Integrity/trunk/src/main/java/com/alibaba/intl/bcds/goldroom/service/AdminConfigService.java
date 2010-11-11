@@ -28,4 +28,18 @@ public class AdminConfigService {
     public boolean setAnnouncement(String announcement) {
         return adminConfigDao.updateConfig(AdminConfigTypeEnum.ANNOUNCEMENT.getValue(), announcement);
     }
+
+	/**
+	 * @return the adminConfigDao
+	 */
+	public AdminConfigDao getAdminConfigDao() {
+		return adminConfigDao;
+	}
+
+	/**
+	 * @param adminConfigDao the adminConfigDao to set
+	 */
+	public void setAdminConfigDao(AdminConfigDao adminConfigDao) {
+		this.adminConfigDao = adminConfigDao;
+	}
 }
