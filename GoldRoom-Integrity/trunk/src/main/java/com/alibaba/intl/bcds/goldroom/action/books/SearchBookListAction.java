@@ -1,29 +1,38 @@
 package com.alibaba.intl.bcds.goldroom.action.books;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
+import com.alibaba.intl.bcds.goldroom.action.books.dto.BookBigObject;
+import com.alibaba.intl.bcds.goldroom.action.books.dto.BookBigObjectPage;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
+import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 
 public class SearchBookListAction extends BaseAction {
 
-    private static final long serialVersionUID = -6714583660333399107L;
+    private static final long   serialVersionUID = -6714583660333399107L;
 
-    private BookInfoService   bookInfoService;
-    private String            keyword;
-    private String            bookType;
-    private BookSearchResult  bookSearchResult;
+    private BookInfoService     bookInfoService;
+    private String              keyword;
+    private String              bookType;
+    private BookItemService     bookItemService;
 
-    private int               page;
-    private int               pageSize;
-    private int               pageSize1;
-    
-    public int getPageSize1() {
-        return pageSize1;
+    private int                 page;
+    private int                 pageSize;
+
+    private BookBigObjectPage   bigObjectPage;
+
+    public BookBigObjectPage getBigObjectPage() {
+        return bigObjectPage;
     }
-    
-    public void setPageSize1(int pageSize1) {
-        this.pageSize1 = pageSize1;
+
+    public void setBookItemService(BookItemService bookItemService) {
+        this.bookItemService = bookItemService;
     }
 
     public String getBookType() {
@@ -37,7 +46,7 @@ public class SearchBookListAction extends BaseAction {
     public int getPage() {
         return page;
     }
-    
+
     public void setPage(int page) {
         this.page = page;
     }
@@ -45,7 +54,7 @@ public class SearchBookListAction extends BaseAction {
     public int getPageSize() {
         return pageSize;
     }
-    
+
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
@@ -53,49 +62,50 @@ public class SearchBookListAction extends BaseAction {
     public BookInfoService getBookInfoService() {
         return bookInfoService;
     }
-    
+
     public void setBookInfoService(BookInfoService bookInfoService) {
         this.bookInfoService = bookInfoService;
-    }
-
-    public BookSearchResult getBookSearchResult() {
-        return bookSearchResult;
-    }
-    
-    public void setBookSearchResult(BookSearchResult bookSearchResult) {
-        this.bookSearchResult = bookSearchResult;
     }
 
     public String getKeyword() {
         return keyword;
     }
 
-    
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
 
     public String execute() throws Exception {
+        List<BookBigObject> bigObjects       = new ArrayList<BookBigObject>();
+        BookSearchResult bookSearchResult = null;
         SearchBookType bt = null;
         if (page <= 0) {
             page = 1;
         }
-        if (pageSize1 <= 0) {
-            pageSize1 = 10;
-        }
-        if(bookType == null || "all".equals(bookType)){
+        if (bookType == null || "all".equals(bookType)) {
             bt = SearchBookType.ALL;
-        }else if("ebook".equals(bookType)){
+        } else if ("ebook".equals(bookType)) {
             bt = SearchBookType.EBOOK;
-        }else{
+        } else {
             bt = SearchBookType.PAPER_BOOK;
         }
-        if(keyword == null || "".equals(keyword.trim())){
-            bookSearchResult = bookInfoService.listAllBook(bt, page, pageSize1);
-        }else{
-            System.out.println("keyword:" + keyword +",bt:" + bt +",pageSize1:" + pageSize1);
-            bookSearchResult = bookInfoService.searchBookByKeyword(keyword, bt, page, pageSize1);
+        if (keyword == null || "".equals(keyword.trim())) {
+            bookSearchResult = bookInfoService.listAllBook(bt, page, pageSize);
+        } else {
+            bookSearchResult = bookInfoService.searchBookByKeyword(keyword, bt, page, pageSize);
         }
+        if (bookSearchResult != null && bookSearchResult.getBookList() != null) {
+            for (int i = 0; i < bookSearchResult.getBookList().size(); i++) {
+                BookInfo info = bookSearchResult.getBookList().get(i);
+                List<BookItem> item = null;
+                if (info.getId() != null) {
+                    item = bookItemService.listBookItemByBookInfoId(info.getId());
+                }
+                BookBigObject bigObject = new BookBigObject(info, item);
+                bigObjects.add(bigObject);
+            }
+        }
+        bigObjectPage = new BookBigObjectPage(bigObjects, bookSearchResult.getTotalCount());
         return SUCCESS;
     }
 
