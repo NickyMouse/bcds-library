@@ -15,7 +15,17 @@
 		}
 	});
 
+function hidePopUp(){
+    jQuery('#pop_win').hide();
+    jQuery('#pop_win_bg').hide();
+ }
+ function showPopUp(innerHTML){
+    jQuery('#pop_win_content').html(innerHTML);
+    jQuery('#pop_win').show();
+    jQuery('#pop_win_bg').show();
+ }
 </script>
+
 <style>
 .bookscontents DL{
 	margin:15px 33px 15px 0;
@@ -107,7 +117,7 @@ width:0;
                 <div class="newtags">
                     <ul class="simple-dashed-list">
                     	<div style="height: 50px;" class="ownerInfo">
-                        	<li><b>姓名：</b>$!{bookItem.owner.name}</li>
+                        	<li><b>姓名：</b>$!{bookItem.owner.name} <div style="float:right;width:80px"><a href="javascript:showPopUp('ssss')">借阅</a></div></li>
     						<li><b>工号：</b>$!{bookItem.owner.workId}</li>
                         	<li><b>座位：</b>$!{bookItem.owner.aliTalkId}</li>
                         	<li><b>分机：</b>$!{bookItem.owner.ext}</li>
@@ -177,6 +187,15 @@ width:0;
 		<!-- 同类书（完） -->
 	<!-- content end here -->
 	<div style="clear:both"></div>
+
+	
+    <div class="pop_win_bg" id="pop_win_bg" style="height: 260px; width: 348px; left: 476px; top: 158px; z-index: 8888;display:none"></div>
+    <div class="pop_win" id="pop_win" style="display: block; left: 485.5px; top: 167.85px; height: 205px; visibility: visible; z-index: 9999;display:none"><a class="pop_win_close" onclick="javascript:hidePopUp();">X</a>
+         <h2>借阅</h2>
+          <div style="width: 300px; border-top: 1px dashed rgb(204, 204, 204); padding-top: 5px; height:100%" id="pop_win_content">
+          </div>
+    </div>
+
 
 #parse("templates/common/footer.vm")
 
