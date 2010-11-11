@@ -1,4 +1,4 @@
-package com.alibaba.intl.bcds.goldroom.service;
+package com.alibaba.intl.bcds.goldroom.util;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,9 +21,9 @@ import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.BookSearchOption;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
 
-public class BookSearchService {
+public class BookSearchHelper {
 
-    private static Logger   logger = Logger.getLogger(BookSearchService.class);
+    private static Logger   logger = Logger.getLogger(BookSearchHelper.class);
     private CompassTemplate compassTemplate;
 
     public BookSearchResult searchBookByKeyword(final String keyword, final SearchBookType type,

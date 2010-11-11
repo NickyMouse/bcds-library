@@ -12,18 +12,19 @@ import com.alibaba.intl.bcds.goldroom.remote.BookInfoFetcher;
 import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.BookSearchOption;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
+import com.alibaba.intl.bcds.goldroom.util.BookSearchHelper;
 
 @Transactional
 public class BookInfoService {
 
     @Autowired
-    private BookInfoDao       bookInfoDao;
+    private BookInfoDao      bookInfoDao;
 
     @Autowired
-    private BookInfoFetcher   bookInfoFetcher;
+    private BookInfoFetcher  bookInfoFetcher;
 
     @Autowired
-    private BookSearchService bookSearchService;
+    private BookSearchHelper bookSearchHelper;
 
     public BookInfo findBookInfoByIsbn(String isbn) {
         return bookInfoDao.findBookInfoByIsbn(isbn);
@@ -66,16 +67,16 @@ public class BookInfoService {
     // }
 
     public BookSearchResult searchBookByKeyword(String keyword, SearchBookType type, int page, int pageSize) {
-        return bookSearchService.searchBookByKeyword(keyword, type, (page - 1) * pageSize, pageSize);
+        return bookSearchHelper.searchBookByKeyword(keyword, type, (page - 1) * pageSize, pageSize);
 
     }
 
     public BookSearchResult searchBookByTime(Date startTime, Date endTime, SearchBookType type, int page, int pageSize) {
-        return bookSearchService.searchBookByTime(startTime, endTime, type, (page - 1) * pageSize, pageSize);
+        return bookSearchHelper.searchBookByTime(startTime, endTime, type, (page - 1) * pageSize, pageSize);
     }
 
     public BookInfo searchBookByInfoId(Integer bookInfoId) {
-        return bookSearchService.searchBookByInfoId(bookInfoId);
+        return bookSearchHelper.searchBookByInfoId(bookInfoId);
     }
 
     public BookSearchResult advancedBookSearch(String bookName, String publisher, String isbn, String description,
@@ -86,19 +87,19 @@ public class BookInfoService {
         option.setIsbn(isbn);
         option.setDaysBefore(daysBefore);
         option.setDescription(description);
-        return bookSearchService.advancedBookSearch(option, SearchBookType.ALL, (page - 1) * pageSize, pageSize);
+        return bookSearchHelper.advancedBookSearch(option, SearchBookType.ALL, (page - 1) * pageSize, pageSize);
     }
 
     public BookSearchResult listAllBook(SearchBookType type, int page, int pageSize) {
-        return bookSearchService.listAllBook(type, (page - 1) * pageSize, pageSize);
+        return bookSearchHelper.listAllBook(type, (page - 1) * pageSize, pageSize);
     }
 
     public BookSearchResult searchBookByInfoIds(List<Integer> infoIdlist) {
-        return bookSearchService.searchBookByInfoIds(infoIdlist);
+        return bookSearchHelper.searchBookByInfoIds(infoIdlist);
     }
 
     public BookSearchResult searchBookByOwnersAndKeyword(String loginId, String keyword, int page, int pageSize) {
-        return bookSearchService.searchBookByOwnersAndKeyword(loginId, keyword, (page - 1) * pageSize, pageSize);
+        return bookSearchHelper.searchBookByOwnersAndKeyword(loginId, keyword, (page - 1) * pageSize, pageSize);
     }
 
 }

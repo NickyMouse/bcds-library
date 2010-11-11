@@ -12,9 +12,6 @@
 		http://www.springframework.org/schema/tx/spring-tx.xsd"
 	default-autowire="byName">
 
-
-	<bean id="bookSearchService"
-		class="com.alibaba.intl.bcds.goldroom.service.BookSearchService" />
 	<bean id="bookInfoFetcher" class="com.alibaba.intl.bcds.goldroom.remote.DoubanBookInfoFetcher">
 		<property name="fetchUrl" value="http://api.douban.com/book/subject/isbn/" />
 	</bean>

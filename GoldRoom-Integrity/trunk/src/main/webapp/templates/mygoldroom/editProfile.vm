@@ -1,9 +1,11 @@
 #parse("templates/common/header.vm")
-
 <link rel=stylesheet type=text/css href="$base/static/css/mygoldroom.css" />
-
-
-
+<style>
+	.uploadDiv {text-align:center; margin:10px 20px 0px 20px; font-size:14px}
+	.editProfileTable {font-size:14px; margin:auto;}
+	.editProfileTable .left {text-align:right; font-size:14px}
+	.editProfileTable .right {text-align:left; font-size:14px}
+</style>
 		<!-- content start here-->
 		<DIV id="content">
             <h1>我的黄金屋</h1>
@@ -15,13 +17,38 @@
 				<div class="uploadDiv">
     				<h2>修改个人信息</h2>
 					<form name="editProfileForm" action="$base/mygoldroom/editProfile.action">
-                        <label for="aliTalkId">贸易通</label><input name="aliTalkId" value="$!aliTalkId" id="aliTalkId"/><br/>
-						<label for="location">位置</label><input name="location" value="$!location" id="location"/><br/>
-						<label for="ext">分机</label><input name="ext" value="$!ext" id="ext"/>
+						<table class="editProfileTable">
+							<tr>
+								<td class="left">
+									贸易通：
+								</td>
+								<td class="right">
+									<input name="aliTalkId" value="$!aliTalkId" id="aliTalkId"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="left">
+									位置：
+								</td>
+								<td class="right">
+									<input name="location" value="$!location" id="location"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="left">
+									分机：
+								</td>
+								<td class="right">
+									<input name="ext" value="$!ext" id="ext"/>
+								</td>
+							</tr>
+						</table>
+						<br/>
 						<input name="submitFlag" value="y" type="hidden"/>
-						<input type="submit" value="修改"/>
+						<input type="submit" value="修改"/>&nbsp;&nbsp;&nbsp;
 						<input type="reset" value="重置"/>
                     </form>
+					<br/>
 					<h2>#if($result && $result=="true")
 							修改成功
 						#elseif($result && $result=="false")

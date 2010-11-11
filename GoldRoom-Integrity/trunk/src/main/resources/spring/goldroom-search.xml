@@ -11,6 +11,8 @@
 		http://www.springframework.org/schema/tx/spring-tx.xsd"
 	default-autowire="byName">
 
+	<bean id="bookSearchHelper" class="com.alibaba.intl.bcds.goldroom.util.BookSearchHelper" />
+
 	<!-- Search annotation configuration -->
 	<bean id="annotationConfiguration"
 		class="org.compass.annotations.config.CompassAnnotationsConfiguration" />
