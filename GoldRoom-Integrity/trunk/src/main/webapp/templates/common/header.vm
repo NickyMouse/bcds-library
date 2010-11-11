@@ -24,5 +24,7 @@
 		</UL>
 	</DIV></DIV></DIV>
 	#parse("/templates/common/searchbar.vm")
-	##纸质书封面图片地址
-	#set ($imageServer='http://goldroom.b2b.alibaba-inc.com/upload')
+	
+	#set ($baseURL='http://'+$server) ##网站基本地址URL
+	#set ($imageServer=$baseURL + '/upload') ##图书图片路径
+	#set ($ebookServer=$baseURL + '/ebook') ##电子书下载路径
