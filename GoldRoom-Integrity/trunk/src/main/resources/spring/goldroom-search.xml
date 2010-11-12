@@ -38,6 +38,20 @@
 	</bean>
 
 	<!-- gps device configuration, is a customized jpaGpsDevice -->
+	<bean id="hibernateGpsDevice"
+		class="com.alibaba.intl.bcds.goldroom.search.commons.CustomizedHibernateGpsDevice"
+		init-method="initSelectQuery">
+		<property name="name" value="jpaGpsDevice" />
+		<property name="entityQueryMap">
+			<map>
+				<entry key="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo"
+					value="SELECT b FROM BookInfo b, BookItem i where b.id = i.bookInfo.id GROUP BY b.id" />
+			</map>
+		</property>
+		<property name="mirrorDataChanges" value="true" />
+	</bean>
+	<!-- gps device configuration, is a customized jpaGpsDevice -->
+	<!--
 	<bean id="jpaGpsDevice"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.CustomizedJpaGpsDevice"
 		init-method="initSelectQuery">
@@ -62,11 +76,11 @@
 	<bean id="locator"
 		class="org.compass.gps.device.jpa.entities.HibernateJpaEntitiesLocator" />
 
-	<!-- compassGps -->
+	--><!-- compassGps -->
 	<bean id="compassGps" class="org.compass.gps.impl.SingleCompassGps"
 		init-method="start" destroy-method="stop">
 		<property name="gpsDevices">
-			<ref bean="jpaGpsDevice" />
+			<ref bean="hibernateGpsDevice" />
 		</property>
 	</bean>
 
