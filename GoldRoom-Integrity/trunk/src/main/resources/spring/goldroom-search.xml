@@ -41,7 +41,7 @@
 	<bean id="hibernateGpsDevice"
 		class="com.alibaba.intl.bcds.goldroom.search.commons.CustomizedHibernateGpsDevice"
 		init-method="initSelectQuery">
-		<property name="name" value="jpaGpsDevice" />
+		<property name="name" value="hibernateGpsDevice" />
 		<property name="entityQueryMap">
 			<map>
 				<entry key="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo"
@@ -49,7 +49,18 @@
 			</map>
 		</property>
 		<property name="mirrorDataChanges" value="true" />
+		<property name="entitiesLocator" ref="locator" />
+		<property name="nativeExtractor" ref="extractor" />
+		<property name="lifecycleInjector" ref="injector" />
 	</bean>
+
+	<bean id="injector"
+		class="org.compass.gps.device.hibernate.lifecycle.DefaultHibernateEntityLifecycleInjector" />
+	<bean id="extractor"
+		class="org.compass.spring.device.hibernate.SpringNativeHibernateExtractor" />
+	<bean id="locator"
+		class="org.compass.gps.device.hibernate.entities.DefaultHibernateEntitiesLocator" />
+
 	<!-- gps device configuration, is a customized jpaGpsDevice -->
 	<!--
 	<bean id="jpaGpsDevice"
@@ -77,6 +88,7 @@
 		class="org.compass.gps.device.jpa.entities.HibernateJpaEntitiesLocator" />
 
 	--><!-- compassGps -->
+
 	<bean id="compassGps" class="org.compass.gps.impl.SingleCompassGps"
 		init-method="start" destroy-method="stop">
 		<property name="gpsDevices">
