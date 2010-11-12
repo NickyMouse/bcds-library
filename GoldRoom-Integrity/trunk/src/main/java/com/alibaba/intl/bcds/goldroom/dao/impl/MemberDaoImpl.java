@@ -3,9 +3,7 @@ package com.alibaba.intl.bcds.goldroom.dao.impl;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
+import org.hibernate.Query;
 import org.springframework.beans.BeanUtils;
 
 import com.alibaba.intl.bcds.goldroom.dao.BaseDao;
@@ -17,14 +15,14 @@ public class MemberDaoImpl extends BaseDao implements MemberDao {
 
 
 //	@PersistenceContext(unitName = "goldroomPU")
-	private EntityManager em;
+//	private EntityManager em;
 
     @Override
 	public Member findByEmail(String email) {
 //    	Query q = em.createNamedQuery("findMemberByEmail");
 //    	q.setParameter("email", email);
 //    	List<Member> mList = q.getResultList();
-    	List<Member> mList = getHibernateTemplate().findByNamedQueryAndNamedParam("findMemberByEmail", "email", email);
+    	List<Member> mList = findByNamedQueryAndNamedParam("findMemberByEmail", "email", email);
     	if(mList != null && mList.size() > 0){
     		return mList.get(0);
     	}else
@@ -38,26 +36,26 @@ public class MemberDaoImpl extends BaseDao implements MemberDao {
 		Date now = new Date();
 		member.setGmtCreate(now);
 		member.setGmtModified(now);
-		em.persist(member);
+		save(member);
 		return member;
 	}
 
 	public List<Member> listMemberByLoginIds(List<String> loginIds) {
-		Query q = em.createNamedQuery("listMemberByLoginIds");
+		Query q = createNamedQuery("listMemberByLoginIds");
 		q.setParameter("loginIds", loginIds);
-		return q.getResultList();
+		return q.list();
 	}
 
 	public List<Member> listMemberByStatus(Integer status) {
-		Query q = em.createNamedQuery("listMemberByStatus");
+		Query q = createNamedQuery("listMemberByStatus");
 		q.setParameter("status", status);
-		return q.getResultList();
+		return q.list();
 	}
 
 	public Member findByLoginId(String loginId) {
-		Query q = em.createNamedQuery("findByLoginId");
+		Query q = createNamedQuery("findByLoginId");
 		q.setParameter("loginId", loginId);
-		List<Member> resultList = q.getResultList();
+		List<Member> resultList = q.list();
 		if (resultList != null && resultList.size() > 0) {
 			return resultList.get(0);
 		} else {
@@ -66,30 +64,30 @@ public class MemberDaoImpl extends BaseDao implements MemberDao {
 	}
 
 	public boolean updateMemberByLoginId(Member member) {
-		Member m = em.find(Member.class, member.getLoginId());
+		Member m = get(Member.class, member.getLoginId());
 		if (m == null) {
 			return false;
 		}
 		BeanUtils.copyProperties(member, m);
-		em.merge(m);
+		merge(m);
 		return true;
 	}
 
 	public boolean updatePasswordByLoginId(String loginId, String password) {
-		Member m = em.find(Member.class, loginId);
+		Member m = get(Member.class, loginId);
 		if (m == null) {
 			return false;
 		}
 		m.setPassword(password);
-		em.merge(m);
+		merge(m);
 		return true;
 	}
 
 	public Member findByNameAndEmail(String name, String email) {
-		Query q = em.createNamedQuery("findMemberByNameAndEmail");
+		Query q = createNamedQuery("findMemberByNameAndEmail");
 		q.setParameter("name", name);
 		q.setParameter("email", email);
-		List<Member> result = q.getResultList();
+		List<Member> result = q.list();
 		if (result.size() > 0) {
 			return result.get(0);
 		} else {
@@ -100,10 +98,10 @@ public class MemberDaoImpl extends BaseDao implements MemberDao {
 	@Override
 	public List<Member> listMemberByScore(int count) {
 		
-//		Query q = em.createNamedQuery("listMemberByScore");
+//		Query q = createNamedQuery("listMemberByScore");
 //		q.setFirstResult(0);
 //		q.setMaxResults(count);
-//		return q.getResultList();
+//		return q.list();
 		
 		org.hibernate.Query query = createNamedQuery("listMemberByScore");
 		return query.setFirstResult(0).setMaxResults(count).list();
