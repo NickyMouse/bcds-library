@@ -141,7 +141,7 @@ a.ww-mobile{background-position:0 -40px;}
 		                    		#set($state = "可借")##设置单个人的可借状态
 	            				#end
 							<span class="ww-light ww-large" data-username="$bookItem.owner.aliTalkId">
-							  <span id="loading-$bookItem.owner.aliTalkId">loading...</span>
+							  <span id="loading-$bookItem.owner.aliTalkId"><img src="/static/images/loading.gif" style="" title="loading..."/>loading...</span>
 							  <a data-username="$bookItem.owner.aliTalkId" id="wangwang" target="_blank" href="#" class="ww-inline ww-online nodisplay" title="[当前状态：$state]">
 							    <span>#fixUserNameStrLength($!bookItem.owner.name $state)</span>
 							  </a>
