@@ -7,6 +7,7 @@
 		<action name="search" class="com.alibaba.intl.bcds.goldroom.action.books.SearchBookListAction">
 			<param name="pageSize">10</param>
 			<result name="success" type="velocity">/templates/books/searchList.vm</result>
+			<result name="json" type="velocity">/templates/books/searchListJson.vm</result>
 		</action>
 	</package>
 </struts>
