@@ -1,5 +1,9 @@
 package com.alibaba.intl.bcds.goldroom.action.books;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +28,21 @@ public class SearchBookListAction extends BaseAction {
 
     private int                 page;
     private int                 pageSize;
+    
+    private String              aliTalk;
 
     private BookBigObjectPage   bigObjectPage;
 
     public BookBigObjectPage getBigObjectPage() {
         return bigObjectPage;
+    }
+    
+    public String getAliTalk() {
+        return aliTalk;
+    }
+    
+    public void setAliTalk(String aliTalk) {
+        this.aliTalk = aliTalk;
     }
 
     public void setBookItemService(BookItemService bookItemService) {
@@ -82,13 +96,8 @@ public class SearchBookListAction extends BaseAction {
         if (page <= 0) {
             page = 1;
         }
-        if (bookType == null || "all".equals(bookType)) {
-            bt = SearchBookType.ALL;
-        } else if ("ebook".equals(bookType)) {
-            bt = SearchBookType.EBOOK;
-        } else {
-            bt = SearchBookType.PAPER_BOOK;
-        }
+        bt = SearchBookType.getSearchBookType(bookType);
+        
         if (keyword == null || "".equals(keyword.trim())) {
             bookSearchResult = bookInfoService.listAllBook(bt, page, pageSize);
         } else {
@@ -107,6 +116,16 @@ public class SearchBookListAction extends BaseAction {
         }
         bigObjectPage = new BookBigObjectPage(bigObjects, bookSearchResult.getTotalCount());
         return SUCCESS;
+    }
+    
+    public String findWangWang() throws IOException{
+        String httpUrl = this.getRequest().getParameter("httpUrl");
+        URL url = new URL(httpUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        if(conn.getURL().toString().endsWith("online.gif")){
+            this.getRequest().setAttribute("userOnline", "yes");
+        }
+        return "json";
     }
 
 }
