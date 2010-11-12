@@ -29,6 +29,7 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
+				<version>${jetty.version}</version>
 				<configuration>
 					<!-- force friendly name instead of artifact name + version -->
 					<contextPath>/</contextPath>
@@ -36,7 +37,22 @@
 					<scanIntervalSeconds>3</scanIntervalSeconds>
 					<webAppSourceDirectory>${basedir}/src/main/webapp</webAppSourceDirectory>
 					<webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
+					<connectors>
+						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+							<port>8080</port>
+						</connector>
+						<connector implementation="org.mortbay.jetty.ajp.Ajp13SocketConnector">
+							<port>8009</port>
+						</connector>
+					</connectors>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.mortbay.jetty</groupId>
+						<artifactId>jetty-ajp</artifactId>
+						<version>${jetty.version}</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
