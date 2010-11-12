@@ -46,7 +46,7 @@ public class IndexAction extends BaseAction {
 	private List<TagInfoBooksDTO> tagInfoBooks;
 	private List<TagInfo> tags;
 	private List<CommentBookInfoDTO> commentBookInfoDtoList;
-
+	
 	public List<CommentBookInfoDTO> getCommentBookInfoDtoList() {
 		return commentBookInfoDtoList;
 	}
@@ -57,7 +57,7 @@ public class IndexAction extends BaseAction {
 
 	public String execute() throws Exception {
 
-		//this.hotBookList = createHotBooks();
+		this.hotBookList = createHotBooks();
 		this.tagInfoBooks = createTagInfo();
 
 		// 积分排行榜
