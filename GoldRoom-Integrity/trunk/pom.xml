@@ -191,29 +191,14 @@
 			<version>2.2</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>com.springsource.org.apache.commons.collections</artifactId>
-			<version>3.2.1</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-core</artifactId>
 			<version>2.4.1</version>
 		</dependency>
 		<dependency>
-			<groupId>jeasy.analysis</groupId>
-			<artifactId>je-analysis</artifactId>
-			<version>1.5.1</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-highlighter</artifactId>
 			<version>2.4.1</version>
-		</dependency>
-		<dependency>
-			<groupId>xstream</groupId>
-			<artifactId>xstream</artifactId>
-			<version>1.2.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.directwebremoting</groupId>
@@ -252,8 +237,8 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>xerces</groupId> 
-  			<artifactId>xercesImpl</artifactId> 
+			<groupId>xerces</groupId>
+  			<artifactId>xercesImpl</artifactId>
   			<version>2.8.1</version>
 		</dependency>
 		<dependency>
