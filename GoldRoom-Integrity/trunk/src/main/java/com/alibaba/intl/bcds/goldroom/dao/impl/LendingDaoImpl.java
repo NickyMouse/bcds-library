@@ -9,8 +9,7 @@ package com.alibaba.intl.bcds.goldroom.dao.impl;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import org.hibernate.Query;
 
 import com.alibaba.intl.bcds.goldroom.dao.BaseDao;
 import com.alibaba.intl.bcds.goldroom.dao.LendingDao;
@@ -19,73 +18,70 @@ import com.alibaba.intl.bcds.goldroom.dataobject.Lending;
 @SuppressWarnings("unchecked")
 public class LendingDaoImpl extends BaseDao implements LendingDao {
 
-//    @PersistenceContext(unitName = "goldroomPU")
-    private EntityManager em;
-
     public Lending save(Lending lending) {
         lending.setId(null);
         Date now = new Date();
         lending.setGmtCreate(now);
         lending.setGmtModified(now);
-        em.persist(lending);
+        this.save(lending);
         return lending;
     }
 
     public boolean cutLendingToLog(int lendId) {
-        Query q = em.createNamedQuery("deleteLendingById");
+        Query q = this.createNamedQuery("deleteLendingById");
         q.setParameter("id", lendId);
         int resultCount = q.executeUpdate();
         return resultCount > 0 ? true : false;
     }
 
     public boolean cutLendingToLog(Lending lending) {
-        Query q = em.createNamedQuery("deleteLendingById");
+        Query q = this.createNamedQuery("deleteLendingById");
         q.setParameter("id", lending.getId());
         int resultCount = q.executeUpdate();
         return resultCount > 0 ? true : false;
     }
 
     public Lending findById(int lendId) {
-        return em.find(Lending.class, lendId);
+        return this.get(Lending.class, lendId);
     }
 
     public boolean updateRealReturnTime(int lendingId) {
-        Lending l = em.find(Lending.class, lendingId);
+        Lending l = this.get(Lending.class, lendingId);
         if (l == null) {
             return false;
         }
         l.setRealReturnTime(new Date());
-        em.merge(l);
+        this.update(l);
         return true;
     }
 
     public List<Lending> listLendingByLoginId(String loginId, int page, int pageSize) {
-        Query q = em.createNamedQuery("listLendingByLoginId");
+        Query q = this.createNamedQuery("listLendingByLoginId");
         q.setParameter("loginId", loginId);
-        return q.setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).getResultList();
+        return q.setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).list();
     }
 
     public List<Lending> listByLoginId(String loginId, int page, int pageSize) {
-        Query q = em.createNamedQuery("listLendingByLoginId");
+        Query q = this.createNamedQuery("listLendingByLoginId");
         q.setParameter("loginId", loginId);
-        return q.setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).getResultList();
+        return q.setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).list();
     }
 
     public int countByLogindId(String loginId) {
-        Query q = em.createNamedQuery("countLendingByLoginId");
+        Query q = this.createNamedQuery("countLendingByLoginId");
         q.setParameter("loginId", loginId);
-        return ((Long) q.getSingleResult()).intValue();
+        return ((Long) q.list().get(0)).intValue();
     }
 
     public int countByBookItemId(Integer bookItemId) {
-        Query q = em.createNamedQuery("countLendingByBookItemId");
+        Query q = this.createNamedQuery("countLendingByBookItemId");
         q.setParameter("bookItemId", bookItemId);
-        return ((Long) q.getSingleResult()).intValue();
+        return ((Long) q.list().get(0)).intValue();
     }
 
     public List<Lending> listByBookItemId(Integer bookItemId) {
-        Query q = em.createNamedQuery("listLendingByBookItemId");
+        Query q = this.createNamedQuery("listLendingByBookItemId");
         q.setParameter("bookItemId", bookItemId);
-        return q.getResultList();
+        return q.list();
     }
 }
