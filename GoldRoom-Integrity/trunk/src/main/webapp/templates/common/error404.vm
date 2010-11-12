@@ -1,1 +1,5 @@
-404
+<span id="error">
+	<div id="err_tips"> 出错了～！</div>
+	<div id="err_msg"> $!exception.stackTrace</div>
+	<div id="err_stack"> $!exceptionStack </div>
+</span>
