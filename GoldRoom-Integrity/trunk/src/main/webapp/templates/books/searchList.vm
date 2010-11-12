@@ -25,7 +25,7 @@
 			margin-top: 5px;
 		}
 		.book-search-info LI {
-			BORDER-BOTTOM: #ddd 1px dashed; PADDING-BOTTOM: 5px; height:19px; WIDTH: 305px; MARGIN-BOTTOM: 4px;overflow:hidden;
+			BORDER-BOTTOM: #ddd 1px dashed; PADDING-BOTTOM: 4px; height:19px; WIDTH: 305px; MARGIN-BOTTOM: 4px;overflow:hidden;
 		}
 		.book-search-list{
 			margin-right: 10px;
@@ -88,7 +88,7 @@ a.ww-mobile{background-position:0 -40px;}
 .ww-static .ww-offline{background-position:-110px -20px;}
 .ww-static .ww-mobile{background-position:-110px -40px;}
 .ww-light a span{display:block; padding-left: 23px; padding-top: 3px;}
-
+.nodisplay{ display:none}
             </style>
 	<div>
 
@@ -105,7 +105,7 @@ a.ww-mobile{background-position:0 -40px;}
 	#if($bigObjectPage)
 		#foreach($book in $bigObjectPage.bigObjects)
 			#set($bgColor = "")
-			#if($velocityCount=="2" || $velocityCount=="3" || $velocityCount=="6" || $velocityCount=="7" || $velocityCount=="10" )
+			#if($velocityCount=="1" || $velocityCount=="2" || $velocityCount=="5" || $velocityCount=="6" || $velocityCount=="9" )
 				#set($bgColor = "#E7F5F6")
 			#end
 		<div class="aside movie_headerline book-search-list" style="background:$bgColor">
@@ -140,8 +140,9 @@ a.ww-mobile{background-position:0 -40px;}
 				            		#set($canLend = "2")##设置总的可借状态
 		                    		#set($state = "可借")##设置单个人的可借状态
 	            				#end
-							<span class="ww-light ww-large">
-							  <a target="_blank" href="#" class="ww-inline ww-online" title="[当前状态：$state]">
+							<span class="ww-light ww-large" data-username="$bookItem.owner.aliTalkId">
+							  <span id="loading-$bookItem.owner.aliTalkId">loading...</span>
+							  <a data-username="$bookItem.owner.aliTalkId" id="wangwang" target="_blank" href="#" class="ww-inline ww-online nodisplay" title="[当前状态：$state]">
 							    <span>#fixUserNameStrLength($!bookItem.owner.name $state)</span>
 							  </a>
 							</span>
@@ -157,6 +158,14 @@ a.ww-mobile{background-position:0 -40px;}
 		                    #if($!book.info.eBookUrl)
 		                    	<a href="$ebookServer$!book.info.eBookUrl">下载</a>
                     		#end
+                    		<span style="float:right">
+                    			#if($!book.info.storeState =='both' || $!book.info.storeState == 'paper')
+	                    			<img src="/static/images/pbook.gif" style="width: 19px; height: 18px;" title="实体书"/>
+                    			#end
+                    			#if($!book.info.storeState =='both' || $!book.info.storeState == 'ebook')
+	                    			<img src="/static/images/ebook.gif" style="width: 19px; height: 18px;" title="电子书"/>
+                    			#end
+                    		</span>
                     	</li>
 					</div>
                 </ul>
@@ -176,3 +185,23 @@ a.ww-mobile{background-position:0 -40px;}
 	</div>
 </DIV>
 #parse("templates/common/footer.vm")
+<SCRIPT type=text/javascript>
+jQuery(function () {
+	jQuery("a#wangwang").each(function(ind){
+		var obj = jQuery(this);
+		var username = jQuery(this).attr("data-username")
+		var imgSrc = "http://amos.im.alisoft.com/online.aw?v=2&uid=" +username+ "&site=cnalichn&s=1";
+		var wwSrc  = "http://amos.im.alisoft.com/msg.aw?v=2&uid=" +username+ "&site=cnalichn&s=1";
+		var httpUrl = "http://localhost:8080/book/search!findWangWang.do";
+		obj.attr("href",wwSrc);
+		jQuery.get(httpUrl,{"httpUrl":imgSrc,"aliTalk":username},function(data, status){
+			if('yes' != data){
+				jQuery("span#loading-"+username).addClass("nodisplay")
+				obj.removeClass("nodisplay");
+				obj.removeClass("ww-online");
+				obj.addClass("ww-offline");
+			}
+		});
+	});
+});
+</SCRIPT>
