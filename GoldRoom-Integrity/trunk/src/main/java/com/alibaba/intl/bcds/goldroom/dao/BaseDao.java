@@ -7,14 +7,14 @@ package com.alibaba.intl.bcds.goldroom.dao;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.util.Assert;
 
 /**
  * @author Harrison
  *
  */
-public abstract class BaseDao extends HibernateDaoSupport{
+public abstract class BaseDao extends HibernateTemplate{
 	
 	/**
 	 * 创建Criteria对象.
