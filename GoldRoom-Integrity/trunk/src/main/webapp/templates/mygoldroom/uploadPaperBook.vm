@@ -4,38 +4,42 @@
 
 <link rel=stylesheet type=text/css href="$base/static/css/mygoldroom.css" />
 <style>
-	.uploadDiv {text-align:center; margin:10px 20px 0px 20px; font-size:14px}
+	.uploadDiv {text-align:center; margin:10px 20px 20px 20px; font-size:14px}
+	.uploadBookInfo table {text-align:left; margin:auto; font-size:14px; width:600px}
+	.uploadBookInfo td {border:1px dashed #D4D4D4; padding-left:8px; padding-right:8px;  font-size:14px;}
+	.uploadBookInfo .first {text-align:right;  width:80px; color:#006600;}
 </style>
 <script>
 	var dealWithBookInfo = function(data)
 	{
 		if (data != null && typeof data == 'object'){
-			document.getElementById("name").innerHTML = data.name;
-			document.getElementById("author").innerHTML = data.author;
-			document.getElementById("publisher").innerHTML = data.publisher;
-			document.getElementById("publishTime").innerHTML = data.publishTime;
-			document.getElementById("edition").innerHTML = data.edition;
-			document.getElementById("pages").innerHTML = data.pages;
-			document.getElementById("translator").innerHTML = data.translator;
-			document.getElementById("description").innerHTML = data.description;
-			document.getElementById("imgUrl").innerHTML = data.imgUrl;
-			document.getElementById("tags").innerHTML = data.tags;
+			jQuery("#name").html(data.name);
+			jQuery("#author").html(data.author);
+			jQuery("#publisher").html(data.publisher);
+			jQuery("#publishTime").html(data.publishTime);
+			jQuery("#edition").html(data.edition);
+			jQuery("#pages").html(data.pages);
+			jQuery("#translator").html(data.translator);
+			jQuery("#description").html(data.description);
+			jQuery("#imgUrl").attr("src", "$!{imageServer}" + data.imgUrl);
 
-			document.getElementById("isbn").value = data.isbn;
-			document.getElementById("bookInfoId").value = data.id;
+			jQuery("#tags").html(data.tags);
 
-			document.getElementById("uploadBookInfo").style.display = "";
+			jQuery("#isbn").val(data.isbn);
+			jQuery("#bookInfoId").val(data.id);
+
+			jQuery("#uploadBookInfo").show();
+			jQuery("#imgUrl").show();
 		} else{
 			alert ("error");
 		}
 	}
 	function getBookInfo(isbnObj) {
 		var isbn = isbnObj.value;
-		isbn = isbn.trim();
 		if(isbn.length == 0) {
 			isbnObj.value = "";
 		}
-		BookInfoService.getBookInfoFromDbAndNetWork(isbn, dealWithBookInfo);
+		BookInfoService.saveOrGetBookInfoFromDbAndNetWork(isbn, dealWithBookInfo);
 		isbnObj.value = isbn;
 	}
 </script>
@@ -50,60 +54,71 @@
         	<div id="right" class="rightContent">
 				<div class="uploadDiv">
     				<h2>分享纸质书</h2>
-    				<span>请输入ISBN：</span><input name="first_isbn" id="first_isbn"/><input type="button" value="确定" onclick="javascript:getBookInfo(document.getElementById('first_isbn'))"/>
+					#if(!$bookInfo)
+    				<span>请输入ISBN：</span><input name="first_isbn" id="first_isbn" value="$!isbn"/><input type="button" value="查询" onclick="javascript:getBookInfo(document.getElementById('first_isbn'))"/>
+					#end
+					<div class="uploadBookInfo" id="uploadBookInfo" #if(!$bookInfo)style="display:none" #end>
+						<img id="imgUrl" src="$!{imageServer}/$bookInfo.imgUrl" style="max-height:240px; max-width:160px; #if(!$bookInfo)display:none;#end"/>
+    					<table >
+    						<tr>
+    							<td class="first">名称：</td>
+    							<td id="name">$!bookInfo.name</td>
+    						</tr>
+    						<tr>
+    							<td class="first">作者：</td>
+    							<td id="author">$!bookInfo.author</td>
+    						</tr>
 
-					<div class="uploadBookInfo" id="uploadBookInfo" style="display:none">
-    					<table>
     						<tr>
-    							<td class="first">名称</td>
-    							<td id="name"></td>
+    							<td class="first">出版社：</td>
+    							<td id="publisher">$!bookInfo.publisher</td>
     						</tr>
     						<tr>
-    							<td class="first">作者</td>
-    							<td id="author"></td>
+    							<td class="first">出版时间：</td>
+    							<td id="publishTime">$!bookInfo.publishTime</td>
     						</tr>
     						<tr>
-    							<td class="first">出版社</td>
-    							<td id="publisher"></td>
+    							<td class="first">版本：</td>
+    							<td id="edition">$!bookInfo.edition</td>
     						</tr>
     						<tr>
-    							<td class="first">出版时间</td>
-    							<td id="publishTime"></td>
+    							<td class="first">页数：</td>
+    							<td id="pages">$!bookInfo.page</td>
     						</tr>
     						<tr>
-    							<td class="first">版本</td>
-    							<td id="edition"></td>
+    							<td class="first">译者：</td>
+    							<td id="translator">$!bookInfo.translator</td>
     						</tr>
-    						<tr>
-    							<td class="first">页数</td>
-    							<td id="pages"></td>
+							#if($!isbn)
+							<tr>
+    							<td class="first">ISBN：</td>
+    							<td id="author">$!bookInfo.isbn</td>
     						</tr>
+							#end
     						<tr>
-    							<td class="first">译者</td>
-    							<td id="translator"></td>
-    						</tr>
-    						<tr>
-    							<td class="first">简介</td>
-    							<td id="description"></td>
-    						</tr>
-    						<tr>
-    							<td class="first">imgURL</td>
-    							<td id="imgUrl"></td>
+    							<td class="first">简介：</td>
+    							<td id="description">$!bookInfo.description</td>
     						</tr>
 							<tr>
     							<td class="first">Tags</td>
-    							<td id="tags"></td>
+    							<td id="tags">$!bookInfo.tags</td>
     						</tr>
-                        </table>
 
-    					<form name="uploadBookForm" action="$base/mygoldroom/uploadPaperBook.action">
-							<input type="hidden" name="bookInfoId" id="bookInfoId" />
-    						<input type="hidden" name="isbn" id="isbn"/>
-							loginId:<input type="text" name="loginId" id="loginId"/> <br/>
-							remark:<input type="text" name="remark" id="remark"/> <br/>
-    						tags:<input type="text" name="tags" id="tags"/> <br/>
-    						<input type="submit" value="分享" />
-    					</form>
+							<form name="uploadBookForm" action="$base/mygoldroom/uploadPaperBook.action" method="POST">
+    							<tr>
+        							<td class="first">备注</td>
+        							<td id="tags"><input type="text" name="remark" id="remark" size="70"/></td>
+        						</tr>
+								<tr>
+									<td colspan="2" align="center">
+										<input type="hidden" name="bookInfoId" id="bookInfoId" />
+										<input type="hidden" name="isbn" id="isbn"/>
+										<input type="hidden" name="submitFlag" value="true"/>
+										<input type="submit" value="分享" />
+									</td>
+								</tr>
+							</form>
+                        </table>
 					</div>
 				</div>
             </div>

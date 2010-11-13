@@ -2,7 +2,7 @@
 	## get query string
 	#set($qStr = ${request.getQueryString()})
 	#set($start = $qStr.indexOf("&page="))
-	#if($start >= 0 )
+	#if($start && $start >= 0 )
 		#set($newQStr = $qStr.substring(0, $start))
 		#set($endStart = $start + 1)
 		#set($end = $qStr.indexOf("&", $endStart))

@@ -3,6 +3,8 @@ package com.alibaba.intl.bcds.goldroom.service;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.xwork.StringUtils;
+
 import com.alibaba.intl.bcds.goldroom.dao.BookInfoDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.remote.BookInfoFetcher;
@@ -13,9 +15,9 @@ import com.alibaba.intl.bcds.goldroom.util.BookSearchHelper;
 
 public class BookInfoService {
 
-    private BookInfoDao       bookInfoDao;
+    private BookInfoDao      bookInfoDao;
 
-    private BookInfoFetcher   bookInfoFetcher;
+    private BookInfoFetcher  bookInfoFetcher;
 
     private BookSearchHelper bookSearchHelper;
 
@@ -43,7 +45,12 @@ public class BookInfoService {
         return bookInfoDao.findById(id);
     }
 
-    public BookInfo getBookInfoFromDbAndNetWork(String isbn) {
+    public BookInfo saveOrGetBookInfoFromDbAndNetWork(String isbn) {
+        if (StringUtils.isBlank(isbn)) {
+            return null;
+        } else {
+            isbn = isbn.trim();
+        }
         BookInfo bookInfo = bookInfoDao.findBookInfoByIsbn(isbn);
         if (bookInfo == null) {
             bookInfo = bookInfoFetcher.fetch(isbn);
@@ -95,46 +102,46 @@ public class BookInfoService {
         return bookSearchHelper.searchBookByOwnersAndKeyword(loginId, keyword, (page - 1) * pageSize, pageSize);
     }
 
-	/**
-	 * @return the bookInfoDao
-	 */
-	public BookInfoDao getBookInfoDao() {
-		return bookInfoDao;
-	}
+    /**
+     * @return the bookInfoDao
+     */
+    public BookInfoDao getBookInfoDao() {
+        return bookInfoDao;
+    }
 
-	/**
-	 * @param bookInfoDao the bookInfoDao to set
-	 */
-	public void setBookInfoDao(BookInfoDao bookInfoDao) {
-		this.bookInfoDao = bookInfoDao;
-	}
+    /**
+     * @param bookInfoDao the bookInfoDao to set
+     */
+    public void setBookInfoDao(BookInfoDao bookInfoDao) {
+        this.bookInfoDao = bookInfoDao;
+    }
 
-	/**
-	 * @return the bookInfoFetcher
-	 */
-	public BookInfoFetcher getBookInfoFetcher() {
-		return bookInfoFetcher;
-	}
+    /**
+     * @return the bookInfoFetcher
+     */
+    public BookInfoFetcher getBookInfoFetcher() {
+        return bookInfoFetcher;
+    }
 
-	/**
-	 * @param bookInfoFetcher the bookInfoFetcher to set
-	 */
-	public void setBookInfoFetcher(BookInfoFetcher bookInfoFetcher) {
-		this.bookInfoFetcher = bookInfoFetcher;
-	}
+    /**
+     * @param bookInfoFetcher the bookInfoFetcher to set
+     */
+    public void setBookInfoFetcher(BookInfoFetcher bookInfoFetcher) {
+        this.bookInfoFetcher = bookInfoFetcher;
+    }
 
-	/**
-	 * @return the bookSearchHelper
-	 */
-	public BookSearchHelper getBookSearchHelper() {
-		return bookSearchHelper;
-	}
+    /**
+     * @return the bookSearchHelper
+     */
+    public BookSearchHelper getBookSearchHelper() {
+        return bookSearchHelper;
+    }
 
-	/**
-	 * @param bookSearchHelper the bookSearchHelper to set
-	 */
-	public void setBookSearchHelper(BookSearchHelper bookSearchHelper) {
-		this.bookSearchHelper = bookSearchHelper;
-	}
+    /**
+     * @param bookSearchHelper the bookSearchHelper to set
+     */
+    public void setBookSearchHelper(BookSearchHelper bookSearchHelper) {
+        this.bookSearchHelper = bookSearchHelper;
+    }
 
 }

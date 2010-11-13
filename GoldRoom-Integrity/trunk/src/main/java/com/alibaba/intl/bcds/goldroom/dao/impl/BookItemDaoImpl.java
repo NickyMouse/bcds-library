@@ -22,7 +22,7 @@ public class BookItemDaoImpl extends BaseDao implements BookItemDao {
         Date now = new Date();
         bookItem.setGmtCreate(now);
         bookItem.setGmtModified(now);
-        this.save(bookItem);
+        super.save(bookItem);
         return bookItem;
     }
 
@@ -56,13 +56,13 @@ public class BookItemDaoImpl extends BaseDao implements BookItemDao {
         q.setParameter("state", state);
         return q.setFirstResult((page - 1) * pagesize).setMaxResults(pagesize).list();
     }
-    
+
     public List<BookItem> listBookItemsByLoginId(String loginId, int page, int pagesize) {
         Query q = this.createNamedQuery("listBookItemsByLoginId");
         q.setParameter("loginId", loginId);
         return q.setFirstResult((page - 1) * pagesize).setMaxResults(pagesize).list();
     }
-    
+
     public int countBookItemsByLoginId(String loginId) {
         Query q = this.createNamedQuery("countBookItemsByLoginId");
         q.setParameter("loginId", loginId);

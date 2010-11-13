@@ -23,7 +23,7 @@ public class LendingDaoImpl extends BaseDao implements LendingDao {
         Date now = new Date();
         lending.setGmtCreate(now);
         lending.setGmtModified(now);
-        this.save(lending);
+        super.save(lending);
         return lending;
     }
 

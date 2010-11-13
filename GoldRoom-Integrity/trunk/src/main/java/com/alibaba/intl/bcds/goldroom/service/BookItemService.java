@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.intl.bcds.goldroom.constaints.BookItemStateEnum;
+import com.alibaba.intl.bcds.goldroom.constaints.BookStoreState;
+import com.alibaba.intl.bcds.goldroom.dao.BookInfoDao;
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
 import com.alibaba.intl.bcds.goldroom.dao.ReservationDao;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.dataobject.Reservation;
 import com.alibaba.intl.bcds.goldroom.result.BookItemResult;
@@ -21,18 +24,60 @@ public class BookItemService {
     private BookItemDao    bookItemDao;
 
     @Autowired
+    private BookInfoDao    bookInfoDao;
+
+    @Autowired
     private ReservationDao reservationDao;
 
     private static Logger  logger = Logger.getLogger(BookItemService.class);
 
+    /**
+     * 新增纸质书
+     *
+     * @param bookItem
+     */
     public void addBookItem(BookItem bookItem) {
         bookItem.setState(BookItemStateEnum.IDLE.getValue());
 
         bookItemDao.save(bookItem);
+        if (bookItem.getBookInfo() != null && bookItem.getBookInfo().getId() != null) {
+            BookInfo bookInfo = bookInfoDao.findById(bookItem.getBookInfo().getId());
+            BookStoreState newState = BookStoreState.getUpdatedStoreState(bookInfo.getStoreState(),
+                                                                          BookStoreState.PAPER_BOOK);
+            bookInfo.setStoreState(newState.getValue());
+            bookInfoDao.updateById(bookInfo);
+        }
 
-        //TODO update bookItem Owner's Score
+        // TODO update bookItem Owner's Score
 
         logger.info("[Add new book item] bookItem.id:" + bookItem.getId());
+    }
+
+    /**
+     * 新增电子书
+     *
+     * @param bookItem
+     */
+    public boolean addEbookItem(BookItem bookItem) {
+        if (bookItem != null && bookItem.getBookInfo() != null && bookItem.getBookInfo().getId() != null) {
+            BookInfo bookInfo = bookInfoDao.findById(bookItem.getBookInfo().getId());
+
+            if (BookStoreState.isEBookExist(bookInfo.getStoreState())) {
+                return false;
+            }
+            BookStoreState newState = BookStoreState.getUpdatedStoreState(bookInfo.getStoreState(),
+                                                                          BookStoreState.EBOOK);
+            bookInfo.setStoreState(newState.getValue());
+            bookInfoDao.updateById(bookInfo);
+            bookItem.setState(BookItemStateEnum.EBOOK.getValue());
+            bookItemDao.save(bookItem);
+            logger.info("[Add new Ebook item] bookItem.id:" + bookItem.getId());
+
+            // TODO update bookItem Owner's Score
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public BookItemResult listBookItemsByLoginIdAndState(String loginId, String state, int page, int pagesize) {
@@ -60,11 +105,9 @@ public class BookItemService {
             // 确定该书是属于currentUser的，并且这本书不处于借出（lended）状态
             if (currentUser.equals(bookItem.getOwner().getLoginId())
                 && !BookItemStateEnum.LENDED.equalsState(bookItem.getState())) {
-                // 改变书籍状�?
                 bookItem.setState(BookItemStateEnum.UNAVAILABLE.getValue());
                 bookItemDao.updateBookItemState(bookItem);
 
-                // 拒绝�?��预约
                 reservationDao.updateStateByBookItemId(bookItem.getId(), Reservation.STATE_REJECT);
 
                 return true;
@@ -118,42 +161,55 @@ public class BookItemService {
         return bookItemDao.listBookItemsByLoginIdsAndBookInfoId(loginIds, bookInfoId);
 
     }
-    
+
     /**
      * 按时间排序取count条记录
+     *
      * @param count取数据的数量
      * @return
      */
-    public List<BookItem> getBookItemsByAddtime(int count){
-		return bookItemDao.getBookItemsByAddtime(count);
-	}
+    public List<BookItem> getBookItemsByAddtime(int count) {
+        return bookItemDao.getBookItemsByAddtime(count);
+    }
 
-	/**
-	 * @return the bookItemDao
-	 */
-	public BookItemDao getBookItemDao() {
-		return bookItemDao;
-	}
+    /**
+     * @return the bookItemDao
+     */
+    public BookItemDao getBookItemDao() {
+        return bookItemDao;
+    }
 
-	/**
-	 * @param bookItemDao the bookItemDao to set
-	 */
-	public void setBookItemDao(BookItemDao bookItemDao) {
-		this.bookItemDao = bookItemDao;
-	}
+    /**
+     * @param bookItemDao the bookItemDao to set
+     */
+    public void setBookItemDao(BookItemDao bookItemDao) {
+        this.bookItemDao = bookItemDao;
+    }
 
-	/**
-	 * @return the reservationDao
-	 */
-	public ReservationDao getReservationDao() {
-		return reservationDao;
-	}
+    /**
+     * @return the reservationDao
+     */
+    public ReservationDao getReservationDao() {
+        return reservationDao;
+    }
 
-	/**
-	 * @param reservationDao the reservationDao to set
-	 */
-	public void setReservationDao(ReservationDao reservationDao) {
-		this.reservationDao = reservationDao;
-	}
+    /**
+     * @param reservationDao the reservationDao to set
+     */
+    public void setReservationDao(ReservationDao reservationDao) {
+        this.reservationDao = reservationDao;
+    }
+
+    public void setBookInfoDao(BookInfoDao bookInfoDao) {
+        this.bookInfoDao = bookInfoDao;
+    }
+
+    public BookInfoDao getBookInfoDao() {
+        return bookInfoDao;
+    }
+
+    public BookItem findById(Integer id) {
+        return bookItemDao.findById(id);
+    }
 
 }

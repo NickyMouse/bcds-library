@@ -20,15 +20,16 @@ import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.BookSearchOption;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
+import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchKeywordFilter;
 
 public class BookSearchHelper {
 
     private static Logger   logger = Logger.getLogger(BookSearchHelper.class);
     private CompassTemplate compassTemplate;
 
-    public BookSearchResult searchBookByKeyword(final String keyword, final SearchBookType type,
-                                                final Integer skipSize, final Integer pageSize) {
-
+    public BookSearchResult searchBookByKeyword(final String kw, final SearchBookType type, final Integer skipSize,
+                                                final Integer pageSize) {
+        final String keyword = SearchKeywordFilter.filter(kw);
         return compassTemplate.execute(new CompassCallback<BookSearchResult>() {
 
             public BookSearchResult doInCompass(CompassSession session) throws CompassException {

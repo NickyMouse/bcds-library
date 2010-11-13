@@ -3,6 +3,8 @@
 <link rel=stylesheet type=text/css href="$base/static/css/mygoldroom.css" />
 
 <script type='text/javascript' src='$base/dwr/interface/MemberService.js'></script>
+<script type='text/javascript' src='$base/static/js/popup.js'></script>
+<script type='text/javascript' src='$base/static/js/showMemberInfo.js'></script>
 
 <style>
 	#contactInfo{
@@ -17,23 +19,8 @@
 	}
 </style>
 <script type='text/javascript'>
-    var showContact = function(data)
-    {
-     	if (data != null && typeof data == 'object'){
-			var str = "name:" + data.name + "\n";
-			str += "workId:" + data.workId + "\n";
-			str += "loginId:" + data.loginId + "\n";
-			str += "email:" + data.email + "\n";
-			str += "aliTalkId:" + data.aliTalkId + "\n";
-			str += "location:" + data.location+ "\n";
-			str += "ext:" + data.ext+ "\n";
-			str += "score:" + data.score+ "\n";
-			alert(str);
-			var contactInfo = jQuery("#contactInfo").show();
-			contactInfo.html(str);
-			contactInfo.css("top", jQuery(document).scrollTop() + 300);
-		}
-    }
+
+
 
 </script>
 
@@ -60,11 +47,12 @@
 
     					<div class="bookItem">
     						<div class="bookImage">
-    							##<img src="$item.bookInfo.imgUrl"/>
-    							<img src="http://img3.douban.com/mpic/s4478937.jpg" />
+								<a href="$base/detail/bookDetail.action?bookInfoId=$!item.bookInfo.id" target="_blank">
+									<img src="$!{imageServer}/$!item.bookInfo.imgUrl"/>
+								</a>
     						</div>
     						<div class="bookInfo">
-        						<h2 class="title"> $!item.bookInfo.name </h2>
+        						<h2 class="title"> <a href="$base/detail/bookDetail.action?bookInfoId=$!item.bookInfo.id" target="_blank"> $!item.bookInfo.name </a></h2>
                                 <span>作者: </span> $!item.bookInfo.author  <br/>
         						<span>出版社: </span> $!item.bookInfo.publisher  <br/>
         						<span>ISBN: </span> $!item.bookInfo.isbn  <br/>
@@ -72,9 +60,9 @@
 							<div class="column3">
 								 <input type="hidden" id="bookItem${item.id}" value="$!item.owner.loginId"/>
 
-								 <span>拥有者: </span> <a href="javascript:MemberService.findMemberByLoginId(document.getElementById('bookItem$!{item.id}').value, showContact);">$!{item.owner.name}</a>  <br/>
-								 <span>开始时间: </span> $reservation.lendTime  <br/>
-								 <span>结束时间: </span> $reservation.returnTime <br/>
+								 <span>拥有者: </span> <a href="javascript:showMemberInfo(jQuery('#bookItem$!{item.id}').val());">$!{item.owner.name}</a>  <br/>
+								 <span>开始时间: </span> $date.format($reservation.lendTime)  <br/>
+								 <span>结束时间: </span> $date.format($reservation.returnTime) <br/>
 								 #if($reservation.state == "reject")
 									<span>状态: </span> <span style="color:red">被拒绝 </span><br/>
 									<a href="#">重新预约</a>
@@ -97,7 +85,5 @@
 		#if($totalCount && $totalCount > 0)
 			#parse("templates/common/pageTurn.vm")
 		#end
-	<div id="contactInfo" style="display:none">
-		info info
-	</div>
+
 #parse("templates/common/footer.vm")

@@ -23,7 +23,7 @@ public class BookInfoDaoImpl extends BaseDao implements BookInfoDao {
 		Date now = new Date();
 		bookInfoDO.setGmtCreate(now);
 		bookInfoDO.setGmtModified(now);
-		this.save(bookInfoDO);
+		super.save(bookInfoDO);
 		return bookInfoDO;
 	}
 

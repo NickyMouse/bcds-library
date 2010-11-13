@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
 import com.alibaba.intl.bcds.goldroom.constaints.BookItemStateEnum;
+import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.dataobject.UserDTO;
 import com.alibaba.intl.bcds.goldroom.result.BookItemResult;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
@@ -20,6 +21,8 @@ public class MyBooksListAction extends BaseAction {
 
     private int               page;
     private int               pageSize;
+    private Integer           anchorBookItemId;
+    private BookItem          anchorBookItem;
     private BookItemResult    bookItemResult;
 
     public BookItemService getBookItemService() {
@@ -65,7 +68,11 @@ public class MyBooksListAction extends BaseAction {
         if (StringUtils.isBlank(state) || !BookItemStateEnum.isValidState(state)) {
             state = "all";
         }
-        setBookItemResult(bookItemService.listBookItemsByLoginIdAndState(user.getLoginId(), state, page, pageSize));
+        bookItemResult = bookItemService.listBookItemsByLoginIdAndState(user.getLoginId(), state, page, pageSize);
+
+        if (anchorBookItemId != null) {
+            anchorBookItem = bookItemService.findById(anchorBookItemId);
+        }
         return SUCCESS;
     }
 
@@ -75,5 +82,21 @@ public class MyBooksListAction extends BaseAction {
 
     public BookItemResult getBookItemResult() {
         return bookItemResult;
+    }
+
+    public void setAnchorBookItemId(Integer anchorBookItemId) {
+        this.anchorBookItemId = anchorBookItemId;
+    }
+
+    public Integer getAnchorBookItemId() {
+        return anchorBookItemId;
+    }
+
+    public void setAnchorBookItem(BookItem anchorBookItem) {
+        this.anchorBookItem = anchorBookItem;
+    }
+
+    public BookItem getAnchorBookItem() {
+        return anchorBookItem;
     }
 }

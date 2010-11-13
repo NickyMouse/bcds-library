@@ -59,7 +59,6 @@
             </div>
 		</DIV>
 		<!-- content end here -->
-		<div style="clear:both"></div>
 
 #parse("templates/common/footer.vm")
 

@@ -4,7 +4,8 @@
 
 <script type='text/javascript' src='$base/dwr/interface/ReservationService.js'></script>
 <script type='text/javascript' src='$base/dwr/interface/LendService.js'></script>
-
+<script type='text/javascript' src='$base/static/js/popup.js'></script>
+<script type='text/javascript' src='$base/static/js/showMemberInfo.js'></script>
 <style>
 	#contactInfo{
 			position:absolute;
@@ -15,44 +16,6 @@
 			left:50%;top:50%;margin-top:-100px;margin-left:-100px;
 	}
 </style>
-<script>
-	var showReservation = function(data)
-	{
-		//data.totalCount
-		//data.reservationList
-		if (data != null && typeof data == 'object'){
-			var reservationList = data.reservationList;
-			for(var i = 0; i <  reservationList.length; i++) {
-				var r = reservationList[i];
-				var str = "Id:" + r.id+ "\n";
-    			str += "subcriber:" + r.subscriber.name + "\n";
-    			str += "lendTime:" + r.lendTime + "\n";
-    			str += "returnTime:" + r.returnTime + "\n";
-    			str += "state:" + r.state + "\n";
-    			alert(str);
-			}
-		}
-	}
-	var showLending = function(data)
-	{
-		if (data != null && typeof data == 'object'){
-			var lendingList = data.lendingList;
-			for(var i = 0; i <  lendingList.length; i++) {
-				var r = lendingList[i];
-				var str = "Id:" + r.id+ "\n";
-    			str += "subcriber:" + r.subscriber.name + "\n";
-    			str += "lendTime:" + r.lendTime + "\n";
-    			str += "returnTime:" + r.returnTime + "\n";
-    			str += "state:" + r.state + "\n";
-    			alert(str);
-				var contactInfo = jQuery("#contactInfo").show();
-				contactInfo.html(str);
-				contactInfo.css("margin-top", jQuery(document).scrollTop() - contactInfo.css("height") / 2);
-			}
-		}
-	}
-</script>
-
 
 		<!-- content start here-->
 		<DIV id=content>
@@ -81,9 +44,8 @@
                 	#foreach($item in $bookList)
     					<div class="bookItem">
     						<div class="bookImage">
-    							##<img src="$item.bookInfo.imgUrl"/>
 								<a href="$base/detail/bookDetail.action?bookInfoId=$!item.bookInfo.id" target="_blank">
-									<img src="http://img3.douban.com/mpic/s4478937.jpg" />
+									<img src="$!{imageServer}/$!item.bookInfo.imgUrl"/>
 								</a>
     						</div>
     						<div class="bookInfo">
@@ -97,17 +59,18 @@
 
 								#if($!item.state == "idle")
 									<span>状态: </span><span style="color:green">空闲 </span><br/>
-									<a href="#">下架</a>
+									<a style="color:green" onclick="javascript:offShelve($!item.id, '$!item.bookInfo.name')">下架</a>
 								#elseif ($!item.state=="lended")
 									<span>状态: </span><span style="color:orange">被借阅 </span><br/>
-									<a href="javascript:LendService.listLendingByBookItemId($!item.id, showLending);">查看借阅信息</a>
+									<a href="javascript:showLending($!item.id,'$!item.bookInfo.name');">查看借阅信息</a>
 								#elseif ($!item.state=="reservated")
 									<span>状态: </span><span style="color:blue">被预约 </span><br/>
-									<a href="javascript:ReservationService.listReservationByBookItemId($!item.id, showReservation);">查看预约信息</a>
+									<a href="javascript:showReservation($!item.id,'$!item.bookInfo.name');">查看预约信息</a>
 								#elseif ($!item.state=="unavailable")
 									<span>状态: </span><span style="color:red">已下架 </span><br/>
-									<a href="#">上架</a><br/>
-									<a href="#">删除</a>
+									<a style="color:green" onclick="javascript:onShelve($!item.id, '$!item.bookInfo.name')">上架</a><br/>
+								#elseif ($!item.state=="ebook")
+									<span>电子书</span><br/>
 								#end
 								<br/>
                             </div>
@@ -125,9 +88,116 @@
 		#if($totalCount && $totalCount > 0)
 			#parse("templates/common/pageTurn.vm")
 		#end
-		<div id="contactInfo" style="display:none">
-			info info
-		</div>
+<script>
+	function buildReservationOrLendingInfo(bookName, r){
+		var str="<table style='margin:auto'>";
+		str += "<tr><td style='text-align:right'>" + "书籍：" + "</td><td>" + bookName + "</td></tr>";
+    	str += "<tr><td style='text-align:right'>" + "姓名：" + "</td><td>" + getIntranetSearchHtml(r.subscriber.name) + "</td></tr>";
+
+    	if(r.subscriber.workId) {
+    		str += "<tr><td style='text-align:right'>" + "工号：" + "</td><td>" + getIntranetSearchHtml(r.subscriber.workId) + "</td></tr>";
+    	}
+
+		if(r.subscriber.ext) {
+    		str += "<tr><td style='text-align:right'>" + "分机：" + "</td><td>" + r.subscriber.ext+ "</td></tr>";
+    	}
+
+    	if(r.subscriber.location) {
+    		str += "<tr><td style='text-align:right'>" + "位置：" + "</td><td>" + r.subscriber.location + "</td></tr>";
+    	}
+
+    	if(r.subscriber.aliTalkId) {
+    		str += "<tr><td style='text-align:right'>" + "贸易通：" + "</td><td>" + r.subscriber.aliTalkId + "&nbsp;&nbsp;" + getAliTalkHtml(r.subscriber.aliTalkId) + "</td></tr>";
+    	}
+
+		if(r.subscriber.email) {
+    		str += "<tr><td style='text-align:right'>" + "Email：" + "</td><td>"+ getEmailHtml(r.subscriber.email) + "</td></tr>";
+    	}
+
+
+		str += "<tr><td style='text-align:right'>" + "开始时间：" + "</td><td>" + r.lendTime.format() + "</td></tr>";
+		str += "<tr><td style='text-align:right'>" + "结束时间：" + "</td><td>" + r.returnTime.format() + "</td></tr>";
+
+		str += "</table>";
+		return str;
+	}
+
+	var showReservation = function(bookItemId, bookName)
+	{
+		this.callback = function (data) {
+    		if (data != null && typeof data == 'object'){
+    			var reservationList = data.reservationList;
+    			var r = reservationList[0];
+    			var str = buildReservationOrLendingInfo(bookName, r);
+    			var popUp = new PopUp("reservation", "预约信息", 350, 250, true);
+    			popUp.show(str);
+    		}
+		}
+		ReservationService.listReservationByBookItemId(bookItemId, this.callback);
+	}
+
+	var showLending = function(bookItemId, bookName)
+	{
+
+		this.callback = function (data) {
+    		if (data != null && typeof data == 'object'){
+    			var lendingList = data.lendingList;
+    			var r = lendingList[0];
+    			var str = buildReservationOrLendingInfo(bookName, r);
+
+    			var popUp = new PopUp("reservation", "借阅信息", 350, 250, true);
+    			popUp.show(str);
+    		}
+		}
+		LendService.listLendingByBookItemId(bookItemId, this.callback);
+	}
+
+	function onShelve (bookItemId, bookName){
+		jQuery.ajax({
+        	type: "POST",
+           	url: "$base/mygoldroom/bookManage.action",
+           	data: "type=onShelve&bookItemId=" + bookItemId,
+           	success: function(msg){
+		   		var reloadFunc = function () {location.reload();};
+		   	 	if(msg == "success"){
+			   	 	var popUp = new PopUp("onShelve", "书籍上架成功", 250, 150, false, reloadFunc);
+				 	popUp.show("你的书籍已经上架成功");
+				} else {
+					var popUp = new PopUp("onShelve", "书籍上架失败", 250, 150, false, reloadFunc);
+			 		popUp.show("你的书籍上架失败");
+			 	}
+           	}
+		});
+	}
+
+	function offShelve (bookItemId, bookName){
+		jQuery.ajax({
+			type: "POST",
+			url: "$base/mygoldroom/bookManage.action",
+           	data: "type=offShelve&bookItemId=" + bookItemId,
+           	success: function(msg){
+		   		var reloadFunc = function () {location.reload();};
+            	if(msg == "success"){
+		   	 		var popUp = new PopUp("onShelve", "书籍下架成功", 250, 150, false, reloadFunc);
+			 		popUp.show("你的书籍已经下架成功");
+			 	} else {
+					var popUp = new PopUp("onShelve", "书籍下架失败", 250, 150, false, reloadFunc);
+			 		popUp.show("你的书籍下架失败");
+			 	}
+           	}
+		});
+	}
+
+	#if($!anchorBookItemId && ($state=="reservated" || $state=="lended"))
+	jQuery(document).ready(function(){
+		#if($state=="reservated")
+			showReservation($!anchorBookItem.id,'$!anchorBookItem.bookInfo.name');
+		#elseif($state=="lended")
+			showLending($!anchorBookItem.id,'$!anchorBookItem.bookInfo.name');
+		#end
+	});
+	#end
+</script>
 
 #parse("templates/common/footer.vm")
 

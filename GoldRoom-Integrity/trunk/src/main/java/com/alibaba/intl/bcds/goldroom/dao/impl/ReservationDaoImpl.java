@@ -18,7 +18,7 @@ public class ReservationDaoImpl extends BaseDao implements ReservationDao {
 		Date now = new Date();
 		reservation.setGmtCreate(now);
 		reservation.setGmtModified(now);
-		this.save(reservation);
+		super.save(reservation);
 		return reservation;
 	}
 

@@ -61,34 +61,6 @@
 	<bean id="locator"
 		class="org.compass.gps.device.hibernate.entities.DefaultHibernateEntitiesLocator" />
 
-	<!-- gps device configuration, is a customized jpaGpsDevice -->
-	<!--
-	<bean id="jpaGpsDevice"
-		class="com.alibaba.intl.bcds.goldroom.search.commons.CustomizedJpaGpsDevice"
-		init-method="initSelectQuery">
-		<property name="name" value="jpaGpsDevice" />
-		<property name="entityQueryMap">
-			<map>
-				<entry key="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo"
-					value="SELECT b FROM BookInfo b, BookItem i where b.id = i.bookInfo.id GROUP BY b.id" />
-			</map>
-		</property>
-		<property name="mirrorDataChanges" value="true" />
-		<property name="injectEntityLifecycleListener" value="true" />
-		<property name="entitiesLocator" ref="locator" />
-		<property name="nativeExtractor" ref="extractor" />
-		<property name="lifecycleInjector" ref="injector" />
-	</bean>
-
-	<bean id="injector"
-		class="org.compass.gps.device.jpa.lifecycle.HibernateJpaEntityLifecycleInjector" />
-	<bean id="extractor"
-		class="org.compass.gps.device.jpa.extractor.SpringNativeJpaExtractor" />
-	<bean id="locator"
-		class="org.compass.gps.device.jpa.entities.HibernateJpaEntitiesLocator" />
-
-	--><!-- compassGps -->
-
 	<bean id="compassGps" class="org.compass.gps.impl.SingleCompassGps"
 		init-method="start" destroy-method="stop">
 		<property name="gpsDevices">

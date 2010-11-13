@@ -1,6 +1,8 @@
 #parse("templates/common/header.vm")
 <link rel=stylesheet type=text/css href="$base/static/css/mygoldroom.css" />
-
+<script type='text/javascript' src='$base/dwr/interface/MemberService.js'></script>
+<script type='text/javascript' src='$base/static/js/popup.js'></script>
+<script type='text/javascript' src='$base/static/js/showMemberInfo.js'></script>
 		<!-- content start here-->
 		<DIV id="content">
             <h1>我的黄金屋</h1>
@@ -16,19 +18,21 @@
 
     					<div class="bookItem">
     						<div class="bookImage">
-    							##<img src="$item.bookInfo.imgUrl"/>
-    							<img src="http://img3.douban.com/mpic/s4478937.jpg" />
+    							<a href="$base/detail/bookDetail.action?bookInfoId=$!item.bookInfo.id" target="_blank">
+									<img src="$!{imageServer}/$!item.bookInfo.imgUrl"/>
+								</a>
     						</div>
     						<div class="bookInfo">
-        						<h2 class="title"> $!item.bookInfo.name </h2>
+        						<h2 class="title"> <a href="$base/detail/bookDetail.action?bookInfoId=$!item.bookInfo.id" target="_blank"> $!item.bookInfo.name </a></h2>
                                 <span>作者: </span> $!item.bookInfo.author  <br/>
         						<span>出版社: </span> $!item.bookInfo.publisher  <br/>
         						<span>ISBN: </span> $!item.bookInfo.isbn  <br/>
     						</div>
 							<div class="column3">
-								 <span>拥有者: </span> $item.owner.name  <br/>
-								 <span>开始时间: </span> $lending.lendTime  <br/>
-								 <span>结束时间: </span> $lending.returnTime <br/>
+								 <input type="hidden" id="bookItem${item.id}" value="$!item.owner.loginId"/>
+								 <span>拥有者: </span><a href="javascript:showMemberInfo(jQuery('#bookItem$!{item.id}').val());">$!{item.owner.name}</a> <br/>
+								 <span>开始时间: </span> $!date.format($!lending.lendTime)  <br/>
+								 <span>结束时间: </span> $!date.format($!lending.returnTime) <br/>
 								 ##借阅中或者已经过期 <span>状态：</span></br/>
                             </div>
     					</div>

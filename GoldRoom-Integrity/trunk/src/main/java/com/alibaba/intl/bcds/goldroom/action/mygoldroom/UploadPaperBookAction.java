@@ -10,6 +10,7 @@ import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.dataobject.UserDTO;
+import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 
 public class UploadPaperBookAction extends BaseAction {
@@ -29,6 +30,12 @@ public class UploadPaperBookAction extends BaseAction {
 
     private BookItemService   bookItemService;
 
+    private BookInfoService   bookInfoService;
+
+    private boolean           submitFlag;
+
+    private BookInfo          bookInfo;
+
     public String execute() throws Exception {
         UserDTO user = this.getUserDTO();
         if (user == null) {
@@ -36,7 +43,13 @@ public class UploadPaperBookAction extends BaseAction {
         }
         if (StringUtils.isBlank(isbn)) {
             return "showForm";
+        } else if (!submitFlag) {
+            isbn = isbn.trim();
+            bookInfo = bookInfoService.findBookInfoByIsbn(isbn);
+            return "showForm";
         }
+
+        isbn = isbn.trim();
         Member currentMember = new Member();
         currentMember.setLoginId(user.getLoginId());
 
@@ -94,6 +107,30 @@ public class UploadPaperBookAction extends BaseAction {
 
     public String getRemark() {
         return remark;
+    }
+
+    public void setSubmitFlag(boolean submitFlag) {
+        this.submitFlag = submitFlag;
+    }
+
+    public boolean getSubmitFlag() {
+        return submitFlag;
+    }
+
+    public void setBookInfoService(BookInfoService bookInfoService) {
+        this.bookInfoService = bookInfoService;
+    }
+
+    public BookInfoService getBookInfoService() {
+        return bookInfoService;
+    }
+
+    public void setBookInfo(BookInfo bookInfo) {
+        this.bookInfo = bookInfo;
+    }
+
+    public BookInfo getBookInfo() {
+        return bookInfo;
     }
 
 }

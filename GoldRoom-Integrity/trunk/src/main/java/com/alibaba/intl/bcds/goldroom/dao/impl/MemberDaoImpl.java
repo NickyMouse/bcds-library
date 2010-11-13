@@ -36,7 +36,7 @@ public class MemberDaoImpl extends BaseDao implements MemberDao {
 		Date now = new Date();
 		member.setGmtCreate(now);
 		member.setGmtModified(now);
-		save(member);
+		super.save(member);
 		return member;
 	}
 
@@ -97,12 +97,12 @@ public class MemberDaoImpl extends BaseDao implements MemberDao {
 
 	@Override
 	public List<Member> listMemberByScore(int count) {
-		
+
 //		Query q = createNamedQuery("listMemberByScore");
 //		q.setFirstResult(0);
 //		q.setMaxResults(count);
 //		return q.list();
-		
+
 		org.hibernate.Query query = createNamedQuery("listMemberByScore");
 		return query.setFirstResult(0).setMaxResults(count).list();
 	}

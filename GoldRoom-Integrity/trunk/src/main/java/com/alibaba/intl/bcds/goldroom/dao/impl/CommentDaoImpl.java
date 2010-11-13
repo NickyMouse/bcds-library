@@ -18,7 +18,7 @@ public class CommentDaoImpl extends BaseDao implements CommentDao {
         Date now = new Date();
         comment.setGmtCreate(now);
         comment.setGmtModified(now);
-        this.save(comment);
+        super.save(comment);
     }
 
     public List<Comment> listAllComment(int page, int pageSize) {
