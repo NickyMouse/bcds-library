@@ -45,7 +45,7 @@ public class BookInfoService {
         return bookInfoDao.findById(id);
     }
 
-    public BookInfo saveOrGetBookInfoFromDbAndNetWork(String isbn) {
+    public BookInfo getBookInfoFromDbAndNetWork(String isbn) {
         if (StringUtils.isBlank(isbn)) {
             return null;
         } else {
@@ -54,9 +54,6 @@ public class BookInfoService {
         BookInfo bookInfo = bookInfoDao.findBookInfoByIsbn(isbn);
         if (bookInfo == null) {
             bookInfo = bookInfoFetcher.fetch(isbn);
-            if (bookInfo != null) {
-                return bookInfoDao.save(bookInfo);
-            }
         }
         return bookInfo;
     }

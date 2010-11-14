@@ -113,13 +113,17 @@ public class ReservationService {
                 item.setState(BookItemStateEnum.LENDED.getValue());
                 bookItemDao.updateBookItemState(item);
 
-                EmailInfo emailInfo = new EmailInfo(ServiceType.GET_BOOK);
-                emailInfo.setOwner(bookOwner);
-                emailInfo.setBorrower(lending.getSubscriber());
-                emailInfo.setBookInfo(item.getBookInfo());
-                emailInfo.setLending(lending);
-                emailInfo.addReceiverEmail(lending.getSubscriber().getEmail());
-                sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
+                try {
+                    EmailInfo emailInfo = new EmailInfo(ServiceType.GET_BOOK);
+                    emailInfo.setOwner(bookOwner);
+                    emailInfo.setBorrower(lending.getSubscriber());
+                    emailInfo.setBookInfo(item.getBookInfo());
+                    emailInfo.setLending(lending);
+                    emailInfo.addReceiverEmail(lending.getSubscriber().getEmail());
+                    sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
+                } catch (Exception e) {
+
+                }
                 logger.info("[Lend book success]" + lending.getId());
                 return true;
             } else {
@@ -138,13 +142,17 @@ public class ReservationService {
                     logger.info("[Reservation success]" + reservation.getId());
 
                     // 发送邮件
-                    EmailInfo emailInfo = new EmailInfo(ServiceType.RESERVATION);
-                    emailInfo.setOwner(bookOwner);
-                    emailInfo.setBorrower(subcriber);
-                    emailInfo.setBookInfo(item.getBookInfo());
-                    emailInfo.setReservation(reservation);
-                    emailInfo.addReceiverEmail(bookOwner.getEmail());
-                    sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
+                    try {
+                        EmailInfo emailInfo = new EmailInfo(ServiceType.RESERVATION);
+                        emailInfo.setOwner(bookOwner);
+                        emailInfo.setBorrower(subcriber);
+                        emailInfo.setBookInfo(item.getBookInfo());
+                        emailInfo.setReservation(reservation);
+                        emailInfo.addReceiverEmail(bookOwner.getEmail());
+                        sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
+                    } catch (Exception e) {
+
+                    }
                 }
                 // 书籍被预定
 
@@ -163,73 +171,73 @@ public class ReservationService {
         }
     }
 
-	/**
-	 * @return the bookItemDao
-	 */
-	public BookItemDao getBookItemDao() {
-		return bookItemDao;
-	}
+    /**
+     * @return the bookItemDao
+     */
+    public BookItemDao getBookItemDao() {
+        return bookItemDao;
+    }
 
-	/**
-	 * @param bookItemDao the bookItemDao to set
-	 */
-	public void setBookItemDao(BookItemDao bookItemDao) {
-		this.bookItemDao = bookItemDao;
-	}
+    /**
+     * @param bookItemDao the bookItemDao to set
+     */
+    public void setBookItemDao(BookItemDao bookItemDao) {
+        this.bookItemDao = bookItemDao;
+    }
 
-	/**
-	 * @return the reservationDao
-	 */
-	public ReservationDao getReservationDao() {
-		return reservationDao;
-	}
+    /**
+     * @return the reservationDao
+     */
+    public ReservationDao getReservationDao() {
+        return reservationDao;
+    }
 
-	/**
-	 * @param reservationDao the reservationDao to set
-	 */
-	public void setReservationDao(ReservationDao reservationDao) {
-		this.reservationDao = reservationDao;
-	}
+    /**
+     * @param reservationDao the reservationDao to set
+     */
+    public void setReservationDao(ReservationDao reservationDao) {
+        this.reservationDao = reservationDao;
+    }
 
-	/**
-	 * @return the memberDao
-	 */
-	public MemberDao getMemberDao() {
-		return memberDao;
-	}
+    /**
+     * @return the memberDao
+     */
+    public MemberDao getMemberDao() {
+        return memberDao;
+    }
 
-	/**
-	 * @param memberDao the memberDao to set
-	 */
-	public void setMemberDao(MemberDao memberDao) {
-		this.memberDao = memberDao;
-	}
+    /**
+     * @param memberDao the memberDao to set
+     */
+    public void setMemberDao(MemberDao memberDao) {
+        this.memberDao = memberDao;
+    }
 
-	/**
-	 * @return the sendMailService
-	 */
-	public SendMailService getSendMailService() {
-		return sendMailService;
-	}
+    /**
+     * @return the sendMailService
+     */
+    public SendMailService getSendMailService() {
+        return sendMailService;
+    }
 
-	/**
-	 * @param sendMailService the sendMailService to set
-	 */
-	public void setSendMailService(SendMailService sendMailService) {
-		this.sendMailService = sendMailService;
-	}
+    /**
+     * @param sendMailService the sendMailService to set
+     */
+    public void setSendMailService(SendMailService sendMailService) {
+        this.sendMailService = sendMailService;
+    }
 
-	/**
-	 * @return the lendingDao
-	 */
-	public LendingDao getLendingDao() {
-		return lendingDao;
-	}
+    /**
+     * @return the lendingDao
+     */
+    public LendingDao getLendingDao() {
+        return lendingDao;
+    }
 
-	/**
-	 * @param lendingDao the lendingDao to set
-	 */
-	public void setLendingDao(LendingDao lendingDao) {
-		this.lendingDao = lendingDao;
-	}
+    /**
+     * @param lendingDao the lendingDao to set
+     */
+    public void setLendingDao(LendingDao lendingDao) {
+        this.lendingDao = lendingDao;
+    }
 }

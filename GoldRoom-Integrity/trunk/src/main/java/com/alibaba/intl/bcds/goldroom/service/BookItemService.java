@@ -15,21 +15,24 @@ import com.alibaba.intl.bcds.goldroom.dao.ReservationDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.dataobject.Reservation;
+import com.alibaba.intl.bcds.goldroom.remote.BookInfoFetcher;
 import com.alibaba.intl.bcds.goldroom.result.BookItemResult;
 
 @Transactional
 public class BookItemService {
 
     @Autowired
-    private BookItemDao    bookItemDao;
+    private BookItemDao     bookItemDao;
 
     @Autowired
-    private BookInfoDao    bookInfoDao;
+    private BookInfoDao     bookInfoDao;
 
     @Autowired
-    private ReservationDao reservationDao;
+    private ReservationDao  reservationDao;
 
-    private static Logger  logger = Logger.getLogger(BookItemService.class);
+    private static Logger   logger = Logger.getLogger(BookItemService.class);
+
+    private BookInfoFetcher bookInfoFetcher;
 
     /**
      * 新增纸质书
@@ -37,15 +40,26 @@ public class BookItemService {
      * @param bookItem
      */
     public void addBookItem(BookItem bookItem) {
+
         bookItem.setState(BookItemStateEnum.IDLE.getValue());
 
-        bookItemDao.save(bookItem);
-        if (bookItem.getBookInfo() != null && bookItem.getBookInfo().getId() != null) {
-            BookInfo bookInfo = bookInfoDao.findById(bookItem.getBookInfo().getId());
+        if (bookItem.getBookInfo() != null && bookItem.getBookInfo().getIsbn() != null) {
+            String isbn = bookItem.getBookInfo().getIsbn();
+            BookInfo bookInfo = bookInfoDao.findBookInfoByIsbn(isbn);
+            if (bookInfo == null) {
+                bookInfo = bookInfoFetcher.fetch(isbn);
+                if (bookInfo == null) {
+                    return;
+                }
+                bookInfoDao.save(bookInfo);
+            }
+
             BookStoreState newState = BookStoreState.getUpdatedStoreState(bookInfo.getStoreState(),
                                                                           BookStoreState.PAPER_BOOK);
             bookInfo.setStoreState(newState.getValue());
             bookInfoDao.updateById(bookInfo);
+            bookItem.setBookInfo(bookInfo);
+            bookItemDao.save(bookItem);
         }
 
         // TODO update bookItem Owner's Score
@@ -59,8 +73,16 @@ public class BookItemService {
      * @param bookItem
      */
     public boolean addEbookItem(BookItem bookItem) {
-        if (bookItem != null && bookItem.getBookInfo() != null && bookItem.getBookInfo().getId() != null) {
-            BookInfo bookInfo = bookInfoDao.findById(bookItem.getBookInfo().getId());
+        if (bookItem != null && bookItem.getBookInfo() != null && bookItem.getBookInfo().getIsbn() != null) {
+            String isbn = bookItem.getBookInfo().getIsbn();
+            BookInfo bookInfo = bookInfoDao.findBookInfoByIsbn(isbn);
+            if (bookInfo == null) {
+                bookInfo = bookInfoFetcher.fetch(isbn);
+                if (bookInfo == null) {
+                    return false;
+                }
+                bookInfoDao.save(bookInfo);
+            }
 
             if (BookStoreState.isEBookExist(bookInfo.getStoreState())) {
                 return false;
@@ -69,7 +91,9 @@ public class BookItemService {
                                                                           BookStoreState.EBOOK);
             bookInfo.setStoreState(newState.getValue());
             bookInfoDao.updateById(bookInfo);
+
             bookItem.setState(BookItemStateEnum.EBOOK.getValue());
+            bookItem.setBookInfo(bookInfo);
             bookItemDao.save(bookItem);
             logger.info("[Add new Ebook item] bookItem.id:" + bookItem.getId());
 
@@ -210,6 +234,14 @@ public class BookItemService {
 
     public BookItem findById(Integer id) {
         return bookItemDao.findById(id);
+    }
+
+    public void setBookInfoFetcher(BookInfoFetcher bookInfoFetcher) {
+        this.bookInfoFetcher = bookInfoFetcher;
+    }
+
+    public BookInfoFetcher getBookInfoFetcher() {
+        return bookInfoFetcher;
     }
 
 }

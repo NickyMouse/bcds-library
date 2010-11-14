@@ -25,7 +25,7 @@
 
 		<create creator="spring" javascript="BookInfoService">
 			<param name="beanName" value="bookInfoService"></param>
-			<include method="saveOrGetBookInfoFromDbAndNetWork" />
+			<include method="getBookInfoFromDbAndNetWork" />
 		</create>
 
 		<!-- service end -->

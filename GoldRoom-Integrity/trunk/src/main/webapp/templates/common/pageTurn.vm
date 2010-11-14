@@ -28,18 +28,40 @@
 		#set($totalPage = $totalPage + 1)
 	#end
 
-	#set($startPn = 0)
-	#set($endPn = 0)
 
-	#foreach($index in [1 .. $totalPage])
+
+	#set($distance = 10)
+
+	#if($page > $distance/2)
+		#set($startPn = $page - $distance/2)
+		#set($endPn = $page + $distance/2)
+		#if($endPn > $totalPage)
+			#set($endPn = $totalPage)
+		#end
+	#elseif($page <= $distance)
+		#set($startPn = 1)
+		#set($endPn = $distance)
+		#if($endPn > $totalPage)
+			#set($endPn = $totalPage)
+		#end
+	#end
+
+	#if($startPn != 1)
+		<a href="$!{request.getRequestURI()}?$!{newQStr}&page=1">1</a>
+		<span class="break">...</span>
+	#end
+	#foreach($index in [$startPn .. $endPn])
 		#if($page == $index)
 			<span class="thispage">$page</span>
 		#else
 			<a href="$!{request.getRequestURI()}?$!{newQStr}&page=$!index">$!index</a>
 		#end
 	#end
+	#if($endPn != $totalPage)
+		<span class="break">...</span>
+		<a href="$!{request.getRequestURI()}?$!{newQStr}&page=$!totalPage">$!totalPage</a>
+	#end
 
-	##<span class="break">...</span>
 	#if($page < $totalPage)
 		#set($nextPage = $page + 1)
 		<span class="next"><a href="$!{request.getRequestURI()}?$!{newQStr}&page=$!{nextPage}">后页&gt;</a></span>

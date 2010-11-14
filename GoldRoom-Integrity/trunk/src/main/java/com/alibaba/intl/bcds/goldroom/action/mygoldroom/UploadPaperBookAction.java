@@ -22,8 +22,6 @@ public class UploadPaperBookAction extends BaseAction {
 
     private String            isbn;
 
-    private Integer           bookInfoId;
-
     private String            tags;
 
     private String            remark;
@@ -54,7 +52,7 @@ public class UploadPaperBookAction extends BaseAction {
         currentMember.setLoginId(user.getLoginId());
 
         BookInfo currentBookInfo = new BookInfo();
-        currentBookInfo.setId(bookInfoId);
+        currentBookInfo.setIsbn(isbn);
 
         BookItem bookItem = new BookItem();
         bookItem.setFirstAddTime(new Date());
@@ -75,14 +73,6 @@ public class UploadPaperBookAction extends BaseAction {
 
     public String getIsbn() {
         return isbn;
-    }
-
-    public void setBookInfoId(Integer bookInfoId) {
-        this.bookInfoId = bookInfoId;
-    }
-
-    public Integer getBookInfoId() {
-        return bookInfoId;
     }
 
     public void setTags(String tags) {

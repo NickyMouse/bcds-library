@@ -39,6 +39,8 @@
 			</result>
 			<result name="success" type="velocity">/templates/mygoldroom/uploadEBook.vm
 			</result>
+			<result name="error" type="velocity">/templates/mygoldroom/uploadEBook.vm
+			</result>
 		</action>
 		<action name="editProfile"
 			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.EditProfileAction">
