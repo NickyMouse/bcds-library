@@ -57,7 +57,7 @@
     				<span>请输入ISBN：</span><input name="first_isbn" id="first_isbn" value="$!isbn"/><input type="button" value="查询" onclick="javascript:getBookInfo(document.getElementById('first_isbn'))"/>
 					#end
 					<div class="uploadBookInfo" id="uploadBookInfo" #if(!$bookInfo)style="display:none" #end>
-						<img id="imgUrl" src="$!{imageServer}/$bookInfo.imgUrl" style="max-height:240px; max-width:160px; #if(!$bookInfo)display:none;#end"/>
+						<img id="imgUrl" src="$!{imageServer}/$bookInfo.imgUrl" style="max-height:240px; max-width:160px; width:expression(document.body.clientWidth>160?'160px':'auto'; #if(!$bookInfo)display:none;#end"/>
     					<table >
     						<tr>
     							<td class="first">名称：</td>

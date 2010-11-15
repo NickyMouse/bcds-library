@@ -33,11 +33,11 @@
        		</div>
         	<div id="right" class="rightContent">
 				<div>
-				<a href="$base/mygoldroom/reservationList.action?state=all&loginId=gangyi.xiaogy" #if($state=="all") class="seledtedState" #else class="state" #end>
+				<a href="$base/mygoldroom/reservationList.action?state=all" #if($state=="all") class="seledtedState" #else class="state" #end>
 							全部 #if($state=="all")($!{reservationResult.totalCount})#end</a>
-				<a href="$base/mygoldroom/reservationList.action?state=toBeConfirm&loginId=gangyi.xiaogy" #if($state=="toBeConfirm") class="seledtedState" #else class="state" #end>
+				<a href="$base/mygoldroom/reservationList.action?state=toBeConfirm" #if($state=="toBeConfirm") class="seledtedState" #else class="state" #end>
 							等待确认 #if($state=="toBeConfirm")($!{reservationResult.totalCount})#end</a>
-				<a href="$base/mygoldroom/reservationList.action?state=reject&loginId=gangyi.xiaogy" #if($state=="reject") class="seledtedState" #else class="state" #end>
+				<a href="$base/mygoldroom/reservationList.action?state=reject" #if($state=="reject") class="seledtedState" #else class="state" #end>
 							被拒绝 #if($state=="reject")($!{reservationResult.totalCount})#end</a>
 				</div>
             	#set($reservationList = $reservationResult.reservationList)

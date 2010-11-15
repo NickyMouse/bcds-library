@@ -13,9 +13,8 @@
 		#set($newQStr = ${request.getQueryString()})
 	#end
 
-
-
 <div class="paginator">
+	## previous page link
 	#if($page > 1)
 		#set($prePage = $page - 1)
 		<span class="prev"><a href="$!{request.getRequestURI()}?$!{newQStr}&page=$!{prePage}">&lt;前页</a></span>
@@ -23,15 +22,15 @@
 		<span class="prev">&lt;前页</span>
 	#end
 
+	## get total page
 	#set($totalPage = $totalCount / $pageSize)
 	#if($pageSize * $totalPage < $totalCount)
 		#set($totalPage = $totalPage + 1)
 	#end
 
-
-
 	#set($distance = 10)
 
+	##caculate the start page number and the end page number for show
 	#if($page > $distance/2)
 		#set($startPn = $page - $distance/2)
 		#set($endPn = $page + $distance/2)
@@ -46,9 +45,12 @@
 		#end
 	#end
 
+	## the start page
 	#if($startPn != 1)
 		<a href="$!{request.getRequestURI()}?$!{newQStr}&page=1">1</a>
-		<span class="break">...</span>
+		#if($startPn > 2)
+			<span class="break">...</span>
+		#end
 	#end
 	#foreach($index in [$startPn .. $endPn])
 		#if($page == $index)
@@ -57,17 +59,23 @@
 			<a href="$!{request.getRequestURI()}?$!{newQStr}&page=$!index">$!index</a>
 		#end
 	#end
+	## the end page
 	#if($endPn != $totalPage)
-		<span class="break">...</span>
+		#if($endPn < $totalPage - 1)
+				<span class="break">...</span>
+		#end
 		<a href="$!{request.getRequestURI()}?$!{newQStr}&page=$!totalPage">$!totalPage</a>
 	#end
 
+	## the next page link
 	#if($page < $totalPage)
 		#set($nextPage = $page + 1)
 		<span class="next"><a href="$!{request.getRequestURI()}?$!{newQStr}&page=$!{nextPage}">后页&gt;</a></span>
 	#else
 		<span class="next">后页&gt;</span>
 	#end
+
+	## total count of the records
 	<span class="count">(共$!totalCount条)</span>
 </div>
 #end
