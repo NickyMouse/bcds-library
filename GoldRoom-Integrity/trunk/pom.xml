@@ -112,6 +112,10 @@
     				<groupId>commons-collections</groupId>
 					<artifactId>commons-collections</artifactId>
     			</exclusion>
+    			<exclusion>
+    				<artifactId>jta</artifactId>
+    				<groupId>javax.transaction</groupId>
+    			</exclusion>
     		</exclusions>
 		</dependency>
 		<dependency>
