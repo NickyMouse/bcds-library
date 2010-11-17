@@ -27,26 +27,9 @@
 	
 	<filter>
 		<filter-name>singleSessionFilter</filter-name>
-		<!--
-		<filter-class>
-            org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter
-		</filter-class>
-		-->
 		<filter-class>
             org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
         </filter-class>
-        <init-param>
-        	<param-name>sessionFactoryBeanName</param-name>
-        	<param-value>sessionFactory</param-value>
-    	</init-param>
-        <init-param>
-            <param-name>singleSession</param-name>
-            <param-value>true</param-value>
-        </init-param>
-        <init-param>
-			<param-name>flushMode</param-name>
-			<param-value>ALWAYS</param-value>
-		</init-param>
 	</filter>
 
 	<filter>
@@ -61,12 +44,6 @@
 	</filter>
 	
 	<!-- filter-mappings -->
-	
-	<filter-mapping>
-		<filter-name>struts</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
 	<!-- 加载OpenSessionInView -->
 	<filter-mapping>
 		<filter-name>singleSessionFilter</filter-name>
@@ -78,6 +55,12 @@
 		<filter-name>singleSessionFilter</filter-name>
 		<url-pattern>/dwr/*</url-pattern>
 	</filter-mapping> 
+	
+	<filter-mapping>
+		<filter-name>struts</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 
 	<!-- 解决请求编码问题 -->
 	<filter-mapping>

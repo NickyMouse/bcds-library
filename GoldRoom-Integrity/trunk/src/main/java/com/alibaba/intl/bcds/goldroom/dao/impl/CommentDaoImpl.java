@@ -24,7 +24,7 @@ public class CommentDaoImpl extends BaseDao implements CommentDao {
     public List<Comment> listAllComment(int page, int pageSize) {
 //        Query q = em.createNamedQuery("listAllComment");
 //    	return q.setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).getResultList();
-        org.hibernate.Query query = createNamedQuery("listAllComment");
+        Query query = createNamedQuery("listAllComment");
         return query.setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).list();
     }
 

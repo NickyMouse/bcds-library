@@ -4,11 +4,7 @@
 package com.alibaba.intl.bcds.goldroom.action;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
@@ -66,13 +62,13 @@ public class IndexAction extends BaseAction {
 
 	public String execute() throws Exception {
 
-		this.hotBookList = createHotBooks();
-		this.tagInfoBooks = createTagInfo();
+		hotBookList = createHotBooks();
+		tagInfoBooks = createTagInfo();
 
 		// 积分排行榜
-		this.memberScores = createMemberScoreList();
+		memberScores = createMemberScoreList();
 
-		this.comments = commentService.listAll(1, 5);
+		comments = commentService.listAll(1, 5);
 
 		return SUCCESS;
 	}
