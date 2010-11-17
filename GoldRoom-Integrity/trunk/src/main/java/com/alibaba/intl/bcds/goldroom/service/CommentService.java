@@ -8,9 +8,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.intl.bcds.goldroom.constaints.CommentTargetEnum;
 import com.alibaba.intl.bcds.goldroom.dao.CommentDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.Comment;
+import com.alibaba.intl.bcds.goldroom.dataobject.comment.BookInfoComment;
 
 @Transactional
 public class CommentService {
@@ -20,13 +20,14 @@ public class CommentService {
     @Autowired
     private CommentDao    commentDao;
 
-    public List<Comment> listBookCommentByBookInfoId(Integer bookInfoId, int page, int pageSize) {
+    public List<BookInfoComment> listBookCommentByBookInfoId(Integer bookInfoId, int page, int pageSize) {
         if (bookInfoId == null) {
-            return new ArrayList<Comment>();
+            return null;
         }
         logger.info("[CommentService.listByTargetTypeAndTargetId] bookInfoId:" + bookInfoId);
-        return commentDao.listByTargetTypeAndTargetId(CommentTargetEnum.BOOK_INFO.getValue(), bookInfoId, page,
-                                                      pageSize);
+        return commentDao.listBookinfoCommentByBookInfoId(bookInfoId, page, pageSize);
+//        return commentDao.listByTargetTypeAndTargetId(CommentTargetEnum.BOOK_INFO.getValue(), bookInfoId, page,
+        // pageSize);
     }
 
     public List<Comment> listBookCommentByLoginId(String loginId, int page, int pageSize) {

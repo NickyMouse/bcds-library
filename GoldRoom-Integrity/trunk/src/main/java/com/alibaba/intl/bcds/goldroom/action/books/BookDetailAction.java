@@ -5,7 +5,7 @@ import java.util.List;
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
-import com.alibaba.intl.bcds.goldroom.dataobject.Comment;
+import com.alibaba.intl.bcds.goldroom.dataobject.comment.BookInfoComment;
 import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
@@ -26,7 +26,7 @@ public class BookDetailAction extends BaseAction {
     private CommentService    commentService;
 
     private List<BookItem>    bookItemList;
-    private List<Comment>     commentList;
+    private List<BookInfoComment> commentList;
     private List<BookInfo>    relatedBookInfoList;
 
     // private Member owner;
@@ -53,11 +53,11 @@ public class BookDetailAction extends BaseAction {
         this.relatedBookInfoList = relatedBookInfoList;
     }
 
-    public List<Comment> getCommentList() {
+    public List<BookInfoComment> getCommentList() {
         return commentList;
     }
 
-    public void setCommentList(List<Comment> commentList) {
+    public void setCommentList(List<BookInfoComment> commentList) {
         this.commentList = commentList;
     }
 
