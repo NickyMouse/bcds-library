@@ -24,13 +24,13 @@ import com.alibaba.intl.bcds.goldroom.dataobject.Comment;
 @DiscriminatorValue(value="BOOKINFO")
 public class BookInfoComment extends Comment {
 	
+	@ManyToOne(fetch=FetchType.LAZY, targetEntity=com.alibaba.intl.bcds.goldroom.dataobject.BookInfo.class)
+	@JoinColumn(name="TARGET_ID",referencedColumnName="id")
 	private BookInfo bookInfo; // 评论的书籍
 
 	/**
 	 * @return the bookInfo
 	 */
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="TARGET_ID")
 	public BookInfo getBookInfo() {
 		return bookInfo;
 	}

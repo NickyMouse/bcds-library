@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,17 +33,12 @@ import javax.persistence.Table;
 })
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="target_type", discriminatorType=DiscriminatorType.STRING)
-public abstract class Comment {
+@DiscriminatorValue(value="REPLY")
+public class Comment {
 
     @Id
     @GeneratedValue
     private Integer id;
-
-//    @Column(name = "TARGET_TYPE")
-//    private String  targetType;
-//
-//    @Column(name = "TARGET_ID")
-//    private Integer targetId;
 
     @Column(name = "GMT_CREATE")
     private Date    gmtCreate;
@@ -56,7 +52,7 @@ public abstract class Comment {
 
     @Column(name = "CONTENT")
     private String  content;
-
+    
     public Integer getId() {
         return id;
     }
