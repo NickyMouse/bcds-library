@@ -30,7 +30,7 @@
 						</H3>
 						<SPAN class="pl">作者:</SPAN>$!bookinfo.author<BR/>
 						<SPAN class="pl">出版社:</SPAN>$!bookinfo.publisher<BR/>
-						<SPAN class="pl">出版时间：$bookinfo.publishTime</SPAN>
+						<SPAN class="pl">出版时间：$date.format("yyyy-MM-dd",$!{bookinfo.publishTime})</SPAN>
 					</DIV>
     			</LI>
 		 #end

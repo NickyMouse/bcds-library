@@ -17,7 +17,7 @@
         </A>
       </DIV>
       <SPAN class=pl>作者:</SPAN>$!bookInfo.author<BR>
-      <SPAN class=pl>出版时间:</SPAN>$!bookInfo.publishTime<BR>
+      <SPAN class=pl>出版时间1:</SPAN>$date.format("yyyy-MM-dd",$!{bookInfo.publishTime})<BR>
       <SPAN class=pl>内容简介:</SPAN>
 		#if($!bookInfo.description.length() > 150)
 			$!bookInfo.description.substring(0,150)...

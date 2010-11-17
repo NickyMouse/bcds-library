@@ -9,7 +9,6 @@ import java.util.List;
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.Comment;
-import com.alibaba.intl.bcds.goldroom.dataobject.CommentBookInfoDTO;
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.dataobject.TagInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.TagInfoBooksDTO;
