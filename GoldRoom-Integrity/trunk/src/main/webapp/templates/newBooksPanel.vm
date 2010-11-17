@@ -18,7 +18,7 @@
 				<LI class="clearfix">
 					<DIV class="img">
 						<A  href="$!base/detail/bookDetail.do?bookInfoId=$!bookinfo.id">
-							<IMG src="$imageServer$!bookinfo.bookImgUrl" height="100px">
+							<IMG src="$imageServer$!bookinfo.imgUrl" height="100px">
         				</A>
       				</DIV>
 					<DIV class=intro>

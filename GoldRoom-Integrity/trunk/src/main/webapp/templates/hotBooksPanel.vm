@@ -7,7 +7,7 @@
 	<DIV id="content_menu$!{velocityCount}" class="content clearfix">
     <DIV class="headerline_img">
       <A onclick="moreurl(this, {from:'cinema'})" href="$!base/detail/bookDetail.do?bookInfoId=$!bookInfo.id">
-        <IMG src="$imageServer$!item.imgUrl">
+        <IMG src="$imageServer$!bookInfo.imgUrl">
       </A>
     </DIV>
     <DIV class=headerline_content>

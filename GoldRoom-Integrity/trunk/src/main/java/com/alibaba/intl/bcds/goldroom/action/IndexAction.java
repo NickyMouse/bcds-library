@@ -41,7 +41,6 @@ public class IndexAction extends BaseAction {
 	private List<BookInfo> hotBookList;
 	private List<TagInfoBooksDTO> tagInfoBooks;
 	private List<TagInfo> tags;
-	private List<CommentBookInfoDTO> commentBookInfoDtoList;
 	private List<Comment> comments;
 
 	public List<Comment> getComments() {
@@ -50,10 +49,6 @@ public class IndexAction extends BaseAction {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
-	}
-
-	public List<CommentBookInfoDTO> getCommentBookInfoDtoList() {
-		return commentBookInfoDtoList;
 	}
 
 	public void setBookInfoService(BookInfoService bookInfoService) {
@@ -152,11 +147,6 @@ public class IndexAction extends BaseAction {
 
 	public void setCommentService(CommentService commentService) {
 		this.commentService = commentService;
-	}
-
-	public void setCommentBookInfoDtoList(
-			List<CommentBookInfoDTO> commentBookInfoDtoList) {
-		this.commentBookInfoDtoList = commentBookInfoDtoList;
 	}
 
 	public void setTagService(TagService tagService) {
