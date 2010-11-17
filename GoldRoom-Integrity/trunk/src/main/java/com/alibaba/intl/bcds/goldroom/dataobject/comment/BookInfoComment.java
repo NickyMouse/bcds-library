@@ -21,7 +21,7 @@ import com.alibaba.intl.bcds.goldroom.dataobject.Comment;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue(value="bookinfo")
+@DiscriminatorValue(value="BOOKINFO")
 public class BookInfoComment extends Comment {
 	
 	private BookInfo bookInfo; // 评论的书籍

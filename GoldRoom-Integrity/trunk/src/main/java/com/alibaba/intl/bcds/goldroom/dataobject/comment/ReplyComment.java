@@ -20,7 +20,7 @@ import com.alibaba.intl.bcds.goldroom.dataobject.Comment;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue(value="reply")
+@DiscriminatorValue(value="REPLY")
 public class ReplyComment extends Comment {
 	
 	private Comment reply; //评论的回复
