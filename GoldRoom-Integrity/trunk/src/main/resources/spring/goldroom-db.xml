@@ -24,7 +24,8 @@
 				<value>com.alibaba.intl.bcds.goldroom.dataobject.Member</value>
 				<value>com.alibaba.intl.bcds.goldroom.dataobject.Reservation</value>
 				<value>com.alibaba.intl.bcds.goldroom.dataobject.AdminConfig</value>
-				<value>com.alibaba.intl.bcds.goldroom.dataobject.Comment</value>
+				<value>com.alibaba.intl.bcds.goldroom.dataobject.comment.BookInfoComment</value>
+				<value>com.alibaba.intl.bcds.goldroom.dataobject.comment.ReplyComment</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

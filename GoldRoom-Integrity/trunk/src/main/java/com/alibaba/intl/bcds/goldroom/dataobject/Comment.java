@@ -53,12 +53,8 @@ public abstract class Comment {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "LOGIN_ID", nullable=false)
     private Member  member;
-    
-    @ManyToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="REPLY_ID", nullable=true, referencedColumnName="ID")
-    private Set<Comment> replyComment; // 评论本身的回复信息
 
-	@Column(name = "CONTENT")
+    @Column(name = "CONTENT")
     private String  content;
 
     public Integer getId() {
@@ -100,13 +96,5 @@ public abstract class Comment {
     public void setMember(Member member) {
         this.member = member;
     }
-
-    public Set<Comment> getReplyComment() {
-		return replyComment;
-	}
-
-	public void setReplyComment(Set<Comment> replyComment) {
-		this.replyComment = replyComment;
-	}
 
 }

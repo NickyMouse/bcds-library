@@ -30,7 +30,7 @@ public class BookInfoComment extends Comment {
 	 * @return the bookInfo
 	 */
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="target_id")
+	@JoinColumn(name="TARGET_ID")
 	public BookInfo getBookInfo() {
 		return bookInfo;
 	}
