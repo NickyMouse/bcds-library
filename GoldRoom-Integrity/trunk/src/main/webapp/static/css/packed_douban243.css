@@ -77,34 +77,34 @@ IMG {
 	BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
 }
 ADDRESS {
-	
+
 }
 CAPTION {
-	
+
 }
 CITE {
-	
+
 }
 CODE {
-	
+
 }
 DFN {
-	
+
 }
 EM {
-	
+
 }
 STRONG {
-	
+
 }
 TH {
-	
+
 }
 VAR {
-	
+
 }
 OPTGROUP {
-	
+
 }
 DEL {
 	TEXT-DECORATION: none
@@ -224,7 +224,7 @@ BODY {
 	MARGIN: 0px auto; WIDTH: 950px
 }
 #header {
-	
+
 }
 #content {
 	MIN-HEIGHT: 420px
@@ -1800,7 +1800,7 @@ WBR:after {
 	MARGIN-TOP: 10px; WIDTH: 100%; FONT-FAMILY: Arial,Helvetica,sans-serif; WORD-WRAP: break-word; WHITE-SPACE: pre-wrap; OVERFLOW: hidden; WORD-BREAK: break-all
 }
 BODY .note {
-	
+
 }
 .note .cc {
 	TEXT-ALIGN: center; PADDING-BOTTOM: 15px; PADDING-LEFT: 0pt; PADDING-RIGHT: 0pt; DISPLAY: block; CLEAR: both; PADDING-TOP: 0pt
@@ -2340,7 +2340,7 @@ A.pop_win_close:hover {
 	COLOR: #999
 }
 .block3 .content LI .player {
-	
+
 }
 #in_tablem .block1 {
 	WIDTH: 630px
@@ -3291,7 +3291,7 @@ TABLE.olt THEAD TH {
 	COLOR: #ff5138; MARGIN-LEFT: 10px; FONT-SIZE: 12px; FONT-WEIGHT: bold
 }
 .movie_headerline UL.menu {
-	BORDER-LEFT: #e4e4e4 1px solid; WIDTH: 175px; FLOAT: right; 
+	BORDER-LEFT: #e4e4e4 1px solid; WIDTH: 175px; FLOAT: right;
 }
 .movie_headerline UL.menu LI {
 	BORDER-BOTTOM: #e4e4e4 1px solid; HEIGHT: 58px
@@ -4536,10 +4536,10 @@ UL.switch-dot LI {
 	DISPLAY: none
 }
 .arrow-left {
-	POSITION: absolute; WIDTH: 6px; BACKGROUND: url(http://t.douban.com/pics/arrow_gray.gif) no-repeat; HEIGHT: 9px; MARGIN-LEFT: -6px; TOP: 30px; LEFT: 0px
+	POSITION: absolute; WIDTH: 6px; BACKGROUND: url(/static/images/pics/arrow_gray.gif) no-repeat; HEIGHT: 9px; MARGIN-LEFT: -6px; TOP: 30px; LEFT: 0px
 }
 .arrow-right {
-	POSITION: absolute; WIDTH: 6px; BACKGROUND: url(http://t.douban.com/pics/arrow_gray.gif) no-repeat -6px 0px; HEIGHT: 9px; TOP: 30px; LEFT: 326px
+	POSITION: absolute; WIDTH: 6px; BACKGROUND: url(/static/images/pics/arrow_gray.gif) no-repeat -6px 0px; HEIGHT: 9px; TOP: 30px; LEFT: 326px
 }
 .detail-tip {
 	BORDER-BOTTOM: #ddd 1px solid; POSITION: absolute; BORDER-LEFT: #ddd 1px solid; PADDING-BOTTOM: 10px; PADDING-LEFT: 13px; WIDTH: 300px; PADDING-RIGHT: 13px; WORD-WRAP: break-word; BACKGROUND: #fff; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid; PADDING-TOP: 13px
@@ -5574,7 +5574,7 @@ A.a-lnk:active {
 	BORDER-BOTTOM: #e2d0c1 1px solid; POSITION: absolute; BORDER-LEFT: #e2d0c1 1px solid; PADDING-BOTTOM: 6px; MARGIN: 21px 0px 0px -60px; PADDING-LEFT: 0px; WIDTH: 120px; PADDING-RIGHT: 0px; DISPLAY: none; BACKGROUND: #fff3e7; BORDER-TOP: #e2d0c1 1px solid; BORDER-RIGHT: #e2d0c1 1px solid; PADDING-TOP: 6px
 }
 
-@media Unknown    
+@media Unknown
 {
 .user-group-list {
 	MARGIN: -1px 0px 0px
@@ -5749,7 +5749,7 @@ A.a-lnk:active {
 	POSITION: relative; MARGIN: 4px 2px 2px 4px; VERTICAL-ALIGN: middle
 }
 
-@media Unknown    
+@media Unknown
 {
 .gray-loader {
 	MARGIN: 0px 1px 0px 0px
