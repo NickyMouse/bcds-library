@@ -2619,34 +2619,34 @@ A.ad_7day_button:hover {
 	MARGIN-BOTTOM: 20px; WORD-BREAK: break-all
 }
 .allstar50 {
-	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(http://t.douban.com/pics/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
+	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(/static/images/pics/nav/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
 }
 .allstar45 {
-	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(http://t.douban.com/pics/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
+	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(/static/images/pics/nav/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
 }
 .allstar40 {
-	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(http://t.douban.com/pics/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
+	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(/static/images/pics/nav/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
 }
 .allstar35 {
-	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(http://t.douban.com/pics/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
+	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(/static/images/pics/nav/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
 }
 .allstar30 {
-	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(http://t.douban.com/pics/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
+	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(/static/images/pics/nav/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
 }
 .allstar25 {
-	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(http://t.douban.com/pics/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
+	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(/static/images/pics/nav/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
 }
 .allstar20 {
-	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(http://t.douban.com/pics/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
+	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(/static/images/pics/nav/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
 }
 .allstar15 {
-	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(http://t.douban.com/pics/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
+	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(/static/images/pics/nav/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
 }
 .allstar10 {
-	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(http://t.douban.com/pics/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
+	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(/static/images/pics/nav/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
 }
 .allstar05 {
-	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(http://t.douban.com/pics/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
+	LINE-HEIGHT: 100%; PADDING-LEFT: 55px; DISPLAY: block; MARGIN-BOTTOM: 7px; BACKGROUND: url(/static/images/pics/nav/allstar.gif) no-repeat; HEIGHT: 12px; COLOR: #999; FONT-SIZE: 12px; OVERFLOW: hidden
 }
 .allstar50 {
 	BACKGROUND-POSITION: 0px 0px
@@ -2961,10 +2961,10 @@ FIELDSET.floatdiv {
 	PADDING-BOTTOM: 2px; LINE-HEIGHT: 12px; PADDING-LEFT: 0px; PADDING-RIGHT: 3px; DISPLAY: block; BACKGROUND: url(http://t.douban.com/pics/event_home_tab.gif) no-repeat right top; COLOR: #fff; PADDING-TOP: 2px
 }
 .block_menu LI.on A {
-	PADDING-BOTTOM: 0px; PADDING-LEFT: 3px; PADDING-RIGHT: 0px; DISPLAY: block; BACKGROUND: url(http://t.douban.com/pics/green_tab.gif) no-repeat left top; FLOAT: left; PADDING-TOP: 0px
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 3px; PADDING-RIGHT: 0px; DISPLAY: block; BACKGROUND: url(/static/images/pics/green_tab.gif) no-repeat left top; FLOAT: left; PADDING-TOP: 0px
 }
 .block_menu LI.on A SPAN {
-	PADDING-BOTTOM: 2px; LINE-HEIGHT: 12px; PADDING-LEFT: 0px; PADDING-RIGHT: 3px; DISPLAY: block; BACKGROUND: url(http://t.douban.com/pics/green_tab.gif) no-repeat right top; COLOR: #fff; PADDING-TOP: 2px
+	PADDING-BOTTOM: 2px; LINE-HEIGHT: 12px; PADDING-LEFT: 0px; PADDING-RIGHT: 3px; DISPLAY: block; BACKGROUND: url(/static/images/pics/green_tab.gif) no-repeat right top; COLOR: #fff; PADDING-TOP: 2px
 }
 .block_menu .line {
 	LINE-HEIGHT: 0px; MARGIN: 10px 0px; WIDTH: 100%; BACKGROUND: #fff; HEIGHT: 0px; FONT-SIZE: 0px; BORDER-TOP: #e4e4e4 1px solid
@@ -3105,16 +3105,16 @@ H2.green_tab A SPAN {
 	FONT-FAMILY: Arial, Helvetica, sans-serif
 }
 H2.green_tab A.on {
-	DISPLAY: block; BACKGROUND: url(http://t.douban.com/pics/green_tab.gif) no-repeat; COLOR: #fff
+	DISPLAY: block; BACKGROUND: url(/static/images/pics/green_tab.gif) no-repeat; COLOR: #fff
 }
 H2.green_tab A.on SPAN {
-	DISPLAY: block; BACKGROUND: url(http://t.douban.com/pics/green_tab.gif) no-repeat; COLOR: #fff
+	DISPLAY: block; BACKGROUND: url(/static/images/pics/green_tab.gif) no-repeat; COLOR: #fff
 }
 .sort_tabs A.on {
-	DISPLAY: block; BACKGROUND: url(http://t.douban.com/pics/green_tab.gif) no-repeat; COLOR: #fff
+	DISPLAY: block; BACKGROUND: url(/static/images/pics/green_tab.gif) no-repeat; COLOR: #fff
 }
 .sort_tabs A.on SPAN {
-	DISPLAY: block; BACKGROUND: url(http://t.douban.com/pics/green_tab.gif) no-repeat; COLOR: #fff
+	DISPLAY: block; BACKGROUND: url(/static/images/pics/green_tab.gif) no-repeat; COLOR: #fff
 }
 H2.green_tab A.on {
 	PADDING-BOTTOM: 0px; LINE-HEIGHT: 12px; PADDING-LEFT: 8px; PADDING-RIGHT: 0px; BACKGROUND-POSITION: left top; PADDING-TOP: 0px
@@ -3243,16 +3243,16 @@ TABLE.olt THEAD TH {
 	BORDER-BOTTOM: #e4e4e4 1px solid; POSITION: relative; BORDER-LEFT: #e4e4e4 1px solid; MARGIN-BOTTOM: 10px; BACKGROUND: #fff; BORDER-TOP: #e4e4e4 1px solid; BORDER-RIGHT: #e4e4e4 1px solid
 }
 .movie_headerline .left_conner EM {
-	POSITION: absolute; WIDTH: 3px; BACKGROUND: url(http://t.douban.com/pics/movie_headerline.gif) no-repeat; HEIGHT: 3px; _background: none
+	POSITION: absolute; WIDTH: 3px; BACKGROUND: url(/static/images/pics/movie_headerline.gif) no-repeat; HEIGHT: 3px; _background: none
 }
 .movie_headerline .left_conner B {
-	POSITION: absolute; WIDTH: 3px; BACKGROUND: url(http://t.douban.com/pics/movie_headerline.gif) no-repeat; HEIGHT: 3px; _background: none
+	POSITION: absolute; WIDTH: 3px; BACKGROUND: url(/static/images/pics/movie_headerline.gif) no-repeat; HEIGHT: 3px; _background: none
 }
 .movie_headerline .first EM {
-	POSITION: absolute; WIDTH: 3px; BACKGROUND: url(http://t.douban.com/pics/movie_headerline.gif) no-repeat; HEIGHT: 3px; _background: none
+	POSITION: absolute; WIDTH: 3px; BACKGROUND: url(/static/images/pics/movie_headerline.gif) no-repeat; HEIGHT: 3px; _background: none
 }
 .movie_headerline .last EM {
-	POSITION: absolute; WIDTH: 3px; BACKGROUND: url(http://t.douban.com/pics/movie_headerline.gif) no-repeat; HEIGHT: 3px; _background: none
+	POSITION: absolute; WIDTH: 3px; BACKGROUND: url(/static/images/pics/movie_headerline.gif) no-repeat; HEIGHT: 3px; _background: none
 }
 .movie_headerline .left_conner EM {
 	BACKGROUND-POSITION: 0px 0px; TOP: -1px; LEFT: -1px
@@ -3309,7 +3309,7 @@ TABLE.olt THEAD TH {
 	DISPLAY: none
 }
 .movie_headerline UL.menu LI .on .arrow {
-	POSITION: absolute; WIDTH: 10px; DISPLAY: block; BACKGROUND: url(http://t.douban.com/pics/movie_headerline_arrow.gif) no-repeat; HEIGHT: 13px; OVERFLOW: hidden; TOP: 20px; LEFT: -11px
+	POSITION: absolute; WIDTH: 10px; DISPLAY: block; BACKGROUND: url(/static/images/pics/movie_headerline_arrow.gif) no-repeat; HEIGHT: 13px; OVERFLOW: hidden; TOP: 20px; LEFT: -11px
 }
 .movie_headerline UL.menu LI .img {
 	PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; WIDTH: 30px; PADDING-RIGHT: 5px; DISPLAY: inline; FLOAT: left; HEIGHT: 48px; PADDING-TOP: 5px
@@ -3732,10 +3732,10 @@ TABLE.olt THEAD TH {
 	PADDING-BOTTOM: 2px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 2px
 }
 .rating_list LI.on A {
-	PADDING-BOTTOM: 0px; PADDING-LEFT: 3px; PADDING-RIGHT: 0px; DISPLAY: inline-block; BACKGROUND: url(http://t.douban.com/pics/green_tab.gif) no-repeat left top; PADDING-TOP: 0px
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 3px; PADDING-RIGHT: 0px; DISPLAY: inline-block; BACKGROUND: url(/static/images/pics/green_tab.gif) no-repeat left top; PADDING-TOP: 0px
 }
 .rating_list LI.on A SPAN {
-	PADDING-BOTTOM: 2px; LINE-HEIGHT: 12px; PADDING-LEFT: 0px; PADDING-RIGHT: 3px; DISPLAY: block; BACKGROUND: url(http://t.douban.com/pics/green_tab.gif) no-repeat right top; COLOR: #fff; PADDING-TOP: 2px
+	PADDING-BOTTOM: 2px; LINE-HEIGHT: 12px; PADDING-LEFT: 0px; PADDING-RIGHT: 3px; DISPLAY: block; BACKGROUND: url(/static/images/pics/green_tab.gif) no-repeat right top; COLOR: #fff; PADDING-TOP: 2px
 }
 .bicelink A {
 	COLOR: #369
@@ -5103,10 +5103,10 @@ A.bn-post {
 	PADDING-BOTTOM: 0px; LINE-HEIGHT: 16px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; FLOAT: left; PADDING-TOP: 0px
 }
 .filter-list .current A {
-	PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 8px; PADDING-RIGHT: 0px; BACKGROUND: url(http://t.douban.com/pics/green_tab.gif) no-repeat 0px 0px; COLOR: #fff; PADDING-TOP: 0px
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 8px; PADDING-RIGHT: 0px; BACKGROUND: url(/static/images/pics/green_tab.gif) no-repeat 0px 0px; COLOR: #fff; PADDING-TOP: 0px
 }
 .filter-list .current SPAN {
-	PADDING-BOTTOM: 2px; LINE-HEIGHT: 12px; PADDING-LEFT: 0px; PADDING-RIGHT: 8px; DISPLAY: block; BACKGROUND: url(http://t.douban.com/pics/green_tab.gif) no-repeat 100% 0px; PADDING-TOP: 2px
+	PADDING-BOTTOM: 2px; LINE-HEIGHT: 12px; PADDING-LEFT: 0px; PADDING-RIGHT: 8px; DISPLAY: block; BACKGROUND: url(/static/images/pics/green_tab.gif) no-repeat 100% 0px; PADDING-TOP: 2px
 }
 .filter-list UL {
 	BORDER-BOTTOM: #ddd 1px dashed; MARGIN: 0px 0px 10px
