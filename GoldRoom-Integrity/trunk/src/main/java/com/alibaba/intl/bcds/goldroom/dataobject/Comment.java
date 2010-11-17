@@ -1,7 +1,6 @@
 package com.alibaba.intl.bcds.goldroom.dataobject;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -14,12 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
 @Entity
 @Table(name = "COMMENT")
 @NamedQueries({
