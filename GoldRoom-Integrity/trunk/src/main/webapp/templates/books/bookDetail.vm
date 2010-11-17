@@ -1,5 +1,7 @@
 ﻿#parse("/templates/common/header.vm")
 <script type='text/javascript' src='/dwr/interface/ReservationService.js'></script>
+<script type='text/javascript' src='$base/static/js/popup.js'></script>
+<script type="text/javascript" src="$base/static/js/My97DatePicker/WdatePicker.js"></script>
 <style>
 	.ownerInfo li {float: left; border-bottom: 1px dashed rgb(221, 221, 221);  width: 95%; margin-bottom: 4px; padding-bottom: 5px; padding-left: 5px;}
 </style>
@@ -15,14 +17,62 @@
 		}
 	});
 
-function hidePopUp(){
-    jQuery('#pop_win').hide();
-    jQuery('#pop_win_bg').hide();
- }
- function showPopUp(innerHTML){
-    jQuery('#pop_win_content').html(innerHTML);
-    jQuery('#pop_win').show();
-    jQuery('#pop_win_bg').show();
+
+ function showPopUp(bookItemId){
+    var popUp = new PopUp("onShelve", "书籍借阅", 250, 150, true);
+	
+	var table = '<table width="226" height="108" border="0" align="center">'+
+  				'<tr>'+
+    			'<td width="78" height="33">借阅时间</td>'+
+    			'<td width="138" colspan="2"><input id="d1" class="Wdate" type="text" onFocus="var d2=$dp.$(\'d2\');WdatePicker({minDate:\'%y-%M-%d\',maxDate:\'#F{$dp.$D(\\\'d2\\\')}\'})"/></td>'+
+  				'</tr>'+
+  				'<tr>'+
+    			'<td height="32">归还时间</td>'+
+    			'<td colspan="2"><input id="d2" class="Wdate" type="text" onFocus="WdatePicker({minDate:\'#F{$dp.$D(\\\'d1\\\')}\',maxDate:\'#F{$dp.$D(\\\'d1\\\',{d:+30})}\'})"/></td>'+
+ 				'</tr>'+
+  				'<tr align="center">'+
+    			'<td colspan="3">'+
+      			'<input id="LendBtn" type="button" name="button1" value="借阅">'+
+	  			'&nbsp;&nbsp;'+
+     			'<input id="cancelReturnBookBtn2" type="button" name="button2" value="取消">'+
+    			'</td>'+
+  				'</tr>'+
+				'</table>';
+	popUp.show(table);
+	jQuery("#cancelReturnBookBtn2").click(
+		function(){
+			popUp.hide();
+		}
+	);
+	jQuery("#LendBtn").click(
+		function(){
+		
+			var d1Val = jQuery("#d1").val();
+			var d2Val = jQuery("#d2").val();
+			if(d1Val == ''){
+				alert('请选择借阅时间');
+				return;
+			}
+			if(d2Val == ''){
+				alert('请选择归还时间');
+				return;
+			}
+    		jQuery.ajax({
+                	type: "POST",
+                   	url: "$base/mygoldroom/reservationManage.action",
+                   	data: "bookItemId=" + bookItemId + "&lendTime=" + d1Val + "&returnTime=" + d2Val,
+                   	success: function(msg){
+    					if(msg == "success"){
+        			   	 	alert("借阅成功");
+							popUp.hide();
+        			 	} else {
+    						alert("借阅失败");
+							popUp.hide();
+    					}
+                   	}
+    			});
+		}
+	);
  }
 </script>
 
@@ -117,7 +167,7 @@ width:0;
                 <div class="newtags">
                     <ul class="simple-dashed-list">
                     	<div style="height: 50px;" class="ownerInfo">
-                        	<li><b>姓名：</b>$!{bookItem.owner.name} <div style="float:right;width:80px"><a href="javascript:showPopUp('ssss')">借阅</a></div></li>
+                        	<li><b>姓名：</b>$!{bookItem.owner.name} <div style="float:right;width:80px"><a href="javascript:showPopUp($!{bookItem.id})">借阅</a></div></li>
     						<li><b>工号：</b>$!{bookItem.owner.workId}</li>
                         	<li><b>座位：</b>$!{bookItem.owner.aliTalkId}</li>
                         	<li><b>分机：</b>$!{bookItem.owner.ext}</li>
@@ -153,12 +203,12 @@ width:0;
 					<div style="float: left; width: 60px; height: 60px;" id="left_up">
 						<img class="pil" src="http://t.douban.com/icon/u1461597-10.jpg" alt="门牙猫咪咪♨下前下后拳"></div>
 						<div style="float: right; width: 800px; height: 100px;" id="right">
-							<h3>$!{comment.member.name}</h3>
+							<h3>${comment.member.name}</h3>
 							<div style="padding-right: 3px; padding-left: 3px;">
 								$!{comment.content}
 							</div>
 						</div>
-						<div style="float: left; width: 60px; height: 30px;" id="left_down">$!{comment.gmtCreate}</div>
+						<div style="float: left; width: 60px; height: 30px;" id="left_down">$date.format("yyyy-MM-dd", $!{comment.gmtCreate})</div>
 				</li>
 				#end
 			</ul>
@@ -187,15 +237,6 @@ width:0;
 		<!-- 同类书（完） -->
 	<!-- content end here -->
 	<div style="clear:both"></div>
-
-	
-    <div class="pop_win_bg" id="pop_win_bg" style="height: 260px; width: 348px; left: 476px; top: 158px; z-index: 8888;display:none"></div>
-    <div class="pop_win" id="pop_win" style="display: block; left: 485.5px; top: 167.85px; height: 205px; visibility: visible; z-index: 9999;display:none"><a class="pop_win_close" onclick="javascript:hidePopUp();">X</a>
-         <h2>借阅</h2>
-          <div style="width: 300px; border-top: 1px dashed rgb(204, 204, 204); padding-top: 5px; height:100%" id="pop_win_content">
-          </div>
-    </div>
-
 
 #parse("templates/common/footer.vm")
 
