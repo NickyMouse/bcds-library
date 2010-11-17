@@ -77,20 +77,6 @@
 	<br/>
 </DIV>
 
-<!-- 以后作推荐排行榜
-<DIV class=movie_top>
-<H2>推荐排行榜· · · · · · </H2>
-<UL class=content>
-   <LI class=clearfix>
-  <DIV class=no>10</DIV>
-  <DIV class=name><A onclick="moreurl(this, {from:'week'})"
-  href="">三个傻瓜</A></DIV>
-  <DIV class="fright color-gray">2个推荐</DIV>
-   </LI>
-
-</UL></DIV>
--->
-
 #parse("/templates/memberScoreRanking.vm")
 
 </DIV>

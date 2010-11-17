@@ -2,18 +2,18 @@
 <DIV class="movie_review clearfix">
   <H2 class="green_tab clearfix">
     <DIV class=ll>
-      最受新书评 · · · · · ·
+      最新书评 · · · · · ·
     </DIV>
   </H2>
   <DIV id=review1 class=content>
-	  #foreach($commentbookinfo in $commentBookInfoDtoList)
+	  #foreach($commentbookinfo in $comments)
       <UL style="CLEAR: both" class="tlst clearfix">
       <LI class=clst>
         <SPAN class="pl ll obss">
           <SPAN class=starb>
-            $!commentbookinfo.commnet.member.name &nbsp;评论:
+            $!commentbookinfo.member.name &nbsp;评论:
             <A onclick="moreurl(this, {from:'review'})" href="/detail/bookDetail.do?bookInfoId=$!commentbookinfo.bookinfo.id">
-               $commentbookinfo.bookinfo.name
+               $commentbookinfo.bookInfo.name
             </A>
           </SPAN>
 		  
@@ -22,7 +22,7 @@
         </SPAN>
         <BR>
         <DIV id=review_3578822_short>
-             $commentbookinfo.commnet.content
+             $commentbookinfo.content
         </DIV>
       </LI>
     </UL>

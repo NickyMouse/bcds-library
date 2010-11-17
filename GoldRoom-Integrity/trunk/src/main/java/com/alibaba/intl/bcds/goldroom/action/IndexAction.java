@@ -46,7 +46,16 @@ public class IndexAction extends BaseAction {
 	private List<TagInfoBooksDTO> tagInfoBooks;
 	private List<TagInfo> tags;
 	private List<CommentBookInfoDTO> commentBookInfoDtoList;
-	
+	private List<Comment> comments;
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 	public List<CommentBookInfoDTO> getCommentBookInfoDtoList() {
 		return commentBookInfoDtoList;
 	}
@@ -63,56 +72,9 @@ public class IndexAction extends BaseAction {
 		// 积分排行榜
 		this.memberScores = createMemberScoreList();
 
-//		this.commentBookInfoDtoList = creatCommentBookInfoList();
+		this.comments = commentService.listAll(1, 5);
 
 		return SUCCESS;
-	}
-
-	/**
-	 * 最新评论,评论对应的书
-	 * 
-	 * @return
-	 */
-	private List<CommentBookInfoDTO> creatCommentBookInfoList() {
-
-		List<CommentBookInfoDTO> commentBookInfoDTOList = new ArrayList<CommentBookInfoDTO>();
-		List<Comment> comments = commentService.listAll(1, 5);
-
-		if (comments.size() > 0) {
-
-			Set<Integer> bookids = new HashSet<Integer>();
-
-			for (Comment comment : comments) {
-				bookids.add(comment.getTargetId());
-			}
-
-			BookSearchResult bookSearchResult = bookInfoService
-					.searchBookByInfoIds(new ArrayList<Integer>(bookids));
-
-			Map<Integer, BookInfo> mapbooks = new HashMap<Integer, BookInfo>();
-
-			List<BookInfo> listbookinfo = bookSearchResult.getBookList();
-
-			for (BookInfo bookinfo : listbookinfo) {
-
-				mapbooks.put(bookinfo.getId(), bookinfo);
-
-			}
-
-			for (Comment comment : comments) {
-
-			//	System.out.println(comment.getMember().getName());
-				CommentBookInfoDTO commentBookInfoDTO = new CommentBookInfoDTO();
-
-				commentBookInfoDTO.setCommnet(comment);
-				commentBookInfoDTO.setBookinfo(mapbooks.get(comment
-						.getTargetId()));
-
-				commentBookInfoDTOList.add(commentBookInfoDTO);
-			}
-
-		}
-		return commentBookInfoDTOList;
 	}
 
 	/**
@@ -227,21 +189,24 @@ public class IndexAction extends BaseAction {
 	}
 
 	/**
-	 * @param hotBookList the hotBookList to set
+	 * @param hotBookList
+	 *            the hotBookList to set
 	 */
 	public void setHotBookList(List<BookInfo> hotBookList) {
 		this.hotBookList = hotBookList;
 	}
 
 	/**
-	 * @param tagInfoBooks the tagInfoBooks to set
+	 * @param tagInfoBooks
+	 *            the tagInfoBooks to set
 	 */
 	public void setTagInfoBooks(List<TagInfoBooksDTO> tagInfoBooks) {
 		this.tagInfoBooks = tagInfoBooks;
 	}
 
 	/**
-	 * @param tags the tags to set
+	 * @param tags
+	 *            the tags to set
 	 */
 	public void setTags(List<TagInfo> tags) {
 		this.tags = tags;

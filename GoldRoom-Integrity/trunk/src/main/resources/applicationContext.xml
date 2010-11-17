@@ -14,4 +14,5 @@
 	<import resource="spring/goldroom-service.xml" />
 	<import resource="spring/goldroom-util.xml" />
 	<import resource="spring/goldroom-search.xml" />
+	<import resource="spring/mail/mail.xml" />
 </beans>

@@ -42,7 +42,6 @@ public class CommentService {
     }
 
     public boolean postComment(Comment comment) {
-        comment.setTargetType(CommentTargetEnum.BOOK_INFO.getValue());
         commentDao.save(comment);
         return true;
     }
