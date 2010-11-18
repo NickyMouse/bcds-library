@@ -443,3 +443,5 @@ update BOOK_INFO SET STORE_STATE='ebook' where E_BOOK_URL is not null and E_BOOK
 update BOOK_INFO info, BOOK_ITEM item SET STORE_STATE='paper' where info.ID = item.BOOK_INFO_ID;
 update BOOK_INFO SET STORE_STATE='both' where (E_BOOK_URL is not null and E_BOOK_URL <> '') and STORE_STATE='paper';
 
+update BOOK_INFO as a,(select ID,IMG_URL from BOOK_INFO where IMG_URL not like '%/%') as b set a.IMG_URL=CONCAT('/', b.IMG_URL) where a.ID = b.ID;
+UPDATE COMMENT SET TARGET_TYPE = 'BOOKINFO'

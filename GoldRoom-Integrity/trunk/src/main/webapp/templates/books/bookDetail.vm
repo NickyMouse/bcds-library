@@ -20,7 +20,7 @@
 
  function showPopUp(bookItemId){
     var popUp = new PopUp("onShelve", "书籍借阅", 250, 150, true);
-	
+
 	var table = '<table width="226" height="108" border="0" align="center">'+
   				'<tr>'+
     			'<td width="78" height="33">借阅时间</td>'+
@@ -46,7 +46,7 @@
 	);
 	jQuery("#LendBtn").click(
 		function(){
-		
+
 			var d1Val = jQuery("#d1").val();
 			var d2Val = jQuery("#d2").val();
 			if(d1Val == ''){
@@ -106,7 +106,7 @@ width:0;
 				<div class="subject clearfix">
 					<div id="mainpic">
 						<a	href="http://img3.douban.com/mpic/s4478937.jpg" title="$!bookInfo.name" target="_blank">
-							<img src="http://img3.douban.com/mpic/s4478937.jpg" title="点击看大图" alt="$!bookInfo.name">
+							<img src="$!{imageServer}$!{bookInfo.imgUrl}" title="点击看大图" alt="$!bookInfo.name">
 						</a>
 					</div>
 					<div id="info">
@@ -230,7 +230,7 @@ width:0;
             </dd>
           </dl>
 		#end
-          
+
           <dl class="clear">
           </dl>
         </div>
