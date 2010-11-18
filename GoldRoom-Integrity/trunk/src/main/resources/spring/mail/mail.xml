@@ -3,7 +3,7 @@
 
 <beans default-autowire="byName">
 	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-        <property name="resourceLoaderPath" value="classpath:velocity.properties"></property>
+        <property name="resourceLoaderPath" value="classpath:mailTemplates/"></property>
     </bean>
 	
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
