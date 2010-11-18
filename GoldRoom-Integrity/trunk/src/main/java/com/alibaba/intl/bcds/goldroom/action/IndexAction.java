@@ -69,7 +69,7 @@ public class IndexAction extends BaseAction {
 
 	/**
 	 * 最新书籍
-	 * 
+	 *
 	 * @return
 	 */
 	private List<BookInfo> createHotBooks() {
@@ -80,7 +80,7 @@ public class IndexAction extends BaseAction {
 
 	/**
 	 * 积分排行榜
-	 * 
+	 *
 	 * @return
 	 */
 	private List<Member> createMemberScoreList() {
@@ -89,11 +89,11 @@ public class IndexAction extends BaseAction {
 
 	/**
 	 * tag信息
-	 * 
+	 *
 	 * @return
 	 */
 	private List<TagInfoBooksDTO> createTagInfo() {
-		tags = tagService.listTag(19);
+		tags = tagService.listTag(16);
 
 		if (tags != null) {
 			List<TagInfoBooksDTO> tagInfoBookList = new ArrayList<TagInfoBooksDTO>(
