@@ -146,7 +146,7 @@
     			var str = buildReservationOrLendingInfo(bookName, r);
 				str += "<br/><div style='text-align:center'><input type='button' id='agreeLendBtn' value='同意借阅'/>";
 				str += "&nbsp;&nbsp;<input type='button' id='rejectLendBtn' value='拒绝借阅'/></div>";
-    			var popUp = new PopUp("reservation", "预约信息", 350, 250, true);
+    			var popUp = new PopUp("reservation", "预约信息", 350, 300, true);
     			popUp.show(str);
 				jQuery("#agreeLendBtn").click(
 					function(){
@@ -188,7 +188,7 @@
     			var str = buildReservationOrLendingInfo(bookName, r);
 				str += "<br/><div style='text-align:center'><input type='button' id='returnBookBtn' value='确认归还'/>";
 				str += "&nbsp;&nbsp;<input type='button' id='cancelReturnBookBtn' value='取消'/></div>";
-    			var popUp = new PopUp("reservation", "借阅信息", 350, 250, true);
+    			var popUp = new PopUp("reservation", "借阅信息", 350, 300, true);
     			popUp.show(str);
 
 				jQuery("#returnBookBtn").click(

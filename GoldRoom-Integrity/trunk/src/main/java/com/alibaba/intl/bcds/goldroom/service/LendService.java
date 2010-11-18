@@ -139,17 +139,17 @@ public class LendService {
             bookItem.setState(BookItemStateEnum.IDLE.getValue());
             bookItemDao.updateBookItemState(bookItem);
 
-            try {
-                EmailInfo emailInfo = new EmailInfo(ServiceType.REJECT_LEND_BOOK);
-                emailInfo.setOwner(bookOwner);
-                emailInfo.setBorrower(reservation.getSubscriber());
-                emailInfo.setBookInfo(bookItem.getBookInfo());
-                emailInfo.setReservation(reservation);
-                emailInfo.addReceiverEmail(reservation.getSubscriber().getEmail());
-                sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
-            } catch (Exception e) {
-
-            }
+//            try {
+//                EmailInfo emailInfo = new EmailInfo(ServiceType.REJECT_LEND_BOOK);
+//                emailInfo.setOwner(bookOwner);
+//                emailInfo.setBorrower(reservation.getSubscriber());
+//                emailInfo.setBookInfo(bookItem.getBookInfo());
+//                emailInfo.setReservation(reservation);
+//                emailInfo.addReceiverEmail(reservation.getSubscriber().getEmail());
+//                sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
+//            } catch (Exception e) {
+//
+//            }
         }
         return true;
     }

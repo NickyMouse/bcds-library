@@ -2,6 +2,8 @@ package com.alibaba.intl.bcds.goldroom.action.mygoldroom;
 
 import java.util.Date;
 
+import org.apache.commons.lang.time.DateUtils;
+
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
 import com.alibaba.intl.bcds.goldroom.dataobject.UserDTO;
 import com.alibaba.intl.bcds.goldroom.service.ReservationService;
@@ -16,21 +18,32 @@ public class ReservationManageAction extends BaseAction {
     private ReservationService reservationService;
 
     private Integer            bookItemId;
-    private Date               lendTime;
-    private Date               returnTime;
+    private String             lendTime;
+    private String             returnTime;
     private String             result;
+    private static String      DATE_FORMAT      = "yyyy-MM-dd";
 
     public String execute() throws Exception {
         UserDTO userDTO = this.getUserDTO();
-        if (userDTO == null) {
+        if (userDTO == null || lendTime == null || returnTime == null || bookItemId == null) {
             return ERROR;
         }
-        if (reservationService.reserve(userDTO.getLoginId(), bookItemId, lendTime, returnTime)) {
-            setResult(SUCCESS);
-        } else {
-            setResult(ERROR);
+
+        Date lendTimeDate = null;
+        Date returnTimeDate = null;
+        try {
+            lendTimeDate = DateUtils.parseDate(lendTime, new String[] { DATE_FORMAT });
+            returnTimeDate = DateUtils.parseDate(returnTime, new String[] { DATE_FORMAT });
+        } catch (Exception e) {
+            result = ERROR;
+            return result;
         }
-        return getResult();
+        if (reservationService.reserve(userDTO.getLoginId(), bookItemId, lendTimeDate, returnTimeDate)) {
+            result = SUCCESS;
+        } else {
+            result = ERROR;
+        }
+        return result;
     }
 
     public void setReservationService(ReservationService reservationService) {
@@ -57,19 +70,19 @@ public class ReservationManageAction extends BaseAction {
         return bookItemId;
     }
 
-    public void setLendTime(Date lendTime) {
+    public void setLendTime(String lendTime) {
         this.lendTime = lendTime;
     }
 
-    public Date getLendTime() {
+    public String getLendTime() {
         return lendTime;
     }
 
-    public void setReturnTime(Date returnTime) {
+    public void setReturnTime(String returnTime) {
         this.returnTime = returnTime;
     }
 
-    public Date getReturnTime() {
+    public String getReturnTime() {
         return returnTime;
     }
 
