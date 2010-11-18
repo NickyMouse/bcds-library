@@ -10,6 +10,7 @@ import org.compass.core.CompassException;
 import org.compass.core.CompassHit;
 import org.compass.core.CompassHits;
 import org.compass.core.CompassQuery;
+import org.compass.core.CompassQuery.SortDirection;
 import org.compass.core.CompassQueryBuilder;
 import org.compass.core.CompassQueryBuilder.CompassBooleanQueryBuilder;
 import org.compass.core.CompassSession;
@@ -109,7 +110,7 @@ public class BookSearchHelper {
     public BookSearchResult advancedBookSearch(BookSearchOption option, SearchBookType type, Integer skipSize,
                                                Integer pageSize) {
         // TODO
-        return null;
+        throw new RuntimeException("To be implemented");
     }
 
     public BookSearchResult listAllBook(final SearchBookType type, final Integer skipSize, final Integer pageSize) {
@@ -134,6 +135,7 @@ public class BookSearchHelper {
                     query = queryBuilder.bool().addMust(queryBuilder.ge("bookInfo.gmtCreate", startTime)).addMust(queryBuilder.le("bookInfo.gmtCreate",
                                                                                                                                   endTime)).toQuery();
                 }
+                query.addSort("bookInfo.gmtCreate", SortDirection.REVERSE);
                 hits = query.hits().detach(skipSize, pageSize).getHits();
                 int length = hits.length;
                 for (int i = 0; i < length; i++) {
@@ -168,7 +170,7 @@ public class BookSearchHelper {
     public BookSearchResult searchBookByOwnersAndKeyword(String loginId, String keyword, Integer skipSize,
                                                          Integer pageSize) {
         // TODO
-        return null;
+        throw new RuntimeException("To be implemented");
     }
 
     public void setCompassTemplate(CompassTemplate compassTemplate) {
