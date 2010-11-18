@@ -159,16 +159,27 @@ width:0;
         <div id="sidebar-tab">
            <div id="tab-title">
               <h3>
-				#foreach($bookItem in $bookItemList)<span #if($velocityCount==0)class="selected" #end>$!{bookItem.owner.name}</span>#end
+				#foreach($bookItem in $bookItemList)
+					#if($bookItem.state != 'ebook')
+					<span #if($velocityCount==0)class="selected" #end>$!{bookItem.owner.name}</span>
+					#end
+				#end
 			  </h3>
            </div>
            <div id="tab-content">
 			#foreach($bookItem in $bookItemList)
+			  #if($bookItem.state != 'ebook')
               <ul #if($velocityCount!=0)class="hide"#end>
                 <div class="newtags">
                     <ul class="simple-dashed-list">
                     	<div style="height: 50px;" class="ownerInfo">
-                        	<li><b>姓名：</b>$!{bookItem.owner.name} <div style="float:right;width:80px"><a href="javascript:showPopUp($!{bookItem.id})">借阅</a></div></li>
+                        	<li><b>姓名：</b>$!{bookItem.owner.name}
+								<div style="float:right;width:80px">
+									#if($bookItem.state != 'idle')
+									<a href="javascript:showPopUp($!{bookItem.id})">借阅</a>
+									#end
+								</div>
+							</li>
     						<li><b>工号：</b>$!{bookItem.owner.workId}</li>
                         	<li><b>座位：</b>$!{bookItem.owner.aliTalkId}</li>
                         	<li><b>分机：</b>$!{bookItem.owner.ext}</li>
@@ -178,6 +189,7 @@ width:0;
                     </ul>
     			</div>
 			  </ul>
+			  #end
 			#end
            </div>
         </div>
