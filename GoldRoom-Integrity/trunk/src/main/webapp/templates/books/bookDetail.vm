@@ -77,6 +77,7 @@
 </script>
 
 <style>
+.bookImg {max-height: 240px; max-width:160px; width:expression(document.body.clientWidth>100?"100px":"auto"}
 .bookscontents DL{
 	margin:15px 33px 15px 0;
 	float:left;
@@ -105,18 +106,18 @@ width:0;
 			<div class="subjectwrap clearfix">
 				<div class="subject clearfix">
 					<div id="mainpic">
-						<a	href="http://img3.douban.com/mpic/s4478937.jpg" title="$!bookInfo.name" target="_blank">
-							<img src="$!{imageServer}$!{bookInfo.imgUrl}" title="点击看大图" alt="$!bookInfo.name">
+						<a	href="$!{imageServer}$!{bookInfo.imgUrl}" title="$!bookInfo.name" target="_blank">
+							<img class="bookImg" src="$!{imageServer}$!{bookInfo.imgUrl}" title="点击看大图" alt="$!bookInfo.name">
 						</a>
 					</div>
 					<div id="info">
 						#if($bookInfo.author)
 							<span class="pl"> 作者 </span> :
-							<a href="http://book.douban.com/subject_search?search_text=$!bookInfo.author" target="_blank">$!bookInfo.author </a> <br>
+							<a href="$base/book/search.do?keyword=$!{bookInfo.author}" target="_blank">$!bookInfo.author </a> <br>
 						#end
 						#if($bookInfo.translator)
 							<span class="pl"> 译者 </span> :
-							<a href="http://book.douban.com/subject_search?search_text=$!bookInfo.translator">$!bookInfo.translator</a> </span> <br>
+							<a href="$base/book/search.do?keyword=$!bookInfo.translator">$!bookInfo.translator</a> </span> <br>
 						#end
 						#if($bookInfo.isbn)
 							<span class="pl"> ISBN: </span>$!bookInfo.isbn <br>
