@@ -60,7 +60,7 @@
 		<DIV class="arrow"></DIV>
         <DIV class="img">
           <A onclick="moreurl(this, {from:'cinema'})" href="$!base/detail/bookDetail.do?bookInfoId=$!bookinfo.id">
-            <IMG src="$imageServer$!item.imgUrl" height="48">
+            <IMG src="$imageServer$!bookinfo.imgUrl" height="48">
           </A>
         </DIV>
         <DIV class="intro">
