@@ -1,5 +1,14 @@
 package com.alibaba.intl.bcds.goldroom.service;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,16 +16,36 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EBookUploadService {
 
-    private static Logger logger = Logger.getLogger(EBookUploadService.class);
-
+    private static Logger    logger      = Logger.getLogger(EBookUploadService.class);
+    private static final int BUFFER_SIZE = 20 * 1024;                                 // 20K
     @Autowired
-    private String        eBookUploadPath;
+    private String           eBookUploadPath;
 
-    public void uploadEBook() {
-        // TODO implement the e-book upload
+    public void uploadEBook(File src, String isbn) {
+        InputStream in = null;
+        OutputStream out = null;
+//        try {
+//            String destinationFullPath = eBookUploadPath+getFilePath()
+//            File dst = new File();
+//            in = new BufferedInputStream(new FileInputStream(src), BUFFER_SIZE);
+//            out = new BufferedOutputStream(new FileOutputStream(dst), BUFFER_SIZE);
+//            byte[] buffer = new byte[BUFFER_SIZE];
+//            while (in.read(buffer) > 0) {
+//                out.write(buffer);
+//            }
+//        } catch (IOException e) {
+//            logger.error(e);
+//        } finally {
+//            if (null != in) {
+//                in.close();
+//            }
+//            if (null != out) {
+//                out.close();
+//            }
+//        }
     }
 
-    protected String getFilePath(String isbn, String name) {
+    protected String getFilePath(String isbn) {
         StringBuffer sb = new StringBuffer();
         isbn = isbn.replace("-", "");
         isbn = isbn.replace("_", "");
@@ -41,17 +70,17 @@ public class EBookUploadService {
         return sb.toString();
     }
 
-	/**
-	 * @return the eBookUploadPath
-	 */
-	public String getEBookUploadPath() {
-		return eBookUploadPath;
-	}
+    /**
+     * @return the eBookUploadPath
+     */
+    public String getEBookUploadPath() {
+        return eBookUploadPath;
+    }
 
-	/**
-	 * @param bookUploadPath the eBookUploadPath to set
-	 */
-	public void setEBookUploadPath(String bookUploadPath) {
-		eBookUploadPath = bookUploadPath;
-	}
+    /**
+     * @param bookUploadPath the eBookUploadPath to set
+     */
+    public void setEBookUploadPath(String bookUploadPath) {
+        eBookUploadPath = bookUploadPath;
+    }
 }

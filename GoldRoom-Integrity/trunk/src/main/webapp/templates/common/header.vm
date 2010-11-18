@@ -25,6 +25,6 @@
 	</DIV></DIV></DIV>
 	#parse("/templates/common/searchbar.vm")
 
-	#set ($baseURL='http://'+$server) ##网站基本地址URL
+	#set ($baseURL='https://'+$server) ##网站基本地址URL
 	#set ($imageServer=$baseURL + '/images') ##图书图片路径
 	#set ($ebookServer=$baseURL + '/ebook') ##电子书下载路径

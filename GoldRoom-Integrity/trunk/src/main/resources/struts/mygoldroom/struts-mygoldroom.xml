@@ -58,10 +58,21 @@
 			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.ReservationManageAction">
 			<result name="success" type="velocity">/templates/mygoldroom/reservationManage.vm
 			</result>
+			<result name="error" type="velocity">/templates/mygoldroom/reservationManage.vm
+			</result>
 		</action>
 		<action name="lendingManage"
 			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.LendingManageAction">
 			<result name="success" type="velocity">/templates/mygoldroom/lendingManage.vm
+			</result>
+			<result name="error" type="velocity">/templates/mygoldroom/lendingManage.vm
+			</result>
+		</action>
+		<action name="fileUpload"
+			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.FileUploadAction">
+			<result name="success" type="velocity">/templates/mygoldroom/fileUpload.vm
+			</result>
+			<result name="error" type="velocity">/templates/mygoldroom/fileUpload.vm
 			</result>
 		</action>
 	</package>
