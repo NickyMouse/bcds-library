@@ -175,11 +175,9 @@
 			'width' 	  : 120,
 			'height'      : 30,
 			'onSelect'    : function(event,ID,fileObj) {
-				alert(jQuery('#isbn').val());
 				jQuery('#file_upload').uploadifySettings('folder','/' + jQuery('#isbn').val());
 			},
 			onComplete : function(event, ID, fileObj, response, data) {
-				alert(response);
 				if(response.length > 0) {
 					jQuery('#file_uploadUploader').hide();
 					jQuery('#uploadResult').show();
