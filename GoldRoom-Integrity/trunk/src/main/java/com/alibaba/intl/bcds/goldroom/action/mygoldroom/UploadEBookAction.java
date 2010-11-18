@@ -35,6 +35,8 @@ public class UploadEBookAction extends BaseAction {
 
     private BookInfo          bookInfo;
 
+    private String            ebookUploadPath;
+
     private boolean           ebookExist;
 
     public String execute() throws Exception {
@@ -58,6 +60,7 @@ public class UploadEBookAction extends BaseAction {
 
         BookInfo currentBookInfo = new BookInfo();
         currentBookInfo.setIsbn(isbn);
+        currentBookInfo.setEBookUrl(ebookUploadPath);
 
         BookItem bookItem = new BookItem();
         bookItem.setFirstAddTime(new Date());
@@ -140,6 +143,14 @@ public class UploadEBookAction extends BaseAction {
 
     public boolean getEbookExist() {
         return ebookExist;
+    }
+
+    public void setEbookUploadPath(String ebookUploadPath) {
+        this.ebookUploadPath = ebookUploadPath;
+    }
+
+    public String getEbookUploadPath() {
+        return ebookUploadPath;
     }
 
 }

@@ -5,13 +5,15 @@
 	<bean id="bookInfoFetcher" class="com.alibaba.intl.bcds.goldroom.remote.DoubanBookInfoFetcher">
 		<property name="fetchUrl" value="http://api.douban.com/book/subject/isbn/" />
 	</bean>
-	
+
 	<bean id="bookInfoService" class="com.alibaba.intl.bcds.goldroom.service.BookInfoService" />
 	<bean id="bookItemService" class="com.alibaba.intl.bcds.goldroom.service.BookItemService" />
 	<bean id="memberService" class="com.alibaba.intl.bcds.goldroom.service.MemberService" />
 	<bean id="commentService" class="com.alibaba.intl.bcds.goldroom.service.CommentService" />
 	<bean id="adminConfigService" class="com.alibaba.intl.bcds.goldroom.service.AdminConfigService" />
-	<bean id="eBookUploadService" class="com.alibaba.intl.bcds.goldroom.service.EBookUploadService" />
+	<bean id="eBookUploadService" class="com.alibaba.intl.bcds.goldroom.service.EBookUploadService" >
+		<property name="eBookUploadPath" ref="eBookUploadPath"/>
+	</bean>
 	<bean id="lendService" class="com.alibaba.intl.bcds.goldroom.service.LendService" />
 	<bean id="reservationService" class="com.alibaba.intl.bcds.goldroom.service.ReservationService" />
 

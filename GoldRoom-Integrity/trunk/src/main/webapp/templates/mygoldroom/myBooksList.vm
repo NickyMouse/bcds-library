@@ -70,7 +70,8 @@
 									<span>状态: </span><span style="color:red">已下架 </span><br/>
 									<a style="color:green" onclick="javascript:onShelve($!item.id, '$!item.bookInfo.name')">上架</a><br/>
 								#elseif ($!item.state=="ebook")
-									<span>电子书</span><br/>
+									<span>电子书</span>
+									<a href="$!{ebookServer}$!item.bookInfo.eBookUrl"> [ 下载 ]</a><br/>
 								#end
 								<br/>
                             </div>

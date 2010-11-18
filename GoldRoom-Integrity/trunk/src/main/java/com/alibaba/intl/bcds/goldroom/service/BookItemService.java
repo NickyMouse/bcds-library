@@ -89,6 +89,8 @@ public class BookItemService {
             }
             BookStoreState newState = BookStoreState.getUpdatedStoreState(bookInfo.getStoreState(),
                                                                           BookStoreState.EBOOK);
+
+            bookInfo.setEBookUrl(bookItem.getBookInfo().getEBookUrl());
             bookInfo.setStoreState(newState.getValue());
             bookInfoDao.updateById(bookInfo);
 

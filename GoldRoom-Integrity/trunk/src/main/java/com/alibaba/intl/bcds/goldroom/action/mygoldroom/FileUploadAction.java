@@ -1,32 +1,27 @@
 package com.alibaba.intl.bcds.goldroom.action.mygoldroom;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Date;
 
-import org.apache.struts2.ServletActionContext;
+import org.apache.commons.lang.xwork.StringUtils;
 
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
+import com.alibaba.intl.bcds.goldroom.service.EBookUploadService;
 
 public class FileUploadAction extends BaseAction {
 
     /**
      *
      */
-    private static final long serialVersionUID = -95683682541841999L;
+    private static final long  serialVersionUID = -95683682541841999L;
 
-    private static final int  BUFFER_SIZE      = 20 * 1024;          // 20K
+    private File               myFile;
 
-    private File              myFile;                                // 与页面 <input type="file"> 控件的 name 保持一致
+    private String             fileName;
+    private String             contentType;
+    private String             folder;
 
-    private String            fileName;                              //
-    private String            contentType;
-    private String            queueID;
+    private String             ebookUploadPath;
+    private EBookUploadService eBookUploadService;
 
     public File getMyFile() {
         return myFile;
@@ -57,53 +52,42 @@ public class FileUploadAction extends BaseAction {
     }
 
     public String execute() {
-        String newFileName = new Date().getTime() + getExtention(fileName);
-
-        File imageFile = new File("f:/" + newFileName);
-
-        upload(myFile, imageFile);
-
+        String isbn = getIsbn(folder);
+        ebookUploadPath = eBookUploadService.uploadEBook(myFile, isbn, fileName);
         return SUCCESS;
     }
 
-    private static void upload(File src, File dst) {
-        try {
-            InputStream in = null;
-            OutputStream out = null;
-            try {
-                in = new BufferedInputStream(new FileInputStream(src), BUFFER_SIZE);
-                out = new BufferedOutputStream(new FileOutputStream(dst), BUFFER_SIZE);
-                byte[] buffer = new byte[BUFFER_SIZE];
-                int count = in.read(buffer);
-                while (count > 0) {
-                    out.write(buffer, 0, count);
-                    count = in.read(buffer);
-                }
-            } finally {
-                if (null != in) {
-                    in.close();
-                }
-                if (null != out) {
-                    out.close();
-                }
+    public String getIsbn(String folder) {
+        if (StringUtils.isNotEmpty(folder)) {
+            folder = folder.trim();
+            if (folder.length() > 2) {
+                return folder.substring(1, folder.length());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        return StringUtils.EMPTY;
     }
 
-    private static String getExtention(String fileName) {
-        int pos = fileName.lastIndexOf(".");
-
-        return fileName.substring(pos);
+    public void setFolder(String folder) {
+        this.folder = folder;
     }
 
-    public void setQueueID(String queueID) {
-        this.queueID = queueID;
+    public String getFolder() {
+        return folder;
     }
 
-    public String getQueueID() {
-        return queueID;
+    public void seteBookUploadService(EBookUploadService eBookUploadService) {
+        this.eBookUploadService = eBookUploadService;
     }
 
+    public EBookUploadService geteBookUploadService() {
+        return eBookUploadService;
+    }
+
+    public void setEbookUploadPath(String ebookUploadPath) {
+        this.ebookUploadPath = ebookUploadPath;
+    }
+
+    public String getEbookUploadPath() {
+        return ebookUploadPath;
+    }
 }

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,32 +18,49 @@ import org.springframework.transaction.annotation.Transactional;
 public class EBookUploadService {
 
     private static Logger    logger      = Logger.getLogger(EBookUploadService.class);
-    private static final int BUFFER_SIZE = 20 * 1024;                                 // 20K
+
+    // 20K
+    private static final int BUFFER_SIZE = 20 * 1024;
+
     @Autowired
     private String           eBookUploadPath;
 
-    public void uploadEBook(File src, String isbn) {
-        InputStream in = null;
-        OutputStream out = null;
-//        try {
-//            String destinationFullPath = eBookUploadPath+getFilePath()
-//            File dst = new File();
-//            in = new BufferedInputStream(new FileInputStream(src), BUFFER_SIZE);
-//            out = new BufferedOutputStream(new FileOutputStream(dst), BUFFER_SIZE);
-//            byte[] buffer = new byte[BUFFER_SIZE];
-//            while (in.read(buffer) > 0) {
-//                out.write(buffer);
-//            }
-//        } catch (IOException e) {
-//            logger.error(e);
-//        } finally {
-//            if (null != in) {
-//                in.close();
-//            }
-//            if (null != out) {
-//                out.close();
-//            }
-//        }
+    public String uploadEBook(File src, String isbn, String fileName) {
+        try {
+            InputStream in = null;
+            OutputStream out = null;
+            try {
+                String path = eBookUploadPath + getFilePath(isbn);
+                String destinationFullPath = path + getFileName(isbn, fileName);
+                logger.info("Saving file to: " + destinationFullPath);
+                File folder = new File(path);
+                if (!folder.exists()) {
+                    folder.mkdirs();
+                }
+                File dst = new File(destinationFullPath);
+                in = new BufferedInputStream(new FileInputStream(src), BUFFER_SIZE);
+                out = new BufferedOutputStream(new FileOutputStream(dst), BUFFER_SIZE);
+                byte[] buffer = new byte[BUFFER_SIZE];
+                while (in.read(buffer) > 0) {
+                    out.write(buffer);
+                }
+                String ebookPath = getFilePath(isbn) + getFileName(isbn, fileName);
+                return ebookPath;
+            } catch (IOException e) {
+                logger.error(e);
+                return StringUtils.EMPTY;
+            } finally {
+                if (null != in) {
+                    in.close();
+                }
+                if (null != out) {
+                    out.close();
+                }
+            }
+        } catch (Exception e) {
+            logger.error(e);
+            return StringUtils.EMPTY;
+        }
     }
 
     protected String getFilePath(String isbn) {
@@ -64,8 +82,8 @@ public class EBookUploadService {
     protected String getFileName(String isbn, String name) {
         StringBuffer sb = new StringBuffer();
         if (name.lastIndexOf(".") >= 0) {
-            String ext = name.substring(name.lastIndexOf(".") + 1, name.length());
-            sb.append(isbn).append(".").append(ext);
+            String ext = name.substring(name.lastIndexOf("."), name.length());
+            sb.append(isbn).append(ext);
         }
         return sb.toString();
     }
