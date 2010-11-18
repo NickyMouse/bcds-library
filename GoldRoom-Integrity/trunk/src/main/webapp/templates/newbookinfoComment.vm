@@ -12,11 +12,11 @@
         <SPAN class="pl ll obss">
           <SPAN class=starb>
             $!commentbookinfo.member.name &nbsp;评论:
-            <A onclick="moreurl(this, {from:'review'})" href="/detail/bookDetail.do?bookInfoId=$!commentbookinfo.bookinfo.id">
+            <A onclick="moreurl(this, {from:'review'})" href="/detail/bookDetail.do?bookInfoId=$!commentbookinfo.bookInfo.id">
                $commentbookinfo.bookInfo.name
             </A>
           </SPAN>
-		  
+
           <SPAN class="stars5 stars1" title=力荐>
           </SPAN>
         </SPAN>
