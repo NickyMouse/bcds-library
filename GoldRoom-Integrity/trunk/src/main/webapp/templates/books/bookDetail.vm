@@ -175,7 +175,7 @@ width:0;
                     	<div style="height: 50px;" class="ownerInfo">
                         	<li><b>姓名：</b>$!{bookItem.owner.name}
 								<div style="float:right;width:80px">
-									#if($bookItem.state != 'idle')
+									#if($bookItem.state == 'idle')
 									<a href="javascript:showPopUp($!{bookItem.id})">借阅</a>
 									#end
 								</div>
