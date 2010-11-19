@@ -19,7 +19,7 @@ public class SendMailServiceImpl implements SendMailService {
 
 	private static Logger logger = Logger.getLogger(SendMailServiceImpl.class);
 	private static EmailInfoChecker checker = new EmailInfoCheckerImpl();
-    private static FormatUtils    formatUtils = new FormatUtils();
+	private static FormatUtils formatUtils = new FormatUtils();
 
 	@Autowired
 	private VelocityTemplateMailMessage velocityMailMessage;
@@ -32,25 +32,28 @@ public class SendMailServiceImpl implements SendMailService {
 		if (checker.isOk(info)) {
 
 			velocityMailMessage
-					.setTemplateLocation(velocityTemplateLocation == null ? 
-							TemplateSelector.getInstance().getTemplate(info.getServiceType())
+					.setTemplateLocation(velocityTemplateLocation == null ? TemplateSelector
+							.getInstance().getTemplate(info.getServiceType())
 							: velocityTemplateLocation);
 			// 若未提供模板路径，则直接通过serviceType提取对应路径
-			
-			if(templateDataModule == null || templateDataModule.isEmpty()){
+
+			if (templateDataModule == null || templateDataModule.isEmpty()) {
 				templateDataModule = new HashMap<String, Object>();
 				templateDataModule.put("info", info);
 				templateDataModule.put("formatUtils", formatUtils);
-			}//若接口调用时未注入对应的vm模板变量，则使用默认的变量对象处理
+			}// 若接口调用时未注入对应的vm模板变量，则使用默认的变量对象处理
 			velocityMailMessage.setModel(templateDataModule);
 
 			velocityMailMessage.setToEmails((String[]) info.getReceiverEmails()
-					.toArray());
+					.toArray(new String[info.getReceiverEmails().size()]));
 
 			if (StringUtils.isNotBlank(from))
 				velocityMailMessage.setFrom(from);
-			if (StringUtils.isNotBlank(subject))
+			if (StringUtils.isNotBlank(subject)) {
 				velocityMailMessage.setSubject(subject);
+			} else if (StringUtils.isNotBlank(info.getSubject())) {
+				velocityMailMessage.setSubject(info.getSubject());
+			}
 
 			velocityMailMessage.send();
 		}

@@ -31,6 +31,6 @@ public class SendMailServiceTestcase extends
 		info.setReceiverEmails(receiverEmails);
 		String[] a = info.getReceiverEmails().toArray(new String[2]);
 		System.out.println(a[0] + "," + a[1]);
-		sendMailService.sendVelocityMail(info, null, null, null, null);
+		sendMailService.sendVelocityMail(info, null, null, null, "");
 	}
 }
