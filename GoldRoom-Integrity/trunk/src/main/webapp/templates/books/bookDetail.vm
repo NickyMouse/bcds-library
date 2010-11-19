@@ -214,7 +214,7 @@ width:0;
 				#foreach($comment in $commentList)
 				<li style="width: 900px; padding-left: 30px;">
 					<div style="float: left; width: 60px; height: 60px;" id="left_up">
-						<img class="pil" src="http://t.douban.com/icon/u1461597-10.jpg" alt="门牙猫咪咪♨下前下后拳"></div>
+						<img class="pil" src="" alt="门牙猫咪咪♨下前下后拳"></div>
 						<div style="float: right; width: 800px; height: 100px;" id="right">
 							<h3>${comment.member.name}</h3>
 							<div style="padding-right: 3px; padding-left: 3px;">

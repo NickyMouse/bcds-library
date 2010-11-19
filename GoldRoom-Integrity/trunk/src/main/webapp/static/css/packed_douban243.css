@@ -401,7 +401,7 @@ H1 {
 	PADDING-BOTTOM: 15px; LINE-HEIGHT: 1.1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: block; COLOR: #494949; FONT-SIZE: 25px; FONT-WEIGHT: bold; PADDING-TOP: 0px
 }
 H3 {
-	FONT: 14px/150% Arial, Helvetica, sans-serif; MARGIN-BOTTOM: 1px; BACKGROUND: url(http://t.douban.com/pics/topicbar.gif) no-repeat right top; HEIGHT: 26px; COLOR: #666666; MARGIN-LEFT: 4px
+	FONT: 14px/150% Arial, Helvetica, sans-serif; MARGIN-BOTTOM: 1px; BACKGROUND: url(/static/images/pics/nav/topicbar.gif) no-repeat right top; HEIGHT: 26px; COLOR: #666666; MARGIN-LEFT: 4px
 }
 H3 IMG {
 	MARGIN: 1px 1px 0px 0px
@@ -410,13 +410,13 @@ UL {
 	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
 }
 H4 {
-	MARGIN: 0px 0px 10px 4px; FONT: 12px/1.8em Arial, Helvetica, sans-serif; BACKGROUND: url(http://t.douban.com/pics/topicbar.gif) no-repeat right top; HEIGHT: 26px; COLOR: #666; OVERFLOW: hidden
+	MARGIN: 0px 0px 10px 4px; FONT: 12px/1.8em Arial, Helvetica, sans-serif; BACKGROUND: url(/static/images/pics/nav/topicbar.gif) no-repeat right top; HEIGHT: 26px; COLOR: #666; OVERFLOW: hidden
 }
 H2 {
 	MARGIN: 0px 0px 12px; FONT: 14px/150% Arial, Helvetica, sans-serif; COLOR: #060
 }
 .wrap {
-	DISPLAY: block; BACKGROUND: url(http://t.douban.com/pics/topicbar.gif) no-repeat
+	DISPLAY: block; BACKGROUND: url(/static/images/pics/nav/topicbar.gif) no-repeat
 }
 .wrap H3 {
 	MARGIN-TOP: 20px
@@ -638,7 +638,7 @@ TEXTAREA {
 	MARGIN-TOP: -17px
 }
 .nlst {
-	MARGIN: 0px 0px 0px 102px; BACKGROUND: url(http://t.douban.com/pics/topicbar.gif) no-repeat
+	MARGIN: 0px 0px 0px 102px; BACKGROUND: url(/static/images/pics/nav/topicbar.gif) no-repeat
 }
 .ctsh .nlst {
 	PADDING-BOTTOM: 0px; MARGIN: 0px 0px 0px 71px; PADDING-LEFT: 5px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
@@ -761,7 +761,7 @@ TEXTAREA {
 	PADDING-BOTTOM: 15px; MARGIN: 0px; PADDING-LEFT: 0px; WIDTH: 100%; PADDING-RIGHT: 0px; FLOAT: left; PADDING-TOP: 5px
 }
 .collect H3 {
-	MARGIN: 0px 0px 0px 4px; FONT: 14px/120% Arial, Helvetica, sans-serif; BACKGROUND: url(http://t.douban.com/pics/topicbar.gif) no-repeat right top; PADDING-TOP: 3px
+	MARGIN: 0px 0px 0px 4px; FONT: 14px/120% Arial, Helvetica, sans-serif; BACKGROUND: url(/static/images/pics/nav/topicbar.gif) no-repeat right top; PADDING-TOP: 3px
 }
 .collect H3 A {
 	COLOR: #006600
@@ -4248,7 +4248,7 @@ A.btn-brown SPAN {
 	MARGIN: 0px 0px 25px; WORD-WRAP: break-word; OVERFLOW: hidden
 }
 .bg-img-green {
-	DISPLAY: block; BACKGROUND: url(http://t.douban.com/pics/topicbar.gif) no-repeat
+	DISPLAY: block; BACKGROUND: url(/static/images/pics/nav/topicbar.gif) no-repeat
 }
 .group_banned {
 	TEXT-ALIGN: right
