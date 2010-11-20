@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -25,6 +27,8 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 	 */
     private static final long   serialVersionUID = -4907073245785057170L;
 
+    protected static Log log = LogFactory.getLog(BaseAction.class);
+    
     private HttpServletRequest  request;
     private Map<Object, Object> session;
 
