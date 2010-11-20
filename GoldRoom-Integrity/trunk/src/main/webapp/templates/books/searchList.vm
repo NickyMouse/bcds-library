@@ -141,8 +141,8 @@ a.ww-mobile{background-position:0 -40px;}
 		                    		#set($state = "可借")##设置单个人的可借状态
 	            				#end
 							<span class="ww-light ww-large" data-username="$bookItem.owner.aliTalkId">
-							  <span id="loading-$bookItem.owner.aliTalkId"><img src="/static/images/loading.gif" style="" title="loading..."/>loading...</span>
-							  <a data-username="$bookItem.owner.aliTalkId" id="wangwang" target="_blank" href="#" class="ww-inline ww-online nodisplay" title="[当前状态：$state]">
+							  <span id="loading-$bookItem.owner.aliTalkId"><img src="/static/images/loading.gif" style="" title="[$!bookItem.owner.name,$state]loading..."/>loading...</span>
+							  <a data-username="$bookItem.owner.aliTalkId" id="wangwang" target="_blank" href="#" class="ww-inline nodisplay" title="[当前状态：$state]">
 							    <span>#fixUserNameStrLength($!bookItem.owner.name $state)</span>
 							  </a>
 							</span>
@@ -196,10 +196,13 @@ jQuery(function () {
 		obj.attr("href",wwSrc);
 		jQuery.get(httpUrl,{"httpUrl":imgSrc,"aliTalk":username},function(data, status){
 			if('yes' != data){
-				jQuery("span#loading-"+username).addClass("nodisplay")
 				obj.removeClass("nodisplay");
-				obj.removeClass("ww-online");
 				obj.addClass("ww-offline");
+				jQuery("span#loading-"+username).addClass("nodisplay")
+			}else{
+				obj.removeClass("nodisplay");
+				obj.addClass("ww-online");
+				jQuery("span#loading-"+username).addClass("nodisplay")
 			}
 		});
 	});
