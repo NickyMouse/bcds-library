@@ -6,21 +6,28 @@
 		<IMG alt="黄金屋" width="145px" heigth="35px" src="$base/static/images/logo.jpg"></A></DIV>
     <DIV class="bd">
         <DIV class="nav-srh">
-        	<FORM method="get" name="ssform" action="$base/book/search.do">
+        	<FORM method="get" name="ssform" action="$base/book/search.do?log=searchbar">
             <DIV class="inp">
             	<SPAN>
-            		<INPUT title="书籍名称/ISBN号" value="$!{keyword}" maxLength="60" size="22" name="keyword">
+            		<INPUT title="书籍名称/ISBN号" value="$!{keyword}" maxLength="60" size="22" name="keyword" id="searchbarKw" onchange="jQuery('#logKw').val(jQuery('#searchbarKw').val());">
+					<INPUT name="log1" type="hidden" value="$!{keyword}" id="logKw">
+					<INPUT name="log"  type="hidden" value="searchbar">
             	</SPAN>
             	<SPAN>
-            		<INPUT class="bn-srh" value="搜索" type="submit">
+            		<INPUT class="bn-srh" value="搜索" type="submit" >
             	</SPAN>
             </DIV>
         	</FORM>
         </DIV>
             <DIV class="site-nav-items">
             <UL>
-              <LI><A href="/book/search.do?bookType=pbook">纸质书</A></LI>
-              <LI><A href="/book/search.do?bookType=ebook">电子书</A></LI>
+			#if("$!{keyword}" != "")
+              <LI><A href="/book/search.do?bookType=pbook&keyword=$!{keyword}&log=searchbar&log2=pbook&log1=$!{keyword}">纸质书</A></LI>
+              <LI><A href="/book/search.do?bookType=ebook&keyword=$!{keyword}&log=searchbar&log2=ebook&log1=$!{keyword}">电子书</A></LI>
+			#else
+			  <LI><A href="/book/search.do?bookType=pbook&log=searchbar&log2=pbook">纸质书</A></LI>
+              <LI><A href="/book/search.do?bookType=ebook&log=searchbar&log2=ebook">电子书</A></LI>
+			#end
             </UL>
             </DIV>
         </DIV>

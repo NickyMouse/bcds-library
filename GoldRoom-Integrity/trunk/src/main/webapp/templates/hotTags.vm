@@ -2,7 +2,7 @@
 <UL class="content clearfix">
   <!--热门标签-->
   #foreach($tag in $tags)
-	<LI><A href="book/search.do?keyword=$!tag.tagName">$!tag.tagName</A></LI>
+	<LI><A href="book/search.do?keyword=$!{tag.tagName}&log=tag&log1=$!{tag.tagName}">$!tag.tagName</A></LI>
   #end
 
   <!--

@@ -25,5 +25,5 @@
 	<bean id="sendMailService" class="com.alibaba.intl.bcds.goldroom.mail.service.impl.SendMailServiceImpl" />
 	<bean id="velocityMailMessage" class="com.alibaba.intl.bcds.goldroom.mail.utils.VelocityTemplateMailMessage" />
 
-
+	<bean id="tracelogService" class="com.alibaba.intl.bcds.goldroom.service.TracelogService" />
 </beans>

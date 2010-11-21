@@ -128,7 +128,7 @@ a.ww-mobile{background-position:0 -40px;}
             <div class="newtags" style="float:right">
                 <ul class="book-search-info">
                 	<div style="height: 150px;" class="ownerInfo">
-                    	<li><b>书名：</b><a href="/detail/bookDetail.do?bookInfoId=$book.info.id" title="$book.info.name" target="_blank">$book.info.name</a></li>
+                    	<li><b>书名：</b><a href="/detail/bookDetail.do?bookInfoId=$book.info.id&log=detail&log1=$book.info.id" title="$book.info.name" target="_blank">$book.info.name</a></li>
                     	<li title="$!book.info.author"><b>作者：</b>$!book.info.author</li>
                     	<li><b>ISBN：</b>$!book.info.isbn</li>
 						<li><b>出版时间：</b>#if($book.info.publishTime)$date.format("yyyy-MM-dd",$!book.info.publishTime)#end</li>
@@ -194,7 +194,7 @@ jQuery(function () {
 		var wwSrc  = "http://amos.im.alisoft.com/msg.aw?v=2&uid=" +username+ "&site=cnalichn&s=1";
 		var httpUrl = "$base/book/search!findWangWang.do";
 		obj.attr("href",wwSrc);
-		jQuery.get(httpUrl,{"httpUrl":imgSrc,"aliTalk":username},function(data, status){
+		jQuery.get(httpUrl,{"httpUrl":imgSrc,"aliTalk":username,"log":"no"},function(data, status){
 			if('yes' != data){
 				obj.removeClass("nodisplay");
 				obj.addClass("ww-offline");
