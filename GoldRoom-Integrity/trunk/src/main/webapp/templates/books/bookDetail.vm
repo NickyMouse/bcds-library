@@ -4,6 +4,20 @@
 <script type="text/javascript" src="$base/static/js/My97DatePicker/WdatePicker.js"></script>
 <style>
 	.ownerInfo li {float: left; border-bottom: 1px dashed rgb(221, 221, 221);  width: 95%; margin-bottom: 4px; padding-bottom: 5px; padding-left: 5px;}
+	.bookscontents DL{
+    	margin:15px 33px 15px 0;
+    	float:left;
+    	overflow:hidden;
+    	text-align:center;
+    	width:155px;
+    }
+    .bookscontents DL.clear  {
+        clear:both;
+        float:none;
+        margin:0;
+        padding:0;
+        width:0;
+    }
 </style>
 <script type='text/javascript'>
 	jQuery(document).ready(function() {
@@ -136,7 +150,12 @@ width:0;
 						#end
 					</div>
 				</div>
-				<div id="interest_sectl"></div>
+				<div id="interest_sectl">
+					<a href="$base/mygoldroom/uploadPaperBook.action?isbn=$bookInfo.isbn" target="_blank">我也有这本书，我要分享</a><br/>
+					#if($!bookInfo.storeState == "paper")
+					<a href="$base/mygoldroom/uploadEBook.action?isbn=$bookInfo.isbn" target="_blank">我有电子版，我要分享</a>
+					#end
+				</div>
 			</div>
 		</div>
 
@@ -203,7 +222,9 @@ width:0;
 		<div style="float: left; width: 950px; padding-top: 5px;" class="movie_new">
 			<h2 class="green_tab clearfix">
 				<a href="javascript:void(0)" class="on" id="new1"><span> 内容简介 </span> </a>
-				<a href="javascript:void(0)" id="new2"> <span> 书评 </span> </a>
+				#if($commentList && $commentList.size() > 0)
+					<a href="javascript:void(0)" id="new2"> <span> 书评 </span> </a>
+				#end
 			</h2>
 
 			<ul id="newcontent1" class="content clearfix" style="text-indent: 2em; display: block;">
@@ -227,18 +248,24 @@ width:0;
 			</ul>
 		</div>
 	</div>
+	<br/>
+	#if($relatedBookInfoList && $relatedBookInfoList.size() > 0)
 	<div class="bookscontents" style="padding-left: 8px; BORDER-BOTTOM: #e4e4e4 1px solid; POSITION: relative; BORDER-LEFT: #e4e4e4 1px solid; MARGIN-BOTTOM: 10px; BACKGROUND: #fff; BORDER-TOP: #e4e4e4 1px solid; BORDER-RIGHT: #e4e4e4 1px solid">
-		<h3 style="margin-left:-8px;padding-left: 8px;">同类书籍</h3>
+		<h3 style="margin-left:-8px;padding-left: 8px;">相关书籍</h3>
 		#foreach($relatedBookInfo in $relatedBookInfoList)
           <dl>
             <dt>
-              <a href="http://book.douban.com/subject/4199431/">
-                <img  src="$!relatedBookInfo.imgUrl" class="m_sub_img">
+              <a href="$base/detail/bookDetail.do?bookInfoId=$!{relatedBookInfo.id}" title="$!relatedBookInfo.name">
+                <img src="$!{imageServer}$!{relatedBookInfo.imgUrl}" class="m_sub_img" alt="$!relatedBookInfo.name">
               </a>
             </dt>
             <dd>
-              <a href="bookDetail.do?bookInfoId=$!relatedBookInfo.id">
-               $!relatedBookInfo.name
+              <a href="bookDetail.do?bookInfoId=$!relatedBookInfo.id" title="$!relatedBookInfo.name">
+				#if($!relatedBookInfo.name.length() > 15)
+					$!relatedBookInfo.name.substring(0,15)...
+   				#else
+					$!relatedBookInfo.name
+   				#end
               </a>
             </dd>
           </dl>
@@ -247,7 +274,8 @@ width:0;
           <dl class="clear">
           </dl>
         </div>
-		<!-- 同类书（完） -->
+	#end
+	<!-- 同类书（完） -->
 	<!-- content end here -->
 	<div style="clear:both"></div>
 

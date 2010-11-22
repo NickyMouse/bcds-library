@@ -64,6 +64,7 @@ public class UploadPaperBookAction extends BaseAction {
         bookItem.setBookInfo(currentBookInfo);
 
         bookItemService.addBookItem(bookItem);
+        bookInfo = bookItem.getBookInfo();
         return SUCCESS;
     }
 

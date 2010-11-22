@@ -17,21 +17,21 @@ public class BookDetailAction extends BaseAction {
     /**
      *
      */
-    private static final long serialVersionUID = -6705963595139425310L;
+    private static final long     serialVersionUID = -6705963595139425310L;
 
-    private Integer           bookInfoId;
-    private BookInfoService   bookInfoService;
-    private BookInfo          bookInfo;
-    private BookItemService   bookItemService;
-    private CommentService    commentService;
+    private Integer               bookInfoId;
+    private BookInfoService       bookInfoService;
+    private BookInfo              bookInfo;
+    private BookItemService       bookItemService;
+    private CommentService        commentService;
 
-    private List<BookItem>    bookItemList;
+    private List<BookItem>        bookItemList;
     private List<BookInfoComment> commentList;
-    private List<BookInfo>    relatedBookInfoList;
+    private List<BookInfo>        relatedBookInfoList;
 
     // private Member owner;
     public String execute() throws Exception {
-        setBookInfo(bookInfoService.searchBookByInfoId(bookInfoId));
+        bookInfo = bookInfoService.searchBookByInfoId(bookInfoId);
         // owner = memberService.findMemberByLoginId(loginId);
         if (getBookInfo() == null) {
             return ERROR;
@@ -39,9 +39,20 @@ public class BookDetailAction extends BaseAction {
 
         bookItemList = bookItemService.listBookItemByBookInfoId(bookInfoId);
         commentList = commentService.listBookCommentByBookInfoId(bookInfoId, 1, 100);
-        BookSearchResult bookSearchResult = bookInfoService.searchBookByKeyword(bookInfo.getName(), SearchBookType.ALL,
+        BookSearchResult bookSearchResult = bookInfoService.searchBookByKeyword(bookInfo.getTags(), SearchBookType.ALL,
                                                                                 1, 10);
         relatedBookInfoList = bookSearchResult.getBookList();
+        if (relatedBookInfoList != null) {
+            int idIndex;
+            for (idIndex = 0; idIndex < relatedBookInfoList.size(); idIndex++) {
+                if (relatedBookInfoList.get(idIndex).getId().equals(bookInfoId)) {
+                    break;
+                }
+            }
+            if (idIndex < relatedBookInfoList.size()) {
+                relatedBookInfoList.remove(idIndex);
+            }
+        }
         return SUCCESS;
     }
 
@@ -84,6 +95,7 @@ public class BookDetailAction extends BaseAction {
     public void setBookItemService(BookItemService bookItemService) {
         this.bookItemService = bookItemService;
     }
+
     public void setBookInfoId(Integer bookInfoId) {
         this.bookInfoId = bookInfoId;
     }

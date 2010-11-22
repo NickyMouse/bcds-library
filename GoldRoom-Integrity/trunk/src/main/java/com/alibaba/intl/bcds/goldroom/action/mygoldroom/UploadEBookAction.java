@@ -72,6 +72,7 @@ public class UploadEBookAction extends BaseAction {
         bookItem.setBookInfo(currentBookInfo);
 
         if (bookItemService.addEbookItem(bookItem)) {
+            bookInfo = bookItem.getBookInfo();
             ebookExist = false;
             return SUCCESS;
         } else {

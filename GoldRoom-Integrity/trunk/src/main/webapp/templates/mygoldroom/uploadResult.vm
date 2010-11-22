@@ -1,0 +1,38 @@
+#parse("templates/common/header.vm")
+
+<link rel=stylesheet type=text/css href="$base/static/css/mygoldroom.css" />
+
+<script type='text/javascript' src='$base/dwr/interface/ReservationService.js'></script>
+<script type='text/javascript' src='$base/dwr/interface/LendService.js'></script>
+<script type='text/javascript' src='$base/static/js/popup.js'></script>
+<script type='text/javascript' src='$base/static/js/showMemberInfo.js'></script>
+<style>
+	#contactInfo{
+			position:absolute;
+			width:200px;
+			height:200px;
+			background:red;
+			color:#fff;
+			left:50%;top:50%;margin-top:-100px;margin-left:-100px;
+	}
+</style>
+
+		<!-- content start here-->
+		<DIV id=content>
+            <h1>我的黄金屋</h1>
+       		<div id="leftMenu" class="leftMenu">
+				#set($menuIndex=1)
+				#parse("templates/mygoldroom/menu.vm")
+       		</div>
+        	<div id="right" class="rightContent">
+				<h2 style="text-align:center; margin:50px">你的书籍《$!bookInfo.name》 分享成功
+				<br/>
+				<a href="https://goldroom.b2b.alibaba-inc.com/mygoldroom/myBooksList.action?state=all" target="_blank">查看</a>
+				</h2>
+            </div>
+		</DIV>
+		<!-- content end here -->
+		<div style="clear:both"></div>
+
+#parse("templates/common/footer.vm")
+

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.log4j.Logger;
 import org.compass.core.CompassCallback;
 import org.compass.core.CompassException;
@@ -31,6 +32,9 @@ public class BookSearchHelper {
     public BookSearchResult searchBookByKeyword(final String kw, final SearchBookType type, final Integer skipSize,
                                                 final Integer pageSize) {
         final String keyword = SearchKeywordFilter.filter(kw);
+        if (StringUtils.isBlank(keyword)) {
+            return new BookSearchResult(null, 0);
+        }
         return compassTemplate.execute(new CompassCallback<BookSearchResult>() {
 
             public BookSearchResult doInCompass(CompassSession session) throws CompassException {
@@ -59,6 +63,9 @@ public class BookSearchHelper {
 
     public BookSearchResult searchBookByTime(final Date startTime, final Date endTime, final SearchBookType type,
                                              final Integer skipSize, final Integer pageSize) {
+        if (startTime == null || endTime == null || startTime.getTime() > endTime.getTime()) {
+            return new BookSearchResult(null, 0);
+        }
         return compassTemplate.execute(new CompassCallback<BookSearchResult>() {
 
             public BookSearchResult doInCompass(CompassSession session) throws CompassException {
@@ -89,6 +96,9 @@ public class BookSearchHelper {
     }
 
     public BookInfo searchBookByInfoId(final Integer bookInfoId) {
+        if (bookInfoId == null) {
+            return null;
+        }
         return compassTemplate.execute(new CompassCallback<BookInfo>() {
 
             public BookInfo doInCompass(CompassSession session) throws CompassException {
@@ -147,6 +157,9 @@ public class BookSearchHelper {
     }
 
     public BookSearchResult searchBookByInfoIds(final List<Integer> infoIdlist) {
+        if (infoIdlist == null || infoIdlist.isEmpty()) {
+            return new BookSearchResult(null, 0);
+        }
         return compassTemplate.execute(new CompassCallback<BookSearchResult>() {
 
             public BookSearchResult doInCompass(CompassSession session) throws CompassException {
