@@ -9,5 +9,8 @@
 			<result name="success" type="velocity">/templates/books/searchList.vm</result>
 			<result name="json" type="velocity">/templates/books/searchListJson.vm</result>
 		</action>
+		<action name="bookCommentAction" class="com.alibaba.intl.bcds.goldroom.action.books.BookCommentAction">
+			<result name="success" type="velocity">/templates/common/jsonResult.vm</result>
+		</action>
 	</package>
 </struts>

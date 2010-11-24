@@ -88,6 +88,36 @@
 		}
 	);
  }
+ function postComment(bookInfoId,memberName){
+ 	var content = jQuery("#comment_content").val();
+ 	jQuery.ajax({
+            	type: "POST",
+               	url: "$base/book/bookCommentAction.action",
+               	data: "bookInfoId=" + bookInfoId + "&content="+ content,
+               	success: function(msg){
+					 eval("var obj ="+msg);
+					if(obj.result == "success"){
+    			   	 	alert("评价成功");
+						var li ='<li style="width: 900px; padding-left: 30px;">'+
+                    			'	<div style="float: left; width: 60px; height: 60px;" id="left_up">'+
+                    			'	<img class="pil" src="" alt="门牙猫咪咪♨下前下后拳"></div>'+
+                    			'	<div style="float: right; width: 800px; height: 100px;" id="right">'+
+                    			'		<h3>member.name</h3>'+
+                    			'		<div style="padding-right: 3px; padding-left: 3px;">'+
+                    			'		'+content +
+                    			'		</div>'+
+                    			'	</div>'+
+                    			'	<div style="float: left; width: 60px; height: 30px;" id="left_down">'+ (new Date()) +'</div>'+
+                    			'</li>';
+						
+						jQuery("#jsAddComment").html(jQuery("#jsAddComment").html() + li);
+						jQuery("#comment_content").val("");
+    			 	} else {
+						alert("评价失败");
+					}
+               	}
+			});
+ }
 </script>
 
 <style>
@@ -245,7 +275,32 @@ width:0;
 						<div style="float: left; width: 60px; height: 30px;" id="left_down">$date.format("yyyy-MM-dd", $!{comment.gmtCreate})</div>
 				</li>
 				#end
+				<div id="jsAddComment"></div>
+				#if($session && $session.getAttribute("LOGGED_USER"))
+					#set( $userDto = $session.getAttribute("LOGGED_USER") )
+				<li style="width: 900px; padding-left: 30px;height: 220px;">
+    				<table width="341" border="0">
+                      <tr>
+                        <td height="33">我的评价 ...... </td>
+                      </tr>
+                      <tr>
+                        <td height="46"><textarea name="comment_content" id="comment_content" cols="80" rows="6"></textarea></td>
+                      </tr>
+                      <tr>
+                        <td height="38">
+                          <input type="button" name="button" value="加上去" onclick="postComment($!bookInfo.id,'$!userDto.userName');return false;">
+                        </td>
+                      </tr>
+                    </table>
+				</li>
+				#else
+				<li style="width: 900px; padding-left: 30px;">
+					<a href="javascript:alert('对不起，您还未登陆，不能进行评价')">我要评价 ......</a>
+				</li>
+				#end
 			</ul>
+		
+			
 		</div>
 	</div>
 	<br/>

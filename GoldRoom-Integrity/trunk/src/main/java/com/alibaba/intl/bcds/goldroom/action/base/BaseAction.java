@@ -29,6 +29,8 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 
     protected static Log log = LogFactory.getLog(BaseAction.class);
     
+    protected String            json             = null;
+
     private HttpServletRequest  request;
     private Map<Object, Object> session;
 
@@ -54,6 +56,10 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
      */
     public Map<Object, Object> getSession() {
         return session;
+    }
+
+    public void setJson(String json) {
+        this.json = json;
     }
 
     /**
