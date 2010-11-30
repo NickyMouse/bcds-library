@@ -39,9 +39,10 @@ public class BookCommentAction extends BaseAction {
         }
         UserDTO user = this.getUserDTO();
         if (user == null) {
-            user = new UserDTO();
-            user.setLoginId("admin");// TODO 测试用
-            // return ERROR;
+            result.put("result", "error");
+            result.put("msg", "没有登陆");
+            json = result.toString();
+            return ERROR;
         }
         Member member = memberService.findMemberByLoginId(user.getLoginId());
         BookInfoComment bookInfoComment = new BookInfoComment();

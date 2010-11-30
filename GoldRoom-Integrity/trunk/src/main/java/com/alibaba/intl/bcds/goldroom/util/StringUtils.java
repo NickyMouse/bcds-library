@@ -7,7 +7,7 @@ import java.util.Date;
 public class StringUtils extends org.apache.commons.lang.StringUtils {
 
     public static Date conver(String string) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             return sdf.parse(string);
         } catch (ParseException e) {
@@ -16,7 +16,7 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
     }
 
     public static String converDateToString(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             return sdf.format(date);
         } catch (Exception e) {

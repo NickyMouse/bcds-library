@@ -18,7 +18,7 @@ import java.util.Date;
 public class SimpleDateConverter implements DateConverter {
 
     public Date conver(String string) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             return sdf.parse(string);
         } catch (ParseException e) {
