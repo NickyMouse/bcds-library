@@ -1,0 +1,17 @@
+﻿#parse("/templates/common/header.vm")
+<table width="800" border="0" align="center">
+  <tr align="center">
+    <td height="60" colspan="2"><H1>枫林晚即将入驻黄金屋</H1></td>
+  </tr>
+  <tr valign="top">
+    <td height="250" colspan="2" >
+		内容
+	</td>
+  </tr>
+  <tr>
+    <td width="650" height="32">&nbsp;</td>
+    <td width="150" align="center">2010-11-30</td>
+  </tr>
+</table>
+#parse("templates/common/footer.vm")
+

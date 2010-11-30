@@ -39,4 +39,5 @@
 	<include file="struts/mygoldroom/struts-mygoldroom.xml" />
 	<include file="struts/books/struts-book.xml" />
 	<include file="struts/books/struts-detail.xml" />
+	<include file="struts/struts-news.xml" />
 </struts>

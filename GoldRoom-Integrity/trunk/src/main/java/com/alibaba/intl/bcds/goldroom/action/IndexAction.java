@@ -67,11 +67,22 @@ public class IndexAction extends BaseAction {
 		return SUCCESS;
 	}
 
-	/**
-	 * 最新书籍
-	 *
-	 * @return
-	 */
+    /**
+     * 新闻跳转方法
+     * 
+     * @return
+     * @throws Exception
+     * @author zhangwanchu
+     */
+    public String getNews() throws Exception {
+        return SUCCESS;
+    }
+
+    /**
+     * 最新书籍
+     * 
+     * @return
+     */
 	private List<BookInfo> createHotBooks() {
 		List<BookInfo> newBooks = bookInfoService.listAllBook(
 				SearchBookType.ALL, 1, 4).getBookList();

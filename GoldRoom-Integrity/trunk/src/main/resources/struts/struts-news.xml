@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="/news" extends="default">
+		<action name="news-*" class="com.alibaba.intl.bcds.goldroom.action.IndexAction" method="getNews">
+			<result name="success" type="velocity">/templates/news/news-{1}.vm</result>
+		</action>
+	</package>
+</struts>
