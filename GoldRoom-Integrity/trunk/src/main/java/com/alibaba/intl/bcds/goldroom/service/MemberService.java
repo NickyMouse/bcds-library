@@ -11,11 +11,13 @@ import com.alibaba.intl.bcds.goldroom.constaints.MemberEnableEnum;
 import com.alibaba.intl.bcds.goldroom.constaints.RoleEnum;
 import com.alibaba.intl.bcds.goldroom.dao.MemberDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
+import com.alibaba.intl.bcds.goldroom.dataobject.UserDTO;
 import com.alibaba.intl.bcds.goldroom.mail.dataobject.EmailInfo;
 import com.alibaba.intl.bcds.goldroom.mail.enumeration.ServiceType;
 import com.alibaba.intl.bcds.goldroom.mail.service.SendMailService;
 import com.alibaba.intl.bcds.goldroom.util.MD5;
 import com.alibaba.intl.bcds.goldroom.util.PasswordGenerator;
+import com.opensymphony.xwork2.ActionContext;
 
 @Transactional
 public class MemberService {
@@ -141,7 +143,7 @@ public class MemberService {
      * @param password
      * @return member 对象
      */
-    public Member doLogin(String loginId, String password) {
+    public UserDTO doLogin(String loginId, String password) {
         if (StringUtils.isEmpty(loginId) || StringUtils.isEmpty(password)) {
             return null;
         }
@@ -150,7 +152,14 @@ public class MemberService {
             return null;
         }
         if (MD5.getMD5(password).equals(m.getPassword())) {
-            return m;
+        	//登录成功
+        	UserDTO userDto = new UserDTO();
+            userDto.setId(m.getId());
+            userDto.setUserName(m.getName());
+            userDto.setScore(m.getScore());
+            userDto.setLoginId(m.getLoginId());
+        	ActionContext.getContext().getSession().put(UserDTO.MEMBER_LOGGED_SESSION_KEY, userDto);
+            return userDto;
         } else {
             return null;
         }

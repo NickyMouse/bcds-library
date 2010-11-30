@@ -62,6 +62,8 @@
 			match="com.alibaba.intl.bcds.goldroom.dataobject.BookInfo">
 			<param name="exclude" value="category,gmtModified,gmtCreate" />
 		</convert>
+		
+		<convert match="com.alibaba.intl.bcds.goldroom.dataobject.UserDTO" converter="bean" />
 
 		<!-- convert end -->
 	</allow>
