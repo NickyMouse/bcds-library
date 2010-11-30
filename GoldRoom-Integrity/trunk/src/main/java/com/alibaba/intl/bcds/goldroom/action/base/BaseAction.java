@@ -58,6 +58,10 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
         return session;
     }
 
+    public String getJson() {
+        return json;
+    }
+
     public void setJson(String json) {
         this.json = json;
     }

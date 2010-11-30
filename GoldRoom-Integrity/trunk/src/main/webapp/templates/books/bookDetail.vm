@@ -88,32 +88,32 @@
 		}
 	);
  }
- function postComment(bookInfoId,memberName){
+ function postComment(bookInfoId){
  	var content = jQuery("#comment_content").val();
  	jQuery.ajax({
             	type: "POST",
                	url: "$base/book/bookCommentAction.action",
                	data: "bookInfoId=" + bookInfoId + "&content="+ content,
-               	success: function(msg){
-					 eval("var obj ="+msg);
+               	success: function(response){
+					 eval("var obj ="+response);
 					if(obj.result == "success"){
     			   	 	alert("评价成功");
 						var li ='<li style="width: 900px; padding-left: 30px;">'+
                     			'	<div style="float: left; width: 60px; height: 60px;" id="left_up">'+
                     			'	<img class="pil" src="" alt="门牙猫咪咪♨下前下后拳"></div>'+
                     			'	<div style="float: right; width: 800px; height: 100px;" id="right">'+
-                    			'		<h3>member.name</h3>'+
+                    			'		<h3>'+obj.memberName+'</h3>'+
                     			'		<div style="padding-right: 3px; padding-left: 3px;">'+
                     			'		'+content +
                     			'		</div>'+
                     			'	</div>'+
-                    			'	<div style="float: left; width: 60px; height: 30px;" id="left_down">'+ (new Date()) +'</div>'+
+                    			'	<div style="float: left; width: 60px; height: 30px;" id="left_down">'+ obj.gmtCreate +'</div>'+
                     			'</li>';
 						
 						jQuery("#jsAddComment").html(jQuery("#jsAddComment").html() + li);
 						jQuery("#comment_content").val("");
     			 	} else {
-						alert("评价失败");
+						alert(obj.msg);
 					}
                	}
 			});
@@ -252,9 +252,7 @@ width:0;
 		<div style="float: left; width: 950px; padding-top: 5px;" class="movie_new">
 			<h2 class="green_tab clearfix">
 				<a href="javascript:void(0)" class="on" id="new1"><span> 内容简介 </span> </a>
-				#if($commentList && $commentList.size() > 0)
-					<a href="javascript:void(0)" id="new2"> <span> 书评 </span> </a>
-				#end
+				<a href="javascript:void(0)" id="new2"> <span> 书评 </span> </a>
 			</h2>
 
 			<ul id="newcontent1" class="content clearfix" style="text-indent: 2em; display: block;">
@@ -276,8 +274,8 @@ width:0;
 				</li>
 				#end
 				<div id="jsAddComment"></div>
-				#if($session && $session.getAttribute("LOGGED_USER"))
-					#set( $userDto = $session.getAttribute("LOGGED_USER") )
+				
+		
 				<li style="width: 900px; padding-left: 30px;height: 220px;">
     				<table width="341" border="0">
                       <tr>
@@ -288,11 +286,12 @@ width:0;
                       </tr>
                       <tr>
                         <td height="38">
-                          <input type="button" name="button" value="加上去" onclick="postComment($!bookInfo.id,'$!userDto.userName');return false;">
+                          <input type="button" name="button" value="加上去" onclick="postComment($!bookInfo.id);return false;">
                         </td>
                       </tr>
                     </table>
 				</li>
+				#if($session && $session.getAttribute("LOGGED_USER"))
 				#else
 				<li style="width: 900px; padding-left: 30px;">
 					<a href="javascript:alert('对不起，您还未登陆，不能进行评价')">我要评价 ......</a>

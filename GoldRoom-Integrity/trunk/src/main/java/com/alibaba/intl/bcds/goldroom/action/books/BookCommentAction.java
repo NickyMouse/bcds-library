@@ -1,5 +1,7 @@
 package com.alibaba.intl.bcds.goldroom.action.books;
 
+import net.sf.json.JSONObject;
+
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
@@ -8,6 +10,7 @@ import com.alibaba.intl.bcds.goldroom.dataobject.comment.BookInfoComment;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
 import com.alibaba.intl.bcds.goldroom.service.CommentService;
 import com.alibaba.intl.bcds.goldroom.service.MemberService;
+import com.alibaba.intl.bcds.goldroom.util.StringUtils;
 
 public class BookCommentAction extends BaseAction {
 
@@ -26,7 +29,12 @@ public class BookCommentAction extends BaseAction {
 
     public String execute() throws Exception {
         bookInfo = bookInfoService.searchBookByInfoId(bookInfoId);
+        JSONObject result = new JSONObject();
+
         if (getBookInfo() == null) {
+            result.put("result", "error");
+            result.put("msg", "无效的bookInfoId");
+            json = result.toString();
             return ERROR;
         }
         UserDTO user = this.getUserDTO();
@@ -42,8 +50,16 @@ public class BookCommentAction extends BaseAction {
         bookInfoComment.setContent(content);
 
         if (commentService.postComment(bookInfoComment)) {
+            result.put("result", "success");
+            result.put("gmtCreate", StringUtils.converDateToString(bookInfoComment.getGmtCreate()));
+            result.put("memberName", member.getName());
+            result.put("msg", "OK");
+            json = result.toString();
             return SUCCESS;
         } else {
+            result.put("result", "error");
+            result.put("msg", "评价失败");
+            json = result.toString();
             return ERROR;
         }
     }
