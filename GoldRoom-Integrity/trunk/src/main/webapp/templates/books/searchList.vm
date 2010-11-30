@@ -72,7 +72,7 @@ jQuery(function () {
         }
     );
   });
-</script>
+</SCRIPT>
             <style>
 .ww-light{overflow:hidden;}
 .ww-block{display:block;margin-top:3px;}
@@ -113,7 +113,7 @@ a.ww-mobile{background-position:0 -40px;}
             <div class="first"><em> </em> <b> </b></div>
             <div class="last"><em> </em> <b> </b></div>
             <div class="imageBorder">
-            	<img width="120px;" height="160px;" src="$!{imageServer}$!{book.info.imgUrl}" class="m_sub_img">
+            	<img width="120px;" height="160px;" src="$!{imageServer}$!{book.info.imgUrl}" class="m_sub_img" style="cursor: pointer;" onclick="javascript:window.open('/detail/bookDetail.do?bookInfoId=$book.info.id&log=detail&log1=$book.info.id')">
 				<DIV class="detail-frame">
 					<H3><B>书籍简介:</B></H3>
 					<P>

@@ -307,22 +307,34 @@ width:0;
 	<div class="bookscontents" style="padding-left: 8px; BORDER-BOTTOM: #e4e4e4 1px solid; POSITION: relative; BORDER-LEFT: #e4e4e4 1px solid; MARGIN-BOTTOM: 10px; BACKGROUND: #fff; BORDER-TOP: #e4e4e4 1px solid; BORDER-RIGHT: #e4e4e4 1px solid">
 		<h3 style="margin-left:-8px;padding-left: 8px;">相关书籍</h3>
 		#foreach($relatedBookInfo in $relatedBookInfoList)
-          <dl>
-            <dt>
-              <a href="$base/detail/bookDetail.do?bookInfoId=$!{relatedBookInfo.id}" title="$!relatedBookInfo.name">
-                <img src="$!{imageServer}$!{relatedBookInfo.imgUrl}" class="m_sub_img" alt="$!relatedBookInfo.name">
-              </a>
-            </dt>
-            <dd>
+			#set($bgColor = "")
+			#if($velocityCount % 2 == 0 )
+				#set($bgColor = "#E7F5F6")
+			#end
+<div class="aside movie_headerline book-search-list" style="background:$bgColor; width: 125px; height: 200px; text-align: center;">
+    <div class="left_conner"><em></em><b></b></div>
+    <div class="first"><em></em><b></b></div>
+    <div class="last"><em></em><b></b></div>
+    <div class="imageBorder">
+        <img width="120px;" height="160px;" src="$!{imageServer}/$!relatedBookInfo.imgUrl" class="m_sub_img" style="cursor: pointer;" onclick="javascript:window.open('/detail/bookDetail.do?bookInfoId=$relatedBookInfo.id&log=detail&log1=$relatedBookInfo.id')">
+        <DIV class="detail-frame">
+            <H3><B>书籍简介:</B></H3>
+            <P>
+                #if($!book.description.length() > 200) $!$relatedBookInfo.description.substring(0,200)...
+                #else $!$relatedBookInfo.description #end
+            </P>
+        </DIV>
+    </div>
+	<div style="clear: both; padding-top: 8px;">
               <a href="bookDetail.do?bookInfoId=$!relatedBookInfo.id" title="$!relatedBookInfo.name">
 				#if($!relatedBookInfo.name.length() > 15)
-					$!relatedBookInfo.name.substring(0,15)...
+					$!relatedBookInfo.name.substring(0,10)...
    				#else
 					$!relatedBookInfo.name
    				#end
               </a>
-            </dd>
-          </dl>
+              </div>
+</div>
 		#end
 
           <dl class="clear">
@@ -332,6 +344,42 @@ width:0;
 	<!-- 同类书（完） -->
 	<!-- content end here -->
 	<div style="clear:both"></div>
+<SCRIPT type=text/javascript>
+jQuery(function () {
+  	var t;
+	jQuery('.imageBorder').hover(
+        function () {
+            if (t) {
+                window.clearTimeout(t);
+            }
+            var that = this;
+            t = window.setTimeout(function () {
+                var detailFrame = jQuery('.detail-frame', that).html();
+                var thisX = jQuery('img', that).offset().left;
+                var thisY = jQuery('img', that).offset().top;
 
+                if (jQuery(that).width() == 104) {
+                    var ml = 114;
+                } else {
+                    var ml = jQuery('img', that).width() + 10;
+                }
+                var ml = jQuery('img', that).width() + 10;
+
+                jQuery('body').append('<div class="detail-tip shadow-right"></div>');
+                jQuery('.detail-tip').html(detailFrame)
+                .append('<span class="arrow-left"></span>')
+                .css('left', thisX + ml)
+                .css('top', thisY);
+            }, 200);
+        },
+        function () {
+            if (t) {
+                window.clearTimeout(t);
+            }
+            jQuery('.detail-tip').remove();
+        }
+    );
+  });
+</SCRIPT>
 #parse("templates/common/footer.vm")
 
