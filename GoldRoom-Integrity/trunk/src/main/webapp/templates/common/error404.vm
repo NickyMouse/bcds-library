@@ -1,5 +1,18 @@
-<span id="error">
-	<div id="err_tips"> 出错了～！</div>
+﻿#parse("/templates/common/header.vm")
+<style>
+	
+	.error{
+		width:960px;
+		height:500px;
+		text-align: center;
+	}
+	
+</style>
+<span class="error">
+	<div id="err_tips">
+		<img src="/static/images/404.jpg"/>	
+	</div>
 	<div id="err_msg" style="display:none"> $!exception.stackTrace</div>
 	<div id="err_stack" style="display:none"> $!exceptionStack </div>
 </span>
+#parse("templates/common/footer.vm")
