@@ -16,8 +16,12 @@
           $!bookInfo.name
         </A>
       </DIV>
-      <SPAN class=pl>作者:</SPAN>$!bookInfo.author<BR>
-      <SPAN class=pl>出版时间1:</SPAN>$date.format("yyyy-MM-dd",$!{bookInfo.publishTime})<BR>
+      #if($!bookInfo.author)
+	  <SPAN class=pl>作者:</SPAN>$!bookInfo.author<BR>
+	  #end
+	  #if($!{bookInfo.publishTime})
+      <SPAN class=pl>出版时间:</SPAN>$!date.format("yyyy-MM-dd",$!{bookInfo.publishTime})<BR>
+	  #end
       <SPAN class=pl>内容简介:</SPAN>
 		#if($!bookInfo.description.length() > 150)
 			$!bookInfo.description.substring(0,150)...
@@ -67,7 +71,6 @@
           <A class=title onclick="moreurl(this, {from:'cinema'})" href="$!base/detail/bookDetail.do?bookInfoId=$!bookinfo.id">
             $bookinfo.name
           </A>
-          <SPAN class="allstar35"></SPAN>
         </DIV>
       </DIV>
     </LI>
