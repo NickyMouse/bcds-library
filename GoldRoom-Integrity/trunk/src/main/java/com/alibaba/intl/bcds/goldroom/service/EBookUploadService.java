@@ -41,8 +41,10 @@ public class EBookUploadService {
                 in = new BufferedInputStream(new FileInputStream(src), BUFFER_SIZE);
                 out = new BufferedOutputStream(new FileOutputStream(dst), BUFFER_SIZE);
                 byte[] buffer = new byte[BUFFER_SIZE];
-                while (in.read(buffer) > 0) {
-                    out.write(buffer);
+                int count = in.read(buffer);
+                while (count > 0) {
+                    out.write(buffer, 0, count);
+                    count = in.read(buffer);
                 }
                 String ebookPath = getFilePath(isbn) + getFileName(isbn, fileName);
                 return ebookPath;
