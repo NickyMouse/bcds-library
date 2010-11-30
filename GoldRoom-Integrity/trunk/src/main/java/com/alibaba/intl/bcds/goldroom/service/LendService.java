@@ -23,204 +23,230 @@ import com.alibaba.intl.bcds.goldroom.result.LendingResult;
 @Transactional
 public class LendService {
 
-    private static Logger   logger = Logger.getLogger(LendService.class);
+	private static Logger logger = Logger.getLogger(LendService.class);
 
-    @Autowired
-    private BookItemDao     bookItemDao;
+	@Autowired
+	private BookItemDao bookItemDao;
 
-    @Autowired
-    private ReservationDao  reservationDao;
+	@Autowired
+	private ReservationDao reservationDao;
 
-    @Autowired
-    private LendingDao      lendingDao;
+	@Autowired
+	private LendingDao lendingDao;
 
-    @Autowired
-    private SendMailService sendMailService;
+	@Autowired
+	private SendMailService sendMailService;
 
-    @Autowired
-    private MemberDao       memberDao;                                   // by Harrison for refactoried member entity
+	@Autowired
+	private MemberDao memberDao; // by Harrison for refactoried member entity
 
-    public LendingResult listLendedBookItemBySubscriber(String ownerLoginID, int page, int pagesize) {
-        int totalCount = lendingDao.countByLogindId(ownerLoginID);
-        List<Lending> itemList = lendingDao.listByLoginId(ownerLoginID, page, pagesize);
-        return new LendingResult(itemList, totalCount);
-    }
+	public LendingResult listLendedBookItemBySubscriber(String ownerLoginID,
+			int page, int pagesize) {
+		int totalCount = lendingDao.countByLogindId(ownerLoginID);
+		List<Lending> itemList = lendingDao.listByLoginId(ownerLoginID, page,
+				pagesize);
+		return new LendingResult(itemList, totalCount);
+	}
 
-    public LendingResult listLendingByBookItemId(Integer bookItemId) {
-        int totalCount = lendingDao.countByBookItemId(bookItemId);
-        List<Lending> itemList = lendingDao.listByBookItemId(bookItemId);
-        return new LendingResult(itemList, totalCount);
-    }
+	public LendingResult listLendingByBookItemId(Integer bookItemId) {
+		int totalCount = lendingDao.countByBookItemId(bookItemId);
+		List<Lending> itemList = lendingDao.listByBookItemId(bookItemId);
+		return new LendingResult(itemList, totalCount);
+	}
 
-    public boolean lend(int reservationId, String currentUser) {
-        Reservation reservation = reservationDao.findById(reservationId);
-        BookItem bookItem = reservation.getBookItem();
-        Member bookOwner = bookItem != null && bookItem.getOwner() != null ? bookItem.getOwner() : null; // by Harrison
-        if (bookOwner != null && !bookOwner.getLoginId().equals(currentUser)) {
-            // 如果书的主人跟登录用户不一致
-            return false;
-        }
-        if (BookItemStateEnum.RESERVATED.equalsState(bookItem.getState())) {
+	public boolean lend(int reservationId, String currentUser) {
+		Reservation reservation = reservationDao.findById(reservationId);
+		BookItem bookItem = reservation.getBookItem();
+		Member bookOwner = bookItem != null && bookItem.getOwner() != null ? bookItem
+				.getOwner()
+				: null; // by Harrison
+		if (bookOwner != null && !bookOwner.getLoginId().equals(currentUser)) {
+			// 如果书的主人跟登录用户不一致
+			return false;
+		}
+		if (BookItemStateEnum.RESERVATED.equalsState(bookItem.getState())) {
 
-            Lending lending = new Lending();
-            lending.setBookItem(reservation.getBookItem());
-            lending.setReturnTime(reservation.getReturnTime());
-            lending.setSubscriber(reservation.getSubscriber());
-            lending.setLendTime(reservation.getLendTime());
+			Lending lending = new Lending();
+			lending.setBookItem(reservation.getBookItem());
+			lending.setReturnTime(reservation.getReturnTime());
+			lending.setSubscriber(reservation.getSubscriber());
+			lending.setLendTime(reservation.getLendTime());
 
-            /* ---- update the member's score, by Harrison -- */
-            bookOwner.setScore(bookOwner.getScore() == null || bookOwner.getScore() == 0 ? 50 : bookOwner.getScore() + 50);
-            memberDao.updateMemberByLoginId(bookOwner);
-            /* -- end -- */
+			/* ---- update the member's score, by Harrison -- */
+			bookOwner.setScore(bookOwner.getScore() == null
+					|| bookOwner.getScore() == 0 ? 50
+					: bookOwner.getScore() + 50);
+			memberDao.updateMemberByLoginId(bookOwner);
+			/* -- end -- */
 
-            lendingDao.save(lending);
-            bookItem.setState(BookItemStateEnum.LENDED.getValue());
-            bookItemDao.updateBookItemState(bookItem);
-            reservationDao.cutReservationToLog(reservation);
+			lendingDao.save(lending);
+			bookItem.setState(BookItemStateEnum.LENDED.getValue());
+			bookItemDao.updateBookItemState(bookItem);
+			reservationDao.cutReservationToLog(reservation);
 
-            // 发邮件
-            try {
-                // EmailInfo emailInfo = new EmailInfo(ServiceType.GET_BOOK);
-                // emailInfo.setOwner(bookOwner);
-                // emailInfo.setBorrower(lending.getSubscriber());
-                // emailInfo.setBookInfo(bookItem.getBookInfo());
-                // emailInfo.setLending(lending);
-                // emailInfo.addReceiverEmail(lending.getSubscriber().getEmail());
-                // sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
-            } catch (Exception e) {
+			// 发邮件
+			try {
+				// EmailInfo emailInfo = new EmailInfo(ServiceType.GET_BOOK);
+				// emailInfo.setOwner(bookOwner);
+				// emailInfo.setBorrower(lending.getSubscriber());
+				// emailInfo.setBookInfo(bookItem.getBookInfo());
+				// emailInfo.setLending(lending);
+				// emailInfo.addReceiverEmail(lending.getSubscriber().getEmail());
+				// sendMailService.sendVelocityMail(emailInfo, null, null, null,
+				// null);
+			} catch (Exception e) {
 
-            }
-            logger.info("[Lend book success]" + lending.getId());
-            return true;
-        } else {
-            return false;
-        }
-    }
+			}
+			logger.info("[Lend book success]" + lending.getId());
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    public boolean returnBook(int lendId, String currentUser) {
-        Lending lending = lendingDao.findById(lendId);
-        BookItem bookItem = bookItemDao.findById(lending.getBookItem().getId());
-        Member bookOwner = bookItem != null && bookItem.getOwner() != null ? bookItem.getOwner() : null; // by Harrison
-        if (bookOwner != null && !bookOwner.getLoginId().equals(currentUser)) {
-            return false;
-        }
-        lendingDao.updateRealReturnTime(lendId);
-        lendingDao.cutLendingToLog(lending);
-        bookItem.setState(BookItemStateEnum.IDLE.getValue());
-        bookItemDao.updateBookItemState(bookItem);
+	public boolean returnBook(int lendId, String currentUser) {
+		Lending lending = lendingDao.findById(lendId);
+		BookItem bookItem = bookItemDao.findById(lending.getBookItem().getId());
+		Member bookOwner = bookItem != null && bookItem.getOwner() != null ? bookItem
+				.getOwner()
+				: null; // by Harrison
+		if (bookOwner != null && !bookOwner.getLoginId().equals(currentUser)) {
+			return false;
+		}
+		lendingDao.updateRealReturnTime(lendId);
+		lendingDao.cutLendingToLog(lending);
+		bookItem.setState(BookItemStateEnum.IDLE.getValue());
+		bookItemDao.updateBookItemState(bookItem);
 
-        try {
-            EmailInfo emailInfo = new EmailInfo(ServiceType.CONFIRM_RETURN_BOOK);
-            emailInfo.setOwner(bookOwner);
-            emailInfo.setBorrower(lending.getSubscriber());
-            emailInfo.setBookInfo(bookItem.getBookInfo());
-            emailInfo.setLending(lending);
-            emailInfo.addReceiverEmail(lending.getSubscriber().getEmail());
-            sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
-        } catch (Exception e) {
+		try {
+			EmailInfo emailInfo = new EmailInfo(ServiceType.CONFIRM_RETURN_BOOK);
+			emailInfo.setOwner(bookOwner);
+			emailInfo.setBorrower(lending.getSubscriber());
+			emailInfo.setBookInfo(bookItem.getBookInfo());
+			emailInfo.setLending(lending);
+			emailInfo.addReceiverEmail(lending.getSubscriber().getEmail());
+			sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
+		} catch (Exception e) {
 
-        }
-        return true;
-    }
+		}
+		return true;
+	}
 
-    public boolean rejectLend(int reservationId, String currentUser) {
-        Reservation reservation = reservationDao.findById(reservationId);
-        if (reservation != null) {
-            BookItem bookItem = reservation.getBookItem();
-            Member bookOwner = bookItem != null && bookItem.getOwner() != null ? bookItem.getOwner() : null; // by
-                                                                                                             // Harrison
+	public boolean rejectLend(int reservationId, String currentUser) {
+		Reservation reservation = reservationDao.findById(reservationId);
+		if (reservation != null) {
+			BookItem bookItem = reservation.getBookItem();
+			Member bookOwner = bookItem != null && bookItem.getOwner() != null ? bookItem
+					.getOwner()
+					: null; // by
+			// Harrison
 
-            // 如果书的主人跟登录用户不在线或该书不在预约状态
-            if (bookItem == null || bookOwner == null || !bookOwner.getLoginId().equals(currentUser)
-                || !BookItemStateEnum.RESERVATED.equalsState(bookItem.getState())) {
-                return false;
-            }
-            reservationDao.updateStateByBookItemId(bookItem.getId(), Reservation.STATE_REJECT);
-            bookItem.setState(BookItemStateEnum.IDLE.getValue());
-            bookItemDao.updateBookItemState(bookItem);
+			// 如果书的主人跟登录用户不在线或该书不在预约状态
+			if (bookItem == null
+					|| bookOwner == null
+					|| !bookOwner.getLoginId().equals(currentUser)
+					|| !BookItemStateEnum.RESERVATED.equalsState(bookItem
+							.getState())) {
+				return false;
+			}
+			reservationDao.updateStateByBookItemId(bookItem.getId(),
+					Reservation.STATE_REJECT);
+			bookItem.setState(BookItemStateEnum.IDLE.getValue());
+			bookItemDao.updateBookItemState(bookItem);
 
-//            try {
-//                EmailInfo emailInfo = new EmailInfo(ServiceType.REJECT_LEND_BOOK);
-//                emailInfo.setOwner(bookOwner);
-//                emailInfo.setBorrower(reservation.getSubscriber());
-//                emailInfo.setBookInfo(bookItem.getBookInfo());
-//                emailInfo.setReservation(reservation);
-//                emailInfo.addReceiverEmail(reservation.getSubscriber().getEmail());
-//                sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
-//            } catch (Exception e) {
-//
-//            }
-        }
-        return true;
-    }
+			// try {
+			// EmailInfo emailInfo = new
+			// EmailInfo(ServiceType.REJECT_LEND_BOOK);
+			// emailInfo.setOwner(bookOwner);
+			// emailInfo.setBorrower(reservation.getSubscriber());
+			// emailInfo.setBookInfo(bookItem.getBookInfo());
+			// emailInfo.setReservation(reservation);
+			// emailInfo.addReceiverEmail(reservation.getSubscriber().getEmail());
+			// sendMailService.sendVelocityMail(emailInfo, null, null, null,
+			// null);
+			// } catch (Exception e) {
+			//
+			// }
+		}
+		return true;
+	}
 
-    /**
-     * @return the bookItemDao
-     */
-    public BookItemDao getBookItemDao() {
-        return bookItemDao;
-    }
+	public List<Lending> listLendingWithExpireDays(boolean isExpire) {
+		return lendingDao.listLendingWithExpireDays(isExpire);
+	}
 
-    /**
-     * @param bookItemDao the bookItemDao to set
-     */
-    public void setBookItemDao(BookItemDao bookItemDao) {
-        this.bookItemDao = bookItemDao;
-    }
+	/**
+	 * @return the bookItemDao
+	 */
+	public BookItemDao getBookItemDao() {
+		return bookItemDao;
+	}
 
-    /**
-     * @return the reservationDao
-     */
-    public ReservationDao getReservationDao() {
-        return reservationDao;
-    }
+	/**
+	 * @param bookItemDao
+	 *            the bookItemDao to set
+	 */
+	public void setBookItemDao(BookItemDao bookItemDao) {
+		this.bookItemDao = bookItemDao;
+	}
 
-    /**
-     * @param reservationDao the reservationDao to set
-     */
-    public void setReservationDao(ReservationDao reservationDao) {
-        this.reservationDao = reservationDao;
-    }
+	/**
+	 * @return the reservationDao
+	 */
+	public ReservationDao getReservationDao() {
+		return reservationDao;
+	}
 
-    /**
-     * @return the lendingDao
-     */
-    public LendingDao getLendingDao() {
-        return lendingDao;
-    }
+	/**
+	 * @param reservationDao
+	 *            the reservationDao to set
+	 */
+	public void setReservationDao(ReservationDao reservationDao) {
+		this.reservationDao = reservationDao;
+	}
 
-    /**
-     * @param lendingDao the lendingDao to set
-     */
-    public void setLendingDao(LendingDao lendingDao) {
-        this.lendingDao = lendingDao;
-    }
+	/**
+	 * @return the lendingDao
+	 */
+	public LendingDao getLendingDao() {
+		return lendingDao;
+	}
 
-    /**
-     * @return the sendMailService
-     */
-    public SendMailService getSendMailService() {
-        return sendMailService;
-    }
+	/**
+	 * @param lendingDao
+	 *            the lendingDao to set
+	 */
+	public void setLendingDao(LendingDao lendingDao) {
+		this.lendingDao = lendingDao;
+	}
 
-    /**
-     * @param sendMailService the sendMailService to set
-     */
-    public void setSendMailService(SendMailService sendMailService) {
-        this.sendMailService = sendMailService;
-    }
+	/**
+	 * @return the sendMailService
+	 */
+	public SendMailService getSendMailService() {
+		return sendMailService;
+	}
 
-    /**
-     * @return the memberDao
-     */
-    public MemberDao getMemberDao() {
-        return memberDao;
-    }
+	/**
+	 * @param sendMailService
+	 *            the sendMailService to set
+	 */
+	public void setSendMailService(SendMailService sendMailService) {
+		this.sendMailService = sendMailService;
+	}
 
-    /**
-     * @param memberDao the memberDao to set
-     */
-    public void setMemberDao(MemberDao memberDao) {
-        this.memberDao = memberDao;
-    }
+	/**
+	 * @return the memberDao
+	 */
+	public MemberDao getMemberDao() {
+		return memberDao;
+	}
+
+	/**
+	 * @param memberDao
+	 *            the memberDao to set
+	 */
+	public void setMemberDao(MemberDao memberDao) {
+		this.memberDao = memberDao;
+	}
 }

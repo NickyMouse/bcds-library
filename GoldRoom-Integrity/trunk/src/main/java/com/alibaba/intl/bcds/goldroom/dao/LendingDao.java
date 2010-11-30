@@ -17,46 +17,46 @@ import com.alibaba.intl.bcds.goldroom.dataobject.Lending;
  */
 public interface LendingDao {
 
-    /**
-     * @param lending
-     */
-    public Lending save(Lending lending);
+	/**
+	 * @param lending
+	 */
+	public Lending save(Lending lending);
 
-    /**
-     * @param lendId
-     */
-    public boolean cutLendingToLog(int lendId);
+	/**
+	 * @param lendId
+	 */
+	public boolean cutLendingToLog(int lendId);
 
-    /**
-     * @param lending
-     */
-    public boolean cutLendingToLog(Lending lending);
+	/**
+	 * @param lending
+	 */
+	public boolean cutLendingToLog(Lending lending);
 
-    /**
-     * @param lendId
-     * @return
-     */
-    public Lending findById(int lendId);
+	/**
+	 * @param lendId
+	 * @return
+	 */
+	public Lending findById(int lendId);
 
-    /**
-     * @param lendingId
-     */
-    boolean updateRealReturnTime(int lendingId);
+	/**
+	 * @param lendingId
+	 */
+	boolean updateRealReturnTime(int lendingId);
 
-    public List<Lending> listByLoginId(String loginId, int page, int pageSize);
+	public List<Lending> listByLoginId(String loginId, int page, int pageSize);
 
-    /**
-     * 根据条件查找出借阅记录
-     * 
-     * @param isExpire 借阅是否过期，当isExpire为真，返回的都是过期的记录；否则都是未过期的
-     * @param skipResult
-     * @param number
-     * @return
-     */
-    // List<LendingWithExpireDays> listLendingWithExpireDays(boolean isExpire, int skipResult, int pageSize);
-    int countByLogindId(String loginId);
-    
-    int countByBookItemId(Integer bookItemId);
-    
-    List<Lending> listByBookItemId(Integer bookItemId);
+	int countByLogindId(String loginId);
+
+	int countByBookItemId(Integer bookItemId);
+
+	List<Lending> listByBookItemId(Integer bookItemId);
+
+	/**
+	 * 根据条件查找出借阅记录
+	 * 
+	 * @param isExpire
+	 *            借阅是否过期，当isExpire为真，返回的都是过期的记录；否则都是未过期的
+	 * @return
+	 */
+	List<Lending> listLendingWithExpireDays(boolean isExpire);
 }
