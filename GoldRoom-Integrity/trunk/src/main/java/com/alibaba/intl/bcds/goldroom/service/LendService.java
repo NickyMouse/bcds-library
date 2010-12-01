@@ -1,5 +1,6 @@
 package com.alibaba.intl.bcds.goldroom.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -173,6 +174,30 @@ public class LendService {
 
 	public List<Lending> listLendingWithExpireDays(boolean isExpire) {
 		return lendingDao.listLendingWithExpireDays(isExpire);
+	}
+
+	public List<EmailInfo> listLendingEmailInfo(boolean isExpire) {
+
+		List<Lending> l = listLendingWithExpireDays(isExpire);
+
+		List<EmailInfo> listEmailInfo = new ArrayList<EmailInfo>();
+
+		for (Lending tExpireDay : l) {
+			tExpireDay.setHasExpire(isExpire);
+			List<String> emali = new ArrayList<String>();
+			Member member = tExpireDay.getSubscriber();
+			emali.add(member.getEmail());
+			EmailInfo info = new EmailInfo(ServiceType.SHOULD_RETURN_BOOK);
+			info.setBookInfo(tExpireDay.getBookItem().getBookInfo());
+			info.setBorrower(member);
+			info.setOwner(tExpireDay.getBookItem().getOwner());
+			info.setReceiverEmails(emali);
+			info.setLending(tExpireDay);
+			listEmailInfo.add(info);
+
+		}
+		return listEmailInfo;
+
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package com.alibaba.intl.bcds.goldroom.dataobject;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.alibaba.intl.bcds.goldroom.util.DateUtil;
 
 /**
  * 图书借阅信息
@@ -19,116 +23,142 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "LENDING")
-@NamedQueries({
-               @NamedQuery(name = "deleteLendingById", query = "DELETE FROM Lending WHERE id = :id"),
-               @NamedQuery(name = "listLendingByLoginId", query = "SELECT l FROM Lending l WHERE l.subscriber.loginId = :loginId ORDER BY gmtModified DESC"),
-               @NamedQuery(name = "countLendingByLoginId", query = "SELECT COUNT(l) FROM Lending l WHERE l.subscriber.loginId = :loginId"),
-               @NamedQuery(name = "listLendingByBookItemId", query = "SELECT l FROM Lending l WHERE l.bookItem.id= :bookItemId ORDER BY gmtModified DESC"),
-               @NamedQuery(name = "countLendingByBookItemId", query = "SELECT COUNT(l) FROM Lending l WHERE l.bookItem.id= :bookItemId")
+@NamedQueries( {
+		@NamedQuery(name = "deleteLendingById", query = "DELETE FROM Lending WHERE id = :id"),
+		@NamedQuery(name = "listLendingByLoginId", query = "SELECT l FROM Lending l WHERE l.subscriber.loginId = :loginId ORDER BY gmtModified DESC"),
+		@NamedQuery(name = "countLendingByLoginId", query = "SELECT COUNT(l) FROM Lending l WHERE l.subscriber.loginId = :loginId"),
+		@NamedQuery(name = "listLendingByBookItemId", query = "SELECT l FROM Lending l WHERE l.bookItem.id= :bookItemId ORDER BY gmtModified DESC"),
+		@NamedQuery(name = "countLendingByBookItemId", query = "SELECT COUNT(l) FROM Lending l WHERE l.bookItem.id= :bookItemId")
 
 })
 public class Lending {
 
-    @Id
-    @GeneratedValue
-    private Integer      id;
+	@Id
+	@GeneratedValue
+	private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "SUBSCRIBER")
-    private Member   subscriber;
+	@ManyToOne
+	@JoinColumn(name = "SUBSCRIBER")
+	private Member subscriber;
 
-    @Column(name = "LEND_TIME")
-    private Date     lendTime;
+	@Column(name = "LEND_TIME")
+	private Date lendTime;
 
-    @Column(name = "RETURN_TIME")
-    private Date     returnTime;
+	@Column(name = "RETURN_TIME")
+	private Date returnTime;
 
-    @Column(name = "STATE")
-    private String   state;
+	@Column(name = "STATE")
+	private String state;
 
-    @ManyToOne
-    @JoinColumn(name = "BOOK_ITEM_ID")
-    private BookItem bookItem;
+	@ManyToOne
+	@JoinColumn(name = "BOOK_ITEM_ID")
+	private BookItem bookItem;
 
-    public BookItem getBookItem() {
-        return bookItem;
-    }
+	@Transient
+	private boolean hasExpire; // 是否过期
+	
+	public boolean isHasExpire() {
+		return hasExpire;
+	}
 
-    public void setBookItem(BookItem bookItem) {
-        this.bookItem = bookItem;
-    }
+	public void setHasExpire(boolean hasExpire) {
+		this.hasExpire = hasExpire;
+	}
 
-    @Column(name = "REAL_RETURN_TIME")
-    private Date realReturnTime;
+	@Transient
+	private long ExpireDays; // 距还书时间差
 
-    @Column(name = "GMT_CREATE")
-    private Date gmtCreate;
+	public BookItem getBookItem() {
+		return bookItem;
+	}
 
-    @Column(name = "GMT_MODIFIED")
-    private Date gmtModified;
+	public void setBookItem(BookItem bookItem) {
+		this.bookItem = bookItem;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	@Column(name = "REAL_RETURN_TIME")
+	private Date realReturnTime;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Column(name = "GMT_CREATE")
+	private Date gmtCreate;
 
-    public Member getSubscriber() {
-        return subscriber;
-    }
+	@Column(name = "GMT_MODIFIED")
+	private Date gmtModified;
 
-    public void setSubscriber(Member subscriber) {
-        this.subscriber = subscriber;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Date getLendTime() {
-        return lendTime;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setLendTime(Date lendTime) {
-        this.lendTime = lendTime;
-    }
+	public Member getSubscriber() {
+		return subscriber;
+	}
 
-    public Date getReturnTime() {
-        return returnTime;
-    }
+	public void setSubscriber(Member subscriber) {
+		this.subscriber = subscriber;
+	}
 
-    public void setReturnTime(Date returnTime) {
-        this.returnTime = returnTime;
-    }
+	public Date getLendTime() {
+		return lendTime;
+	}
 
-    public String getState() {
-        return state;
-    }
+	public void setLendTime(Date lendTime) {
+		this.lendTime = lendTime;
+	}
 
-    public void setState(String state) {
-        this.state = state;
-    }
+	public Date getReturnTime() {
+		return returnTime;
+	}
 
-    public Date getRealReturnTime() {
-        return realReturnTime;
-    }
+	public void setReturnTime(Date returnTime) {
+		this.returnTime = returnTime;
+	}
 
-    public void setRealReturnTime(Date realReturnTime) {
-        this.realReturnTime = realReturnTime;
-    }
+	public String getState() {
+		return state;
+	}
 
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
+	public Date getRealReturnTime() {
+		return realReturnTime;
+	}
 
-    public Date getGmtModified() {
-        return gmtModified;
-    }
+	public void setRealReturnTime(Date realReturnTime) {
+		this.realReturnTime = realReturnTime;
+	}
 
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
+	public Date getGmtCreate() {
+		return gmtCreate;
+	}
 
+	public void setGmtCreate(Date gmtCreate) {
+		this.gmtCreate = gmtCreate;
+	}
+
+	public Date getGmtModified() {
+		return gmtModified;
+	}
+
+	public void setGmtModified(Date gmtModified) {
+		this.gmtModified = gmtModified;
+	}
+
+	
+
+	public long getExpireDays() {
+		try {
+			return DateUtil.getDistDates(DateUtil.FormatDate(this.returnTime),
+					DateUtil.currentDate());
+		} catch (ParseException e) {
+
+			e.printStackTrace();
+			return 0;
+		}
+	}
 }

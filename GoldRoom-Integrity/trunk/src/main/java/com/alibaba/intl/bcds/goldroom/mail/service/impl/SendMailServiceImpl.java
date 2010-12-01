@@ -22,9 +22,18 @@ public class SendMailServiceImpl implements SendMailService {
     private static FormatUtils          formatUtils = new FormatUtils();
 
     @Autowired
-    private VelocityTemplateMailMessage velocityMailMessage;
+	private VelocityTemplateMailMessage velocityMailMessage;
 
-    @Override
+    public VelocityTemplateMailMessage getVelocityMailMessage() {
+		return velocityMailMessage;
+	}
+
+	public void setVelocityMailMessage(
+			VelocityTemplateMailMessage velocityMailMessage) {
+		this.velocityMailMessage = velocityMailMessage;
+	}
+
+	@Override
     public void sendVelocityMail(EmailInfo info, String velocityTemplateLocation, Map templateDataModule, String from,
                                  String subject) {
 

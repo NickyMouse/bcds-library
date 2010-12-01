@@ -5,10 +5,10 @@
 尊敬的$!{info.borrower.name}:<br/>
 &nbsp;&nbsp;您所借阅的《$!{info.bookInfo.name}》，借阅时间为：$!formatUtils.formatDate($info.lending.lendTime) ~ $!formatUtils.formatDate($info.lending.returnTime)
 	 <br/>
-     #if($info.lending.expireDays >=0 )
-     	还有$!{info.lending.expireDays}天就到期了。请尽快归还。
+     #if($info.lending.hasExpire)
+			已过期。请尽快归还。
      #else
-     	已过期。请尽快归还。
+     	还有$!{info.lending.expireDays}天就到期了。请尽快归还。
 	 #end
 	 <br/>
              如果您借阅的书籍已经归还了，请让书籍的拥有者在系统中“确认归还”。
