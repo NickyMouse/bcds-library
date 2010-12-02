@@ -137,7 +137,7 @@ public class MemberService {
     			if(regMember != null && StringUtils.isNotBlank(regMember.getLoginId())){
     				t = approveMember(regMember.getLoginId());
     			}
-    			Log.info(" user auto registed result : " + (t==true?" success ":" failure ") + " with email: " + (StringUtils.isNotBlank(staff.getEmail())?staff.getEmail():" null ") + " and staffId: " + (StringUtils.isNotBlank(staff.getStaffId())?staff.getStaffId():" null"));
+    			logger.info(" user auto registed result : " + (t==true?" success ":" failure ") + " with email: " + (StringUtils.isNotBlank(staff.getEmail())?staff.getEmail():" null ") + " and staffId: " + (StringUtils.isNotBlank(staff.getStaffId())?staff.getStaffId():" null"));
     		}else{
     			logger.error(" can not obtain the original staff info with email: " + email);
     		}
