@@ -1,0 +1,11 @@
+#parse("templates/common/header.vm")
+		<!-- content start here-->
+		<DIV id="content" style="text-align:center">
+       		<div style="text-align:center">
+	            <p><h1>注册成功，请静候管理员审核～！</h1></p>
+	            <p><a href="$base/index.action"> 回首页看看 </a> </p>
+			</div>
+		</DIV>
+		<!-- content end here -->
+		<div style="clear:both"></div>
+#parse("templates/common/footer.vm")

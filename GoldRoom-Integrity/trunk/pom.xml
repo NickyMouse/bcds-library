@@ -316,5 +316,10 @@
 			<version>2.3</version>  
 			<classifier>jdk15</classifier>  
 		</dependency>
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+		</dependency>
 	</dependencies>
 </project>

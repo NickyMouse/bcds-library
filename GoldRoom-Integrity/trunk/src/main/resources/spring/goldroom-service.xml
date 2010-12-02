@@ -26,4 +26,13 @@
 	<bean id="velocityMailMessage" class="com.alibaba.intl.bcds.goldroom.mail.utils.VelocityTemplateMailMessage" />
 
 	<bean id="tracelogService" class="com.alibaba.intl.bcds.goldroom.service.TracelogService" />
+	
+	<!-- 内网服务 -->
+	<!-- 
+	<import resource="classpath:META-INF/cxf/cxf.xml" />   
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />   
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" /> 
+    -->
+	<bean id ="intranetService"  class="com.alibaba.intl.bcds.goldroom.service.IntranetService" /> 
+       
 </beans>

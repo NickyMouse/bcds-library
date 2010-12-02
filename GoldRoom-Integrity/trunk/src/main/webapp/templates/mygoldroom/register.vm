@@ -1,0 +1,68 @@
+#parse("templates/common/header.vm")
+
+<style>
+	#registerTable .red {color:red;}
+	#registerTable .input {text-align:left; width:200px}
+	#registerTable .input input {width:180px}
+	#registerTable .name {text-align:right; width:30%}
+	#registerTable .error {text-align:left;}
+	#registerTable tr {height:30px}
+</style>
+		<!-- content start here-->
+		<DIV id="content">
+            <h1>注册帐号</h1>
+       		<div style="text-align:center">
+       			<form id="regForm" name="regForm" method="post" action="$base/mygoldroom/doRegister.action">
+				<table style="width:80%; margin:auto;" id="registerTable">
+					<tr>
+						<td class="name">姓名：<span class="red">*</span></td>
+						<td class="input"><input id="member.name" name="member.name" type="text"/><span id="name_err" style="display:none">错误信息</span></td>
+					</tr>
+					<tr>
+						<td class="name">Email：<span class="red">*</span></td>
+						<td class="input"><input id="member.email" name="member.email" type="text"/><span id="email_err" style="display:none">错误信息</span></td>
+					</tr>
+					<tr>
+						<td class="name">贸易通：<span class="red">*</span></td>
+						<td class="input"><input id="member.aliTalkId" name="member.aliTalkId" type="text"/><span id="aliTalk_err" style="display:none">错误信息</span></td>
+					</tr>
+					<tr>
+						<td class="name">工号：</td>
+						<td class="input"><input id="member.workId" name="member.workId" type="text"/></td>
+					</tr>
+					<tr>
+						<td class="name">座位位置：</td>
+						<td class="input"><input id="member.location" name="member.location" type="text"/></td>
+					</tr>
+					<tr>
+						<td class="name">分机：</td>
+						<td class="input"><input id="member.ext" name="member.ext" type="text"/><span id="extPhone_err" style="display:none">错误信息</span></td>
+					</tr>
+					<tr  style="border-top:1px dashed #D4D4D4">
+						<td class="name">登录名：<span class="red">*</span></td>
+						<td class="input"><input id="member.loginId" name="member.loginId" type="text"/><span id="loginId_err" style="display:none">错误信息</span></td>
+					</tr>
+					<tr>
+						<td class="name">密码：<span class="red">*</span></td>
+						<td class="input"><input id="member.password" name="member.password" type="password"/></td>
+					</tr>
+					<tr>
+						<td class="name">重复输入密码：<span class="red">*</span></td>
+						<td class="input"><input id="rePassword" type="password"/><span id="password_err" style="display:none">错误信息</span></td>
+					</tr>
+					<tr>
+						<td class="name">&nbsp;</td>
+						<td class="input"><input type="button" value="注&nbsp;&nbsp;&nbsp;&nbsp;册" style="height:30px" onclick="javascript:doRegiste();"/></td>
+					</tr>
+				</table>
+				</form>
+			</div>
+		</DIV>
+		<!-- content end here -->
+		<div style="clear:both"></div>
+		<script type="text/javascript">
+			function doRegiste(){
+				jQuery("#regForm").submit();
+			}
+		</script>
+#parse("templates/common/footer.vm")

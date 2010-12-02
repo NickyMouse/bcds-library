@@ -75,5 +75,16 @@
 			<result name="error" type="velocity">/templates/mygoldroom/fileUpload.vm
 			</result>
 		</action>
+		
+		<!-- user register -->
+		<action name="register"
+				class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.MyGoldRoomAction" method="viewRegisterPage" >
+			<result name="success" type="velocity">/templates/mygoldroom/register.vm</result>
+		</action>
+				
+		<action name="doRegister" 
+				class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.MyGoldRoomAction" method="doRegister">
+			<result name="success" type="velocity">/templates/mygoldroom/register_success.vm</result>
+		</action>
 	</package>
 </struts>

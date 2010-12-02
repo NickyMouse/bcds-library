@@ -14,7 +14,9 @@
 		<input id="username" name="username" title="请输入用户名" type="text" maxLength=60 value="用户名" onfocus="javascript:jQuery(this).val('');"/>&nbsp;&nbsp;
 		<label>密码：</label>
 		<input id="password" name="password" title="请输入登录口令" type="password" maxLength=60 value="密码" onfocus="javascript:jQuery(this).val('');" onclick=""/>&nbsp;&nbsp;
-		<input type="button" value="登录" onclick="javascript:userLogon();"/> 
+		<input type="button" value="登录" onclick="javascript:userLogon();"/>
+		&nbsp;&nbsp; 
+		<input type="button" value="我要注册" onclick="javascript:location.href='$base/mygoldroom/register.action'" />
 	</div>
 	
 	<script type="text/javascript" src="$base/dwr/interface/MemberService.js"></script>

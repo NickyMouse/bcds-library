@@ -45,17 +45,28 @@ public class UserCAProcessInterceptor extends AbstractInterceptor {
                 // 有证书
                 Member member = memberService.findMemberByEmail(email);
                 if (member != null && StringUtils.isNotBlank(member.getName())) {
-                    userDto = new UserDTO();
-                    userDto.setId(member.getId());
-                    userDto.setUserName(member.getName());
-                    userDto.setScore(member.getScore());
-                    userDto.setLoginId(member.getLoginId());
-                    session.setAttribute(UserDTO.MEMBER_LOGGED_SESSION_KEY, userDto);
+                    putUserToSession(session, member);
+                }else{
+                	// 会员不存在，直接调用服务创建会员，并开通服务
+                	Member regMember = memberService.autoRegistByEmail(email);
+                	if(regMember != null){
+                		putUserToSession(session, regMember);
+                	}
                 }
             }
         }
         return invocation.invoke();
     }
+
+	private void putUserToSession(HttpSession session, Member member) {
+		UserDTO userDto;
+		userDto = new UserDTO();
+		userDto.setId(member.getId());
+		userDto.setUserName(member.getName());
+		userDto.setScore(member.getScore());
+		userDto.setLoginId(member.getLoginId());
+		session.setAttribute(UserDTO.MEMBER_LOGGED_SESSION_KEY, userDto);
+	}
 
     public MemberService getMemberService() {
         return memberService;

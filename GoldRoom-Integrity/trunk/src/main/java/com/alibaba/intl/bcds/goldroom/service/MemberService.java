@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.mortbay.log.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.intl.bcds.goldroom.constaints.MemberEnableEnum;
 import com.alibaba.intl.bcds.goldroom.constaints.RoleEnum;
 import com.alibaba.intl.bcds.goldroom.dao.MemberDao;
+import com.alibaba.intl.bcds.goldroom.dataobject.AlibabaStaffDTO;
 import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.dataobject.UserDTO;
 import com.alibaba.intl.bcds.goldroom.mail.dataobject.EmailInfo;
@@ -29,6 +31,9 @@ public class MemberService {
 
     @Autowired
     private SendMailService sendMailService;
+    
+    @Autowired
+    private IntranetService intranetService;
 
     // @Autowired
     // private MemberLogDao memberLogDao;
@@ -101,6 +106,38 @@ public class MemberService {
         return true;
     }
 
+    /**
+     * 根据Email地址自动查询ali内网进行会员信息注册，同时自动进行approve操作
+     * @param email
+     * @return
+     * @author Harrison
+     */
+    public Member autoRegistByEmail(String email){
+    	Member regMember = null;
+    	if(StringUtils.isNotBlank(email)){
+    		AlibabaStaffDTO staff = intranetService.getUserInfoByEmail(email);
+    		if(staff != null){
+    			Member member = new Member();
+    			if(StringUtils.isNotBlank(staff.getAliTalkId()))member.setAliTalkId(staff.getAliTalkId());
+    			if(StringUtils.isNotBlank(staff.getStaffId()))member.setWorkId(Integer.valueOf(staff.getStaffId()));
+    			if(StringUtils.isNotBlank(staff.getExtPhone()))member.setExt(staff.getExtPhone());
+    			
+    			member.setLoginId((StringUtils.isNotBlank(staff.getNick()))?staff.getNick().toLowerCase():staff.getName());
+    			member.setPassword("hello1234");
+    			member.setName(staff.getName());
+    			member.setEmail(staff.getEmail());
+    			
+    			regMember = applyMember(member);
+    			boolean t = approveMember(regMember.getLoginId());
+    			Log.info(" user auto registed result : " + t + " with email: " + staff.getEmail() + " and staffId: " + staff.getStaffId());
+    		}else{
+    			logger.error(" can not obtain the original staff info with email: " + email);
+    		}
+    	}
+    	return regMember;
+    }
+    
+    
     public boolean tbdMembers(String loginId) {
         Member member = memberDao.findByLoginId(loginId);
         if (member == null) {
@@ -224,5 +261,19 @@ public class MemberService {
 	 */
 	public void setSendMailService(SendMailService sendMailService) {
 		this.sendMailService = sendMailService;
+	}
+
+	/**
+	 * @return the intranetService
+	 */
+	public IntranetService getIntranetService() {
+		return intranetService;
+	}
+
+	/**
+	 * @param intranetService the intranetService to set
+	 */
+	public void setIntranetService(IntranetService intranetService) {
+		this.intranetService = intranetService;
 	}
 }
