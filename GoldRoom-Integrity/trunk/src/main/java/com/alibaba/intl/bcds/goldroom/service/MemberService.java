@@ -80,18 +80,18 @@ public class MemberService {
         member.setEnable(MemberEnableEnum.NEW.getValue());
         member.setPassword(MD5.getMD5(member.getPassword()));
         member.setRole(RoleEnum.ROLE_USER.getName());
-        logger.info("[New Member Apply]" + member.getLoginId());
+        member.setEnable(MemberEnableEnum.APPROVE.getValue());
+        member.setScore(100); //initial member score to 100 , by Harrison 
+        
+        // send mail 
+        EmailInfo emailInfo = new EmailInfo(ServiceType.ACCOUNT_APPROVED);
+        emailInfo.setOwner(member);
+        emailInfo.addReceiverEmail(member.getEmail());
+        sendMailService.sendVelocityMail(emailInfo, null, null, null,null);
         memberDao.save(member);
 
-        approveMember(member.getLoginId()); //自动审核通过
+        logger.info("[New Member Apply]" + member.getLoginId() + " and sent the mail: " + member.getEmail());
         return member;
-
-        // MemberLog log = new MemberLog();
-        // log.setMemberId(memberId);
-        // log.setLogMsg("apply");
-        // log.setLogType(MemberLogType.APPLY.getIntValue());
-        // memberLogDao.insert(log);
-
     }
 
     public boolean approveMember(String loginId) {
@@ -100,19 +100,25 @@ public class MemberService {
             logger.info("[Approve Member Failed: Can not found member]" + loginId);
             return false;
         }
-        member.setEnable(MemberEnableEnum.APPROVE.getValue());
-        member.setScore(100); //initial member score to 100 , by Harrison 
-        memberDao.updateMemberByLoginId(member);
-
-        // send mail
-        EmailInfo emailInfo = new EmailInfo(ServiceType.ACCOUNT_APPROVED);
-        emailInfo.setOwner(member);
-        emailInfo.addReceiverEmail(member.getEmail());
-        sendMailService.sendVelocityMail(emailInfo, null, null, null,null);
-
-        logger.info("[Approve Member success]" + loginId);
+        processApproveMember(member);
         return true;
     }
+
+	private void processApproveMember(Member member) {
+		if(member != null){
+			member.setEnable(MemberEnableEnum.APPROVE.getValue());
+	        member.setScore(100); //initial member score to 100 , by Harrison 
+	        memberDao.updateMemberByLoginId(member);
+	
+	        // send mail
+	        EmailInfo emailInfo = new EmailInfo(ServiceType.ACCOUNT_APPROVED);
+	        emailInfo.setOwner(member);
+	        emailInfo.addReceiverEmail(member.getEmail());
+	        sendMailService.sendVelocityMail(emailInfo, null, null, null,null);
+	
+	        logger.info("[Approve Member success]" + member.getLoginId());
+		}
+	}
 
     /**
      * 根据Email地址自动查询ali内网进行会员信息注册，同时自动进行approve操作

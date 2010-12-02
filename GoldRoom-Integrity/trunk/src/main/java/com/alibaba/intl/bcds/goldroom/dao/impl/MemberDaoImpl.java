@@ -68,7 +68,7 @@ public class MemberDaoImpl extends BaseDao implements MemberDao {
 		if (m == null) {
 			return false;
 		}
-		BeanUtils.copyProperties(member, m);
+		BeanUtils.copyProperties(member, m, new String[]{"id"});
 		merge(m);
 		return true;
 	}
