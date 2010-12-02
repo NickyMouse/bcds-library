@@ -154,7 +154,7 @@ width:0;
 							<img width="120px;" height="160px;" class="bookImg" src="$!{imageServer}$!{bookInfo.imgUrl}" title="点击看大图" alt="$!bookInfo.name">
 						</a>
 					</div>
-					<div id="info">
+					<div id="info" style="line-height: 30px;">
 						#if($bookInfo.author)
 							<span class="pl"> 作者 </span> :
 							<a href="$base/book/search.do?keyword=$!{bookInfo.author}" target="_blank">$!bookInfo.author </a> <br>
@@ -237,14 +237,16 @@ width:0;
 			  #if($bookItem.state != 'ebook')
               <ul #if($velocityCount!=0)class="hide"#end>
                 <div class="newtags">
-                    <ul class="simple-dashed-list">
+                	<div style="float: right; position: absolute; left: 213px; top: 35px;">
+                		#if($bookItem.state == 'idle')
+                			<img onclick="javascript:showPopUp($!{bookItem.id})" src="/static/images/lending.png" style="cursor:pointer;width:80px;" title="借阅"/>	
+                		#else
+                			<img src="/static/images/lending-gray.png" style="cursor:pointer;width:80px;" title="不可借阅"/>
+                		#end
+                	</div>
+                	<ul class="simple-dashed-list">
                     	<div style="height: 50px;" class="ownerInfo">
                         	<li><b>姓名：</b>$!{bookItem.owner.name}
-								<div style="float:right;width:80px">
-									#if($bookItem.state == 'idle')
-									<a href="javascript:showPopUp($!{bookItem.id})">借阅</a>
-									#end
-								</div>
 							</li>
     						<li><b>工号：</b>$!{bookItem.owner.workId}</li>
                         	<li><b>座位：</b>$!{bookItem.owner.aliTalkId}</li>
@@ -266,7 +268,7 @@ width:0;
         });
         </script>
 
-		<div style="float: left; width: 950px; padding-top: 5px;" class="movie_new">
+		<div style="float: left; width: 950px; padding-top: 5px; line-height: 30px;" class="movie_new">
 			<h2 class="green_tab clearfix">
 				<a href="javascript:void(0)" class="on" id="new1"><span> 内容简介 </span> </a>
 				<a href="javascript:void(0)" id="new2"> <span> 书评 </span> </a>
@@ -278,9 +280,9 @@ width:0;
 
 			<ul id="newcontent2" class="content clearfix" style="display: none;">
 				#foreach($comment in $commentList)
-				<li style="width: 900px; padding-left: 30px;">
+				<li style="width: 900px; padding-left: 25px;">
 					<div style="float: left; width: 60px; height: 60px;" id="left_up">
-						<img class="pil" src="" alt="门牙猫咪咪♨下前下后拳"></div>
+						<img class="pil" src="" alt="$!{comment.member.name}"></div>
 						<div style="float: right; width: 800px; height: 100px;" id="right">
 							<h3>${comment.member.name}</h3>
 							<div style="padding-right: 3px; padding-left: 3px;">
@@ -333,7 +335,7 @@ width:0;
     <div class="first"><em></em><b></b></div>
     <div class="last"><em></em><b></b></div>
     <div class="imageBorder">
-        <img width="120px;" height="160px;" src="$!{imageServer}/$!relatedBookInfo.imgUrl" class="m_sub_img" style="cursor: pointer;" onclick="javascript:window.open('/detail/bookDetail.do?bookInfoId=$relatedBookInfo.id&log=detail&log1=$relatedBookInfo.id')">
+        <img width="120px;" height="160px;" src="$!{imageServer}$!relatedBookInfo.imgUrl" class="m_sub_img" style="cursor: pointer;" onclick="javascript:window.open('/detail/bookDetail.do?bookInfoId=$relatedBookInfo.id&log=detail&log1=$relatedBookInfo.id')">
         <DIV class="detail-frame">
             <H3><B>书籍简介:</B></H3>
             <P>
