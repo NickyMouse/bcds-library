@@ -8,6 +8,7 @@
 		<link rel="shortcut icon" type=image/x-icon href="$base/static/images/favicon.ico"/>
 		<link rel=stylesheet type=text/css href="$base/static/css/packed_douban243.css"/>
 		<link rel=stylesheet type=text/css href="$base/static/css/packed__all68.css"/>
+		<link rel=stylesheet type=text/css href="$base/static/css/goldroom.css"/>
 
 		<script type=text/javascript src="$base/static/js/jquery-1.4.2.min.js"></script>
 		<script type='text/javascript' src='$base/dwr/engine.js'></script>
