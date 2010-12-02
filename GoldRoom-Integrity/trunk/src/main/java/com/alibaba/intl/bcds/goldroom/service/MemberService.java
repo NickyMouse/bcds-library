@@ -66,6 +66,11 @@ public class MemberService {
     }
 
     public Member applyMember(Member member) {
+    	if(member == null ){
+    		logger.debug("member object is null ....");
+    		return null;
+    	}
+    	
         Member m = memberDao.findByLoginId(member.getLoginId().trim());
         if (m != null) {
             logger.info("[New Member Apply Failed: loginId already exist]" + member.getLoginId());
