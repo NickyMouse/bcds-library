@@ -52,6 +52,12 @@
 	</filter>
 	
 	<!-- filter-mappings -->
+	<!-- 解决请求编码问题 -->
+	<filter-mapping>
+		<filter-name>Encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	<!-- 加载OpenSessionInView -->
 	<filter-mapping>
 		<filter-name>singleSessionFilter</filter-name>
@@ -69,13 +75,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-
-	<!-- 解决请求编码问题 -->
-	<filter-mapping>
-		<filter-name>Encoding</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
