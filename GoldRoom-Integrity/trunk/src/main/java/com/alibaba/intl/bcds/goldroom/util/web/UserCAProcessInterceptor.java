@@ -41,7 +41,7 @@ public class UserCAProcessInterceptor extends AbstractInterceptor {
         if (userDto == null) {
             // 用户未登录
             String email = req.getHeader(UserDTO.MEMBER_CA_DN_KEY);
-            if (email != null) {
+            if (StringUtils.isNotBlank(email)) {
                 // 有证书
                 Member member = memberService.findMemberByEmail(email);
                 if (member != null && StringUtils.isNotBlank(member.getName())) {
