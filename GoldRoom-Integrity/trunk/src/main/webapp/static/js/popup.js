@@ -20,7 +20,7 @@ function PopUp(id, title, width, height, bgDark, hideCallback){
 	this.title = title;
 	this.allDark = bgDark;
 	this.left = (jQuery(window).width() - this.width) / 2;
-	this.top = (jQuery(window).height() - this.height) / 2;
+	this.top = (jQuery(document).height() - this.height) / 2;
 
 	if(typeof(hideCallback) == "function"){
 		this.hideCallback = hideCallback;
@@ -30,7 +30,7 @@ function PopUp(id, title, width, height, bgDark, hideCallback){
 	if(bgDark) {
     	var bgStyle = "display:none; height:" + jQuery(document).height() +"px; width:" + jQuery(document).width() +"px; left: 0px; top: 0px; z-index: 8888";
 	} else {
-		var bgStyle = "display:none; left:" + (this.left-10) + "px; top: " + (this.top-10) + "px; height: " + (this.height+40) + "px; width: " + (this.width+40) + "px; z-index: 8888";
+		var bgStyle = "display:none; left:" + (this.left - 10) + "px; top: " + (this.top - 10) + "px; height: " + (this.height + 40) + "px; width: " + (this.width + 40) + "px; z-index: 8888";
 	}
 	var contentStyle = "display:none; left:" + this.left + "px; top: " + this.top + "px; height: " + this.height + "px; width: " + this.width + "px; padding:10px; visibility: visible; z-index: 9999";
 
@@ -39,7 +39,7 @@ function PopUp(id, title, width, height, bgDark, hideCallback){
 	text += "<div class='pop_win' id='pop_win" + id + "' style='" + contentStyle + "'>";
 	text += "<a class='pop_win_close' id='pop_win_close" + id + "'>X</a>";
 	text += "<h2>" + title + "</h2>";
-	text += "<div id='pop_win_content" + id + "' style='width: " + this.width +"px; border-top: 1px dashed rgb(204, 204, 204); padding-top: 5px; height:100%'></div></div>";
+	text += "<div id='pop_win_content" + id + "' style='width: " + this.width +"px; border-top: 1px dashed rgb(204, 204, 204); padding-top: 5px; height:" + (this.height - 40) +"'></div></div>";
 
 
 	jQuery("body").append(jQuery(text));
