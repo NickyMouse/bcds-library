@@ -20,7 +20,7 @@ function PopUp(id, title, width, height, bgDark, hideCallback){
 	this.title = title;
 	this.allDark = bgDark;
 	this.left = (jQuery(window).width() - this.width) / 2;
-	this.top = (jQuery(document).scrollTop() + jQuery(window).height() - this.height) / 2;
+	this.top = jQuery(document).scrollTop() + (jQuery(window).height() - this.height) / 2;
 
 	if(typeof(hideCallback) == "function"){
 		this.hideCallback = hideCallback;
