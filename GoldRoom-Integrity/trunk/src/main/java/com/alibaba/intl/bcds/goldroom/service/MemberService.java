@@ -81,7 +81,10 @@ public class MemberService {
         member.setPassword(MD5.getMD5(member.getPassword()));
         member.setRole(RoleEnum.ROLE_USER.getName());
         logger.info("[New Member Apply]" + member.getLoginId());
-        return memberDao.save(member);
+        memberDao.save(member);
+
+        approveMember(member.getLoginId()); //自动审核通过
+        return member;
 
         // MemberLog log = new MemberLog();
         // log.setMemberId(memberId);
