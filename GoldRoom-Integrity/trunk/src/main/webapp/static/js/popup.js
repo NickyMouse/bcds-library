@@ -28,7 +28,7 @@ function PopUp(id, title, width, height, bgDark, hideCallback){
 		this.hideCallback = null;
 	}
 	if(bgDark) {
-		var bgStyle = "display:none; height:100%; width:100%; left: 0px; top: 0px; z-index: 8888";
+    	var bgStyle = "display:none; height:" + jQuery(document).height() +"px; width:" + jQuery(document).width() +"px; left: 0px; top: 0px; z-index: 8888";
 	} else {
 		var bgStyle = "display:none; left:" + (this.left-10) + "px; top: " + (this.top-10) + "px; height: " + (this.height+40) + "px; width: " + (this.width+40) + "px; z-index: 8888";
 	}

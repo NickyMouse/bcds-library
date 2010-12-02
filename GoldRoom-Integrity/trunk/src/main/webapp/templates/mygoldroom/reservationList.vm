@@ -65,7 +65,7 @@
 								 <span>结束时间: </span> $date.format($reservation.returnTime) <br/>
 								 #if($reservation.state == "reject")
 									<span>状态: </span> <span style="color:red">被拒绝 </span><br/>
-									<a href="#">重新预约</a>
+									##<a href="#">重新预约</a>
 								 #elseif($reservation.state == "toBeConfirm")
 									<span>状态: </span> <span style="color:blue">等待确认 </span> <br/>
 								 #end
