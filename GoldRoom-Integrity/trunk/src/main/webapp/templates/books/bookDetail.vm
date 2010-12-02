@@ -100,7 +100,7 @@
     			   	 	alert("评价成功");
 						var li ='<li style="width: 900px; padding-left: 30px;">'+
                     			'	<div style="float: left; width: 60px; height: 60px;" id="left_up">'+
-                    			'	<img class="pil" src="" alt="门牙猫咪咪♨下前下后拳"></div>'+
+                    			'	<img class="pil" src=""></div>'+
                     			'	<div style="float: right; width: 800px; height: 100px;" id="right">'+
                     			'		<h3>'+obj.memberName+'</h3>'+
                     			'		<div style="padding-right: 3px; padding-left: 3px;">'+
