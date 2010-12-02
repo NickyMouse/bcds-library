@@ -29,7 +29,7 @@
 			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.UploadPaperBookAction">
 			<result name="showForm" type="velocity">/templates/mygoldroom/uploadPaperBook.vm
 			</result>
-			<result name="success" type="velocity">/templates/mygoldroom/uploadPaperBook.vm
+			<result name="success" type="velocity">/templates/mygoldroom/uploadResult.vm
 			</result>
 		</action>
 
@@ -37,7 +37,7 @@
 			class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.UploadEBookAction">
 			<result name="showForm" type="velocity">/templates/mygoldroom/uploadEBook.vm
 			</result>
-			<result name="success" type="velocity">/templates/mygoldroom/uploadEBook.vm
+			<result name="success" type="velocity">/templates/mygoldroom/uploadResult.vm
 			</result>
 			<result name="error" type="velocity">/templates/mygoldroom/uploadEBook.vm
 			</result>
