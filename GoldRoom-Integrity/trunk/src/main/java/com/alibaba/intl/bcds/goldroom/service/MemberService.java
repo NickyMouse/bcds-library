@@ -66,7 +66,7 @@ public class MemberService {
     }
 
     public Member applyMember(Member member) {
-    	if(member == null ){
+    	if(member == null && StringUtils.isNotBlank(member.getLoginId())){
     		logger.debug("member object is null ....");
     		return null;
     	}
