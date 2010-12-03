@@ -2,6 +2,7 @@ package com.alibaba.intl.bcds.goldroom.action.books;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -135,7 +136,21 @@ public class SearchBookListAction extends BaseAction {
         return "json";
     }
     
-    public void testQz(){
+    public void testQz() throws IOException{
         log.info("loop for test Quartz");
+        long start = System.currentTimeMillis();
+        String httpUrl = "http://amos.im.alisoft.com/online.aw?v=2&uid=linchaosen&site=cnalichn&s=1";
+        log.info("loop chaosenww1:" + start + ":" + httpUrl);
+        URL url = new URL(httpUrl);
+        log.info("loop chaosenww2:" + start + ":" + httpUrl + ":" + (System.currentTimeMillis() - start));
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        log.info("loop chaosenww3:" + start + ":" + httpUrl + ":" + (System.currentTimeMillis() - start));
+        log.debug(httpUrl + ":" +conn.getResponseCode());//必须对conn做一次动作，不然返回的URL不会变，即返回的不是重定向后的图片URL
+        if(conn.getURL().toString().endsWith("online.gif")){
+            log.info("loop chaosenww4:" + start + ":" + httpUrl + ":" + (System.currentTimeMillis() - start));
+            this.getRequest().setAttribute("userOnline", "yes");
+        }
+        long end = System.currentTimeMillis();
+        log.info("loop chaosenww5:" + end+ ":" + httpUrl + ":" + (end - start) );
     }
 }
