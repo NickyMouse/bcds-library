@@ -119,12 +119,16 @@ public class SearchBookListAction extends BaseAction {
     
     public String findWangWang() throws IOException{
         String httpUrl = this.getRequest().getParameter("httpUrl");
+        long start = System.currentTimeMillis();
+        log.info("chaosenww1:" + start + ":" + httpUrl);
         URL url = new URL(httpUrl);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         log.debug(conn.getHeaderFields());//必须对conn做一次动作，不然返回的URL不会变，即返回的不是重定向后的图片URL
         if(conn.getURL().toString().endsWith("online.gif")){
             this.getRequest().setAttribute("userOnline", "yes");
         }
+        long end = System.currentTimeMillis();
+        log.info("chaosenww2:" + end+ ":" + httpUrl + ":" + (end - start) );
         return "json";
     }
     
