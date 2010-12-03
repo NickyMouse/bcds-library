@@ -148,7 +148,6 @@ public class SearchBookListAction extends BaseAction {
         log.debug(httpUrl + ":" +conn.getResponseCode());//必须对conn做一次动作，不然返回的URL不会变，即返回的不是重定向后的图片URL
         if(conn.getURL().toString().endsWith("online.gif")){
             log.info("loop chaosenww4:" + start + ":" + httpUrl + ":" + (System.currentTimeMillis() - start));
-            this.getRequest().setAttribute("userOnline", "yes");
         }
         long end = System.currentTimeMillis();
         log.info("loop chaosenww5:" + end+ ":" + httpUrl + ":" + (end - start) );
