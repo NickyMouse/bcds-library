@@ -122,13 +122,16 @@ public class SearchBookListAction extends BaseAction {
         long start = System.currentTimeMillis();
         log.info("chaosenww1:" + start + ":" + httpUrl);
         URL url = new URL(httpUrl);
+        log.info("chaosenww2:" + start + ":" + httpUrl + ":" + (System.currentTimeMillis() - start));
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        log.info("chaosenww3:" + start + ":" + httpUrl + ":" + (System.currentTimeMillis() - start));
         log.debug(conn.getHeaderFields());//必须对conn做一次动作，不然返回的URL不会变，即返回的不是重定向后的图片URL
         if(conn.getURL().toString().endsWith("online.gif")){
+            log.info("chaosenww4:" + start + ":" + httpUrl + ":" + (System.currentTimeMillis() - start));
             this.getRequest().setAttribute("userOnline", "yes");
         }
         long end = System.currentTimeMillis();
-        log.info("chaosenww2:" + end+ ":" + httpUrl + ":" + (end - start) );
+        log.info("chaosenww5:" + end+ ":" + httpUrl + ":" + (end - start) );
         return "json";
     }
     
