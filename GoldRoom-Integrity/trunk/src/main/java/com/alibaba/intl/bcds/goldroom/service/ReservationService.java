@@ -122,7 +122,7 @@ public class ReservationService {
                     emailInfo.addReceiverEmail(lending.getSubscriber().getEmail());
                     sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
                 } catch (Exception e) {
-
+                    logger.error(e);
                 }
                 logger.info("[Lend book success]" + lending.getId());
                 return true;
@@ -151,7 +151,7 @@ public class ReservationService {
                         emailInfo.addReceiverEmail(bookOwner.getEmail());
                         sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
                     } catch (Exception e) {
-
+                        logger.error(e);
                     }
                 }
                 // 书籍被预定
@@ -162,7 +162,7 @@ public class ReservationService {
                 /* -- end -- */
 
                 item.setState(BookItemStateEnum.RESERVATED.getValue());
-                bookItemDao.updateById(item);
+                bookItemDao.updateBookItemState(item);
                 return true;
             }
         } else {

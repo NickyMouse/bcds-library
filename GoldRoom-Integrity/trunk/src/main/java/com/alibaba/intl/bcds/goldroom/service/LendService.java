@@ -87,14 +87,13 @@ public class LendService {
 
 			// 发邮件
 			try {
-				// EmailInfo emailInfo = new EmailInfo(ServiceType.GET_BOOK);
-				// emailInfo.setOwner(bookOwner);
-				// emailInfo.setBorrower(lending.getSubscriber());
-				// emailInfo.setBookInfo(bookItem.getBookInfo());
-				// emailInfo.setLending(lending);
-				// emailInfo.addReceiverEmail(lending.getSubscriber().getEmail());
-				// sendMailService.sendVelocityMail(emailInfo, null, null, null,
-				// null);
+                EmailInfo emailInfo = new EmailInfo(ServiceType.GET_BOOK);
+                emailInfo.setOwner(bookOwner);
+                emailInfo.setBorrower(lending.getSubscriber());
+                emailInfo.setBookInfo(bookItem.getBookInfo());
+                emailInfo.setLending(lending);
+                emailInfo.addReceiverEmail(lending.getSubscriber().getEmail());
+                sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
 			} catch (Exception e) {
 
 			}
@@ -155,19 +154,17 @@ public class LendService {
 			bookItem.setState(BookItemStateEnum.IDLE.getValue());
 			bookItemDao.updateBookItemState(bookItem);
 
-			// try {
-			// EmailInfo emailInfo = new
-			// EmailInfo(ServiceType.REJECT_LEND_BOOK);
-			// emailInfo.setOwner(bookOwner);
-			// emailInfo.setBorrower(reservation.getSubscriber());
-			// emailInfo.setBookInfo(bookItem.getBookInfo());
-			// emailInfo.setReservation(reservation);
-			// emailInfo.addReceiverEmail(reservation.getSubscriber().getEmail());
-			// sendMailService.sendVelocityMail(emailInfo, null, null, null,
-			// null);
-			// } catch (Exception e) {
-			//
-			// }
+            try {
+                EmailInfo emailInfo = new EmailInfo(ServiceType.REJECT_LEND_BOOK);
+                emailInfo.setOwner(bookOwner);
+                emailInfo.setBorrower(reservation.getSubscriber());
+                emailInfo.setBookInfo(bookItem.getBookInfo());
+                emailInfo.setReservation(reservation);
+                emailInfo.addReceiverEmail(reservation.getSubscriber().getEmail());
+                sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
+            } catch (Exception e) {
+
+            }
 		}
 		return true;
 	}
