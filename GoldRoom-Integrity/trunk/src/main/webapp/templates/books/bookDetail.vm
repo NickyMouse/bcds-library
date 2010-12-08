@@ -273,11 +273,7 @@ width:0;
 			</h2>
 
 			<ul id="newcontent1" class="content clearfix" style="text-indent: 2em; display: block;">
-				#if($!bookInfo.description.length() > 200)
-				    $!bookInfo.description.substring(0,200)...
-   				#else
-				    $!bookInfo.description
-   				#end
+				$!bookInfo.description
 			</ul>
 
 			<ul id="newcontent2" class="content clearfix" style="display: none;">
@@ -339,7 +335,7 @@ width:0;
         <DIV class="detail-frame">
             <H3><B>书籍简介:</B></H3>
             <P>
-                #if($!book.description.length() > 200) $relatedBookInfo.description.substring(0,200)...
+                #if($!relatedBookInfo.description.length() > 200) $relatedBookInfo.description.substring(0,200)...
                 #else $!relatedBookInfo.description #end
             </P>
         </DIV>
