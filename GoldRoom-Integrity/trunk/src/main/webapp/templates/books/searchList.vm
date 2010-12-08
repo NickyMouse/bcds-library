@@ -117,7 +117,7 @@ a.ww-mobile{background-position:0 -40px;}
 				<DIV class="detail-frame">
 					<H3><B>书籍简介:</B></H3>
 					<P>
-					    #if($!book.description.length() > 200)
+					    #if($!book.info.description.length() > 200)
 						   $!book.info.description.substring(0,200)...
    						#else
 						   $!book.info.description
