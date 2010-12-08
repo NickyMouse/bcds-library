@@ -92,7 +92,7 @@
 <script>
 	function buildReservationOrLendingInfo(bookName, r){
 		var str="<table style='margin:auto'>";
-		str += "<tr><td style='text-align:right'>" + "书籍：" + "</td><td>" + bookName + "</td></tr>";
+		str += "<tr><td style='text-align:right; width:100px'>" + "书籍：" + "</td><td>" + bookName + "</td></tr>";
     	str += "<tr><td style='text-align:right'>" + "姓名：" + "</td><td>" + getIntranetSearchHtml(r.subscriber.name) + "</td></tr>";
 
     	if(r.subscriber.workId) {

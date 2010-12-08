@@ -32,7 +32,7 @@ function PopUp(id, title, width, height, bgDark, hideCallback){
 	} else {
 		var bgStyle = "display:none; left:" + (this.left - 10) + "px; top: " + (this.top - 10) + "px; height: " + (this.height + 40) + "px; width: " + (this.width + 40) + "px; z-index: 8888";
 	}
-	var contentStyle = "display:none; left:" + this.left + "px; top: " + this.top + "px; height: " + this.height + "px; width: " + this.width + "px; padding:10px; visibility: visible; z-index: 9999";
+	var contentStyle = "position:absolute; display:none; left:" + this.left + "px; top: " + this.top + "px; height: " + this.height + "px; width: " + this.width + "px; padding:10px; visibility: visible; z-index: 9999";
 
 	var text = "<div style='clear:both' id='pop_win_clear" + id + "'></div>";
 	text += "<div class='pop_win_bg' id='pop_win_bg" + id + "' style='" + bgStyle + "'></div>";
