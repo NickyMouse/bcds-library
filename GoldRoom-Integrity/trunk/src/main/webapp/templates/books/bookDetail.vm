@@ -185,7 +185,7 @@ width:0;
 					<br/><a href="$base/mygoldroom/uploadEBook.action?isbn=$bookInfo.isbn" target="_blank">我有电子版，我要分享</a>
 					#end
 					#if($!bookInfo.storeState == "ebook" || $!bookInfo.storeState == "both")
-						<br/><br/><a href="$!{ebookServer}$!item.bookInfo.eBookUrl"> [ 下载电子书 ]</a><br/>
+						<br/><br/><a href="$!{ebookServer}$!bookInfo.eBookUrl"> [ 下载电子书 ]</a><br/>
 					#end
 				</div>
 			</div>
