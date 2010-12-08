@@ -181,7 +181,7 @@ width:0;
 				<div id="interest_sectl">
 					<a href="$base/mygoldroom/uploadPaperBook.action?isbn=$bookInfo.isbn" target="_blank">我也有这本书，我要分享</a><br/>
 					#if($!bookInfo.storeState == "paper")
-					<a href="$base/mygoldroom/uploadEBook.action?isbn=$bookInfo.isbn" target="_blank">我有电子版，我要分享</a>
+					<br/><a href="$base/mygoldroom/uploadEBook.action?isbn=$bookInfo.isbn" target="_blank">我有电子版，我要分享</a>
 					#end
 				</div>
 			</div>
