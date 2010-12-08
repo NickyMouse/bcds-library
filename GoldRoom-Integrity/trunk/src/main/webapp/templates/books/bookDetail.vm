@@ -98,18 +98,16 @@
 					 eval("var obj ="+response);
 					if(obj.result == "success"){
     			   	 	alert("评价成功");
-						var li ='<li style="width: 900px; padding-left: 30px;">'+
-                    			'	<div style="float: left; width: 60px; height: 60px;" id="left_up">'+
-                    			'	<img class="pil" src=""></div>'+
-                    			'	<div style="float: right; width: 800px; height: 100px;" id="right">'+
-                    			'		<h3>'+obj.memberName+'</h3>'+
-                    			'		<div style="padding-right: 3px; padding-left: 3px;">'+
+						var li ='<li style="width: 900px; padding-left: 25px; height:auto;">'+
+                    			'	<div id="left_up">'+
+                    			'	<div id="right">'+
+                    			'		<h3>'+obj.memberName+'&nbsp;&nbsp;' + obj.gmtCreate + '</h3>'+
+                    			'		<div style="padding-right: 20px; padding-left: 20px;">'+
                     			'		'+content +
                     			'		</div>'+
                     			'	</div>'+
-                    			'	<div style="float: left; width: 60px; height: 30px;" id="left_down">'+ obj.gmtCreate +'</div>'+
                     			'</li>';
-						
+
 						jQuery("#jsAddComment").html(jQuery("#jsAddComment").html() + li);
 						jQuery("#comment_content").val("");
     			 	} else {
@@ -239,7 +237,7 @@ width:0;
                 <div class="newtags">
                 	<div style="float: right; position: absolute; left: 213px; top: 35px;">
                 		#if($bookItem.state == 'idle')
-                			<img onclick="javascript:showPopUp($!{bookItem.id})" src="/static/images/lending.png" style="cursor:pointer;width:80px;" title="借阅"/>	
+                			<img onclick="javascript:showPopUp($!{bookItem.id})" src="/static/images/lending.png" style="cursor:pointer;width:80px;" title="借阅"/>
                 		#else
                 			<img src="/static/images/lending-gray.png" style="cursor:pointer;width:80px;" title="不可借阅"/>
                 		#end
@@ -280,21 +278,19 @@ width:0;
 
 			<ul id="newcontent2" class="content clearfix" style="display: none;">
 				#foreach($comment in $commentList)
-				<li style="width: 900px; padding-left: 25px;">
-					<div style="float: left; width: 60px; height: 60px;" id="left_up">
-						<img class="pil" src="" alt="$!{comment.member.name}"></div>
-						<div style="float: right; width: 800px; height: 100px;" id="right">
-							<h3>${comment.member.name}</h3>
-							<div style="padding-right: 3px; padding-left: 3px;">
+				<li style="width: 900px; padding-left: 25px; height:auto;">
+					<div style="; id="left_up">
+						<div style="" id="right">
+							<h3>${comment.member.name} &nbsp;&nbsp; $!date.format("yyyy-MM-dd", $!{comment.gmtCreate})</h3>
+							<div style="padding-right: 20px; padding-left: 20px;">
 								$!{comment.content}
 							</div>
 						</div>
-						<div style="float: left; width: 60px; height: 30px;" id="left_down">$date.format("yyyy-MM-dd", $!{comment.gmtCreate})</div>
 				</li>
 				#end
 				<div id="jsAddComment"></div>
-				
-		
+
+
 				<li style="width: 900px; padding-left: 30px;height: 220px;">
     				<table width="341" border="0">
                       <tr>
@@ -317,8 +313,8 @@ width:0;
 				</li>
 				#end
 			</ul>
-		
-			
+
+
 		</div>
 	</div>
 	<br/>
