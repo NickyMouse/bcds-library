@@ -75,13 +75,14 @@
                 	type: "POST",
                    	url: "$base/mygoldroom/reservationManage.action",
                    	data: "bookItemId=" + bookItemId + "&lendTime=" + d1Val + "&returnTime=" + d2Val,
+					beforeSend: function () {
+						jQuery("#pop_win_contentonShelve").html("处理中，请稍候...");
+					},
                    	success: function(msg){
     					if(msg == "success"){
-        			   	 	alert("借阅成功");
-							popUp.hide();
+        			   	 	jQuery("#pop_win_contentonShelve").html("借阅成功");
         			 	} else {
-    						alert("借阅失败");
-							popUp.hide();
+    						jQuery("#pop_win_contentonShelve").html("借阅失败");
     					}
                    	}
     			});
