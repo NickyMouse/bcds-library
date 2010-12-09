@@ -72,4 +72,8 @@ function PopUp(id, title, width, height, bgDark, hideCallback){
 		jQuery("#pop_win" + id).show();
 		jQuery("#pop_win_bg" + id).show();
 	};
+	
+	this.content = function (innerHTML) {
+		jQuery("#pop_win_content" + id).html(innerHTML);
+	}
 }

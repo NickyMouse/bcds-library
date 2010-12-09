@@ -125,16 +125,21 @@
 
 	var showReservation = function(bookItemId, bookName)
 	{
+		var reloadFunc = function () {location.reload();};
+		var popUp = new PopUp("reservation", "预约信息", 350, 320, true, reloadFunc);
 		this.reservationManage = function (reservationId, type){
 			jQuery.ajax({
             	type: "POST",
                	url: "$base/mygoldroom/lendingManage.action",
                	data: "type=" + type + "&reservationId=" + reservationId,
+				beforeSend: function () {
+					popUp.show("处理中，请稍候...");
+				},
                	success: function(msg){
     		   	 	if(msg != "success"){
-    			   	 	alert("操作失败");
+    			   	 	popUp.show("<div style=\"text-align: center; width: 100%;\"><h2>操作失败...</h2></div>");
     			 	} else {
-						location.reload();
+						popUp.show("<div style=\"text-align: center; width: 100%;\"><h2>操作成功...</h2></div>");
 					}
                	}
 			});
@@ -146,7 +151,6 @@
     			var str = buildReservationOrLendingInfo(bookName, r);
 				str += "<br/><div style='text-align:center'><input type='button' id='agreeLendBtn' value='同意借阅'/>";
 				str += "&nbsp;&nbsp;<input type='button' id='rejectLendBtn' value='拒绝借阅'/></div>";
-    			var popUp = new PopUp("reservation", "预约信息", 350, 320, true);
     			popUp.show(str);
 				jQuery("#agreeLendBtn").click(
 					function(){
@@ -165,17 +169,21 @@
 
 	var showLending = function(bookItemId, bookName)
 	{
-
+		var reloadFunc = function () {location.reload();};
+		var popUp = new PopUp("reservation", "借阅信息", 350, 320, true, reloadFunc);
 		this.lendManage = function (lendId, type){
 			jQuery.ajax({
             	type: "POST",
                	url: "$base/mygoldroom/lendingManage.action",
                	data: "type=" + type + "&lendId=" + lendId,
+				beforeSend: function () {
+					popUp.show("处理中，请稍候...");
+				},
                	success: function(msg){
 					if(msg != "success"){
-    			   	 	alert("确认归还失败");
+    			   	 	popUp.show("<div style=\"text-align: center; width: 100%;\"><h2>操作失败...</h2></div>");
     			 	} else {
-						location.reload();
+						popUp.show("<div style=\"text-align: center; width: 100%;\"><h2>操作成功...</h2></div>");
 					}
                	}
 			});
@@ -188,9 +196,7 @@
     			var str = buildReservationOrLendingInfo(bookName, r);
 				str += "<br/><div style='text-align:center'><input type='button' id='returnBookBtn' value='确认归还'/>";
 				str += "&nbsp;&nbsp;<input type='button' id='cancelReturnBookBtn' value='取消'/></div>";
-    			var popUp = new PopUp("reservation", "借阅信息", 350, 320, true);
     			popUp.show(str);
-
 				jQuery("#returnBookBtn").click(
 					function(){
 						lendManage(r.id, "returnBook");
