@@ -21,14 +21,17 @@
 	
 	<script type="text/javascript" src="$base/dwr/interface/MemberService.js"></script>
 	<script type="text/javascript">
+		var isLogin = 'N';
 		function userLogon(){
 			MemberService.doLogin(jQuery("#username").val(), jQuery("#password").val(), function(resp){
 				if(resp != null){
 					var userInfoStr = "<label>欢迎您：</label>" + resp.userName + " ，您当前积分：" + (resp.score == null?0:resp.score) 
 					+ "&nbsp;&nbsp; <a href='$base/mygoldroom/myBooksList.action'>查看我的黄金屋</a>";
 					jQuery("#member_login_id").html(userInfoStr);
+					isLogin = 'Y';
 				}else{
 					alert("登录失败：用户名或密码错～！");
+					isLogin = 'N';
 				}
 			});
 		}

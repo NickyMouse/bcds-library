@@ -33,6 +33,10 @@
 
 
  function showPopUp(bookItemId){
+ 	if(isLogin=='N'){
+		alert('对不起，您还未登陆，请先登陆！');
+		return;
+	}
     var popUp = new PopUp("onShelve", "书籍借阅", 250, 150, true);
 
 	var table = '<table width="226" height="108" border="0" align="center">'+
