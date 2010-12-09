@@ -127,6 +127,7 @@
 	{
 		var reloadFunc = function () {location.reload();};
 		var popUp = new PopUp("reservation", "预约信息", 350, 320, true, reloadFunc);
+		popUp.callbackEnable(false);
 		this.reservationManage = function (reservationId, type){
 			jQuery.ajax({
             	type: "POST",
@@ -139,6 +140,7 @@
     		   	 	if(msg != "success"){
     			   	 	popUp.show("<div style=\"text-align: center; width: 100%;\"><h2>操作失败...</h2></div>");
     			 	} else {
+						popUp.callbackEnable(true);
 						popUp.show("<div style=\"text-align: center; width: 100%;\"><h2>操作成功...</h2></div>");
 					}
                	}
@@ -171,6 +173,7 @@
 	{
 		var reloadFunc = function () {location.reload();};
 		var popUp = new PopUp("reservation", "借阅信息", 350, 320, true, reloadFunc);
+		popUp.callbackEnable(false);
 		this.lendManage = function (lendId, type){
 			jQuery.ajax({
             	type: "POST",
@@ -183,6 +186,7 @@
 					if(msg != "success"){
     			   	 	popUp.show("<div style=\"text-align: center; width: 100%;\"><h2>操作失败...</h2></div>");
     			 	} else {
+						popUp.callbackEnable(true);
 						popUp.show("<div style=\"text-align: center; width: 100%;\"><h2>操作成功...</h2></div>");
 					}
                	}

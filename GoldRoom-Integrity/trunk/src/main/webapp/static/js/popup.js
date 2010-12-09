@@ -21,7 +21,7 @@ function PopUp(id, title, width, height, bgDark, hideCallback){
 	this.allDark = bgDark;
 	this.left = (jQuery(window).width() - this.width) / 2;
 	this.top = jQuery(document).scrollTop() + (jQuery(window).height() - this.height) / 2;
-
+	this.hideCallbackEnable = true;
 	if(typeof(hideCallback) == "function"){
 		this.hideCallback = hideCallback;
 	} else {
@@ -52,7 +52,7 @@ function PopUp(id, title, width, height, bgDark, hideCallback){
 				jQuery("#pop_win_bg" + id).remove();
 				jQuery("#pop_win_content" + id).remove();
 				jQuery("#pop_win_clear" + id).remove();
-				if(hideCallback){
+				if(hideCallbackEnable && hideCallback){
 					hideCallback();
 				}
 			}
@@ -75,5 +75,9 @@ function PopUp(id, title, width, height, bgDark, hideCallback){
 	
 	this.content = function (innerHTML) {
 		jQuery("#pop_win_content" + id).html(innerHTML);
+	}
+	
+	this.callbackEnable = function (isEnable) {
+		this.hideCallbackEnable = isEnable;
 	}
 }
