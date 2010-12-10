@@ -58,7 +58,15 @@ public class SendMailServiceImpl implements SendMailService {
                 velocityMailMessage.setSubject(info.getSubject());
             }
 
-            velocityMailMessage.send();
+
+			Runnable thread = new Runnable() {
+				public void run() {
+					velocityMailMessage.send();
+				}
+			};
+
+			new Thread(thread).start();
+          
         }
     }
 }
