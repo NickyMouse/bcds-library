@@ -17,14 +17,14 @@ import com.alibaba.intl.bcds.goldroom.mail.utils.VelocityTemplateMailMessage;
 
 public class SendMailServiceImpl implements SendMailService {
 
-    private static Logger               logger      = Logger.getLogger(SendMailServiceImpl.class);
-    private static EmailInfoChecker     checker     = new EmailInfoCheckerImpl();
-    private static FormatUtils          formatUtils = new FormatUtils();
+	private static Logger logger = Logger.getLogger(SendMailServiceImpl.class);
+	private static EmailInfoChecker checker = new EmailInfoCheckerImpl();
+	private static FormatUtils formatUtils = new FormatUtils();
 
-    @Autowired
+	@Autowired
 	private VelocityTemplateMailMessage velocityMailMessage;
 
-    public VelocityTemplateMailMessage getVelocityMailMessage() {
+	public VelocityTemplateMailMessage getVelocityMailMessage() {
 		return velocityMailMessage;
 	}
 
@@ -34,39 +34,50 @@ public class SendMailServiceImpl implements SendMailService {
 	}
 
 	@Override
-    public void sendVelocityMail(EmailInfo info, String velocityTemplateLocation, Map templateDataModule, String from,
-                                 String subject) {
+	public void sendVelocityMail(EmailInfo info,
+			String velocityTemplateLocation, Map templateDataModule,
+			String from, String subject) {
 
-        if (checker.isOk(info)) {
+		if (checker.isOk(info)) {
 
-            velocityMailMessage.setTemplateLocation(velocityTemplateLocation == null ? TemplateSelector.getInstance().getTemplate(info.getServiceType()) : velocityTemplateLocation);
-            // 若未提供模板路径，则直接通过serviceType提取对应路径
+			velocityMailMessage
+					.setTemplateLocation(velocityTemplateLocation == null ? TemplateSelector
+							.getInstance().getTemplate(info.getServiceType())
+							: velocityTemplateLocation);
+			// 若未提供模板路径，则直接通过serviceType提取对应路径
 
-            if (templateDataModule == null || templateDataModule.isEmpty()) {
-                templateDataModule = new HashMap<String, Object>();
-                templateDataModule.put("info", info);
-                templateDataModule.put("formatUtils", formatUtils);
-            }// 若接口调用时未注入对应的vm模板变量，则使用默认的变量对象处理
-            velocityMailMessage.setModel(templateDataModule);
+			if (templateDataModule == null || templateDataModule.isEmpty()) {
+				templateDataModule = new HashMap<String, Object>();
+				templateDataModule.put("info", info);
+				templateDataModule.put("formatUtils", formatUtils);
+			}// 若接口调用时未注入对应的vm模板变量，则使用默认的变量对象处理
+			velocityMailMessage.setModel(templateDataModule);
 
-            velocityMailMessage.setToEmails(info.getReceiverEmails().toArray(new String[info.getReceiverEmails().size()]));
+			velocityMailMessage.setToEmails(info.getReceiverEmails().toArray(
+					new String[info.getReceiverEmails().size()]));
 
-            if (StringUtils.isNotBlank(from)) velocityMailMessage.setFrom(from);
-            if (StringUtils.isNotBlank(subject)) {
-                velocityMailMessage.setSubject(subject);
-            } else if (StringUtils.isNotBlank(info.getSubject())) {
-                velocityMailMessage.setSubject(info.getSubject());
-            }
+			if (StringUtils.isNotBlank(from))
+				velocityMailMessage.setFrom(from);
+			if (StringUtils.isNotBlank(subject)) {
+				velocityMailMessage.setSubject(subject);
+			} else if (StringUtils.isNotBlank(info.getSubject())) {
+				velocityMailMessage.setSubject(info.getSubject());
+			}
 
+			// Runnable thread = new Runnable() {
+			// public void run() {
+			velocityMailMessage.send();
+			// try {
+			// Thread.sleep(100);
+			// } catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
+			// }
+			// };
 
-			Runnable thread = new Runnable() {
-				public void run() {
-					velocityMailMessage.send();
-				}
-			};
+			// new Thread(thread).start();
 
-			new Thread(thread).start();
-          
-        }
-    }
+		}
+	}
 }
