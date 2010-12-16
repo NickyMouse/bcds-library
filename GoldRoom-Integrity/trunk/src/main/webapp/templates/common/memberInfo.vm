@@ -1,6 +1,9 @@
 	#if($session && $session.getAttribute("LOGGED_USER"))
 	
 	#set( $userDto = $session.getAttribute("LOGGED_USER") ) 
+	<script type="text/javascript">
+		var isLogin = 'Y';
+    </script>
 	<DIV class="top-nav-info" id="member_login_id">	
 		欢迎您：$userDto.userName ， 您当前积分：#if($userDto && $userDto.score) $userDto.score #else 0 #end 
 		&nbsp;&nbsp; 
