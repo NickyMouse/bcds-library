@@ -1,9 +1,13 @@
 package com.alibaba.intl.bcds.goldroom.action.books;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +20,15 @@ import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
+import com.alibaba.intl.bcds.goldroom.wangwang.WwSocket;
+import com.alibaba.intl.bcds.goldroom.wangwang.WwSocketQueue;
 
 public class SearchBookListAction extends BaseAction {
 
     private static final long   serialVersionUID = -6714583660333399107L;
 
+    private WwSocketQueue       wwSocketQueue;
+    
     private BookInfoService     bookInfoService;
     private String              keyword;
     private String              bookType;
@@ -35,6 +43,10 @@ public class SearchBookListAction extends BaseAction {
 
     public BookBigObjectPage getBigObjectPage() {
         return bigObjectPage;
+    }
+    
+    public void setWwSocketQueue(WwSocketQueue wwSocketQueue) {
+        this.wwSocketQueue = wwSocketQueue;
     }
     
     public String getAliTalk() {
@@ -118,6 +130,68 @@ public class SearchBookListAction extends BaseAction {
         return SUCCESS;
     }
     
+    /**
+     * 通过queue缓存的方式读取amos.im.alisoft.com，判断旺旺是否在线</br>
+     * 建议使用
+     * @return
+     */
+    public String findWangWangSocket() {
+        String aliTalk = this.getRequest().getParameter("aliTalk");
+        WwSocket socket = wwSocketQueue.poll();
+        boolean online = socket.wwStatusOnLine(aliTalk);
+        if(online){
+            this.getRequest().setAttribute("userOnline", "yes");
+        }else{
+            this.getRequest().setAttribute("userOnline", "no");
+        }
+        wwSocketQueue.offer(socket);
+        return "json";
+    }
+    
+    /**
+     * 通过new Socket的方式读取amos.im.alisoft.com，判断旺旺是否在线</br>
+     * 不建议使用
+     * @return
+     */
+    public String findWangWangSocket2() {
+        String aliTalk = this.getRequest().getParameter("aliTalk");
+        try {
+            String PARAM1 = "GET http://amos.im.alisoft.com/online.aw?v=2&site=cnalichn&s=1&uid=";
+            String PARAM2 = " HTTP/1.0\r\n\r\n";
+            Socket socket = new Socket("amos.im.alisoft.com", 80);
+            PrintWriter socketWriter = null;
+            BufferedReader socketReader = null;
+//            String cmd = "GET http://amos.im.alisoft.com/online.aw?v=2&uid=linchaosen&site=cnalichn&s=1 HTTP/1.0\r\n\r\n";
+            socketWriter = new PrintWriter(socket.getOutputStream());
+//            socketWriter.println(cmd);            
+            socketWriter.println(PARAM1 + aliTalk + PARAM2);            
+            socketWriter.flush();
+            socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String line = null;
+            while((line=socketReader.readLine())!=null){
+                if(line.startsWith("Location")){
+                    if(line.endsWith("online.gif")){
+                        this.getRequest().setAttribute("userOnline", "yes");
+                    }
+                    break;
+                }
+            }
+//            socket.shutdownInput();
+//            socket.shutdownOutput();
+            socket.close();
+            socketWriter.close();
+            socketReader.close();
+            socketWriter = null;
+            socketReader = null;
+            socket = null;
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "json";
+    }
+    
     public String findWangWang() throws IOException{
         String httpUrl = this.getRequest().getParameter("httpUrl");
         long start = System.currentTimeMillis();
@@ -138,7 +212,7 @@ public class SearchBookListAction extends BaseAction {
     
     public void testQz() throws IOException{
         log.info("loop for test Quartz");
-        for(int i=0; i<6; i++){
+        for(int i=0; i<1; i++){
             
             long start = System.currentTimeMillis();
             String httpUrl = "http://amos.im.alisoft.com/online.aw?v=2&uid=linchaosen&site=cnalichn&s=1";
@@ -148,7 +222,7 @@ public class SearchBookListAction extends BaseAction {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             log.info("loop chaosenww3:" + start + ":" + httpUrl + ":" + (System.currentTimeMillis() - start));
             log.debug(httpUrl + ":" +conn.getResponseCode());//必须对conn做一次动作，不然返回的URL不会变，即返回的不是重定向后的图片URL
-            if(conn.getURL().toString().endsWith("online.gif")){
+            if(!conn.getURL().toString().endsWith("online.gif")){
                 log.info("loop chaosenww4:" + start + ":" + httpUrl + ":" + (System.currentTimeMillis() - start));
             }
             long end = System.currentTimeMillis();
