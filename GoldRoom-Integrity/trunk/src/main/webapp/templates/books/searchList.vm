@@ -190,11 +190,10 @@ jQuery(function () {
 	jQuery("a#wangwang").each(function(ind){
 		var obj = jQuery(this);
 		var username = jQuery(this).attr("data-username")
-		var imgSrc = "http://amos.im.alisoft.com/online.aw?v=2&uid=" +username+ "&site=cnalichn&s=1";
 		var wwSrc  = "http://amos.im.alisoft.com/msg.aw?v=2&uid=" +username+ "&site=cnalichn&s=1";
-		var httpUrl = "$base/book/search!findWangWang.do";
+		var httpUrl = "$base/book/search!findWangWangSocket2.do";
 		obj.attr("href",wwSrc);
-		jQuery.get(httpUrl,{"httpUrl":imgSrc,"aliTalk":username,"log":"no"},function(data, status){
+		jQuery.get(httpUrl,{"aliTalk":username,"log":"no"},function(data, status){
 			if('yes' != data){
 				obj.removeClass("nodisplay");
 				obj.addClass("ww-offline");
