@@ -257,7 +257,20 @@ width:0;
     						<li><b>工号：</b>$!{bookItem.owner.workId}</li>
                         	<li><b>座位：</b>$!{bookItem.owner.aliTalkId}</li>
                         	<li><b>分机：</b>$!{bookItem.owner.ext}</li>
-                        	<li><b>旺旺：</b>   	</li>
+                        	<li><b>旺旺：</b>
+                        		## 旺旺表情控件开始.....为了保证功能正常，需要有bookItem和bookInfo对象
+                    			#set($state = "不可借")
+				            	#if($bookItem.state == 'idle' && ($!bookInfo.storeState =='both' || $!bookInfo.storeState == 'paper'))
+		                    		#set($state = "可借")##设置单个人的可借状态
+	            				#end
+								<span class="ww-light ww-large" data-username="$bookItem.owner.aliTalkId">
+								  <span id="loading-$bookItem.owner.aliTalkId"><img src="/static/images/loading.gif" style="" title="[$!bookItem.owner.name,$state]loading..."/>loading...</span>
+								  <a data-username="$bookItem.owner.aliTalkId" id="wangwang" target="_blank" href="#" class="ww-inline nodisplay" title="[当前状态：$state]">
+								    <span>#fixUserNameStrLength($!bookItem.owner.name $state)</span>
+								  </a>
+								</span>
+								## 旺旺表情控件结束.....
+							</li>
                         	<li><b>邮箱：</b><a href="mailto:$!{bookItem.owner.email}">$!{bookItem.owner.email}</a></li>
     					</div>
                     </ul>
@@ -406,3 +419,25 @@ jQuery(function () {
 </SCRIPT>
 #parse("templates/common/footer.vm")
 
+<SCRIPT type=text/javascript>
+jQuery(function () {
+	jQuery("a#wangwang").each(function(ind){
+		var obj = jQuery(this);
+		var username = jQuery(this).attr("data-username")
+		var wwSrc  = "http://amos.im.alisoft.com/msg.aw?v=2&uid=" +username+ "&site=cnalichn&s=1";
+		var httpUrl = "$base/book/search!findWangWangSocket2.do";
+		obj.attr("href",wwSrc);
+		jQuery.get(httpUrl,{"aliTalk":username,"log":"no"},function(data, status){
+			if('yes' != data){
+				obj.removeClass("nodisplay");
+				obj.addClass("ww-offline");
+				jQuery("span#loading-"+username).addClass("nodisplay")
+			}else{
+				obj.removeClass("nodisplay");
+				obj.addClass("ww-online");
+				jQuery("span#loading-"+username).addClass("nodisplay")
+			}
+		});
+	});
+});
+</SCRIPT>
