@@ -135,18 +135,23 @@ a.ww-mobile{background-position:0 -40px;}
 						<li><b>出版时间：</b>#if($book.info.publishTime)$date.format("yyyy-MM-dd",$!book.info.publishTime)#end</li>
                     	<li><b>拥有者：</b>
                     		#set($canLend = "1")
+			            	#set($bookownerList = "[")
 				            #foreach($bookItem in $book.item)
-	                    		#set($state = "不可借")
-				            	#if($bookItem.state == 'idle' && ($!book.info.storeState =='both' || $!book.info.storeState == 'paper'))
-				            		#set($canLend = "2")##设置总的可借状态
-		                    		#set($state = "可借")##设置单个人的可借状态
-	            				#end
-							<span class="ww-light ww-large" data-username="$bookItem.owner.aliTalkId">
-							  <span id="loading-$bookItem.owner.aliTalkId"><img src="/static/images/loading.gif" style="" title="[$!bookItem.owner.name,$state]loading..."/>loading...</span>
-							  <a data-username="$bookItem.owner.aliTalkId" id="wangwang" target="_blank" href="#" class="ww-inline nodisplay" title="[当前状态：$state]">
-							    <span>#fixUserNameStrLength($!bookItem.owner.name $state)</span>
-							  </a>
-							</span>
+				            	#set($tempOwner = "["+$bookItem.owner.aliTalkId+"],")
+				            	#if($bookownerList.indexOf($tempOwner) == -1)
+					            	#set($bookownerList = $bookownerList + $bookItem.owner.aliTalkId + "],")
+		                    		#set($state = "不可借")
+					            	#if($bookItem.state == 'idle' && ($!book.info.storeState =='both' || $!book.info.storeState == 'paper'))
+					            		#set($canLend = "2")##设置总的可借状态
+			                    		#set($state = "可借")##设置单个人的可借状态
+		            				#end
+									<span class="ww-light ww-large" data-username="$bookItem.owner.aliTalkId">
+									  <span id="loading-$bookItem.owner.aliTalkId"><img src="/static/images/loading.gif" style="" title="[$!bookItem.owner.name,$state]loading..."/>loading...</span>
+									  <a data-username="$bookItem.owner.aliTalkId" id="wangwang" target="_blank" href="#" class="ww-inline nodisplay" title="[当前状态：$state]">
+									    <span>#fixUserNameStrLength($!bookItem.owner.name $state)</span>
+									  </a>
+									</span>
+								#end
 							#end
 						</li>
                     	<li>
