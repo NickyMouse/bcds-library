@@ -14,6 +14,7 @@
  *		popUp.show("content");
  */
 function PopUp(id, title, width, height, bgDark, hideCallback){
+	_self = this;
 	this.id = id;
 	this.width = (width > 0)? width: 350;
 	this.height = (height > 0)? height: 250;
@@ -28,9 +29,9 @@ function PopUp(id, title, width, height, bgDark, hideCallback){
 		this.hideCallback = null;
 	}
 	if(bgDark) {
-    	var bgStyle = "display:none; height:" + jQuery(document).height() +"px; width:" + jQuery(document).width() +"px; left: 0px; top: 0px; z-index: 8888";
+    	var bgStyle = "position:absolute; display:none; height:" + jQuery(document).height() +"px; width:" + jQuery(document).width() +"px; left: 0px; top: 0px; z-index: 8888";
 	} else {
-		var bgStyle = "display:none; left:" + (this.left - 10) + "px; top: " + (this.top - 10) + "px; height: " + (this.height + 40) + "px; width: " + (this.width + 40) + "px; z-index: 8888";
+		var bgStyle = "position:absolute; display:none; left:" + (this.left - 10) + "px; top: " + (this.top - 10) + "px; height: " + (this.height + 40) + "px; width: " + (this.width + 40) + "px; z-index: 8888";
 	}
 	var contentStyle = "position:absolute; display:none; left:" + this.left + "px; top: " + this.top + "px; height: " + this.height + "px; width: " + this.width + "px; padding:10px; visibility: visible; z-index: 9999";
 
@@ -46,38 +47,38 @@ function PopUp(id, title, width, height, bgDark, hideCallback){
 
 	jQuery("#pop_win_close" + id).click(
 			function() {
-				jQuery("#pop_win" + id).hide();
-				jQuery("#pop_win_bg" + id).hide();
-				jQuery("#pop_win" + id).remove();
-				jQuery("#pop_win_bg" + id).remove();
-				jQuery("#pop_win_content" + id).remove();
-				jQuery("#pop_win_clear" + id).remove();
-				if(hideCallbackEnable && hideCallback){
+				jQuery("#pop_win" + _self.id).hide();
+				jQuery("#pop_win_bg" + _self.id).hide();
+				jQuery("#pop_win" + _self.id).remove();
+				jQuery("#pop_win_bg" + _self.id).remove();
+				jQuery("#pop_win_content" + _self.id).remove();
+				jQuery("#pop_win_clear" + _self.id).remove();
+				if(_self.hideCallbackEnable && _self.hideCallback){
 					hideCallback();
 				}
 			}
 	);
 
 	this.hide = function () {
-		jQuery("#pop_win" + id).hide();
-		jQuery("#pop_win_bg" + id).hide();
-		jQuery("#pop_win" + id).remove();
-		jQuery("#pop_win_bg" + id).remove();
-		jQuery("#pop_win_content" + id).remove();
-		jQuery("#pop_win_clear" + id).remove();
+		jQuery("#pop_win" + _self.id).hide();
+		jQuery("#pop_win_bg" + _self.id).hide();
+		jQuery("#pop_win" + _self.id).remove();
+		jQuery("#pop_win_bg" + _self.id).remove();
+		jQuery("#pop_win_content" + _self.id).remove();
+		jQuery("#pop_win_clear" + _self.id).remove();
 	};
 
 	this.show = function (innerHTML) {
-		jQuery("#pop_win_content" + id).html(innerHTML);
-		jQuery("#pop_win" + id).show();
-		jQuery("#pop_win_bg" + id).show();
+		jQuery("#pop_win_content" + _self.id).html(innerHTML);
+		jQuery("#pop_win" + _self.id).show();
+		jQuery("#pop_win_bg" + _self.id).show();
 	};
-	
+
 	this.content = function (innerHTML) {
-		jQuery("#pop_win_content" + id).html(innerHTML);
+		jQuery("#pop_win_content" + _self.id).html(innerHTML);
 	}
-	
+
 	this.callbackEnable = function (isEnable) {
-		this.hideCallbackEnable = isEnable;
+		_self.hideCallbackEnable = isEnable;
 	}
 }
