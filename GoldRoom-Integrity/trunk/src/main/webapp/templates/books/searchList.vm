@@ -79,6 +79,7 @@ jQuery(function () {
 .ww-inline{display:inline-block;vertical-align:text-bottom;}
 .ww-light a{background:url(/static/images/wangwang.gif) no-repeat 0 0;text-decoration:none!important;width:20px;height:20px;zoom:1;}
 .ww-large a{width:67px;}
+.ww-large a:hover{color:#566D5E;}
 a.ww-offline{background-position:0 -20px;}
 a.ww-mobile{background-position:0 -40px;}
 .ww-small .ww-online{background-position:-80px 0;}
