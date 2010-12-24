@@ -225,6 +225,15 @@ width:0;
         #tab-content ul{padding:5px 10px;overflow:hidden;height:163px;}
         #tab-content ul li{height:15px;}
         </style>
+#macro( fixUserNameStrLength $name $state)
+	#if($name.length() ==2)
+		&nbsp;$name.substring(0,1)&nbsp;&nbsp;&nbsp;$name.substring(1,2)
+	#elseif($name.length() > 3)
+		<span style="padding-left: 0px; padding-top: 0px;" title="$name[当前状态：$state]">$name.substring(0,3)..</span>
+	#else
+		$name
+	#end
+#end
         <div id="sidebar-tab" class="movie_headerline">
            	<div class="left_conner"><em></em><b></b></div>
     <div class="first"><em></em><b></b></div>
