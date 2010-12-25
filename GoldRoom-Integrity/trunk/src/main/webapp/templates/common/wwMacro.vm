@@ -13,6 +13,9 @@
 
 ##显示旺旺在线状态的宏
 ##使用时在页面最底部导入以下JS，相关显示逻辑在JS里实现：<script type=text/javascript src="$base/static/js/wwState.js"></script>
+##第一个参数为旺旺ID，必选
+##第二个参数为旺旺显示名，必选
+##第三个参数为该书是否可借，可选
 #macro( showWW $aliTalkId $userName $state)
 	<span class="ww-light ww-large" data-username="$aliTalkId">
 	  <span id="loading-$bookItem.owner.aliTalkId"><img src="/static/images/loading.gif" style="" title="[$userName,$state]loading..."/>loading...</span>
