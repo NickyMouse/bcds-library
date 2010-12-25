@@ -76,15 +76,7 @@ jQuery(function () {
 
 	<div>
 
-#macro( fixUserNameStrLength $name $state)
-	#if($name.length() ==2)
-		&nbsp;$name.substring(0,1)&nbsp;&nbsp;&nbsp;$name.substring(1,2)
-	#elseif($name.length() > 3)
-		<span style="padding-left: 0px; padding-top: 0px;" title="$name[当前状态：$state]">$name.substring(0,3)..</span>
-	#else
-		$name
-	#end
-#end
+#parse("/templates/common/wwMacro.vm")
 
 	#if($bigObjectPage)
 		#foreach($book in $bigObjectPage.bigObjects)
@@ -128,12 +120,7 @@ jQuery(function () {
 					            		#set($canLend = "2")##设置总的可借状态
 			                    		#set($state = "可借")##设置单个人的可借状态
 		            				#end
-									<span class="ww-light ww-large" data-username="$bookItem.owner.aliTalkId">
-									  <span id="loading-$bookItem.owner.aliTalkId"><img src="/static/images/loading.gif" style="" title="[$!bookItem.owner.name,$state]loading..."/>loading...</span>
-									  <a data-username="$bookItem.owner.aliTalkId" id="wangwang" target="_blank" href="#" class="ww-inline nodisplay" title="[当前状态：$state]">
-									    <span>#fixUserNameStrLength($!bookItem.owner.name $state)</span>
-									  </a>
-									</span>
+		            				#showWW($bookItem.owner.aliTalkId $bookItem.owner.name $state)
 								#end
 							#end
 						</li>
@@ -174,25 +161,5 @@ jQuery(function () {
 	</div>
 </DIV>
 #parse("templates/common/footer.vm")
-<SCRIPT type=text/javascript>
-jQuery(function () {
-	jQuery("a#wangwang").each(function(ind){
-		var obj = jQuery(this);
-		var username = jQuery(this).attr("data-username")
-		var wwSrc  = "http://amos.im.alisoft.com/msg.aw?v=2&uid=" +username+ "&site=cnalichn&s=1";
-		var httpUrl = "$base/book/search!findWangWangSocket2.do";
-		obj.attr("href",wwSrc);
-		jQuery.get(httpUrl,{"aliTalk":username,"log":"no"},function(data, status){
-			if('yes' != data){
-				obj.removeClass("nodisplay");
-				obj.addClass("ww-offline");
-				jQuery("span#loading-"+username).addClass("nodisplay")
-			}else{
-				obj.removeClass("nodisplay");
-				obj.addClass("ww-online");
-				jQuery("span#loading-"+username).addClass("nodisplay")
-			}
-		});
-	});
-});
-</SCRIPT>
+
+<script type=text/javascript src="$base/static/js/wwState.js"></script>
