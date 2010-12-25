@@ -9,7 +9,13 @@ import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
 import com.alibaba.intl.bcds.goldroom.action.books.dto.BookBigObject;
@@ -154,41 +160,59 @@ public class SearchBookListAction extends BaseAction {
      * @return
      */
     public String findWangWangSocket2() {
-        String aliTalk = this.getRequest().getParameter("aliTalk");
-        try {
-            String PARAM1 = "GET http://amos.im.alisoft.com/online.aw?v=2&site=cnalichn&s=1&uid=";
-            String PARAM2 = " HTTP/1.0\r\n\r\n";
-            Socket socket = new Socket("amos.im.alisoft.com", 80);
-            PrintWriter socketWriter = null;
-            BufferedReader socketReader = null;
-//            String cmd = "GET http://amos.im.alisoft.com/online.aw?v=2&uid=linchaosen&site=cnalichn&s=1 HTTP/1.0\r\n\r\n";
-            socketWriter = new PrintWriter(socket.getOutputStream());
-//            socketWriter.println(cmd);            
-            socketWriter.println(PARAM1 + aliTalk + PARAM2);            
-            socketWriter.flush();
-            socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String line = null;
-            while((line=socketReader.readLine())!=null){
-                if(line.startsWith("Location")){
-                    if(line.endsWith("online.gif")){
-                        this.getRequest().setAttribute("userOnline", "yes");
-                    }
-                    break;
-                }
+        // 获取传递的wws参数，并将参数去重处理
+        String wwsStr = this.getRequest().getParameter("wws");
+        String[] wwss = wwsStr == null ? null : wwsStr.split(",");
+        List<String> wwsList = new ArrayList<String>();
+        for(int i=0; wwss!=null && i<wwss.length; i++){
+            if(wwss[i] != null && !"".equals(wwss[i].trim())){
+                wwsList.remove(wwss[i].trim());
+                wwsList.add(wwss[i].trim());
             }
-//            socket.shutdownInput();
-//            socket.shutdownOutput();
-            socket.close();
-            socketWriter.close();
-            socketReader.close();
-            socketWriter = null;
-            socketReader = null;
-            socket = null;
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        // 用于放置返回旺旺的状态key为旺旺ID value为是否在线（要么是y要么为空）
+        Map<String, String> jsonMap = new HashMap<String, String>();
+        String PARAM1 = "GET http://amos.im.alisoft.com/online.aw?v=2&site=cnalichn&s=1&uid=";
+        String PARAM2 = " HTTP/1.0\r\n\r\n";
+        for(int i=0; wwsList!=null && i<wwsList.size(); i++){
+            StringBuffer jsonValue = new StringBuffer();
+            String ww = wwsList.get(i);
+            jsonMap.put(ww, "");
+            try {
+                Socket socket = new Socket("amos.im.alisoft.com", 80);
+                PrintWriter socketWriter = null;
+                BufferedReader socketReader = null;
+    //            String cmd = "GET http://amos.im.alisoft.com/online.aw?v=2&uid=linchaosen&site=cnalichn&s=1 HTTP/1.0\r\n\r\n";
+    //            socketWriter.println(cmd);            
+                socketWriter = new PrintWriter(socket.getOutputStream());
+                socketWriter.println(PARAM1 +ww + PARAM2);            
+                socketWriter.flush();
+                socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                String line = null;
+                while((line=socketReader.readLine())!=null){
+                    if(line.startsWith("Location")){
+                        if(line.endsWith("online.gif")){
+                            jsonMap.put(ww, "y");
+                        }
+                        break;
+                    }
+                }
+    //            socket.shutdownInput();
+    //            socket.shutdownOutput();
+                socket.close();
+                socketWriter.close();
+                socketReader.close();
+                socketWriter = null;
+                socketReader = null;
+                socket = null;
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        log.debug(JSONObject.fromObject(jsonMap));
+        this.getRequest().setAttribute("userOnline", JSONObject.fromObject(jsonMap));
         return "json";
     }
     
