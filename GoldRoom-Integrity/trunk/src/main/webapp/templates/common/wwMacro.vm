@@ -1,0 +1,23 @@
+##如果name属性长度为2 则在两个字中间加3个空格
+##如果长度大于3 则取前三位并显示两个点  
+##否则直接输出
+#macro( fixUserNameStrLength $name $state)
+	#if($name.length() ==2)
+		&nbsp;$name.substring(0,1)&nbsp;&nbsp;&nbsp;$name.substring(1,2)
+	#elseif($name.length() > 3)
+		<span style="padding-left: 0px; padding-top: 0px;" #if($stringUtils.isBlank($state)) title="与[$!bookItem.owner.name]聊天" #else title="[当前状态：$state]" #end>$name.substring(0,3)..</span>
+	#else
+		$name
+	#end
+#end
+
+##显示旺旺在线状态的宏
+##使用时在页面最底部导入以下JS，相关显示逻辑在JS里实现：<script type=text/javascript src="$base/static/js/wwState.js"></script>
+#macro( showWW $aliTalkId $userName $state)
+	<span class="ww-light ww-large" data-username="$aliTalkId">
+	  <span id="loading-$bookItem.owner.aliTalkId"><img src="/static/images/loading.gif" style="" title="[$userName,$state]loading..."/>loading...</span>
+	  <a data-username="$bookItem.owner.aliTalkId" id="wangwang" target="_blanka" href="#" class="ww-inline nodisplay" #if($stringUtils.isBlank($state)) title="与[$userName]聊天" #else title="[当前状态：$state]" #end>
+	    <span>#fixUserNameStrLength($userName $state)</span>
+	  </a>
+	</span>
+#end
