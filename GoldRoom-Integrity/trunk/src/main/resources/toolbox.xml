@@ -44,4 +44,10 @@
         <class>org.apache.velocity.tools.generic.DateTool</class>  
         <parameter name="format" value="yyyy-MM-dd" />  
      </tool>  
+     
+     <tool>
+        <key>stringUtils</key>
+        <scope>application</scope>
+        <class>org.apache.commons.lang.StringUtils</class>
+    </tool>
 </toolbox>
