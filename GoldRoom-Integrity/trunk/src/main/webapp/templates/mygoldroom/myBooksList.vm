@@ -224,10 +224,10 @@
            	success: function(msg){
 		   		var reloadFunc = function () {location.reload();};
 		   	 	if(msg == "success"){
-			   	 	var popUp = new PopUp("onShelve", "书籍上架成功", 250, 150, false, reloadFunc);
+			   	 	var popUp = new PopUp("onShelve", "书籍上架成功", 250, 150, true, reloadFunc);
 				 	popUp.show("你的书籍已经上架成功");
 				} else {
-					var popUp = new PopUp("onShelve", "书籍上架失败", 250, 150, false, reloadFunc);
+					var popUp = new PopUp("onShelve", "书籍上架失败", 250, 150, true, reloadFunc);
 			 		popUp.show("你的书籍上架失败");
 			 	}
            	}
@@ -242,10 +242,10 @@
            	success: function(msg){
 		   		var reloadFunc = function () {location.reload();};
             	if(msg == "success"){
-		   	 		var popUp = new PopUp("onShelve", "书籍下架成功", 250, 150, false, reloadFunc);
+		   	 		var popUp = new PopUp("onShelve", "书籍下架成功", 250, 150, true, reloadFunc);
 			 		popUp.show("你的书籍已经下架成功");
 			 	} else {
-					var popUp = new PopUp("onShelve", "书籍下架失败", 250, 150, false, reloadFunc);
+					var popUp = new PopUp("onShelve", "书籍下架失败", 250, 150, true, reloadFunc);
 			 		popUp.show("你的书籍下架失败");
 			 	}
            	}
