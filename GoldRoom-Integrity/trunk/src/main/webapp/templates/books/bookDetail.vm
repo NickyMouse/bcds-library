@@ -258,7 +258,7 @@ width:0;
                         	<li><b>姓名：</b>$!{bookItem.owner.name}
 							</li>
     						<li><b>工号：</b>$!{bookItem.owner.workId}</li>
-                        	<li><b>座位：</b>$!{bookItem.owner.aliTalkId}</li>
+                        	<li><b>座位：</b>$!{bookItem.owner.location}</li>
                         	<li><b>分机：</b>$!{bookItem.owner.ext}</li>
                         	<li><b>旺旺：</b>
                         		## 旺旺表情控件开始.....为了保证功能正常，需要有bookItem和bookInfo对象
