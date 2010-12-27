@@ -17,8 +17,9 @@
 ##第三个参数为该书是否可借，可选
 ##使用方法：
 ##第1步：引入相关css资源(默认在/templates/common/header.vm里已引入，可以省略此步)<link rel=stylesheet type=text/css href="$base/static/css/goldroom.css"/>
-##第2步：调用此宏#showWW($bookItem.owner.aliTalkId $bookItem.owner.name $state)
-##第3步：使用时在页面最底部引入相关显示逻辑在JS里实现：<script type=text/javascript src="$base/static/js/wwState.js"></script>
+##第2步：引入此宏的定义 #parse("/templates/common/wwMacro.vm")
+##第3步：调用此宏#showWW($bookItem.owner.aliTalkId $bookItem.owner.name $state)
+##第4步：使用时在页面最底部引入相关显示逻辑在JS里实现：<script type=text/javascript src="$base/static/js/wwState.js"></script>
 #macro( showWW $aliTalkId $userName $state)
 	<span class="ww-light ww-large" data-username="$aliTalkId">
 	  <span id="loading-$bookItem.owner.aliTalkId"><img src="/static/images/loading.gif" style="" title="[$userName,$state]loading..."/>loading...</span>
