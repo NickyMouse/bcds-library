@@ -12,9 +12,9 @@
 #end
 
 ##显示旺旺在线状态的宏
-##第一个参数为旺旺ID  $aliTalkId，必选
-##第二个参数为旺旺显示名    $userName，必选
-##第三个参数为该书是否可借    $state，可选
+##第一个参数为旺旺ID       $aliTalkId，必选
+##第二个参数为旺旺显示名         $userName，   必选
+##第三个参数为该书是否可借    $state，           可选
 ##使用方法：
 ##第1步：引入相关css资源(默认在/templates/common/header.vm里已引入，可以省略此步)<link rel=stylesheet type=text/css href="$base/static/css/goldroom.css"/>
 ##第2步：引入此宏的定义 #parse("/templates/common/wwMacro.vm")
