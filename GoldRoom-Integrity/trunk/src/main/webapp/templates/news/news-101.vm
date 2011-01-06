@@ -3,14 +3,14 @@
   <tr align="center">
     <td height="60" colspan="2"><H1>黄金屋用户\系统调研活动结束</H1></td>
   </tr>
- <tr valign="top">
+  <tr valign="top">
     <td height="250" colspan="2" >
-		内容
+		<img src="/images/new1.jpg"/>
 	</td>
   </tr>
   <tr>
     <td width="650" height="32">&nbsp;</td>
-    <td width="150" align="center">2010-11-30</td>
+    <td width="150" align="center">2010-07-11</td>
   </tr>
 </table>
 #parse("templates/common/footer.vm")
