@@ -9,24 +9,24 @@
 	#tab-title h3{color:#666;font-size:15px;font-weight:400;}
 	#tab-1,#tab-2,#tab-3{padding:5px 7px;border-bottom:1px solid #ccf;cursor:pointer;}
 	#tab-2{border:1px solid #ccf;border-top:none;}
-	.tab-2,.tab-3{display:none;} /* 这句是用让class=“tab-2”“tab-3”的先隐藏，用CSS控制的好处是没有延迟；如果用jQuery控制会出现只有当页面全部加载完后，tab-2tab-3中的内容才隐藏 */
+	.tab-2,.tab-3{display:none;} 
 	#tab-content ul{padding:5px 10px;overflow:hidden;}
 	#tab-content ul li{padding-top:5px;height:20px;}
   </style>
   <div id="sidebar-tab">
 	<div id="tab-title">
 		<h3><span id="tab-1" class="current">最新评论</span><span id="tab-2">近期热评</span><span id="tab-3">随机文章</span></h3>
-	</div> /* Tab的标题，采用span标签，分别加上了id，并给第一个加上class="current" */
+	</div> 
 	<div id="tab-content">
 		<ul class="tab-1">1</ul>
 		<ul class="tab-2">2</ul>
 		<ul class="tab-3">3</ul>
-	</div> /* Tab的内容，分别加上了与标题对应的class；其中tab-content ul内的函数是调用WP Kit cn插件的 */
+	</div> 
   </div>
   <script type='text/javascript'>
-  	$('#tab-title span').mouseover(function(){ //鼠标移至id="tab-title"下的span标签时，触发
-		$(this).addClass("current").siblings().removeClass(); //给当前的添加class="current"，并且让其同辈元素（即其余#tab-title span）移除class="current"；
-		$("."+$(this).attr("id")).show().siblings().hide(); //让class="鼠标移至的span的id"（即tab-content中对应ul中的内容）显示，并且让其同辈元素（即#tab-content ul）隐藏；
+  	jQuery('#tab-title span').mouseover(function(){ 
+		jQuery(this).addClass("current").siblings().removeClass(); 
+		jQuery("."+jQuery(this).attr("id")).show().siblings().hide(); 
 	});
   </script>
   <tr valign="top">
