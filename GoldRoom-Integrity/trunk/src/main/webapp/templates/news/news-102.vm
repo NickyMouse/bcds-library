@@ -10,7 +10,7 @@
   </tr>
   <tr>
     <td width="650" height="32">&nbsp;</td>
-    <td width="150" align="center">2010-11-30</td>
+    <td width="150" align="center">2010-8-12</td>
   </tr>
 </table>
 #parse("templates/common/footer.vm")
