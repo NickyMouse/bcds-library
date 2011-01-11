@@ -31,7 +31,7 @@
 			margin-right: 10px;
 			float:left;
 			width:446px;
-			height:172px;
+			height:190px;
 			border: 1px solid rgb(228, 228, 228);
 			padding: 0px 8px;
 			margin-bottom: 5px;
