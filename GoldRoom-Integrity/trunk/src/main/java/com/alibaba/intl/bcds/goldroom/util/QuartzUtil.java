@@ -2,9 +2,12 @@ package com.alibaba.intl.bcds.goldroom.util;
 
 import java.text.ParseException;
 
+import org.apache.log4j.Logger;
 import org.quartz.JobDetail;
 import org.springframework.scheduling.quartz.CronTriggerBean;
 import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
+
+import com.alibaba.intl.bcds.goldroom.mail.checker.EmailInfoChecker;
 
 /**
  * 用于配置轮循程序的工具类<BR>
@@ -19,6 +22,7 @@ import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
 public class QuartzUtil extends CronTriggerBean{
 	
 	private static final long serialVersionUID = 1992031714439876317L;
+	private static Logger logger = Logger.getLogger(QuartzUtil.class);
 
 	public QuartzUtil(Object targetObject, String targetMethod, String cronExpression) throws ClassNotFoundException, NoSuchMethodException, ParseException{
 		this.setCronExpression(cronExpression);
@@ -28,7 +32,6 @@ public class QuartzUtil extends CronTriggerBean{
 		bean.setName("JobDetail_" + targetObject + "_" + targetMethod);
 		bean.afterPropertiesSet();
 		super.setJobDetail((JobDetail)bean.getObject());
-		System.out.println("prepare to start job : [" + super.getJobDetail().getName() + "], Object : ["+targetObject+"], Method : ["+targetMethod+"], cronExpression : ["+cronExpression+"]");
-		
+		logger.info("prepare to start job : [" + super.getJobDetail().getName() + "], Object : ["+targetObject+"], Method : ["+targetMethod+"], cronExpression : ["+cronExpression+"]");
 	}
 }
