@@ -3,6 +3,7 @@
 <script type='text/javascript' src='$base/static/js/popup.js'></script>
 <script type="text/javascript" src="$base/static/js/My97DatePicker/WdatePicker.js"></script>
 <style>
+	.bookImg {max-height: 180px; max-width:120px; width:expression(document.body.clientWidth>120?"120px":"auto"}
 	.ownerInfo li {float: left; border-bottom: 1px dashed rgb(221, 221, 221);  width: 95%; margin-bottom: 4px; padding-bottom: 5px; padding-left: 5px;}
 	.bookscontents DL{
     	margin:15px 33px 15px 0;
@@ -18,6 +19,9 @@
         padding:0;
         width:0;
     }
+	.bookscontents img{
+		width:120px
+	}
 </style>
 <script type='text/javascript'>
 	jQuery(document).ready(function() {
@@ -123,26 +127,6 @@
  }
 </script>
 
-<style>
-.bookImg {max-height: 180px; max-width:120px; width:expression(document.body.clientWidth>120?"120px":"auto"}
-.bookscontents DL{
-	margin:15px 33px 15px 0;
-	float:left;
-	overflow:hidden;
-	text-align:center;
-	width:155px;
-}
-.bookscontents DL.clear  {
-clear:both;
-float:none;
-margin:0;
-padding:0;
-width:0;
-}
-.bookscontents img{
-	width:120px
-}
-</style>
 	<!-- content start here-->
 	<div class="grid-16-8 clearfix">
 		<div style="padding-left: 8px; padding-right: 20px;height:217px;" class="article movie_headerline">
@@ -222,7 +206,7 @@ width:0;
 		} /*标题被选中时的样式*/
         #tab-title span{padding:5px 9px 5px 10px;margin-left:-5px;cursor:pointer; }
         #tab-content .hide{display:none;} /*默认让第一块内容显示，其余隐藏*/
-        #tab-content ul{padding:5px 10px;overflow:hidden;height:163px;}
+        #tab-content ul{padding:5px 10px;height:163px;}
         #tab-content ul li{height:15px;}
         </style>
         
@@ -332,8 +316,6 @@ width:0;
 				</li>
 				#end
 			</ul>
-
-
 		</div>
 	</div>
 	<br/>
@@ -343,38 +325,38 @@ width:0;
 		#foreach($relatedBookInfo in $relatedBookInfoList)
 			#set($bgColor = "")
 			#if($velocityCount % 2 == 0 )
+				#if($velocityCount == 6) <div style="clear:both"></div> #end
 				#set($bgColor = "#E7F5F6")
 			#end
-<div class="aside movie_headerline book-search-list" style="background:$bgColor; width: 125px; height: 212px; text-align: center;">
-    <div class="left_conner"><em></em><b></b></div>
-    <div class="first"><em></em><b></b></div>
-    <div class="last"><em></em><b></b></div>
-    <div class="imageBorder">
-        <img width="120px;" height="160px;" src="$!{imageServer}$!relatedBookInfo.imgUrl" class="m_sub_img" style="cursor: pointer;" onclick="javascript:window.open('/detail/bookDetail.do?bookInfoId=$relatedBookInfo.id&log=detail&log1=$relatedBookInfo.id')">
-        <DIV class="detail-frame">
-            <H3><B>书籍简介:</B></H3>
-            <P>
-                #if($!relatedBookInfo.description.length() > 200) $relatedBookInfo.description.substring(0,200)...
-                #else $!relatedBookInfo.description #end
-            </P>
-        </DIV>
-    </div>
-	<div style="clear: both; padding-top: 8px;">
-              <a href="bookDetail.do?bookInfoId=$!relatedBookInfo.id" title="$!relatedBookInfo.name">
-				#if($!relatedBookInfo.name.length() > 15)
-					$!relatedBookInfo.name.substring(0,10)...
-   				#else
-					$!relatedBookInfo.name
-   				#end
-              </a>
-              </div>
-</div>
+            <div class="aside movie_headerline book-search-list" style="background:$bgColor; width: 125px; height: 212px; text-align: center;">
+                <div class="left_conner"><em></em><b></b></div>
+                <div class="first"><em></em><b></b></div>
+                <div class="last"><em></em><b></b></div>
+                <div class="imageBorder">
+                    <img width="120px;" height="160px;" src="$!{imageServer}$!relatedBookInfo.imgUrl" class="m_sub_img" style="cursor: pointer;" onclick="javascript:window.open('/detail/bookDetail.do?bookInfoId=$relatedBookInfo.id&log=detail&log1=$relatedBookInfo.id')">
+                    <DIV class="detail-frame">
+                        <H3><B>书籍简介:</B></H3>
+                        <P>
+                            #if($!relatedBookInfo.description.length() > 200) $relatedBookInfo.description.substring(0,200)...
+                            #else $!relatedBookInfo.description #end
+                        </P>
+                    </DIV>
+                </div>
+            	<div style="clear: both; padding-top: 8px;">
+					<a href="bookDetail.do?bookInfoId=$!relatedBookInfo.id" title="$!relatedBookInfo.name">
+            			#if($!relatedBookInfo.name.length() > 15)
+            				$!relatedBookInfo.name.substring(0,10)...
+               			#else
+            				$!relatedBookInfo.name
+						#end
+					</a>
+				</div>
+            </div>
 		#end
-
-          <dl class="clear">
-          </dl>
-        </div>
-	#end
+		##end foreach
+		<dl class="clear"></dl>
+    </div>
+    #end
 	<!-- 同类书（完） -->
 	<!-- content end here -->
 	<div style="clear:both"></div>
