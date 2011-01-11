@@ -25,13 +25,13 @@
 			margin-top: 5px;
 		}
 		.book-search-info LI {
-			BORDER-BOTTOM: #ddd 1px dashed; PADDING-BOTTOM: 4px; height:19px; WIDTH: 305px; MARGIN-BOTTOM: 4px;overflow:hidden;
+			BORDER-BOTTOM: #ddd 1px dashed; PADDING-BOTTOM: 4px; height:19px; WIDTH: 305px; MARGIN-BOTTOM: 4px;
 		}
 		.book-search-list{
 			margin-right: 10px;
 			float:left;
 			width:446px;
-			height:190px;
+			height:180px;
 			border: 1px solid rgb(228, 228, 228);
 			padding: 0px 8px;
 			margin-bottom: 5px;
