@@ -137,7 +137,7 @@ public class MemberService {
     			if(StringUtils.isNotBlank(staff.getExtPhone()))member.setExt(staff.getExtPhone());
     			
     			member.setLoginId((StringUtils.isNotBlank(staff.getNick()))?staff.getNick().toLowerCase():staff.getName());
-    			member.setPassword("hello1234");
+    			member.setPassword(MD5.getMD5("hello1234"));
     			member.setName(staff.getName());
     			member.setEmail(staff.getEmail());
     			
