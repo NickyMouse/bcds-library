@@ -33,7 +33,7 @@
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />   
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" /> 
     -->
-	<bean id ="intranetService"  class="com.alibaba.intl.bcds.goldroom.service.IntranetService" >
+	<bean id ="intranetService"  class="com.alibaba.intl.bcds.goldroom.service.IntranetService" init-method="init">
 		<property name="socksProxyHost" value="${goldroom.intranet.socksProxyHost}"/>
 		<property name="socksProxyPort" value="${goldroom.intranet.socksProxyPort}"/>
 	</bean> 
