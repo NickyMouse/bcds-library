@@ -42,7 +42,7 @@ public class MailSendTool {
 				helper.setTo(mailDto.getTo());
 				helper.setText(mailDto.getText(), true); // 如果发的不是html内容去掉true参数
 				mailSender.send(msg);
-
+				logger.info("邮件发送成功 邮件标题为: " + mailDto.getSubject()+"收件人:"+mailDto.getTo());
 			} catch (MessagingException e) {
 				logger.warn("邮件信息导常! 邮件标题为: " + mailDto.getSubject(), e);
 			} catch (MailException me) {
