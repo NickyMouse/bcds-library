@@ -5,7 +5,11 @@ jQuery(function () {
 	
 	//遍历本页ID为wangwang的a标签，并把data-username属性里的值放入wws中
 	jQuery("a#wangwang").each(function(ind){
-		wws = wws + "," + jQuery(this).attr("data-username");
+		if(jQuery(this).attr("data-username") == ''){
+			jQuery(this).parents("span").html('<a style="background:white" target="_blank" href="https://www.cn.alibaba-inc.com/staffinfo.nsf/Search?SearchView&Query='+jQuery(this).attr("data-displayName")+'&SearchOrder=4" title="去内网查['+jQuery(this).attr("data-displayName")+']">'+jQuery(this).attr("data-displayName")+'</a>');
+		}else{
+			wws = wws + "," + jQuery(this).attr("data-username");
+		}
 	});
 	
 	//调用系统URL批量查询旺旺状态
