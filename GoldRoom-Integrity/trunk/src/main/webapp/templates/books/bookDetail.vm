@@ -284,7 +284,7 @@ width:0;
 			  #end
 			  #end
 			  #if(!$hasBookItem)
-				暂无拥有者信息
+				&nbsp;&nbsp;&nbsp;&nbsp;暂无拥有者信息
 			  #end
            </div>
         </div>
