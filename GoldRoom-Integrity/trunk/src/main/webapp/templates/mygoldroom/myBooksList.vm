@@ -154,6 +154,7 @@
 				str += "<br/><div style='text-align:center'><input type='button' id='agreeLendBtn' value='同意借阅'/>";
 				str += "&nbsp;&nbsp;<input type='button' id='rejectLendBtn' value='拒绝借阅'/></div>";
     			popUp.show(str);
+				getWangWangOnline(r.subscriber.aliTalkId);
 				jQuery("#agreeLendBtn").click(
 					function(){
 						reservationManage(r.id, "agreeLend");
@@ -201,6 +202,7 @@
 				str += "<br/><div style='text-align:center'><input type='button' id='returnBookBtn' value='确认归还'/>";
 				str += "&nbsp;&nbsp;<input type='button' id='cancelReturnBookBtn' value='取消'/></div>";
     			popUp.show(str);
+				getWangWangOnline(r.subscriber.aliTalkId);
 				jQuery("#returnBookBtn").click(
 					function(){
 						lendManage(r.id, "returnBook");
@@ -262,6 +264,5 @@
 	});
 	#end
 </script>
-
 #parse("templates/common/footer.vm")
 

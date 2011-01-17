@@ -1,3 +1,32 @@
+function getAliTalkHtml(aliTalkId) {
+	var source = "<A href='http://web.im.alisoft.com/msg.aw?v=2&amp;uid=" + aliTalkId + "&amp;site=cnalichn&amp;s=1' target=_blank>";
+	source += "<IMG border=0 alt='贸易通' id='wwImgId-" + aliTalkId + "' ></A>";
+	return source;
+}
+
+function getEmailHtml(email) {
+	return "<a href='mailto:" + email + "'>" + email +"</a>";
+}
+
+function getIntranetSearchHtml(key) {
+	return "<a target='_blank' href='https://www.cn.alibaba-inc.com/staffinfo.nsf/Search?SearchView&Query=" + key +"&SearchOrder=4'>" + key + "</a>";
+}
+
+function getWangWangOnline (alitalkId, callback) {
+	var wwImgId = "#wwImgId-" + alitalkId;
+	var httpUrl = "/book/search!findWangWangSocket2.do";
+	jQuery.getJSON(httpUrl,{"wws":alitalkId,"log":"no"},function(data, status){
+		var json = eval(data);
+		jQuery.each( json, function(na, st){
+			if('y' == st){
+				jQuery(wwImgId).attr("src","/static/images/wangwang/online.gif");
+			}else{
+				jQuery(wwImgId).attr("src","/static/images/wangwang/offline.gif");
+			}
+		}); 
+	});
+}
+
 var showMemberInfo = function(loginId) {
 	this.callBack = function (data) {
 		{
@@ -32,6 +61,7 @@ var showMemberInfo = function(loginId) {
     			} else {
     				var popUp = new PopUp(1, data.name, 350, 220, false);
 					popUp.show(str);
+					getWangWangOnline(data.aliTalkId);
     			}
     		}
 		}
@@ -42,18 +72,3 @@ var showMemberInfo = function(loginId) {
 		MemberService.findMemberByLoginId(loginId, this.callBack);
 	}
 }
-
-function getAliTalkHtml(aliTalkId) {
-	var source = "<A href='http://web.im.alisoft.com/msg.aw?v=2&amp;uid=" + aliTalkId + "&amp;site=cnalichn&amp;s=1' target=_blank>";
-	source += "<IMG border=0 alt='贸易通' src='http://web.im.alisoft.com/online.aw?v=2&amp;uid=" + aliTalkId + "&amp;site=cnalichn&amp;s=1'></A>";
-	return source;
-}
-
-function getEmailHtml(email) {
-	return "<a href='mailto:" + email + "'>" + email +"</a>";
-}
-
-function getIntranetSearchHtml(key) {
-	return "<a target='_blank' href='https://www.cn.alibaba-inc.com/staffinfo.nsf/Search?SearchView&Query=" + key +"&SearchOrder=4'>" + key + "</a>";
-}
-
