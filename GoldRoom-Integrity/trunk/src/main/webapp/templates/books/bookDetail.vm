@@ -225,7 +225,7 @@ width:0;
         #tab-content ul{padding:5px 10px;height:163px;}
         #tab-content ul li{height:15px;}
         </style>
-        
+
 #parse("/templates/common/wwMacro.vm")
 
         <div id="sidebar-tab" class="movie_headerline">
@@ -244,6 +244,7 @@ width:0;
            <div id="tab-content">
 			#foreach($bookItem in $bookItemList)
 			  #if($bookItem.state != 'ebook')
+				#set($hasBookItem = true)
               <ul #if($velocityCount!=0)class="hide"#end>
                 <div class="newtags">
                 	<div style="float: right; position: absolute; left: 213px; top: 35px;">
@@ -257,9 +258,15 @@ width:0;
                     	<div style="height: 50px;" class="ownerInfo">
                         	<li><b>姓名：</b>$!{bookItem.owner.name}
 							</li>
+							#if("$!{bookItem.owner.workId}" != "")
     						<li><b>工号：</b>$!{bookItem.owner.workId}</li>
+							#end
+							#if("$!{bookItem.owner.location}" != "")
                         	<li><b>座位：</b>$!{bookItem.owner.location}</li>
+							#end
+							#if("$!{bookItem.owner.ext}" != "")
                         	<li><b>分机：</b>$!{bookItem.owner.ext}</li>
+							#end
                         	<li><b>旺旺：</b>
                         		## 旺旺表情控件开始.....为了保证功能正常，需要有bookItem和bookInfo对象
                     			#set($state = "不可借")
@@ -275,7 +282,10 @@ width:0;
     			</div>
 			  </ul>
 			  #end
-			#end
+			  #end
+			  #if(!$hasBookItem)
+				暂无拥有者信息
+			  #end
            </div>
         </div>
         <script type='text/javascript'>
@@ -292,7 +302,11 @@ width:0;
 			</h2>
 
 			<ul id="newcontent1" class="content clearfix" style="text-indent: 2em; display: block;">
-				$!bookInfo.description
+				#if($!bookInfo.description && $!bookInfo.description.length > 0)
+					$!bookInfo.description
+				#else
+					暂无介绍信息...
+				#end
 			</ul>
 
 			<ul id="newcontent2" class="content clearfix" style="display: none;">
