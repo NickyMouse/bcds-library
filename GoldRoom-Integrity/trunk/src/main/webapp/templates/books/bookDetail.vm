@@ -50,7 +50,7 @@
  				'</tr>'+
   				'<tr align="center">'+
     			'<td colspan="3">'+
-      			'<input id="LendBtn" type="button" name="button1" value="借阅">'+
+      			'<input id="LendBtn" type="button" name="button1" value="预约">'+
 	  			'&nbsp;&nbsp;'+
      			'<input id="cancelReturnBookBtn2" type="button" name="button2" value="取消">'+
     			'</td>'+
@@ -84,9 +84,9 @@
 					},
                    	success: function(msg){
     					if(msg == "success"){
-        			   	 	jQuery("#pop_win_contentonShelve").html("借阅成功");
+        			   	 	jQuery("#pop_win_contentonShelve").html("预约成功。<br/>请等待<strong>拥有者</strong>同意，同意后你将会收到邮件提醒，并可以到<strong>拥有者</strong>处领书。");
         			 	} else {
-    						jQuery("#pop_win_contentonShelve").html("借阅失败");
+    						jQuery("#pop_win_contentonShelve").html("预约失败。<br/>该书籍可能已经其他人被预约，请刷新本页面重试。");
     					}
                    	}
     			});
@@ -145,7 +145,7 @@ width:0;
 </style>
 	<!-- content start here-->
 	<div class="grid-16-8 clearfix">
-		<div style="padding-left: 8px; padding-right: 20px;height:217px;" class="article movie_headerline">
+		<div style="padding-left: 8px; padding-right: 20px;height:230px;" class="article movie_headerline">
             <div class="left_conner"><em> </em> <b> </b></div>
             <div class="first"><em> </em> <b> </b></div>
             <div class="last"><em> </em> <b> </b></div>
@@ -153,10 +153,12 @@ width:0;
 			<div class="subjectwrap clearfix">
 				<div class="subject clearfix">
 					<div id="mainpic" class="imageBorder">
-						<a	href="$!{imageServer}$!{bookInfo.imgUrl}" title="$!bookInfo.name" target="_blank">
+						<a href="$!{imageServer}$!{bookInfo.imgUrl}" title="$!bookInfo.name" target="_blank">
 							<img width="120px;" height="160px;" class="bookImg" src="$!{imageServer}$!{bookInfo.imgUrl}" title="点击看大图" alt="$!bookInfo.name">
 						</a>
+						<a style="color:green;" onclick="javascript:addToFavorite($!{bookInfo.id})"><img src="$!base/static/images/favorite32.jpg" style="vertical-align: middle;margin-top:-3px"/>&nbsp;<span>添加收藏</span></a>
 					</div>
+
 					<div id="info" style="line-height: 30px;">
 						#if($bookInfo.author)
 							<span class="pl"> 作者 </span> :
@@ -302,7 +304,7 @@ width:0;
 			</h2>
 
 			<ul id="newcontent1" class="content clearfix" style="text-indent: 2em; display: block;">
-				#if($!bookInfo.description && $!bookInfo.description.length > 0)
+				#if($!bookInfo.description && $!bookInfo.description.length() > 0)
 					$!bookInfo.description
 				#else
 					暂无介绍信息...
@@ -401,6 +403,10 @@ jQuery(function () {
             var that = this;
             t = window.setTimeout(function () {
                 var detailFrame = jQuery('.detail-frame', that).html();
+				if (detailFrame == null) {
+					return;
+				}
+
                 var thisX = jQuery('img', that).offset().left;
                 var thisY = jQuery('img', that).offset().top;
 
@@ -425,7 +431,33 @@ jQuery(function () {
             jQuery('.detail-tip').remove();
         }
     );
-  });
+});
+function addToFavorite (bookInfoId){
+	if(typeof(bookInfoId) == 'undefined' || bookInfoId == null){
+		alert('添加收藏失败');
+		return;
+	}
+	jQuery.ajax({
+		type: "POST",
+		url: "$base/mygoldroom/addFavorite.action",
+        data: "bookInfoId=" + bookInfoId,
+        success: function(msg){
+            if(msg == "success"){
+		   		var popUp = new PopUp("onShelve", "添加收藏成功", 250, 150, true);
+				popUp.show("添加收藏成功，<a href='/mygoldroom/myFavoriteList.action' target='_blank'>查看收藏</a>");
+			} else if (msg == "needLogin") {
+				var popUp = new PopUp("onShelve", "添加收藏失败", 250, 150, true);
+			 	popUp.show("请先登录后再尝试");
+			} else if (msg == "exists") {
+				var popUp = new PopUp("onShelve", "添加收藏失败", 250, 150, true);
+			 	popUp.show("您已经收藏过这本书了，<a href='/mygoldroom/myFavoriteList.action' target='_blank'>查看收藏</a>");
+			} else {
+				var popUp = new PopUp("onShelve", "添加收藏失败", 250, 150, true);
+			 	popUp.show("添加收藏删失败，请稍后再尝试");
+			}
+		}
+	});
+}
 </SCRIPT>
 #parse("templates/common/footer.vm")
 <script type=text/javascript src="$base/static/js/wwState.js"></script>

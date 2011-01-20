@@ -1,0 +1,91 @@
+#parse("templates/common/header.vm")
+
+<link rel=stylesheet type=text/css href="$base/static/css/mygoldroom.css" />
+
+<script type='text/javascript' src='$base/dwr/interface/MemberService.js'></script>
+<script type='text/javascript' src='$base/static/js/popup.js'></script>
+<script type='text/javascript' src='$base/static/js/showMemberInfo.js'></script>
+
+<style>
+	#contactInfo{
+			position:absolute;
+			width:200px;
+			height:200px;
+			background:red;
+			color:#fff;
+			left:50%;
+			margin-top:-100px;
+			margin-left:-100px;
+	}
+</style>
+<script type='text/javascript'>
+
+
+
+</script>
+
+		<!-- content start here-->
+		<DIV id=content>
+            <h1>我的黄金屋</h1>
+       		<div id="leftMenu" class="leftMenu">
+				#set($menuIndex=6)
+				#parse("templates/mygoldroom/menu.vm")
+       		</div>
+        	<div id="right" class="rightContent">
+				#if($totalCount > 0)
+                	#foreach($favorite in $favoriteList)
+    					#set($bookInfo = $favorite.bookInfo)
+
+    					<div class="bookItem">
+    						<div class="bookImage">
+								<a href="$base/detail/bookDetail.action?bookInfoId=$!bookInfo.id" target="_blank">
+									<img src="$!{imageServer}$!bookInfo.imgUrl"/>
+								</a>
+    						</div>
+    						<div class="bookInfo">
+        						<h2 class="title"> <a href="$base/detail/bookDetail.action?bookInfoId=$!bookInfo.id" target="_blank"> $!bookInfo.name </a></h2>
+                                <span>作者: </span> $!bookInfo.author  <br/>
+        						<span>出版社: </span> $!bookInfo.publisher  <br/>
+        						<span>ISBN: </span> $!bookInfo.isbn  <br/>
+    						</div>
+							<div class="column3">
+								<a style="color:green" onclick="javascript:deleteFavorite($!favorite.id)">删除</a>
+                            </div>
+    					</div>
+    					<div style="clear:both"></div>
+					#end
+				#else
+					 <h2 style="text-align:center; margin:50px">暂无符合记录</h2>
+				#end
+            </div>
+		</DIV>
+
+		<!-- content end here -->
+		<div style="clear:both"></div>
+		#if($totalCount && $totalCount > 0)
+			#parse("templates/common/pageTurn.vm")
+		#end
+<script>
+function deleteFavorite (favoriteId){
+	if(typeof(favoriteId) == 'undefined' || favoriteId == null){
+		alert('删除收藏失败');
+		return;
+	}
+	jQuery.ajax({
+		type: "POST",
+		url: "$base/mygoldroom/delFavorite.action",
+        data: "favoriteId=" + favoriteId,
+        success: function(msg){
+			var reloadFunc = function () {location.reload();};
+            if(msg == "success"){
+		   		var popUp = new PopUp("onShelve", "删除收藏成功", 250, 150, true, reloadFunc);
+				popUp.show("你的收藏已经删除");
+			} else {
+				var popUp = new PopUp("onShelve", "删除收藏失败", 250, 150, true, reloadFunc);
+			 	popUp.show("你的收藏删除失败");
+			 }
+		}
+	});
+}
+</script>
+#parse("templates/common/footer.vm")

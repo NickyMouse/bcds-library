@@ -75,16 +75,31 @@
 			<result name="error" type="velocity">/templates/mygoldroom/fileUpload.vm
 			</result>
 		</action>
-		
+
 		<!-- user register -->
 		<action name="register"
 				class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.MyGoldRoomAction" method="viewRegisterPage" >
 			<result name="success" type="velocity">/templates/mygoldroom/register.vm</result>
 		</action>
-				
-		<action name="doRegister" 
+
+		<action name="doRegister"
 				class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.MyGoldRoomAction" method="doRegister">
 			<result name="success" type="velocity">/templates/mygoldroom/register_success.vm</result>
+		</action>
+
+		<!-- favorite -->
+		<action name="myFavoriteList"
+				class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.FavoriteAction" method="doViewMyFavoriteList">
+			<result name="success" type="velocity">/templates/mygoldroom/myFavoriteList.vm</result>
+		</action>
+		<action name="addFavorite"
+				class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.FavoriteAction" method="doAddFavorite">
+			<result name="success" type="velocity">/templates/mygoldroom/favoriteResult.vm</result>
+		</action>
+
+		<action name="delFavorite"
+				class="com.alibaba.intl.bcds.goldroom.action.mygoldroom.FavoriteAction" method="doDelFavorite">
+			<result name="success" type="velocity">/templates/mygoldroom/favoriteResult.vm</result>
 		</action>
 	</package>
 </struts>

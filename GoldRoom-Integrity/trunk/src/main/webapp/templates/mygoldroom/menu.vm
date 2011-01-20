@@ -5,11 +5,12 @@
     	<li><a href="$base/mygoldroom/lendingList.action" #if($menuIndex==3)class="selected"#end>我借阅的</a></li>
 		<li><a href="$base/mygoldroom/uploadPaperBook.action" #if($menuIndex==4)class="selected"#end>分享纸质书</a></li>
 		<li><a href="$base/mygoldroom/uploadEBook.action" #if($menuIndex==5)class="selected"#end>分享电子书</a></li>
+		<li><a href="$base/mygoldroom/myFavoriteList.action" #if($menuIndex==6)class="selected"#end>我的收藏</a></li>
 	</ul>
 </li>
 
 <li class="title">个人信息
 	<ul>
-    	<li><a href="$base/mygoldroom/editProfile.action" #if($menuIndex==6)class="selected"#end>修改信息</a></li>
+    	<li><a href="$base/mygoldroom/editProfile.action" #if($menuIndex==21)class="selected"#end>修改信息</a></li>
 	</ul>
 </li>

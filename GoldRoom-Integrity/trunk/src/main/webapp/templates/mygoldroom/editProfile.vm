@@ -10,7 +10,7 @@
 		<DIV id="content">
             <h1>我的黄金屋</h1>
        		<div id="leftMenu" class="leftMenu">
-				#set($menuIndex=6)
+				#set($menuIndex=21)
 				#parse("templates/mygoldroom/menu.vm")
        		</div>
         	<div id="right" class="rightContent">

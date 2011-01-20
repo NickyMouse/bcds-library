@@ -19,7 +19,7 @@
 			<list>
 				<value>com.alibaba.intl.bcds.goldroom.dataobject.BookInfo</value>
 				<value>com.alibaba.intl.bcds.goldroom.dataobject.BookItem</value>
-				<value>com.alibaba.intl.bcds.goldroom.dataobject.Category</value>
+				<value>com.alibaba.intl.bcds.goldroom.dataobject.Favorite</value>
 				<value>com.alibaba.intl.bcds.goldroom.dataobject.Lending</value>
 				<value>com.alibaba.intl.bcds.goldroom.dataobject.Member</value>
 				<value>com.alibaba.intl.bcds.goldroom.dataobject.Reservation</value>

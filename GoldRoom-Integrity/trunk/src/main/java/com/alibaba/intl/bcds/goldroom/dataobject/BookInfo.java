@@ -4,11 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -54,8 +51,6 @@ public class BookInfo {
     @SearchableProperty(index = Index.NOT_ANALYZED, store = Store.YES)
     private String   isbn;
 
-    @Column(name = "CATEGORY_NAME")
-    private String   categoryName;
 
     @Column(name = "IMG_URL")
     @SearchableProperty(index = Index.NO, store = Store.YES)
@@ -99,10 +94,6 @@ public class BookInfo {
 
     @Column(name = "GMT_MODIFIED")
     private Date     gmtModified;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CATEGORY_ID", nullable = true, referencedColumnName = "ID")
-    private Category category;
 
     @Column(name = "TAGS")
     @SearchableProperty(index = Index.ANALYZED, store = Store.YES)
@@ -158,14 +149,6 @@ public class BookInfo {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
     }
 
     public String getImgUrl() {
@@ -285,14 +268,6 @@ public class BookInfo {
      */
     public String getIsbn13() {
         return isbn13;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     public String getEBookUrl() {

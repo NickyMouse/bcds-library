@@ -1,34 +1,36 @@
 	#if($session && $session.getAttribute("LOGGED_USER"))
-	
-	#set( $userDto = $session.getAttribute("LOGGED_USER") ) 
+
+	#set( $userDto = $session.getAttribute("LOGGED_USER") )
 	<script type="text/javascript">
 		var isLogin = 'Y';
     </script>
-	<DIV class="top-nav-info" id="member_login_id">	
-		欢迎您：$userDto.userName ， 您当前积分：#if($userDto && $userDto.score) $userDto.score #else 0 #end 
-		&nbsp;&nbsp; 
+	<DIV class="top-nav-info" id="member_login_id">
+		欢迎您：$userDto.userName ， 您当前积分：#if($userDto && $userDto.score) $userDto.score #else 0 #end
+		&nbsp;&nbsp;
+		<a href="$base/mygoldroom/myFavoriteList.action">我的收藏</a>
+		&nbsp;&nbsp;
 		<a href="$base/mygoldroom/myBooksList.action">查看我的黄金屋</a>
 	</div>
-	
+
 	#else
-	
+
 	<DIV class="top-nav-info" id="member_login_id">
 		<label>用户名：</label>
 		<input id="username" name="username" title="请输入用户名" type="text" maxLength=60 value="用户名" onfocus="javascript:jQuery(this).val('');"/>&nbsp;&nbsp;
 		<label>密码：</label>
 		<input id="password" name="password" title="请输入登录口令" type="password" maxLength=60 value="密码" onfocus="javascript:jQuery(this).val('');" onclick=""/>&nbsp;&nbsp;
 		<input type="button" value="登录" onclick="javascript:userLogon();"/>
-		&nbsp;&nbsp; 
+		&nbsp;&nbsp;
 		<input type="button" value="我要注册" onclick="javascript:location.href='$base/mygoldroom/register.action'" />
 	</div>
-	
+
 	<script type="text/javascript" src="$base/dwr/interface/MemberService.js"></script>
 	<script type="text/javascript">
 		var isLogin = 'N';
 		function userLogon(){
 			MemberService.doLogin(jQuery("#username").val(), jQuery("#password").val(), function(resp){
 				if(resp != null){
-					var userInfoStr = "<label>欢迎您：</label>" + resp.userName + " ，您当前积分：" + (resp.score == null?0:resp.score) 
+					var userInfoStr = "<label>欢迎您：</label>" + resp.userName + " ，您当前积分：" + (resp.score == null?0:resp.score)
 					+ "&nbsp;&nbsp; <a href='$base/mygoldroom/myBooksList.action'>查看我的黄金屋</a>";
 					jQuery("#member_login_id").html(userInfoStr);
 					isLogin = 'Y';
