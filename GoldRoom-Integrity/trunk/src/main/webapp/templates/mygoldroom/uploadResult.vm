@@ -25,7 +25,7 @@
 				#parse("templates/mygoldroom/menu.vm")
        		</div>
         	<div id="right" class="rightContent">
-				<h2 style="text-align:center; margin:50px">你的书籍《$!bookInfo.name》 分享成功
+				<h2 style="text-align:center; margin:50px">你的书籍《$!bookInfo.name》 分享成功。获得<span style="color:red">100</span>积分。
 				<br/>
 				<a href="https://goldroom.b2b.alibaba-inc.com/mygoldroom/myBooksList.action?state=all" target="_blank">查看</a>
 				</h2>
