@@ -441,16 +441,17 @@ function addToFavorite (bookInfoId){
 		type: "POST",
 		url: "$base/mygoldroom/addFavorite.action",
         data: "bookInfoId=" + bookInfoId,
+		bookInfoId: ""+ bookInfoId,
         success: function(msg){
             if(msg == "success"){
 		   		var popUp = new PopUp("onShelve", "添加收藏成功", 250, 150, true);
-				popUp.show("添加收藏成功，<a href='/mygoldroom/myFavoriteList.action' target='_blank'>查看收藏</a>");
+				popUp.show("添加收藏成功，<a href='/mygoldroom/myFavoriteList.action?bookInfoId=" + bookInfoId + "' target='_blank'>查看收藏</a>");
 			} else if (msg == "needLogin") {
 				var popUp = new PopUp("onShelve", "添加收藏失败", 250, 150, true);
 			 	popUp.show("请先登录后再尝试");
 			} else if (msg == "exists") {
 				var popUp = new PopUp("onShelve", "添加收藏失败", 250, 150, true);
-			 	popUp.show("您已经收藏过这本书了，<a href='/mygoldroom/myFavoriteList.action' target='_blank'>查看收藏</a>");
+			 	popUp.show("您已经收藏过这本书了，<a href='/mygoldroom/myFavoriteList.action?bookInfoId=" + bookInfoId + "' target='_blank'>查看收藏</a>");
 			} else {
 				var popUp = new PopUp("onShelve", "添加收藏失败", 250, 150, true);
 			 	popUp.show("添加收藏删失败，请稍后再尝试");
