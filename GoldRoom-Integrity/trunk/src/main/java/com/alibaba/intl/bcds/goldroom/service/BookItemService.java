@@ -69,6 +69,7 @@ public class BookItemService {
             try {
                 Member m = memberDao.findByLoginId(bookItem.getOwner().getLoginId());
                 m.setScore(m.getScore() == null || m.getScore() == 0 ? 100 : m.getScore() + 100);
+                bookItem.setOwner(m);
                 memberDao.updateMemberByLoginId(m);
             } catch (Exception e) {
                 logger.error(e);
@@ -113,6 +114,7 @@ public class BookItemService {
             try {
                 Member m = memberDao.findByLoginId(bookItem.getOwner().getLoginId());
                 m.setScore(m.getScore() == null || m.getScore() == 0 ? 100 : m.getScore() + 100);
+                bookItem.setOwner(m);
                 memberDao.updateMemberByLoginId(m);
             } catch (Exception e) {
                 logger.error(e);

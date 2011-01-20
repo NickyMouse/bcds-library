@@ -64,6 +64,10 @@ public class UploadPaperBookAction extends BaseAction {
         bookItem.setBookInfo(currentBookInfo);
 
         bookItemService.addBookItem(bookItem);
+
+        if (bookItem.getOwner() != null && bookItem.getOwner().getScore() != null) {
+            user.setScore(bookItem.getOwner().getScore());
+        }
         bookInfo = bookItem.getBookInfo();
         return SUCCESS;
     }
