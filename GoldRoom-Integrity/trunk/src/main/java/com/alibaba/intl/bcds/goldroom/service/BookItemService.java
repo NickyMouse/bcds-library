@@ -11,9 +11,11 @@ import com.alibaba.intl.bcds.goldroom.constaints.BookItemStateEnum;
 import com.alibaba.intl.bcds.goldroom.constaints.BookStoreState;
 import com.alibaba.intl.bcds.goldroom.dao.BookInfoDao;
 import com.alibaba.intl.bcds.goldroom.dao.BookItemDao;
+import com.alibaba.intl.bcds.goldroom.dao.MemberDao;
 import com.alibaba.intl.bcds.goldroom.dao.ReservationDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
+import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.dataobject.Reservation;
 import com.alibaba.intl.bcds.goldroom.remote.BookInfoFetcher;
 import com.alibaba.intl.bcds.goldroom.result.BookItemResult;
@@ -26,6 +28,9 @@ public class BookItemService {
 
     @Autowired
     private BookInfoDao     bookInfoDao;
+
+    @Autowired
+    private MemberDao       memberDao;
 
     @Autowired
     private ReservationDao  reservationDao;
@@ -60,9 +65,15 @@ public class BookItemService {
             bookInfoDao.updateById(bookInfo);
             bookItem.setBookInfo(bookInfo);
             bookItemDao.save(bookItem);
-        }
 
-        // TODO update bookItem Owner's Score
+            try {
+                Member m = memberDao.findByLoginId(bookItem.getOwner().getLoginId());
+                m.setScore(m.getScore() == null || m.getScore() == 0 ? 100 : m.getScore() + 100);
+                memberDao.updateMemberByLoginId(m);
+            } catch (Exception e) {
+                logger.error(e);
+            }
+        }
 
         logger.info("[Add new book item] bookItem.id:" + bookItem.getId());
     }
@@ -99,7 +110,13 @@ public class BookItemService {
             bookItemDao.save(bookItem);
             logger.info("[Add new Ebook item] bookItem.id:" + bookItem.getId());
 
-            // TODO update bookItem Owner's Score
+            try {
+                Member m = memberDao.findByLoginId(bookItem.getOwner().getLoginId());
+                m.setScore(m.getScore() == null || m.getScore() == 0 ? 100 : m.getScore() + 100);
+                memberDao.updateMemberByLoginId(m);
+            } catch (Exception e) {
+                logger.error(e);
+            }
             return true;
         } else {
             return false;
@@ -244,6 +261,14 @@ public class BookItemService {
 
     public BookInfoFetcher getBookInfoFetcher() {
         return bookInfoFetcher;
+    }
+
+    public void setMemberDao(MemberDao memberDao) {
+        this.memberDao = memberDao;
+    }
+
+    public MemberDao getMemberDao() {
+        return memberDao;
     }
 
 }
