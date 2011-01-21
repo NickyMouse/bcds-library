@@ -23,13 +23,15 @@ import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.BookSearchOption;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchKeywordFilter;
+import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SortField;
 
 public class BookSearchHelper {
 
     private static Logger   logger = Logger.getLogger(BookSearchHelper.class);
     private CompassTemplate compassTemplate;
 
-    public BookSearchResult searchBookByKeyword(final String kw, final SearchBookType type, final Integer skipSize,
+    public BookSearchResult searchBookByKeyword(final String kw, final SearchBookType type, final SortField sortField,
+                                                final SortDirection sortDirection, final Integer skipSize,
                                                 final Integer pageSize) {
         final String keyword = SearchKeywordFilter.filter(kw);
         if (StringUtils.isBlank(keyword)) {
@@ -51,6 +53,9 @@ public class BookSearchHelper {
                 } else {
                     query = queryBuilder.queryString(keyword).toQuery();
                 }
+                if (sortField != null && sortDirection != null) {
+                    query.addSort(sortField.getFieldName(), sortDirection);
+                }
                 hits = query.hits().detach(skipSize, pageSize).getHits();
                 int length = hits.length;
                 for (int i = 0; i < length; i++) {
@@ -59,6 +64,12 @@ public class BookSearchHelper {
                 return new BookSearchResult(results, query.hits().getLength());
             }
         });
+    }
+
+    public BookSearchResult searchBookByKeyword(final String kw, final SearchBookType type, final Integer skipSize,
+                                                final Integer pageSize) {
+        return searchBookByKeyword(kw, type, null, null, skipSize, pageSize);
+
     }
 
     public BookSearchResult searchBookByTime(final Date startTime, final Date endTime, final SearchBookType type,
@@ -85,6 +96,7 @@ public class BookSearchHelper {
                     query = queryBuilder.bool().addMust(queryBuilder.ge("bookInfo.gmtCreate", startTime)).addMust(queryBuilder.le("bookInfo.gmtCreate",
                                                                                                                                   endTime)).toQuery();
                 }
+                query.addSort("bookInfo.gmtCreate", SortDirection.REVERSE);
                 hits = query.hits().detach(skipSize, pageSize).getHits();
                 int length = hits.length;
                 for (int i = 0; i < length; i++) {

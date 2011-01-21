@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.xwork.StringUtils;
+import org.compass.core.CompassQuery.SortDirection;
 
 import com.alibaba.intl.bcds.goldroom.dao.BookInfoDao;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
@@ -11,6 +12,7 @@ import com.alibaba.intl.bcds.goldroom.remote.BookInfoFetcher;
 import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.BookSearchOption;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
+import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SortField;
 import com.alibaba.intl.bcds.goldroom.util.BookSearchHelper;
 
 public class BookInfoService {
@@ -139,6 +141,12 @@ public class BookInfoService {
      */
     public void setBookSearchHelper(BookSearchHelper bookSearchHelper) {
         this.bookSearchHelper = bookSearchHelper;
+    }
+
+    public BookSearchResult searchBookByKeyword(String keyword, SearchBookType searchType, SortField sortField,
+                                                SortDirection sortDirection, int page, int pageSize) {
+        return bookSearchHelper.searchBookByKeyword(keyword, searchType, sortField, sortDirection, (page - 1)
+                                                                                                   * pageSize, pageSize);
     }
 
 }
