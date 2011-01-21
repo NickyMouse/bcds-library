@@ -48,6 +48,9 @@ jQuery(function () {
             var that = this;
             t = window.setTimeout(function () {
                 var detailFrame = jQuery('.detail-frame', that).html();
+				if (detailFrame == null) {
+					detailFrame = "暂无介绍信息...";
+				}
                 var thisX = jQuery('img', that).offset().left;
                 var thisY = jQuery('img', that).offset().top;
 
