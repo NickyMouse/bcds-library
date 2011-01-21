@@ -2,7 +2,7 @@
 <link href="$base/static/css/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
 <script type='text/javascript' src="$base/dwr/interface/BookInfoService.js"></script>
 <script type="text/javascript" src="$base/static/js/uploadify/swfobject.js"></script>
-<script type="text/javascript" src="$base/static/js/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+<script type="text/javascript" src="$base/static/js/uploadify/jquery.uploadify.v3.min.js"></script>
 <link rel=stylesheet type=text/css href="$base/static/css/mygoldroom.css" />
 <style>
 	.uploadDiv {text-align:center; margin:10px 20px 20px 20px; font-size:14px}
@@ -158,36 +158,43 @@
 				</div>
             </div>
 		</DIV>
+		<div id="loglog"></div>
 		<!-- content end here -->
 		<div style="clear:both"></div>
 <script type="text/javascript">
       jQuery(document).ready(function() {
       	jQuery('#file_upload').uploadify({
-            'uploader'    : '/static/js/uploadify/uploadify.swf',
-            'script'      : '/mygoldroom/fileUpload.action',
-            'cancelImg'   : '/static/js/uploadify/cancel.png',
-            'fileExt'     : '*.pdf;*.chm',
-			'fileDataName': 'myFile',
-            'fileDesc'    : 'Files (.PDF, .CHM)',
-			'auto'        : true,
-			'buttonText'  : ' ',
-			'buttonImg'   : '/static/images/uploadBtn.gif',
-			'width' 	  : 120,
-			'height'      : 30,
-			'onSelect'    : function(event,ID,fileObj) {
-				jQuery('#file_upload').uploadifySettings('folder','/' + jQuery('#isbn').val());
+			swf      : '/static/js/uploadify/uploadify3.swf',
+			uploader : 'http://goldroom.b2b.alibaba-inc.com:8080/mygoldroom/fileUpload.action',
+			cancelImage   : '/static/js/uploadify/cancel.png',
+			auto          : true,
+			buttonText    : ' ',
+			buttonImage   : '/static/images/uploadBtn.gif',
+			checkExisting : false,
+			width    	  : 120,
+			height        : 30,
+			fileSizeLimit   : 0,
+			fileTypeDesc    : 'Files (.PDF, .CHM, .ZIP)',
+			fileTypeExts    : '*.pdf;*.chm;*.zip',
+			fileObjName		: 'myFile',
+			requeueErrors   : false,
+			onSelect    : function(event,ID,fileObj) {
+				jQuery('#loglog').html(jQuery('#loglog').html() + jQuery('#isbn').val());
+				jQuery('#file_upload').uploadifySettings('postData',{folder : '/' + jQuery('#isbn').val()}, true);
 			},
-			onComplete : function(event, ID, fileObj, response, data) {
-				if(response.length > 0) {
-					jQuery('#file_uploadUploader').hide();
-					jQuery('#uploadResult').show();
-					jQuery('#shareBtn').show();
-
-					jQuery('#ebookUploadPath').val(response);
-					jQuery('#uploadBookForm').submit();
+			onUploadSuccess : function(file,data,response) {
+				if(data.length > 0) {
+    				jQuery('#file_uploadUploader').hide();
+    				jQuery('#uploadResult').show();
+    				jQuery('#shareBtn').show();
+    				jQuery('#ebookUploadPath').val(data);
+    				jQuery('#uploadBookForm').submit();
 				} else {
 					alert('上传失败，请稍候尝试');
 				}
+			},
+			onUploadError : function() {
+				alert('上传失败，请稍候尝试');
 			}
         });
       });
