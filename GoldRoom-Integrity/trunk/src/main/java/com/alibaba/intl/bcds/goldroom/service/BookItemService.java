@@ -19,6 +19,7 @@ import com.alibaba.intl.bcds.goldroom.dataobject.Member;
 import com.alibaba.intl.bcds.goldroom.dataobject.Reservation;
 import com.alibaba.intl.bcds.goldroom.remote.BookInfoFetcher;
 import com.alibaba.intl.bcds.goldroom.result.BookItemResult;
+import com.alibaba.intl.bcds.goldroom.util.WeiboHelper;
 
 @Transactional
 public class BookItemService {
@@ -39,6 +40,8 @@ public class BookItemService {
 
     private BookInfoFetcher bookInfoFetcher;
 
+    private WeiboHelper     weiboHelper;
+
     /**
      * 新增纸质书
      *
@@ -57,6 +60,7 @@ public class BookItemService {
                     return;
                 }
                 bookInfoDao.save(bookInfo);
+                weiboHelper.sendNewBookMessage(bookInfo);
             }
 
             BookStoreState newState = BookStoreState.getUpdatedStoreState(bookInfo.getStoreState(),
@@ -94,6 +98,7 @@ public class BookItemService {
                     return false;
                 }
                 bookInfoDao.save(bookInfo);
+                weiboHelper.sendNewBookMessage(bookInfo);
             }
 
             if (BookStoreState.isEBookExist(bookInfo.getStoreState())) {
@@ -271,6 +276,14 @@ public class BookItemService {
 
     public MemberDao getMemberDao() {
         return memberDao;
+    }
+
+    public void setWeiboHelper(WeiboHelper weiboHelper) {
+        this.weiboHelper = weiboHelper;
+    }
+
+    public WeiboHelper getWeiboHelper() {
+        return weiboHelper;
     }
 
 }

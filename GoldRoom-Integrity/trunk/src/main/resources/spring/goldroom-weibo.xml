@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName">
+
+	<bean id="weiboHelper" class="com.alibaba.intl.bcds.goldroom.util.WeiboHelper">
+		<property name="bookImagePath" value="${goldroom.fileupload.path}" />
+	</bean>
+
+	<bean id="sinaWeibo" class="weibo4j.Weibo">
+		<constructor-arg index="0">
+			<!-- sina weibo account -->
+			<value>${goldroom.weibo.sina.account}</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<!-- sina weibo account password -->
+			<value>${goldroom.weibo.sina.password}</value>
+		</constructor-arg>
+	</bean>
+</beans>

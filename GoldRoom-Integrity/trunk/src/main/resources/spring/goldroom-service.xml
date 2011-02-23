@@ -2,7 +2,8 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-autowire="byName">
 
-	<bean id="bookInfoFetcher" class="com.alibaba.intl.bcds.goldroom.remote.DoubanBookInfoFetcher">
+	<bean id="bookInfoFetcher"
+		class="com.alibaba.intl.bcds.goldroom.remote.DoubanBookInfoFetcher">
 		<property name="fetchUrl" value="http://api.douban.com/book/subject/isbn/" />
 	</bean>
 
@@ -10,28 +11,34 @@
 	<bean id="bookItemService" class="com.alibaba.intl.bcds.goldroom.service.BookItemService" />
 	<bean id="memberService" class="com.alibaba.intl.bcds.goldroom.service.MemberService" />
 	<bean id="commentService" class="com.alibaba.intl.bcds.goldroom.service.CommentService" />
-	<bean id="adminConfigService" class="com.alibaba.intl.bcds.goldroom.service.AdminConfigService" />
-	<bean id="eBookUploadService" class="com.alibaba.intl.bcds.goldroom.service.EBookUploadService" >
-		<property name="eBookUploadPath" ref="eBookUploadPath"/>
+	<bean id="adminConfigService"
+		class="com.alibaba.intl.bcds.goldroom.service.AdminConfigService" />
+	<bean id="eBookUploadService"
+		class="com.alibaba.intl.bcds.goldroom.service.EBookUploadService">
+		<property name="eBookUploadPath" ref="eBookUploadPath" />
 	</bean>
 	<bean id="lendService" class="com.alibaba.intl.bcds.goldroom.service.LendService" />
-	<bean id="reservationService" class="com.alibaba.intl.bcds.goldroom.service.ReservationService" />
+	<bean id="reservationService"
+		class="com.alibaba.intl.bcds.goldroom.service.ReservationService" />
 
 	<bean id="eBookUploadPath" class="java.lang.String">
-		<constructor-arg value="${goldroom.ebook.upload.path}"/>
+		<constructor-arg value="${goldroom.ebook.upload.path}" />
 	</bean>
 	<bean id="tagService" class="com.alibaba.intl.bcds.goldroom.service.TagService" />
 
-	<bean id="sendMailService" class="com.alibaba.intl.bcds.goldroom.mail.service.impl.SendMailServiceImpl" />
-	<bean id="velocityMailMessage" class="com.alibaba.intl.bcds.goldroom.mail.utils.VelocityTemplateMailMessage" />
+	<bean id="sendMailService"
+		class="com.alibaba.intl.bcds.goldroom.mail.service.impl.SendMailServiceImpl" />
+	<bean id="velocityMailMessage"
+		class="com.alibaba.intl.bcds.goldroom.mail.utils.VelocityTemplateMailMessage" />
 
 	<bean id="tracelogService" class="com.alibaba.intl.bcds.goldroom.service.TracelogService" />
 
 	<bean id="favoriteService" class="com.alibaba.intl.bcds.goldroom.service.FavoriteService" />
 
 	<!-- 内网服务 -->
-	<bean id ="intranetService"  class="com.alibaba.intl.bcds.goldroom.service.IntranetService" init-method="init">
-		<property name="socksProxyHost" value="${goldroom.intranet.socksProxyHost}"/>
-		<property name="socksProxyPort" value="${goldroom.intranet.socksProxyPort}"/>
+	<bean id="intranetService" class="com.alibaba.intl.bcds.goldroom.service.IntranetService"
+		init-method="init">
+		<property name="socksProxyHost" value="${goldroom.intranet.socksProxyHost}" />
+		<property name="socksProxyPort" value="${goldroom.intranet.socksProxyPort}" />
 	</bean>
 </beans>

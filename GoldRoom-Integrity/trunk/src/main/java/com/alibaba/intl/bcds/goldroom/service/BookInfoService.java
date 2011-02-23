@@ -14,6 +14,8 @@ import com.alibaba.intl.bcds.goldroom.search.commons.constrans.BookSearchOption;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SortField;
 import com.alibaba.intl.bcds.goldroom.util.BookSearchHelper;
+import com.alibaba.intl.bcds.goldroom.util.ImageUtil;
+import com.alibaba.intl.bcds.goldroom.util.WeiboHelper;
 
 public class BookInfoService {
 

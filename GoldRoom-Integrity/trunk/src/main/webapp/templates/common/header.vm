@@ -20,6 +20,7 @@
 		<DIV class=top-nav-items>
 		<UL>
 		  <LI><A href="/">黄金屋</A> </LI>
+		  <LI><A href="http://t.sina.com.cn/aligoldroom" target="_blank">黄金屋新浪微博</A> </LI>
 		</UL>
 	</DIV></DIV></DIV>
 	#parse("/templates/common/searchbar.vm")

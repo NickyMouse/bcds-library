@@ -8,7 +8,7 @@
 			<value>classpath:goldroom.properties</value>
 		</property>
 	</bean>
-	
+
  	<import resource="spring/goldroom-db.xml" />
 	<import resource="spring/goldroom-dal.xml" />
 	<import resource="spring/goldroom-service.xml" />
@@ -16,4 +16,5 @@
 	<import resource="spring/goldroom-search.xml" />
 	<import resource="spring/mail/mail.xml" />
 	<import resource="spring/goldroom-loop.xml" />
+	<import resource="spring/goldroom-weibo.xml" />
 </beans>

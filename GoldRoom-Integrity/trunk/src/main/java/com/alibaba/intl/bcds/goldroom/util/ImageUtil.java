@@ -1,9 +1,9 @@
 /**
  * Project: goldroom-biz
- * 
+ *
  * File Created at 2009-12-26
  * $Id$
- * 
+ *
  * Copyright 2008 Alibaba.com Croporation Limited.
  * All rights reserved.
  *
@@ -17,18 +17,23 @@ package com.alibaba.intl.bcds.goldroom.util;
 
 /**
  * TODO Comment of ImageUtil
- * 
+ *
  * @author Zimmem
  */
 public interface ImageUtil {
 
     /**
      * 保存图片并返回保存的路径
-     * 
+     *
      * @param isbn
      * @param body
      * @return
      */
     String save(String isbn, String suffix, byte[] body);
 
+    /**
+     * 获取保存图片的根路径
+     * @return
+     */
+    String getUploadPath();
 }

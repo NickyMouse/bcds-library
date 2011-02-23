@@ -28,6 +28,8 @@
 			  <LI><A href="/book/search.do?bookType=pbook&log=searchbar&log2=pbook">纸质书</A></LI>
               <LI><A href="/book/search.do?bookType=ebook&log=searchbar&log2=ebook">电子书</A></LI>
 			#end
+			  <LI><a href="http://t.sina.com.cn/aligoldroom" target="_blank"><img src="$base/static/images/weibo/sinaweibo.jpg" width="24px" height="24px" style="margin-top:5px" title="关注黄金屋" /></a></LI>
+			  <LI></LI>
             </UL>
             </DIV>
         </DIV>
