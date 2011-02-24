@@ -1,11 +1,14 @@
 package com.alibaba.intl.bcds.goldroom.service;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import weibo4j.WeiboException;
 
 import com.alibaba.intl.bcds.goldroom.constaints.BookItemStateEnum;
 import com.alibaba.intl.bcds.goldroom.constaints.BookStoreState;
@@ -60,7 +63,6 @@ public class BookItemService {
                     return;
                 }
                 bookInfoDao.save(bookInfo);
-                weiboHelper.sendNewBookMessage(bookInfo);
             }
 
             BookStoreState newState = BookStoreState.getUpdatedStoreState(bookInfo.getStoreState(),
@@ -69,6 +71,13 @@ public class BookItemService {
             bookInfoDao.updateById(bookInfo);
             bookItem.setBookInfo(bookInfo);
             bookItemDao.save(bookItem);
+
+            // 发送微博
+            try {
+                weiboHelper.sendNewBookMessage(bookInfo);
+            } catch (Exception e) {
+                logger.error(e);
+            }
 
             try {
                 Member m = memberDao.findByLoginId(bookItem.getOwner().getLoginId());
@@ -98,12 +107,13 @@ public class BookItemService {
                     return false;
                 }
                 bookInfoDao.save(bookInfo);
-                weiboHelper.sendNewBookMessage(bookInfo);
+
             }
 
             if (BookStoreState.isEBookExist(bookInfo.getStoreState())) {
                 return false;
             }
+
             BookStoreState newState = BookStoreState.getUpdatedStoreState(bookInfo.getStoreState(),
                                                                           BookStoreState.EBOOK);
 
@@ -115,6 +125,13 @@ public class BookItemService {
             bookItem.setBookInfo(bookInfo);
             bookItemDao.save(bookItem);
             logger.info("[Add new Ebook item] bookItem.id:" + bookItem.getId());
+
+            // 发送微博
+            try {
+                weiboHelper.sendNewBookMessage(bookInfo);
+            } catch (Exception e) {
+                logger.error(e);
+            }
 
             try {
                 Member m = memberDao.findByLoginId(bookItem.getOwner().getLoginId());
