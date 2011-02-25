@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import org.apache.log4j.Logger;
 
+import weibo4j.Status;
 import weibo4j.Weibo;
 import weibo4j.WeiboException;
 
@@ -21,7 +22,10 @@ public class WeiboHelper {
     private static final String DETAIL_URL = "http://goldroom.b2b.alibaba-inc.com/detail/bookDetail.do?bookInfoId=%s&log=fromSinaWeibo";
 
     public void sendMessage(String content) throws WeiboException {
-        sinaWeibo.updateStatus(content);
+        Status s = sinaWeibo.updateStatus(content);
+        if (s.getId() == 0) {
+            throw new WeiboException("return status'id is 0, uploadStatus falied");
+        }
     }
 
     public void sendMessageWithImage(String content, String imageAbsolutePath) throws WeiboException,
@@ -30,7 +34,10 @@ public class WeiboHelper {
         if (imageFile.exists() == false) {
             throw new FileNotFoundException("imageFile not found:" + imageAbsolutePath);
         }
-        sinaWeibo.uploadStatus(content, imageFile);
+        Status s = sinaWeibo.uploadStatus(content, imageFile);
+        if (s.getId() == 0) {
+            throw new WeiboException("return status'id is 0, uploadStatus falied");
+        }
     }
 
     public void sendNewBookMessage(BookInfo bookInfo) throws FileNotFoundException, WeiboException {
@@ -61,5 +68,15 @@ public class WeiboHelper {
 
     public String getBookImagePath() {
         return bookImagePath;
+    }
+
+    public static void main(String[] args) throws FileNotFoundException, WeiboException {
+        WeiboHelper helper = new WeiboHelper();
+        Weibo sinaWeibo = new Weibo("goldroom@alibaba-inc.com", "hellogoldroom");
+        helper.setSinaWeibo(sinaWeibo);
+        String url = String.format(DETAIL_URL, "612");
+        String message = "新书上架《" + "秘密" + "》，点击查看： " + url;
+        String imageAbsPath = "f:/9787807001508.jpg";
+        helper.sendMessageWithImage(message, imageAbsPath);
     }
 }
