@@ -12,12 +12,15 @@ import java.util.Date;
 
 /**
  * TODO Comment of SimpleDateConverter
- * 
+ *
  * @author Zimmem
  */
 public class SimpleDateConverter implements DateConverter {
 
     public Date conver(String string) {
+        if(string == null) {
+            return null;
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             return sdf.parse(string);
