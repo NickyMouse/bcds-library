@@ -31,7 +31,7 @@ public class MemberService {
 
     @Autowired
     private SendMailService sendMailService;
-    
+
     @Autowired
     private IntranetService intranetService;
 
@@ -45,7 +45,7 @@ public class MemberService {
     public Member findMemberByLoginId(String loginId) {
         return memberDao.findByLoginId(loginId);
     }
-    
+
     public Member findMemberByEmail(String email){
     	if(StringUtils.isNotBlank(email)){
     		return memberDao.findByEmail(email);
@@ -70,7 +70,7 @@ public class MemberService {
     		logger.debug("member object is null ....");
     		return null;
     	}
-    	
+
         Member m = memberDao.findByLoginId(member.getLoginId().trim());
         if (m != null) {
             logger.info("[New Member Apply Failed: loginId already exist]" + member.getLoginId());
@@ -81,9 +81,9 @@ public class MemberService {
         member.setPassword(MD5.getMD5(member.getPassword()));
         member.setRole(RoleEnum.ROLE_USER.getName());
         member.setEnable(MemberEnableEnum.APPROVE.getValue());
-        member.setScore(100); //initial member score to 100 , by Harrison 
-        
-        // send mail 
+        member.setScore(100); //initial member score to 100 , by Harrison
+
+        // send mail
         EmailInfo emailInfo = new EmailInfo(ServiceType.ACCOUNT_APPROVED);
         emailInfo.setOwner(member);
         emailInfo.addReceiverEmail(member.getEmail());
@@ -107,15 +107,15 @@ public class MemberService {
 	private void processApproveMember(Member member) {
 		if(member != null){
 			member.setEnable(MemberEnableEnum.APPROVE.getValue());
-	        member.setScore(100); //initial member score to 100 , by Harrison 
+	        member.setScore(100); //initial member score to 100 , by Harrison
 	        memberDao.updateMemberByLoginId(member);
-	
+
 	        // send mail
 	        EmailInfo emailInfo = new EmailInfo(ServiceType.ACCOUNT_APPROVED);
 	        emailInfo.setOwner(member);
 	        emailInfo.addReceiverEmail(member.getEmail());
 	        sendMailService.sendVelocityMail(emailInfo, null, null, null,null);
-	
+
 	        logger.info("[Approve Member success]" + member.getLoginId());
 		}
 	}
@@ -135,12 +135,12 @@ public class MemberService {
     			if(StringUtils.isNotBlank(staff.getAliTalkId()))member.setAliTalkId(staff.getAliTalkId());
     			if(StringUtils.isNotBlank(staff.getStaffId()))member.setWorkId(Integer.valueOf(staff.getStaffId()));
     			if(StringUtils.isNotBlank(staff.getExtPhone()))member.setExt(staff.getExtPhone());
-    			
+
     			member.setLoginId((StringUtils.isNotBlank(staff.getNick()))?staff.getNick().toLowerCase():staff.getName());
     			member.setPassword(MD5.getMD5("hello1234"));
     			member.setName(staff.getName());
     			member.setEmail(staff.getEmail());
-    			
+
     			regMember = applyMember(member);
     			boolean t = false;
     			if(regMember != null && StringUtils.isNotBlank(regMember.getLoginId())){
@@ -153,8 +153,8 @@ public class MemberService {
     	}
     	return regMember;
     }
-    
-    
+
+
     public boolean tbdMembers(String loginId) {
         Member member = memberDao.findByLoginId(loginId);
         if (member == null) {
@@ -218,7 +218,7 @@ public class MemberService {
             return null;
         }
     }
-    
+
     public List<Member> listMemberByStatus(String status) {
         if (StringUtils.isEmpty(status)) {
             return null;
@@ -241,14 +241,14 @@ public class MemberService {
         memberDao.updatePasswordByLoginId(m.getLoginId(), MD5.getMD5(password));
         return true;
     }
-    
+
     /**
      * 按照积分排行获取用户列表
      * @param count 数量
      * @return
      */
     public List<Member> listMemberByScore(int count) {
-    	
+
     	return memberDao.listMemberByScore(count);
     }
 

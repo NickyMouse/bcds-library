@@ -1,12 +1,7 @@
 /**
- * 
+ *
  */
 package com.alibaba.intl.bcds.goldroom.service;
-
-import java.net.MalformedURLException;
-import java.rmi.RemoteException;
-
-import javax.xml.rpc.ServiceException;
 
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
@@ -17,7 +12,7 @@ import com.alibaba.intl.bcds.goldroom.dataobject.AlibabaStaffDTO;
 
 /**
  * @author Harrison
- * 
+ *
  */
 public class IntranetService {
 
@@ -38,7 +33,7 @@ public class IntranetService {
 
 	/**
 	 * 获取员工信息
-	 * 
+	 *
 	 * @param strEmail
 	 * @param systemid
 	 * @param password
