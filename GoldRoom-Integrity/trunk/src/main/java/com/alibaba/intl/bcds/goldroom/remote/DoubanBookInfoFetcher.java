@@ -77,7 +77,11 @@ public class DoubanBookInfoFetcher implements BookInfoFetcher, InitializingBean 
         try {
             Document document = DocumentHelper.parseText(xml);
             info.setAuthor(queryByXpath("/entry/s:author/s:name", document));
-            info.setDescription(queryByXpath("/entry/s:summary", document));
+            String desc = queryByXpath("/entry/s:summary", document);
+            if (desc != null) {
+                desc = desc.replaceAll("\n", "<br/>");
+            }
+            info.setDescription(desc);
             info.setName(queryByXpath("/entry/s:title", document));
             info.setIsbn10(queryByXpath("/entry/db:attribute[@name='isbn10']", document));
             info.setIsbn13(queryByXpath("/entry/db:attribute[@name='isbn13']", document));
