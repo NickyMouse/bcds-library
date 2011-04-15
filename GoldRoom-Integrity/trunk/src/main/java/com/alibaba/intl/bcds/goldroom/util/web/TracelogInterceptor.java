@@ -34,7 +34,7 @@ public class TracelogInterceptor extends AbstractInterceptor {
             Tracelog tl = new Tracelog();
             tl.setGmtCreate(new Date());
             tl.setReferer(req.getHeader("Referer"));
-            tl.setEmail(req.getHeader(UserDTO.MEMBER_CA_DN_KEY));
+            tl.setEmail(req.getHeader(UserDTO.SSL_CLIENT_S_DN_Email));
             tl.setPath(req.getServletPath());
             tl.setIp(req.getRemoteAddr());
             tl.setParam(req.getParameter("log"));
