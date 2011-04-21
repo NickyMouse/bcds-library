@@ -1,8 +1,10 @@
 package com.alibaba.intl.bcds.goldroom.action.books;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
+import com.alibaba.intl.bcds.goldroom.constaints.BookItemStateEnum;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
 import com.alibaba.intl.bcds.goldroom.dataobject.LendingLog;
@@ -41,7 +43,7 @@ public class BookDetailAction extends BaseAction {
             return ERROR;
         }
 
-        bookItemList = bookItemService.listBookItemByBookInfoId(bookInfoId);
+        bookItemList = sortBookItemList(bookItemService.listBookItemByBookInfoId(bookInfoId));
         commentList = commentService.listBookCommentByBookInfoId(bookInfoId, 1, 100);
         BookSearchResult bookSearchResult = bookInfoService.searchBookByKeyword(bookInfo.getTags(), SearchBookType.ALL,
                                                                                 1, 10);
@@ -141,4 +143,22 @@ public class BookDetailAction extends BaseAction {
         return lendingLogList;
     }
 
+    private List<BookItem> sortBookItemList(List<BookItem> bookItemList) {
+        if (bookItemList == null) {
+            return null;
+        }
+        List<BookItem> sortedBookItemList = new ArrayList<BookItem>(bookItemList.size());
+        for (BookItem bookItem : bookItemList) {
+            if (BookItemStateEnum.IDLE.getValue().equals(bookItem.getState())) {
+                sortedBookItemList.add(bookItem);
+            }
+        }
+
+        for (BookItem bookItem : bookItemList) {
+            if (!BookItemStateEnum.IDLE.getValue().equals(bookItem.getState())) {
+                sortedBookItemList.add(bookItem);
+            }
+        }
+        return sortedBookItemList;
+    }
 }
