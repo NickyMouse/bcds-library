@@ -18,6 +18,40 @@
         padding:0;
         width:0;
     }
+    .bookImg {max-height: 180px; max-width:120px; width:expression(document.body.clientWidth>120?"120px":"auto"}
+    .bookscontents DL{
+    	margin:15px 33px 15px 0;
+    	float:left;
+    	overflow:hidden;
+    	text-align:center;
+    	width:155px;
+    }
+    .bookscontents DL.clear  {
+        clear:both;
+        float:none;
+        margin:0;
+        padding:0;
+        width:0;
+    }
+    .bookscontents img{
+    	width:120px
+    }
+</style>
+<style>
+	#sidebar-tab{width:320px; float:right; height:auto;}
+    #tab-title {margin-left:-4px;margin-top: 0px;}
+    #tab-title h3{ font-size: 12px;}
+    #tab-title .selected{
+    	width:100%;
+		white-space: nowrap;
+		color:white;
+		background-color:#83BF73;
+		padding: 0 0 0 8px;
+	} /*标题被选中时的样式*/
+    #tab-title span{margin:5px 0px 5px 5px; cursor:pointer; }
+    #tab-content .hide{display:none;} /*默认让第一块内容显示，其余隐藏*/
+    #tab-content ul{padding:10px 10px;}
+    #tab-content ul li{height:15px;}
 </style>
 <script type='text/javascript'>
 	jQuery(document).ready(function() {
@@ -29,6 +63,10 @@
 				jQuery("#newcontent" + this.id.slice(-1)).show();
 			});
 		}
+		jQuery('#tab-title span').click(function(){
+           jQuery(this).addClass("selected").siblings().removeClass();
+           jQuery("#tab-content > ul").hide().eq(jQuery('#tab-title span').index(this)).show();
+        });
 	});
 
 
@@ -103,7 +141,7 @@
 					 eval("var obj ="+response);
 					if(obj.result == "success"){
     			   	 	alert("评价成功");
-						var li ='<li style="width: 900px; padding-left: 25px; height:auto;">'+
+						var li ='<div style="width: 100%; height:auto;">'+
                     			'	<div id="left_up">'+
                     			'	<div id="right">'+
                     			'		<h3>'+obj.memberName+'&nbsp;&nbsp;' + obj.gmtCreate + '</h3>'+
@@ -111,7 +149,7 @@
                     			'		'+content +
                     			'		</div>'+
                     			'	</div>'+
-                    			'</li>';
+                    			'</div>';
 
 						jQuery("#jsAddComment").html(jQuery("#jsAddComment").html() + li);
 						jQuery("#comment_content").val("");
@@ -123,26 +161,6 @@
  }
 </script>
 
-<style>
-.bookImg {max-height: 180px; max-width:120px; width:expression(document.body.clientWidth>120?"120px":"auto"}
-.bookscontents DL{
-	margin:15px 33px 15px 0;
-	float:left;
-	overflow:hidden;
-	text-align:center;
-	width:155px;
-}
-.bookscontents DL.clear  {
-clear:both;
-float:none;
-margin:0;
-padding:0;
-width:0;
-}
-.bookscontents img{
-	width:120px
-}
-</style>
 	<!-- content start here-->
 	<div class="grid-16-8 clearfix">
 		<div style="padding-left: 8px; padding-right: 20px;height:230px;" class="article movie_headerline">
@@ -180,7 +198,7 @@ width:0;
 						#if($bookInfo.edition)
 							<span class="pl"> 版本: </span>$!bookInfo.edition<br>
 						#end
-						#if($bookInfo.pages)
+						#if($bookInfo.pages && $bookInfo.pages > 0)
 							<span class="pl"> 页数: </span>$!bookInfo.pages<br>
 						#end
 					</div>
@@ -197,48 +215,17 @@ width:0;
 			</div>
 		</div>
 
-
-		<!-- 图书拥有者信息 -->
-		<!--
-		<div style="height: 258px; border: 1px solid rgb(228, 228, 228); padding: 0px 8px; margin-bottom: 0px;"	class="aside movie_headerline">
-		</div>
-		-->
-		<style>
-        #sidebar-tab{width:320px;float:right;height: 217px;}
-        #tab-title {margin-left:-4px;margin-top: 0px;}
-        #tab-title h3{color:#666;font-size:12px;font-weight:400;}
-        #tab-title .selected{
-        	background-position: left top;
-    		line-height: 12px;
-			padding: 0 0 0 8px;
-			background: url("/static/images/pics/green_tab.gif") no-repeat scroll 0 0 transparent;
-    		color: #FFFFFF;
-    		display: block;
-    		width:20;
-    		float: left;
-		    font-size: 12px;
-		    line-height: 12px;
-		    margin: 3px 5px 0;
-		    padding: 2px;
-		    white-space: nowrap;
-		} /*标题被选中时的样式*/
-        #tab-title span{padding:5px 9px 5px 10px;margin-left:-5px;cursor:pointer; }
-        #tab-content .hide{display:none;} /*默认让第一块内容显示，其余隐藏*/
-        #tab-content ul{padding:5px 10px;height:163px;}
-        #tab-content ul li{height:15px;}
-        </style>
-
-#parse("/templates/common/wwMacro.vm")
+		#parse("/templates/common/wwMacro.vm")
 
         <div id="sidebar-tab" class="movie_headerline">
-           	<div class="left_conner"><em></em><b></b></div>
-    <div class="first"><em></em><b></b></div>
-    <div class="last"><em></em><b></b></div>
+           <div class="left_conner"><em></em><b></b></div>
+           <div class="first"><em></em><b></b></div>
+           <div class="last"><em></em><b></b></div>
            <div id="tab-title">
               <h3 >
 				#foreach($bookItem in $bookItemList)
 					#if($bookItem.state != 'ebook')
-					<span #if($velocityCount==0)class="selected" #end>$!{bookItem.owner.name}</span>
+					<span #if($velocityCount==0) class="selected" #end>$!{bookItem.owner.name}</span>
 					#end
 				#end
 			  </h3>
@@ -249,7 +236,7 @@ width:0;
 				#set($hasBookItem = true)
               <ul #if($velocityCount!=0)class="hide"#end>
                 <div class="newtags">
-                	<div style="float: right; position: absolute; left: 213px; top: 35px;">
+                	<div style="float: right; left: 213px; top: 35px; position:absolute">
                 		#if($bookItem.state == 'idle')
                 			<img onclick="javascript:showPopUp($!{bookItem.id})" src="/static/images/lending.png" style="cursor:pointer;width:80px;" title="借阅"/>
                 		#else
@@ -290,65 +277,75 @@ width:0;
 			  #end
            </div>
         </div>
-        <script type='text/javascript'>
-        jQuery('#tab-title span').click(function(){
-           jQuery(this).addClass("selected").siblings().removeClass();
-           jQuery("#tab-content > ul").slideUp('1500').eq(jQuery('#tab-title span').index(this)).slideDown('1500');
-        });
-        </script>
+	</div>
+	<br/>
 
-		<div style="float: left; width: 950px; padding-top: 5px; line-height: 30px;" class="movie_new">
-			<h2 class="green_tab clearfix">
-				<a href="javascript:void(0)" class="on" id="new1"><span> 内容简介 </span> </a>
-				<a href="javascript:void(0)" id="new2"> <span> 书评 </span> </a>
-			</h2>
-
-			<ul id="newcontent1" class="content clearfix" style="text-indent: 2em; display: block;">
+	<h2>内容介绍</h2>
+	<div class="intent" style="padding-left:10px">
 				#if($!bookInfo.description && $!bookInfo.description.length() > 0)
 					$!bookInfo.description
 				#else
 					暂无介绍信息...
 				#end
-			</ul>
+	</div>
+	<br/>
+	<!-- 同类书（完） -->
+	#if($lendingLogList && $lendingLogList.size() > 0)
+	<h2>借阅记录</h2>
+	<div class="intent" style="padding-left:10px">
+			<table>
+				<tr>
+					<th width="200px">借阅人
+					</th>
+					<th>借阅时间
+					</th>
+				</tr>
+				#foreach($lendingLog in $lendingLogList)
+					<tr>
+						<td>$!lendingLog.member.name</td>
+						<td>$date.format("yyyy-MM-dd", $lendingLog.lendTime) ~ $date.format("yyyy-MM-dd", $lendingLog.returnTime)</td>
+					</tr>
+				#end
+			</table>
+	</div>
+	<br/>
+	#end
 
-			<ul id="newcontent2" class="content clearfix" style="display: none;">
+	<h2>书评</h2>
+	<div class="intent" style="padding-left:10px">
 				#foreach($comment in $commentList)
-				<li style="width: 900px; padding-left: 25px; height:auto;">
+				<div style="width: 100%; height:auto; margin-top:10px">
 					<div style="; id="left_up">
 						<div style="" id="right">
-							<h3>${comment.member.name} &nbsp;&nbsp; $!date.format("yyyy-MM-dd", $!{comment.gmtCreate})</h3>
-							<div style="padding-right: 20px; padding-left: 20px;">
+							<h3>${comment.member.name} &nbsp;&nbsp; $!date.format("yyyy-MM-dd hh:mm:ss", $!{comment.gmtCreate})</h3>
+							<div style="padding-right: 20px; padding-left: 20px">
 								$!{comment.content}
 							</div>
 						</div>
-				</li>
+				</div>
 				#end
 				<div id="jsAddComment"></div>
-
-
-				<li style="width: 900px; padding-left: 30px;height: 220px;">
+				<div style="width: 100%; height: 200px;">
     				<table width="341" border="0">
                       <tr>
                         <td height="33">我的评价 ...... </td>
                       </tr>
                       <tr>
-                        <td height="46"><textarea name="comment_content" id="comment_content" cols="80" rows="6"></textarea></td>
+                        <td height="46"><textarea name="comment_content" id="comment_content" cols="80" rows="4"></textarea></td>
                       </tr>
                       <tr>
                         <td height="38">
-                          <input type="button" name="button" value="加上去" onclick="postComment($!bookInfo.id);return false;">
+                          <input type="button" name="button" value="加上去" onclick="postComment($!bookInfo.id);return false;" />
                         </td>
                       </tr>
                     </table>
-				</li>
+				</div>
 				#if($session && $session.getAttribute("LOGGED_USER"))
 				#else
-				<li style="width: 900px; padding-left: 30px;">
+				<div style="width: 900px; padding-left: 30px;">
 					<a href="javascript:alert('对不起，您还未登陆，不能进行评价')">我要评价 ......</a>
-				</li>
+				</div>
 				#end
-			</ul>
-		</div>
 	</div>
 	<br/>
 	#if($relatedBookInfoList && $relatedBookInfoList.size() > 0)
@@ -389,9 +386,9 @@ width:0;
 		<dl class="clear"></dl>
     </div>
     #end
-	<!-- 同类书（完） -->
 	<!-- content end here -->
 	<div style="clear:both"></div>
+
 <SCRIPT type=text/javascript>
 jQuery(function () {
   	var t;

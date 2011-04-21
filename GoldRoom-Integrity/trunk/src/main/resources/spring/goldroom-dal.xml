@@ -41,4 +41,8 @@
 	<bean id="favoriteDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.FavoriteDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+
+	<bean id="lendingLogDao" class="com.alibaba.intl.bcds.goldroom.dao.impl.LendingLogDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 </beans>

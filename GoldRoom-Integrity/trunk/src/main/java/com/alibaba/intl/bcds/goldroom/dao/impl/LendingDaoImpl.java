@@ -27,14 +27,14 @@ public class LendingDaoImpl extends BaseDao implements LendingDao {
 		return lending;
 	}
 
-	public boolean cutLendingToLog(int lendId) {
+	public boolean deleteLendingById(int lendId) {
 		Query q = this.createNamedQuery("deleteLendingById");
 		q.setParameter("id", lendId);
 		int resultCount = q.executeUpdate();
 		return resultCount > 0 ? true : false;
 	}
 
-	public boolean cutLendingToLog(Lending lending) {
+	public boolean deleteLendingById(Lending lending) {
 		Query q = this.createNamedQuery("deleteLendingById");
 		q.setParameter("id", lending.getId());
 		int resultCount = q.executeUpdate();
@@ -90,7 +90,7 @@ public class LendingDaoImpl extends BaseDao implements LendingDao {
 
 	/**
 	 * 根据条件查找出借阅记录
-	 * 
+	 *
 	 * @param isExpire
 	 *            借阅是否过期，当isExpire为真，返回的都是过期的记录；否则都是未过期的
 	 * @return

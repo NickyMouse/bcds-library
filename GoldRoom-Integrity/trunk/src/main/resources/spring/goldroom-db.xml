@@ -27,6 +27,7 @@
 				<value>com.alibaba.intl.bcds.goldroom.dataobject.comment.BookInfoComment</value>
 				<value>com.alibaba.intl.bcds.goldroom.dataobject.comment.ReplyComment</value>
 				<value>com.alibaba.intl.bcds.goldroom.dataobject.Tracelog</value>
+				<value>com.alibaba.intl.bcds.goldroom.dataobject.LendingLog</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

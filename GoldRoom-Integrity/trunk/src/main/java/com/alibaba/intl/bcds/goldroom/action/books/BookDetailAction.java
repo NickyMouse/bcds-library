@@ -5,12 +5,14 @@ import java.util.List;
 import com.alibaba.intl.bcds.goldroom.action.base.BaseAction;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookInfo;
 import com.alibaba.intl.bcds.goldroom.dataobject.BookItem;
+import com.alibaba.intl.bcds.goldroom.dataobject.LendingLog;
 import com.alibaba.intl.bcds.goldroom.dataobject.comment.BookInfoComment;
 import com.alibaba.intl.bcds.goldroom.result.BookSearchResult;
 import com.alibaba.intl.bcds.goldroom.search.commons.constrans.SearchBookType;
 import com.alibaba.intl.bcds.goldroom.service.BookInfoService;
 import com.alibaba.intl.bcds.goldroom.service.BookItemService;
 import com.alibaba.intl.bcds.goldroom.service.CommentService;
+import com.alibaba.intl.bcds.goldroom.service.LendService;
 
 public class BookDetailAction extends BaseAction {
 
@@ -24,16 +26,18 @@ public class BookDetailAction extends BaseAction {
     private BookInfo              bookInfo;
     private BookItemService       bookItemService;
     private CommentService        commentService;
+    private LendService           lendService;
 
     private List<BookItem>        bookItemList;
     private List<BookInfoComment> commentList;
     private List<BookInfo>        relatedBookInfoList;
+    private List<LendingLog>      lendingLogList;
 
     // private Member owner;
     public String execute() throws Exception {
         bookInfo = bookInfoService.searchBookByInfoId(bookInfoId);
         // owner = memberService.findMemberByLoginId(loginId);
-        if (getBookInfo() == null) {
+        if (bookInfo == null) {
             return ERROR;
         }
 
@@ -53,6 +57,7 @@ public class BookDetailAction extends BaseAction {
                 relatedBookInfoList.remove(idIndex);
             }
         }
+        setLendingLogList(lendService.listLendingLogByBookInfoId(bookInfo.getId()));
         return SUCCESS;
     }
 
@@ -118,6 +123,22 @@ public class BookDetailAction extends BaseAction {
 
     public BookInfo getBookInfo() {
         return bookInfo;
+    }
+
+    public void setLendService(LendService lendService) {
+        this.lendService = lendService;
+    }
+
+    public LendService getLendService() {
+        return lendService;
+    }
+
+    public void setLendingLogList(List<LendingLog> lendingLogList) {
+        this.lendingLogList = lendingLogList;
+    }
+
+    public List<LendingLog> getLendingLogList() {
+        return lendingLogList;
     }
 
 }
