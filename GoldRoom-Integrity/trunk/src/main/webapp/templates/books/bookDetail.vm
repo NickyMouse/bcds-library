@@ -224,7 +224,7 @@
               <h3 >
 				#foreach($bookItem in $bookItemList)
 					#if($bookItem.state != 'ebook')
-					<span #if($velocityCount==0) class="selected" #end>$!{bookItem.owner.name}</span>
+					<span #if($velocityCount==0) class="selected" #end>&nbsp;$!{bookItem.owner.name}&nbsp;</span>
 					#end
 				#end
 			  </h3>
