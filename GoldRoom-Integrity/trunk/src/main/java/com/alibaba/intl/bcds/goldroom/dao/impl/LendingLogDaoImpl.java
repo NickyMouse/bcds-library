@@ -26,16 +26,16 @@ public class LendingLogDaoImpl extends BaseDao implements LendingLogDao {
     }
 
     @Override
-    public List<LendingLog> listLendingLogByLoginIds(List<String> loginIds, int page, int pageSize) {
-        Query q = this.createNamedQuery("listLendingByLoginId");
-        q.setParameter("loginIds", loginIds);
+    public List<LendingLog> listLendingLogByLoginId(String loginId, int page, int pageSize) {
+        Query q = this.createNamedQuery("listLendingLogByLoginId");
+        q.setParameter("loginId", loginId);
         return q.setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).list();
     }
 
     @Override
-    public int countLendingLogByLoginIds(List<String> loginIds) {
-        Query q = this.createNamedQuery("countLendingLogByLoginIds");
-        q.setParameter("loginIds", loginIds);
+    public int countLendingLogByLoginId(String loginId) {
+        Query q = this.createNamedQuery("countLendingLogByLoginId");
+        q.setParameter("loginId", loginId);
         return ((Long) q.list().get(0)).intValue();
     }
 

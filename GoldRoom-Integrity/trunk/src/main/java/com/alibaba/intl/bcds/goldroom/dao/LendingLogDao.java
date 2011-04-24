@@ -10,9 +10,9 @@ public interface LendingLogDao {
 
     int countLendingLogByBookInfoId(int bookInfoId);
 
-    List<LendingLog> listLendingLogByLoginIds(List<String> loginIds, int page, int pageSize);
+    List<LendingLog> listLendingLogByLoginId(String loginId, int page, int pageSize);
 
-    int countLendingLogByLoginIds(List<String> loginIds);
+    int countLendingLogByLoginId(String loginId);
 
     LendingLog save(LendingLog lendingLog);
 }

@@ -175,8 +175,12 @@ public class LendService {
         return lendingLogDao.listLendingLogByBookInfoId(bookInfoId);
     }
 
-    public List<LendingLog> listLendingLogByLoginIds(List<String> loginIds, int page, int pageSize) {
-        return lendingLogDao.listLendingLogByLoginIds(loginIds, page, pageSize);
+    public List<LendingLog> listLendingLogByLoginId(String loginId, int page, int pageSize) {
+        return lendingLogDao.listLendingLogByLoginId(loginId, page, pageSize);
+    }
+
+    public int countLendingLogByLoginId(String loginId) {
+        return lendingLogDao.countLendingLogByLoginId(loginId);
     }
 
     public List<EmailInfo> listLendingEmailInfo(boolean isExpire) {

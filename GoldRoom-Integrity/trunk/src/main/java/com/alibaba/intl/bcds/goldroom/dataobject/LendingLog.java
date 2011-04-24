@@ -15,8 +15,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "LENDING_LOG")
 @NamedQueries({
-               @NamedQuery(name = "countLendingLogByLoginIds", query = "SELECT count(i) FROM LendingLog i WHERE i.member.loginId in (:loginIds)"),
-               @NamedQuery(name = "listLendingLogByLoginIds", query = "SELECT i FROM LendingLog i WHERE i.member.loginId in (:loginIds) ORDER BY i.gmtCreate DESC"),
+               @NamedQuery(name = "countLendingLogByLoginId", query = "SELECT count(i) FROM LendingLog i WHERE i.member.loginId = :loginId"),
+               @NamedQuery(name = "listLendingLogByLoginId", query = "SELECT i FROM LendingLog i WHERE i.member.loginId = :loginId ORDER BY i.gmtCreate DESC"),
                @NamedQuery(name = "countLendingLogByBookInfoId", query = "SELECT count(i) FROM LendingLog i WHERE i.bookInfo.id = :bookInfoId"),
                @NamedQuery(name = "listLendingLogByBookInfoId", query = "SELECT i FROM LendingLog i WHERE i.bookInfo.id = :bookInfoId ORDER BY i.gmtCreate DESC") })
 public class LendingLog {
