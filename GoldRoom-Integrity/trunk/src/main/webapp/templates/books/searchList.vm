@@ -81,7 +81,7 @@ jQuery(function () {
 
 #parse("/templates/common/wwMacro.vm")
 
-	#if($bigObjectPage)
+	#if($bigObjectPage && $bigObjectPage.bigObjects.size > 0)
 		#foreach($book in $bigObjectPage.bigObjects)
 			#set($bgColor = "")
 			#if($velocityCount=="1" || $velocityCount=="2" || $velocityCount=="5" || $velocityCount=="6" || $velocityCount=="9" )
@@ -153,7 +153,9 @@ jQuery(function () {
 		</div>
 			#end
 	#else
-		Search engine Test failed, please check your configuration.
+		<div style="text-align:center; width:100%; margin-top:50px">
+		<h2>暂无相关的书籍</h2>
+		</div>
 	#end
 	</div>
 	<div class="CLEAR: both;">&nbsp;</div>
