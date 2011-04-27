@@ -266,7 +266,7 @@
 			  #end
 			  #end
 			  #if(!$hasBookItem)
-				&nbsp;&nbsp;&nbsp;&nbsp;暂无拥有者信息
+				&nbsp;&nbsp;&nbsp;&nbsp;目前只有电子书，没有实体书拥有者
 			  #end
            </div>
 
