@@ -266,6 +266,7 @@
 			  #else
 				#set($hasEbook = true)
 			  #end
+			  #end
 			  #if(!$hasBookItem)
 				&nbsp;&nbsp;&nbsp;&nbsp;#if($hasEbook)目前只有电子书，没有实体书拥有者 #else 暂无拥有者信息 #end
 			  #end
