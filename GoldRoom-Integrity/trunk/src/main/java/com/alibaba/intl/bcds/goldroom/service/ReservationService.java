@@ -128,31 +128,29 @@ public class ReservationService {
                 return true;
             } else {
                 // 借阅其他用户的书
-                if (reservationDao.updateStateByBookItemId(bookItemId, Reservation.STATE_TO_BE_COMFIRM) == false) {
-                    Member subcriber = memberDao.findByLoginId(subscriberLoginId);
-                    Reservation reservation = new Reservation();
-                    // reservation.setOwner(item.getMember());
-                    reservation.setLendTime(lendTime);
-                    reservation.setReturnTime(returnTime);
-                    reservation.setBookItem(item);
-                    reservation.setSubscriber(subcriber);
-                    reservation.setState(Reservation.STATE_TO_BE_COMFIRM);
-                    reservationDao.save(reservation);
+                Member subcriber = memberDao.findByLoginId(subscriberLoginId);
+                Reservation reservation = new Reservation();
+                // reservation.setOwner(item.getMember());
+                reservation.setLendTime(lendTime);
+                reservation.setReturnTime(returnTime);
+                reservation.setBookItem(item);
+                reservation.setSubscriber(subcriber);
+                reservation.setState(Reservation.STATE_TO_BE_COMFIRM);
+                reservationDao.save(reservation);
 
-                    logger.info("[Reservation success]" + reservation.getId());
+                logger.info("[Reservation success]" + reservation.getId());
 
-                    // 发送邮件
-                    try {
-                        EmailInfo emailInfo = new EmailInfo(ServiceType.RESERVATION);
-                        emailInfo.setOwner(bookOwner);
-                        emailInfo.setBorrower(subcriber);
-                        emailInfo.setBookInfo(item.getBookInfo());
-                        emailInfo.setReservation(reservation);
-                        emailInfo.addReceiverEmail(bookOwner.getEmail());
-                        sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
-                    } catch (Exception e) {
-                        logger.error(e);
-                    }
+                // 发送邮件
+                try {
+                    EmailInfo emailInfo = new EmailInfo(ServiceType.RESERVATION);
+                    emailInfo.setOwner(bookOwner);
+                    emailInfo.setBorrower(subcriber);
+                    emailInfo.setBookInfo(item.getBookInfo());
+                    emailInfo.setReservation(reservation);
+                    emailInfo.addReceiverEmail(bookOwner.getEmail());
+                    sendMailService.sendVelocityMail(emailInfo, null, null, null, null);
+                } catch (Exception e) {
+                    logger.error(e);
                 }
                 // 书籍被预定
 
