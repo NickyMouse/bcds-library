@@ -190,7 +190,7 @@
     				jQuery('#ebookUploadPath').val(data);
     				jQuery('#uploadBookForm').submit();
 				} else {
-					alert('上传失败，请稍候尝试');
+					alert('上传失败，请稍候尝试。（文件最大限制为100M，若超过了请联系管理员）');
 				}
 			},
 			onUploadError : function() {
