@@ -132,12 +132,16 @@
  }
  function postComment(bookInfoId){
  	var content = jQuery("#comment_content").val();
+	if(content.length == 0) {
+		alert("请输入评价内容");
+		return;
+	}
  	jQuery.ajax({
             	type: "POST",
                	url: "$base/book/bookCommentAction.action",
                	data: "bookInfoId=" + bookInfoId + "&content="+ content,
                	success: function(response){
-					 eval("var obj ="+response);
+					eval("var obj ="+response);
 					if(obj.result == "success"){
     			   	 	alert("评价成功");
 						var li ='<div style="width: 100%; height:auto;">'+
